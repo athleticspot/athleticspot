@@ -1,0 +1,37 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.athleticspot",
+            "nativeLanguage": "en"
+        },
+        "jhipsterVersion": "4.5.6",
+        "baseName": "athleticspot",
+        "packageName": "com.athleticspot",
+        "packageFolder": "com/athleticspot",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "hibernateCache": "ehcache",
+        "clusteredHttpSession": false,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "h2Disk",
+        "prodDatabaseType": "mysql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": "eureka",
+        "buildTool": "maven",
+        "enableSocialSignIn": true,
+        "jwtSecretKey": "9b4397e023a053046548789d501e145535641be7",
+        "clientFramework": "angular2",
+        "useSass": false,
+        "clientPackageManager": "yarn",
+        "applicationType": "monolith",
+        "testFrameworks": [],
+        "jhiPrefix": "jhi",
+        "enableTranslation": true,
+        "nativeLanguage": "en",
+        "languages": [
+            "en"
+        ]
+    }
+}
