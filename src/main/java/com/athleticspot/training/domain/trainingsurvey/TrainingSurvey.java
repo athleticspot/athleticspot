@@ -2,8 +2,10 @@ package com.athleticspot.training.domain.trainingsurvey;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.geo.Distance;
 
 import javax.persistence.*;
+import java.time.Duration;
 
 /**
  * @author Tomasz Kasprzycki
@@ -51,8 +53,11 @@ public class TrainingSurvey {
         this.measureSystem = measureSystem;
     }
 
-//
-//    public TrainingHistory addTrainingHistoryToSurvey(Distance distance, Duration personalRecord, Duration lastTime) {
+
+    public TrainingHistory addTrainingHistoryToSurvey(
+        Distance distance,
+        Duration personalRecord,
+        Duration lastTime) {
 //        DomainEventPublisher
 //            .instance()
 //            .publish(new TrainingHistoryAssignedToSurvey(
@@ -61,13 +66,13 @@ public class TrainingSurvey {
 //                lastTime,
 //                new TrainingSurveyId(this.getId())
 //            ));
-//        return new TrainingHistory(
-//            distance,
-//            personalRecord,
-//            lastTime,
-//            new TrainingSurveyId(this.getId())
-//        );
-//    }
+        return new TrainingHistory(
+            distance,
+            personalRecord,
+            lastTime,
+            this.getId()
+        );
+    }
 //
 //    public TrainingSurvey() {
 //    }
@@ -98,31 +103,32 @@ public class TrainingSurvey {
 //        );
 //    }
 //
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public static long getSerialVersionUID() {
-//        return serialVersionUID;
-//    }
-//
-//    public BaseInformation getBaseInformation() {
-//        return baseInformation;
-//    }
-//
-//    public HealthInformation getHealthInformation() {
-//        return healthInformation;
-//    }
-//
-//    public NutritionInformation getNutritionInformation() {
-//        return nutritionInformation;
-//    }
-//
-//    public TrainingGoal getTrainingGoal() {
-//        return trainingGoal;
-//    }
-//
-//    public String getUsername() {
-//        return username;
-//    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public BaseInformation getBaseInformation() {
+        return baseInformation;
+    }
+
+    public HealthInformation getHealthInformation() {
+        return healthInformation;
+    }
+
+    public NutritionInformation getNutritionInformation() {
+        return nutritionInformation;
+    }
+
+    public TrainingGoal getTrainingGoal() {
+        return trainingGoal;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }

@@ -61,7 +61,7 @@ public class TrainingSurveyApplicationServiceTest {
 //                    dairiesAcceptance,
 //                    allergies,
 //                    foodIntolerance,
-//                    MeasureType.Metric));
+//                    MeasureSystemType.Metric));
 //
 //        expectedEvent(SurveyAssignedToAthlete.class);
 //
@@ -259,7 +259,7 @@ public class TrainingSurveyApplicationServiceTest {
 //                    dairiesAcceptance,
 //                    allergies,
 //                    foodIntolerance,
-//                    MeasureType.Metric));
+//                    MeasureSystemType.Metric));
 //    }
 //
 //    public static HealthInformation createHealthInformation() {

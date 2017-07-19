@@ -1,5 +1,6 @@
 package com.athleticspot.training.application.command.command;
 
+import com.athleticspot.training.domain.MeasureSystemType;
 import com.athleticspot.training.domain.trainingsurvey.*;
 
 
@@ -13,7 +14,7 @@ public class AssignTrainingSurveyToAthleteCommand
     private final HealthInformation healthInformation;
     private final NutritionInformation nutritionInformation;
     private final TrainingGoal trainingGoal;
-    private final MeasureType measureType;
+    private final MeasureSystemType measureSystemType;
 
     public AssignTrainingSurveyToAthleteCommand(java.time.LocalDate birthday,
                                                 Double weight,
@@ -29,8 +30,8 @@ public class AssignTrainingSurveyToAthleteCommand
                                                 boolean dairiesAcceptance,
                                                 boolean allergies,
                                                 boolean foodIntolerance,
-                                                MeasureType measureType) {
-        this.measureType = measureType;
+                                                MeasureSystemType measureSystemType) {
+        this.measureSystemType = measureSystemType;
         this.healthInformation = new HealthInformation(
             healthContraindications,
             stressTest,
@@ -65,7 +66,7 @@ public class AssignTrainingSurveyToAthleteCommand
         return trainingGoal;
     }
 
-    public MeasureType getMeasureType() {
-        return measureType;
+    public MeasureSystemType getMeasureSystemType() {
+        return measureSystemType;
     }
 }

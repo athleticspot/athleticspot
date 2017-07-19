@@ -1,5 +1,7 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
+import com.athleticspot.training.domain.MeasureSystemType;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Enumerated;
@@ -12,18 +14,18 @@ public class MeasureSystem {
 
     @Column(nullable = false)
     @Enumerated
-    MeasureType measureType;
+    MeasureSystemType measureSystemType;
 
     public MeasureSystem() {
         super();
     }
 
-    public MeasureSystem(MeasureType measureType) {
-        this.measureType = measureType;
+    public MeasureSystem(MeasureSystemType measureSystemType) {
+        this.measureSystemType = measureSystemType;
     }
 
     public String getMassUnit() {
-        if (measureType.equals(MeasureType.Metric)) {
+        if (measureSystemType.equals(MeasureSystemType.Metric)) {
             return "kg";
         } else {
             return "pound";
@@ -31,7 +33,7 @@ public class MeasureSystem {
     }
 
     public String getHeightUnit() {
-        if (measureType.equals(MeasureType.Metric)) {
+        if (measureSystemType.equals(MeasureSystemType.Metric)) {
             return "cm";
         } else {
             return "foot";

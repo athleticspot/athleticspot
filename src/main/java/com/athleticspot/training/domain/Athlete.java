@@ -37,14 +37,14 @@ public class Athlete {
         HealthInformation healthInformation,
         NutritionInformation nutritionInformation,
         TrainingGoal trainingGoals,
-        MeasureType measureType) {
+        MeasureSystemType measureSystemType) {
         TrainingSurvey trainingSurvey = new TrainingSurvey(
             user.getLogin(),
             baseInformation,
             healthInformation,
             nutritionInformation,
             trainingGoals,
-            new MeasureSystem(measureType));
+            new MeasureSystem(measureSystemType));
 
 //        DomainEventPublisher
 //            .instance()
