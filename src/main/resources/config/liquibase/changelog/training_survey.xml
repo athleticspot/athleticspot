@@ -1,0 +1,61 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="tomkasp (generated)" id="1500129107247-1">
+        <createSequence sequenceName="hibernate_sequence"/>
+    </changeSet>
+    <changeSet author="tomkasp (generated)" id="1500129107247-2">
+        <createTable tableName="training_survey">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="training_surveyPK"/>
+            </column>
+            <column name="birthday" type="BINARY(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="height" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blood_test" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="health_contraindications" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hours_of_sleep" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stress_test" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="measure_type" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="allergies" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dairyed_acceptance" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="food_intolerance" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meat_acceptance" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="run_category" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

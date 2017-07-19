@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
-@EnableJpaRepositories("com.athleticspot.repository")
+@EnableJpaRepositories({"com.athleticspot.repository", "com.athleticspot.training.domain"})
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 public class DatabaseConfiguration {

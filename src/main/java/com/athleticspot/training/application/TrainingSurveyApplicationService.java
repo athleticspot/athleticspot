@@ -43,8 +43,7 @@ public class TrainingSurveyApplicationService {
     }
 
     @Transactional
-    public TrainingSurvey assignTrainingSurveyToAthlete(
-        AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand) {
+    public TrainingSurvey assignTrainingSurveyToAthlete(AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand) {
         Athlete athlete = this.athleteData();
         final TrainingSurvey trainingSurvey = athlete
             .assignSurvey(
