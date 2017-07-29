@@ -2,13 +2,13 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet author="tomkasp (generated)" id="1500129107247-1">
-        <createSequence sequenceName="hibernate_sequence"/>
+    <changeSet author="tomkasp (generated)" id="1501323723659-2">
+        <createSequence sequenceName="training_survey_seq"/>
     </changeSet>
     <changeSet author="tomkasp (generated)" id="1500129107247-2">
         <createTable tableName="training_survey">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="training_surveyPK"/>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
             <column name="birthday" type="BINARY(255)">
                 <constraints nullable="false"/>
@@ -57,5 +57,8 @@
             </column>
             <column name="username" type="VARCHAR(255)"/>
         </createTable>
+    </changeSet>
+    <changeSet author="tomkasp (generated)" id="1501323723659-16">
+        <addPrimaryKey columnNames="id" constraintName="training_surveyPK" tableName="training_survey"/>
     </changeSet>
 </databaseChangeLog>

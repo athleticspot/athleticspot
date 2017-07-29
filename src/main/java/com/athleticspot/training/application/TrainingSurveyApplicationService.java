@@ -1,7 +1,7 @@
 package com.athleticspot.training.application;
 
 import com.athleticspot.service.UserService;
-import com.athleticspot.training.application.command.command.AssignTrainingSurveyToAthleteCommand;
+import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
 import com.athleticspot.training.domain.Athlete;
 import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;

@@ -1,10 +1,16 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
+import com.athleticspot.common.domain.model.IdentifiedDomainObject;
+import com.athleticspot.training.domain.TrainingIntensity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.geo.Distance;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import java.time.DayOfWeek;
 import java.time.Duration;
 
 /**
@@ -13,13 +19,10 @@ import java.time.Duration;
 @Entity
 @Table(name = "training_survey")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class TrainingSurvey {
+@SequenceGenerator(name = "sequenceGenerator", sequenceName = "training_survey_seq")
+public class TrainingSurvey extends IdentifiedDomainObject {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     private String username;
 
@@ -73,22 +76,22 @@ public class TrainingSurvey {
             this.getId()
         );
     }
-//
-//    public TrainingSurvey() {
-//    }
-//
-//    public void removeTrainingHistoryFromSurvey(Long trainingHistoryId) {
+
+    public TrainingSurvey() {
+    }
+
+    public void removeTrainingHistoryFromSurvey(Long trainingHistoryId) {
 //        DomainEventPublisher
 //            .instance()
 //            .publish(new TrainingHistoryRemovedFromSurvey(
 //                trainingHistoryId,
 //                this.id
 //            ));
-//    }
-//
-//    public TrainingIntensityPlan addTrainingIntensityPlanToSurvey(
-//        DayOfWeek dayOfWeek,
-//        TrainingIntensity trainingIntensity) {
+    }
+
+    public TrainingIntensityInformation addTrainingIntensityPlanToSurvey(
+        DayOfWeek dayOfWeek,
+        TrainingIntensity trainingIntensity) {
 //        DomainEventPublisher
 //            .instance()
 //            .publish(new TrainingIntensityPlanAssignedToSurvey(
@@ -96,16 +99,16 @@ public class TrainingSurvey {
 //                trainingIntensity,
 //                new TrainingSurveyId(this.getId())
 //            ));
-//        return new TrainingIntensityPlan(
-//            dayOfWeek,
-//            trainingIntensity,
-//            new TrainingSurveyId(this.getId())
-//        );
-//    }
-//
+        return new TrainingIntensityInformation(
+            dayOfWeek,
+            trainingIntensity,
+            this.getId()
+        );
+    }
+
 
     public Long getId() {
-        return id;
+        return id();
     }
 
     public static long getSerialVersionUID() {

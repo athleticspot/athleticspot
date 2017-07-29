@@ -1,4 +1,4 @@
-package com.athleticspot.training.application.command.command;
+package com.athleticspot.training.application.command;
 
 import com.athleticspot.training.domain.MeasureSystemType;
 import com.athleticspot.training.domain.trainingsurvey.*;
