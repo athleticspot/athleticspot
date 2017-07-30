@@ -6,10 +6,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.geo.Distance;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.Duration;
 
@@ -19,12 +16,16 @@ import java.time.Duration;
 @Entity
 @Table(name = "training_survey")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@SequenceGenerator(name = "sequenceGenerator", sequenceName = "training_survey_seq")
+@SequenceGenerator(name = "sequenceGenerator", sequenceName = "training_survey_seq", allocationSize = 1)
 public class TrainingSurvey extends IdentifiedDomainObject {
 
     private static final long serialVersionUID = 1L;
 
     private String username;
+
+    @Embedded
+    @AttributeOverride(name = "uuid", column = @Column(name = "survey_uuid", nullable = false))
+    private TrainingSurveyId trainingSurveyId;
 
     @Embedded
     private MeasureSystem measureSystem;

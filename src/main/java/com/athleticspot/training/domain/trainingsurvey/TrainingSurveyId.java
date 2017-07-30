@@ -1,7 +1,42 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
+import com.athleticspot.common.domain.model.AbstractId;
+
+import javax.persistence.Embeddable;
+import java.util.UUID;
+
 /**
  * @author Tomasz Kasprzycki
  */
-public class TrainingSurveyId {
+@Embeddable
+public class TrainingSurveyId extends AbstractId {
+
+    private static final long serialVersionUID = 1L;
+
+    public TrainingSurveyId(String anId) {
+        super(anId);
+    }
+
+    protected TrainingSurveyId() {
+        super();
+    }
+
+    @Override
+    protected int hashOddValue() {
+        return 83811;
+    }
+
+    @Override
+    protected int hashPrimeValue() {
+        return 263;
+    }
+
+    @Override
+    protected void validateId(String anId) {
+        try {
+            UUID.fromString(anId);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("The id has an invalid format.");
+        }
+    }
 }

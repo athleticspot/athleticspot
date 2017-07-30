@@ -1,11 +1,27 @@
 package com.athleticspot.training.application;
 
 import com.athleticspot.AthleticspotApp;
+import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
+import com.athleticspot.training.domain.MeasureSystemType;
+import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
+import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
+import com.athleticspot.training.domain.trainingsurvey.RunCategory;
+import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Tomasz Kasprzycki
@@ -13,63 +29,62 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
 @Transactional
-@ActiveProfiles({"dev"})
 public class TrainingSurveyApplicationServiceTest {
 //    extends EventTrackingTestCase {
 //
-//    private SecurityContext securityContext;
-//
-//    @Autowired
-//    TrainingSurveyApplicationService trainingSurveyApplicationService;
-//
+private SecurityContext securityContext;
+
+    @Autowired
+    TrainingSurveyApplicationService trainingSurveyApplicationService;
+
 //    @Autowired
 //    TrainingHistoryRepository trainingHistoryRepository;
 //
 //    @Autowired
 //    TrainingIntensityPlanRepository trainingIntensityPlanRepository;
-//
-//    @Before
-//    public void config() throws Exception {
+
+    @Before
+    public void config() throws Exception {
 //        setUp();
-//        securityContext = SecurityContextHolder.createEmptyContext();
-//        SecurityContextHolder.setContext(securityContext);
-//        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("admin", "admin"));
-//    }
+        securityContext = SecurityContextHolder.createEmptyContext();
+        SecurityContextHolder.setContext(securityContext);
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("admin", "admin"));
+    }
 //
-//    @Test
-//    public void assignTrainingSurveyTest() throws Exception {
-//        HealthInformation healthInformation = createHealthInformation();
-//        BaseInformation baseInformation = createBaseInformation();
-//        boolean meat_acceptance = false;
-//        boolean dairiesAcceptance = true;
-//        boolean allergies = true;
-//        boolean foodIntolerance = true;
-//        final TrainingSurvey trainingSurvey = trainingSurveyApplicationService
-//            .assignTrainingSurveyToAthlete(
-//                new AssignTrainingSurveyToAthleteCommand(
-//                    createBaseInformation().getBirthday(),
-//                    createBaseInformation().getWeight(),
-//                    createBaseInformation().getHeight(),
-//                    healthInformation.getHealthContraindications(),
-//                    healthInformation.getStressTest(),
-//                    healthInformation.getBloodTest(),
-//                    healthInformation.getHoursOfSleep(),
-//                    5D,
-//                    25d,
-//                    RunCategory.MARATHON,
-//                    meat_acceptance,
-//                    dairiesAcceptance,
-//                    allergies,
-//                    foodIntolerance,
-//                    MeasureSystemType.Metric));
-//
+@Test
+public void assignTrainingSurveyTest() throws Exception {
+    HealthInformation healthInformation = createHealthInformation();
+    BaseInformation baseInformation = createBaseInformation();
+    boolean meat_acceptance = false;
+    boolean dairiesAcceptance = true;
+    boolean allergies = true;
+    boolean foodIntolerance = true;
+    final TrainingSurvey trainingSurvey = trainingSurveyApplicationService
+        .assignTrainingSurveyToAthlete(
+            new AssignTrainingSurveyToAthleteCommand(
+                createBaseInformation().getBirthday(),
+                createBaseInformation().getWeight(),
+                createBaseInformation().getHeight(),
+                healthInformation.getHealthContraindications(),
+                healthInformation.getStressTest(),
+                healthInformation.getBloodTest(),
+                healthInformation.getHoursOfSleep(),
+                5D,
+                25d,
+                RunCategory.MARATHON,
+                meat_acceptance,
+                dairiesAcceptance,
+                allergies,
+                foodIntolerance,
+                MeasureSystemType.Metric));
+
 //        expectedEvent(SurveyAssignedToAthlete.class);
-//
-//        assertNotNull(trainingSurvey);
-//        assertEquals(trainingSurvey.getHealthInformation(), healthInformation);
-//        assertEquals(trainingSurvey.getBaseInformation(), baseInformation);
-//        assertNotNull(trainingSurvey.getId());
-//    }
+
+    assertNotNull(trainingSurvey);
+    assertEquals(trainingSurvey.getHealthInformation(), healthInformation);
+    assertEquals(trainingSurvey.getBaseInformation(), baseInformation);
+    assertNotNull(trainingSurvey.getId());
+}
 //
 //    @Test
 //    public void assigningTrainingHistoryTest() {
@@ -262,24 +277,24 @@ public class TrainingSurveyApplicationServiceTest {
 //                    MeasureSystemType.Metric));
 //    }
 //
-//    public static HealthInformation createHealthInformation() {
-//        boolean healthContraindications = false;
-//        boolean stressTest = false;
-//        boolean bloodTest = false;
-//        final HealthInformation healthInformation = new HealthInformation(
-//            healthContraindications,
-//            stressTest,
-//            bloodTest,
-//            8d);
-//        return healthInformation;
-//    }
-//
-//    public static BaseInformation createBaseInformation() {
-//        BaseInformation baseInformation = new BaseInformation(
-//            LocalDate.now(),
-//            60d,
-//            172d);
-//        return baseInformation;
-//    }
+public static HealthInformation createHealthInformation() {
+    boolean healthContraindications = false;
+    boolean stressTest = false;
+    boolean bloodTest = false;
+    final HealthInformation healthInformation = new HealthInformation(
+        healthContraindications,
+        stressTest,
+        bloodTest,
+        8d);
+    return healthInformation;
+}
+
+    public static BaseInformation createBaseInformation() {
+        BaseInformation baseInformation = new BaseInformation(
+            LocalDate.now(),
+            60d,
+            172d);
+        return baseInformation;
+    }
 
 }

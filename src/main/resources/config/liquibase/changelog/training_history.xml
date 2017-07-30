@@ -8,8 +8,8 @@
                 <constraints primaryKey="true" primaryKeyName="training_historyPK"/>
             </column>
             <column name="distance" type="BINARY(255)"/>
-            <column name="last_time" type="BINARY(255)"/>
-            <column name="personal_record" type="BINARY(255)"/>
+            <column name="last_time" type="bigint"/>
+            <column name="personal_record" type="bigint"/>
             <column name="training_survey_id" type="BIGINT"/>
         </createTable>
     </changeSet>

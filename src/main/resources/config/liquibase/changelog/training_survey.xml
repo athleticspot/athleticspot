@@ -5,12 +5,20 @@
     <changeSet author="tomkasp (generated)" id="1501323723659-2">
         <createSequence sequenceName="training_survey_seq"/>
     </changeSet>
+    <changeSet author="tomkasp (generated)" id="1501323723659-3">
+        <createSequence sequenceName="hibernate_sequence"/>
+    </changeSet>
     <changeSet author="tomkasp (generated)" id="1500129107247-2">
         <createTable tableName="training_survey">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="birthday" type="BINARY(255)">
+            <column name="survey_uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="measure_system_type" type="INTEGER">
+            </column>
+            <column name="birthday" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="height" type="DOUBLE">
