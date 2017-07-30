@@ -13,10 +13,6 @@ public class TrainingSurveyId extends AbstractId {
 
     private static final long serialVersionUID = 1L;
 
-    public TrainingSurveyId(String anId) {
-        super(anId);
-    }
-
     protected TrainingSurveyId() {
         super();
     }

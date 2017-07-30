@@ -21,11 +21,9 @@ public class TrainingSurvey extends IdentifiedDomainObject {
 
     private static final long serialVersionUID = 1L;
 
-    private String username;
-
     @Embedded
     @AttributeOverride(name = "uuid", column = @Column(name = "survey_uuid", nullable = false))
-    private TrainingSurveyId trainingSurveyId;
+    private TrainingSurveyId trainingSurveyId = new TrainingSurveyId();
 
     @Embedded
     private MeasureSystem measureSystem;
@@ -49,7 +47,6 @@ public class TrainingSurvey extends IdentifiedDomainObject {
         NutritionInformation nutritionInformation,
         TrainingGoal trainingGoals,
         MeasureSystem measureSystem) {
-        this.username = username;
         this.baseInformation = baseInformation;
         this.healthInformation = healthInformation;
         this.nutritionInformation = nutritionInformation;
@@ -74,11 +71,12 @@ public class TrainingSurvey extends IdentifiedDomainObject {
             distance,
             personalRecord,
             lastTime,
-            this.getId()
+            this.id()
         );
     }
 
-    public TrainingSurvey() {
+    protected TrainingSurvey() {
+        super();
     }
 
     public void removeTrainingHistoryFromSurvey(Long trainingHistoryId) {
@@ -103,36 +101,25 @@ public class TrainingSurvey extends IdentifiedDomainObject {
         return new TrainingIntensityInformation(
             dayOfWeek,
             trainingIntensity,
-            this.getId()
+            this.id()
         );
     }
 
 
-    public Long getId() {
-        return id();
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public BaseInformation getBaseInformation() {
+    public BaseInformation baseInformation() {
         return baseInformation;
     }
 
-    public HealthInformation getHealthInformation() {
+    public HealthInformation healthInformation() {
         return healthInformation;
     }
 
-    public NutritionInformation getNutritionInformation() {
+    public NutritionInformation nutritionInformation() {
         return nutritionInformation;
     }
 
-    public TrainingGoal getTrainingGoal() {
+    public TrainingGoal trainingGoal() {
         return trainingGoal;
     }
 
-    public String getUsername() {
-        return username;
-    }
 }

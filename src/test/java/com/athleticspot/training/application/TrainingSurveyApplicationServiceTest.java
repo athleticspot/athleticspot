@@ -3,10 +3,7 @@ package com.athleticspot.training.application;
 import com.athleticspot.AthleticspotApp;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
 import com.athleticspot.training.domain.MeasureSystemType;
-import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
-import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
-import com.athleticspot.training.domain.trainingsurvey.RunCategory;
-import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
+import com.athleticspot.training.domain.trainingsurvey.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +33,9 @@ private SecurityContext securityContext;
 
     @Autowired
     TrainingSurveyApplicationService trainingSurveyApplicationService;
+
+    @Autowired
+    TrainingSurveyRepository trainingSurveyRepository;
 
 //    @Autowired
 //    TrainingHistoryRepository trainingHistoryRepository;
@@ -81,9 +81,9 @@ public void assignTrainingSurveyTest() throws Exception {
 //        expectedEvent(SurveyAssignedToAthlete.class);
 
     assertNotNull(trainingSurvey);
-    assertEquals(trainingSurvey.getHealthInformation(), healthInformation);
-    assertEquals(trainingSurvey.getBaseInformation(), baseInformation);
-    assertNotNull(trainingSurvey.getId());
+    assertEquals(trainingSurvey.healthInformation(), healthInformation);
+    assertEquals(trainingSurvey.baseInformation(), baseInformation);
+    assertNotNull(trainingSurvey.id());
 }
 //
 //    @Test

@@ -19,6 +19,7 @@ import org.springframework.util.Assert;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
+import java.util.UUID;
 
 
 @MappedSuperclass
@@ -60,14 +61,9 @@ public abstract class AbstractId
         return this.getClass().getSimpleName() + " [uuid=" + uuid + "]";
     }
 
-    protected AbstractId(String anId) {
-        this();
-
-        this.setUuid(anId);
-    }
-
     protected AbstractId() {
         super();
+        this.setUuid(UUID.randomUUID().toString());
     }
 
     protected abstract int hashOddValue();

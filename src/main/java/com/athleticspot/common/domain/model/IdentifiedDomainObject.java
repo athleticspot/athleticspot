@@ -32,7 +32,7 @@ public class IdentifiedDomainObject implements Serializable {
         this.setId(-1);
     }
 
-    protected long id() {
+    public long id() {
         return this.id;
     }
 
