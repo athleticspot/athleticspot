@@ -1,22 +1,24 @@
 package com.athleticspot.training.application.command;
 
+import com.athleticspot.common.command.ResponseAwareDomainCommand;
 import com.athleticspot.training.domain.MeasureSystemType;
 import com.athleticspot.training.domain.trainingsurvey.*;
+
+import java.time.LocalDate;
 
 
 /**
  * @author Tomasz Kasprzycki
  */
 public class AssignTrainingSurveyToAthleteCommand
-//    extends ResponseAwareDomainCommand<Long> {
-{
+    extends ResponseAwareDomainCommand<String> {
     private final BaseInformation baseInformation;
     private final HealthInformation healthInformation;
     private final NutritionInformation nutritionInformation;
     private final TrainingGoal trainingGoal;
     private final MeasureSystemType measureSystemType;
 
-    public AssignTrainingSurveyToAthleteCommand(java.time.LocalDate birthday,
+    public AssignTrainingSurveyToAthleteCommand(LocalDate birthday,
                                                 Double weight,
                                                 Double height,
                                                 boolean healthContraindications,

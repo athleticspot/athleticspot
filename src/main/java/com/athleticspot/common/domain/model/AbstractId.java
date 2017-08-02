@@ -35,6 +35,15 @@ public abstract class AbstractId
         return this.uuid;
     }
 
+    public AbstractId(String uuid) {
+        this.setUuid(uuid);
+    }
+
+    protected AbstractId() {
+        super();
+        this.setUuid(UUID.randomUUID().toString());
+    }
+
     @Override
     public boolean equals(Object anObject) {
         boolean equalObjects = false;
@@ -61,10 +70,6 @@ public abstract class AbstractId
         return this.getClass().getSimpleName() + " [uuid=" + uuid + "]";
     }
 
-    protected AbstractId() {
-        super();
-        this.setUuid(UUID.randomUUID().toString());
-    }
 
     protected abstract int hashOddValue();
 

@@ -1,5 +1,6 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
+import com.athleticspot.common.domain.model.IdentifiedDomainObject;
 import org.springframework.data.geo.Distance;
 import org.springframework.util.Assert;
 
@@ -11,11 +12,8 @@ import java.time.Duration;
  */
 @Entity
 @Table(name = "training_history")
-public class TrainingHistory {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@SequenceGenerator(name = "sequenceGenerator", sequenceName = "training_survey_history_seq", allocationSize = 1)
+public class TrainingHistory extends IdentifiedDomainObject {
 
     @Column
     private Distance distance;
@@ -26,18 +24,19 @@ public class TrainingHistory {
     @Column
     private Duration lastTime;
 
-    @Column
-    private Long trainingSurveyId;
+    @Embedded
+    @AttributeOverride(name = "uuid", column = @Column(name = "training_survey_id", nullable = false))
+    private TrainingSurveyId trainingSurveyId;
 
     protected TrainingHistory() {
-
+        super();
     }
 
     public TrainingHistory(
         Distance distance,
         Duration personalRecord,
         Duration lastTime,
-        Long trainingSurveyId) {
+        TrainingSurveyId trainingSurveyId) {
         this.distance = distance;
         this.personalRecord = personalRecord;
         this.lastTime = lastTime;
@@ -48,7 +47,7 @@ public class TrainingHistory {
         Assert.notNull(distance, "distance cannot be null");
         Assert.notNull(personalRecord, "personal record cannot be null");
         Assert.notNull(lastTime, "cannot be null");
-        Assert.notNull(this.id, "id cannot be null");
+        Assert.notNull(this.id(), "id cannot be null");
         Assert.notNull(this.trainingSurveyId, "training survey id cannot be null");
         this.distance = distance;
         this.personalRecord = personalRecord;
@@ -65,7 +64,7 @@ public class TrainingHistory {
     }
 
     public Long getId() {
-        return id;
+        return id();
     }
 
     public Distance getDistance() {
@@ -80,7 +79,7 @@ public class TrainingHistory {
         return lastTime;
     }
 
-    public Long getTrainingSurveyId() {
+    public TrainingSurveyId getTrainingSurveyId() {
         return trainingSurveyId;
     }
 }

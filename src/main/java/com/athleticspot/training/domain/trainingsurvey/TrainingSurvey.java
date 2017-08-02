@@ -41,7 +41,6 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     private TrainingGoal trainingGoal;
 
     public TrainingSurvey(
-        String username,
         BaseInformation baseInformation,
         HealthInformation healthInformation,
         NutritionInformation nutritionInformation,
@@ -71,7 +70,7 @@ public class TrainingSurvey extends IdentifiedDomainObject {
             distance,
             personalRecord,
             lastTime,
-            this.id()
+            this.trainingSurveyId
         );
     }
 
@@ -107,19 +106,27 @@ public class TrainingSurvey extends IdentifiedDomainObject {
 
 
     public BaseInformation baseInformation() {
-        return baseInformation;
+        return this.baseInformation;
     }
 
     public HealthInformation healthInformation() {
-        return healthInformation;
+        return this.healthInformation;
     }
 
     public NutritionInformation nutritionInformation() {
-        return nutritionInformation;
+        return this.nutritionInformation;
     }
 
     public TrainingGoal trainingGoal() {
-        return trainingGoal;
+        return this.trainingGoal;
+    }
+
+    public MeasureSystem measureSystem() {
+        return this.measureSystem;
+    }
+
+    public String trainingSurveyId() {
+        return this.trainingSurveyId.uuid();
     }
 
 }

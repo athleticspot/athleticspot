@@ -2,7 +2,10 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet author="tomkasp (generated)" id="1500490662405-9">
+    <changeSet author="tomkasp (generated)" id="1501323723659-2">
+        <createSequence sequenceName="training_survey_history_seq"/>
+    </changeSet>
+    <changeSet author="tomkasp (generated)" id="15004906624012-10">
         <createTable tableName="training_history">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="training_historyPK"/>
@@ -10,7 +13,7 @@
             <column name="distance" type="BINARY(255)"/>
             <column name="last_time" type="bigint"/>
             <column name="personal_record" type="bigint"/>
-            <column name="training_survey_id" type="BIGINT"/>
+            <column name="training_survey_id" type="varchar(36)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface TrainingSurveyRepository extends JpaRepository<TrainingSurvey, Long> {
 
-    Optional<TrainingSurvey> findByUsername(String username);
+    Optional<TrainingSurvey> findByTrainingSurveyId(String trainingSurveyId);
 }

@@ -1,6 +1,7 @@
 package com.athleticspot.training.application;
 
 import com.athleticspot.AthleticspotApp;
+import com.athleticspot.training.application.command.AddTrainingHistoryCommand;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
 import com.athleticspot.training.domain.MeasureSystemType;
 import com.athleticspot.training.domain.trainingsurvey.*;
@@ -9,12 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
@@ -85,23 +89,23 @@ public void assignTrainingSurveyTest() throws Exception {
     assertEquals(trainingSurvey.baseInformation(), baseInformation);
     assertNotNull(trainingSurvey.id());
 }
-//
-//    @Test
-//    public void assigningTrainingHistoryTest() {
-//        final TrainingSurvey trainingSurvey = createTrainingSurvey();
-//        trainingSurveyApplicationService.addTrainingHistory(
-//            new AddTrainingHistoryCommand(
-//                new TrainingSurveyId(trainingSurvey.getId()),
-//                new Distance(25, Metrics.KILOMETERS),
-//                Duration.ofSeconds(120),
-//                Duration.ofSeconds(150)
-//            )
-//        );
-//
+
+    @Test
+    public void assigningTrainingHistoryTest() {
+        final TrainingSurvey trainingSurvey = createTrainingSurvey();
+        trainingSurveyApplicationService.addTrainingHistory(
+            new AddTrainingHistoryCommand(
+                new TrainingSurveyId(trainingSurvey.trainingSurveyId()),
+                new Distance(25, Metrics.KILOMETERS),
+                Duration.ofSeconds(120),
+                Duration.ofSeconds(150)
+            )
+        );
+
 //        expectedEvents(2);
 //        expectedEvent(SurveyAssignedToAthlete.class);
 //        expectedEvent(TrainingHistoryAssignedToSurvey.class);
-//    }
+    }
 //
 //    @Test
 //    public void removeTrainingHistoryTest() {
@@ -248,35 +252,34 @@ public void assignTrainingSurveyTest() throws Exception {
 //    }
 //
 //
-//    //Factory functions
-//
-//    public TrainingSurvey createTrainingSurvey() {
-//        HealthInformation healthInformation = createHealthInformation();
-//        BaseInformation baseInformation = createBaseInformation();
-//        boolean meat_acceptance = false;
-//        boolean dairiesAcceptance = true;
-//        boolean allergies = true;
-//        boolean foodIntolerance = true;
-//        return trainingSurveyApplicationService
-//            .assignTrainingSurveyToAthlete(
-//                new AssignTrainingSurveyToAthleteCommand(
-//                    createBaseInformation().getBirthday(),
-//                    createBaseInformation().getWeight(),
-//                    createBaseInformation().getHeight(),
-//                    healthInformation.getHealthContraindications(),
-//                    healthInformation.getStressTest(),
-//                    healthInformation.getBloodTest(),
-//                    healthInformation.getHoursOfSleep(),
-//                    5D,
-//                    25d,
-//                    RunCategory.MARATHON,
-//                    meat_acceptance,
-//                    dairiesAcceptance,
-//                    allergies,
-//                    foodIntolerance,
-//                    MeasureSystemType.Metric));
-//    }
-//
+    //Factory functions
+
+    public TrainingSurvey createTrainingSurvey() {
+        HealthInformation healthInformation = createHealthInformation();
+        boolean meat_acceptance = false;
+        boolean dairiesAcceptance = true;
+        boolean allergies = true;
+        boolean foodIntolerance = true;
+        return trainingSurveyApplicationService
+            .assignTrainingSurveyToAthlete(
+                new AssignTrainingSurveyToAthleteCommand(
+                    createBaseInformation().getBirthday(),
+                    createBaseInformation().getWeight(),
+                    createBaseInformation().getHeight(),
+                    healthInformation.getHealthContraindications(),
+                    healthInformation.getStressTest(),
+                    healthInformation.getBloodTest(),
+                    healthInformation.getHoursOfSleep(),
+                    5D,
+                    25d,
+                    RunCategory.MARATHON,
+                    meat_acceptance,
+                    dairiesAcceptance,
+                    allergies,
+                    foodIntolerance,
+                    MeasureSystemType.Metric));
+    }
+
 public static HealthInformation createHealthInformation() {
     boolean healthContraindications = false;
     boolean stressTest = false;

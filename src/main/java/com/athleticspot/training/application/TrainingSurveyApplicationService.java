@@ -1,9 +1,12 @@
 package com.athleticspot.training.application;
 
 import com.athleticspot.service.UserService;
+import com.athleticspot.training.application.command.AddTrainingHistoryCommand;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
 import com.athleticspot.training.domain.Athlete;
 import com.athleticspot.training.domain.AthleteRepository;
+import com.athleticspot.training.domain.trainingsurvey.TrainingHistory;
+import com.athleticspot.training.domain.trainingsurvey.TrainingHistoryRepository;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +27,7 @@ public class TrainingSurveyApplicationService {
 
     private final AthleteRepository athleteRepository;
 
-//    private final TrainingHistoryRepository trainingHistoryRepository;
+    private final TrainingHistoryRepository trainingHistoryRepository;
 //
 //    private final TrainingIntensityPlanRepository trainingIntensityPlanRepository;
 
@@ -32,13 +35,14 @@ public class TrainingSurveyApplicationService {
     public TrainingSurveyApplicationService(
         TrainingSurveyRepository trainingSurveyRepository,
         UserService userService,
-        AthleteRepository athleteRepository) {
-//        TrainingHistoryRepository trainingHistoryRepository,
+        AthleteRepository athleteRepository,
+        TrainingHistoryRepository trainingHistoryRepository) {
+
 //        TrainingIntensityPlanRepository trainingIntensityPlanRepository) {
         this.trainingSurveyRepository = trainingSurveyRepository;
         this.userService = userService;
         this.athleteRepository = athleteRepository;
-//        this.trainingHistoryRepository = trainingHistoryRepository;
+        this.trainingHistoryRepository = trainingHistoryRepository;
 //        this.trainingIntensityPlanRepository = trainingIntensityPlanRepository;
     }
 
@@ -57,25 +61,27 @@ public class TrainingSurveyApplicationService {
         if (trainingSurvey == null) {
             throw new IllegalArgumentException("survey not assigned");
         }
-//        assignTrainingSurveyToAthleteCommand.setResponse(trainingSurvey.getId());
+        assignTrainingSurveyToAthleteCommand.setResponse(trainingSurvey.trainingSurveyId());
         return trainingSurvey;
     }
 
-    //    @Transactional
-//    public void addTrainingHistory(AddTrainingHistoryCommand addTrainingHistoryCommand) {
-//        final TrainingSurvey trainingSurvey =
-//            trainingSurveyRepository.getOne(
-//                addTrainingHistoryCommand.getTrainingSurveyId().getTrainingSurveyId());
-//
-//        final TrainingHistory trainingHistory = trainingSurvey.addTrainingHistoryToSurvey(
-//            addTrainingHistoryCommand.getDistance(),
-//            addTrainingHistoryCommand.getPersonalRecord(),
-//            addTrainingHistoryCommand.getLastTime());
-//
-//        trainingHistoryRepository.save(trainingHistory);
-//        addTrainingHistoryCommand.setResponse(trainingHistory.getId());
-//    }
-//
+    @Transactional
+    public void addTrainingHistory(AddTrainingHistoryCommand addTrainingHistoryCommand) {
+        final TrainingSurvey trainingSurvey =
+            trainingSurveyRepository.findByTrainingSurveyId(
+                addTrainingHistoryCommand
+                    .getTrainingSurveyId().uuid()).get();
+
+        final TrainingHistory trainingHistory = trainingSurvey.addTrainingHistoryToSurvey(
+            addTrainingHistoryCommand.getDistance(),
+            addTrainingHistoryCommand.getPersonalRecord(),
+            addTrainingHistoryCommand.getLastTime());
+
+        trainingHistoryRepository.save(trainingHistory);
+        addTrainingHistoryCommand.setResponse(trainingHistory.getId());
+    }
+
+    //
 //    @Transactional
 //    public void updateSurveysTrainingHistory(UpdateTrainingHistoryCommand updateTrainingHistoryCommand) {
 //        final TrainingHistory trainingHistory = trainingHistoryRepository

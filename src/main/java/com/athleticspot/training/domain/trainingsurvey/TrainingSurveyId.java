@@ -17,6 +17,10 @@ public class TrainingSurveyId extends AbstractId {
         super();
     }
 
+    public TrainingSurveyId(String uuid) {
+        super(uuid);
+    }
+
     @Override
     protected int hashOddValue() {
         return 83811;

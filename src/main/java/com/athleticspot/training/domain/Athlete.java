@@ -39,7 +39,6 @@ public class Athlete {
         TrainingGoal trainingGoals,
         MeasureSystemType measureSystemType) {
         TrainingSurvey trainingSurvey = new TrainingSurvey(
-            user.getLogin(),
             baseInformation,
             healthInformation,
             nutritionInformation,
