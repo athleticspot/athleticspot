@@ -1,0 +1,32 @@
+package com.athleticspot.training.infrastracture.persistnce;
+
+import com.athleticspot.service.UserService;
+import com.athleticspot.training.domain.Athlete;
+import com.athleticspot.training.domain.AthleteRepository;
+import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
+import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyProvider;
+import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+/**
+ * @author Tomasz Kasprzycki
+ */
+@Service
+public class TrainingSurveyProviderImpl implements TrainingSurveyProvider {
+
+    UserService userService;
+    AthleteRepository athleteRepository;
+    TrainingSurveyRepository trainingSurveyRepository;
+
+    @Override
+    public TrainingSurvey getAthleteSurvey() {
+        final Optional<Athlete> athleteOptional =
+            athleteRepository
+                .findByUserId(userService.getUserWithAuthorities().getId());
+        trainingSurveyRepository
+            .findByAthleteId(athleteOptional.get().athleteId().uuid());
+        return null;
+    }
+}

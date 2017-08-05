@@ -19,6 +19,7 @@ import org.springframework.util.Assert;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -45,24 +46,16 @@ public abstract class AbstractId
     }
 
     @Override
-    public boolean equals(Object anObject) {
-        boolean equalObjects = false;
-
-        if (anObject != null && this.getClass() == anObject.getClass()) {
-            AbstractId typedObject = (AbstractId) anObject;
-            equalObjects = this.uuid().equals(typedObject.uuid());
-        }
-
-        return equalObjects;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractId)) return false;
+        AbstractId that = (AbstractId) o;
+        return Objects.equals(uuid, that.uuid);
     }
 
     @Override
     public int hashCode() {
-        int hashCodeValue =
-            +(this.hashOddValue() * this.hashPrimeValue())
-                + this.uuid().hashCode();
-
-        return hashCodeValue;
+        return Objects.hash(uuid);
     }
 
     @Override
@@ -70,10 +63,6 @@ public abstract class AbstractId
         return this.getClass().getSimpleName() + " [uuid=" + uuid + "]";
     }
 
-
-    protected abstract int hashOddValue();
-
-    protected abstract int hashPrimeValue();
 
     protected void validateId(String anId) {
         // implemented by subclasses for validation.

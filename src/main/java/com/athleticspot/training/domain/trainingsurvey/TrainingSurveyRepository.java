@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface TrainingSurveyRepository extends JpaRepository<TrainingSurvey, Long> {
 
     Optional<TrainingSurvey> findByTrainingSurveyId(String trainingSurveyId);
+
+    Optional<TrainingSurvey> findByAthleteId(String athleteId);
 }

@@ -1,6 +1,7 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
 import com.athleticspot.common.domain.model.IdentifiedDomainObject;
+import com.athleticspot.training.domain.AthleteId;
 import com.athleticspot.training.domain.TrainingIntensity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,6 +27,11 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     private TrainingSurveyId trainingSurveyId = new TrainingSurveyId();
 
     @Embedded
+    @AttributeOverride(name = "uuid", column = @Column(name = "athlete_uuid", nullable = false))
+    private AthleteId athleteId;
+
+
+    @Embedded
     private MeasureSystem measureSystem;
 
     @Embedded
@@ -41,6 +47,7 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     private TrainingGoal trainingGoal;
 
     public TrainingSurvey(
+        AthleteId athleteId,
         BaseInformation baseInformation,
         HealthInformation healthInformation,
         NutritionInformation nutritionInformation,

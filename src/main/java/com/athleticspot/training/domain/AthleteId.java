@@ -1,23 +1,21 @@
-package com.athleticspot.training.domain.trainingsurvey;
+package com.athleticspot.training.domain;
 
 import com.athleticspot.common.domain.model.AbstractId;
 
-import javax.persistence.Embeddable;
 import java.util.UUID;
 
 /**
  * @author Tomasz Kasprzycki
  */
-@Embeddable
-public class TrainingSurveyId extends AbstractId {
+public class AthleteId extends AbstractId {
 
     private static final long serialVersionUID = 1L;
 
-    protected TrainingSurveyId() {
+    protected AthleteId() {
         super();
     }
 
-    public TrainingSurveyId(String uuid) {
+    public AthleteId(String uuid) {
         super(uuid);
     }
 
