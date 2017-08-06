@@ -1,9 +1,11 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
+import java.util.Optional;
+
 /**
  * @author Tomasz Kasprzycki
  */
 public interface TrainingSurveyProvider {
 
-    TrainingSurvey getAthleteSurvey();
+    Optional<TrainingSurvey> getAthleteSurvey();
 }

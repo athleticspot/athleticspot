@@ -16,6 +16,9 @@
             <column name="survey_uuid" type="varchar(36)">
                 <constraints nullable="false"/>
             </column>
+            <column name="athlete_uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
             <column name="measure_system_type" type="INTEGER">
             </column>
             <column name="birthday" type="DATE">

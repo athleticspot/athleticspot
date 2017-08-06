@@ -13,5 +13,5 @@ public interface TrainingSurveyRepository extends JpaRepository<TrainingSurvey, 
 
     Optional<TrainingSurvey> findByTrainingSurveyId(String trainingSurveyId);
 
-    Optional<TrainingSurvey> findByAthleteId(String athleteId);
+    Optional<TrainingSurvey> findByAthleteIdUuid(String athleteId);
 }

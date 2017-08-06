@@ -6,6 +6,7 @@ import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyProvider;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,17 +17,24 @@ import java.util.Optional;
 @Service
 public class TrainingSurveyProviderImpl implements TrainingSurveyProvider {
 
-    UserService userService;
-    AthleteRepository athleteRepository;
-    TrainingSurveyRepository trainingSurveyRepository;
+    private final UserService userService;
+    private final AthleteRepository athleteRepository;
+    private final TrainingSurveyRepository trainingSurveyRepository;
+
+    @Autowired
+    public TrainingSurveyProviderImpl(UserService userService, AthleteRepository athleteRepository, TrainingSurveyRepository trainingSurveyRepository) {
+        this.userService = userService;
+        this.athleteRepository = athleteRepository;
+        this.trainingSurveyRepository = trainingSurveyRepository;
+    }
 
     @Override
-    public TrainingSurvey getAthleteSurvey() {
+    public Optional<TrainingSurvey> getAthleteSurvey() {
         final Optional<Athlete> athleteOptional =
             athleteRepository
                 .findByUserId(userService.getUserWithAuthorities().getId());
-        trainingSurveyRepository
-            .findByAthleteId(athleteOptional.get().athleteId().uuid());
-        return null;
+        final Optional<TrainingSurvey> trainingSurveyOptional = trainingSurveyRepository
+            .findByAthleteIdUuid(athleteOptional.get().athleteId().uuid());
+        return trainingSurveyOptional;
     }
 }

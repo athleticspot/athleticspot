@@ -26,7 +26,8 @@ public class Athlete extends IdentifiedDomainObject {
     @Column(length = 100, unique = true, nullable = false)
     private String name;
 
-    @Column(name = "athlete_id")
+    @Embedded
+    @AttributeOverride(name = "uuid", column = @Column(name = "athlete_id", nullable = false))
     private AthleteId athleteId;
 
     @OneToOne

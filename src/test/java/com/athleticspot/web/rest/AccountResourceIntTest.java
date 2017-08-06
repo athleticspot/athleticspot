@@ -51,6 +51,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AthleticspotApp.class)
 public class AccountResourceIntTest {
 
+    @Mock
+    private UserService mockUserService;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -66,8 +69,6 @@ public class AccountResourceIntTest {
     @Autowired
     private HttpMessageConverter[] httpMessageConverters;
 
-    @Mock
-    private UserService mockUserService;
 
     @Mock
     private MailService mockMailService;

@@ -30,7 +30,6 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     @AttributeOverride(name = "uuid", column = @Column(name = "athlete_uuid", nullable = false))
     private AthleteId athleteId;
 
-
     @Embedded
     private MeasureSystem measureSystem;
 
