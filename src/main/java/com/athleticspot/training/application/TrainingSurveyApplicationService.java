@@ -1,5 +1,6 @@
 package com.athleticspot.training.application;
 
+import com.athleticspot.domain.User;
 import com.athleticspot.service.UserService;
 import com.athleticspot.training.application.command.AddTrainingHistoryCommand;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
@@ -150,7 +151,10 @@ public class TrainingSurveyApplicationService {
 //    }
 //
     private Athlete athleteData() {
-        final Optional<Athlete> athlete = athleteRepository.findByUserId(userService.getUserWithAuthorities().getId());
+        final User userWithAuthorities = userService.getUserWithAuthorities();
+        Optional.ofNullable(userWithAuthorities)
+            .orElseThrow(() -> new IllegalArgumentException("User cannot be empty"));
+        final Optional<Athlete> athlete = athleteRepository.findByUserId(userWithAuthorities.getId());
         return athlete.get();
     }
 }

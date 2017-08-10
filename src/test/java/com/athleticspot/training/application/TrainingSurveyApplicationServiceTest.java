@@ -80,7 +80,7 @@ public void assignTrainingSurveyTest() throws Exception {
                 dairiesAcceptance,
                 allergies,
                 foodIntolerance,
-                MeasureSystemType.Metric));
+                MeasureSystemType.METRIC));
 
 //        expectedEvent(SurveyAssignedToAthlete.class);
 
@@ -277,7 +277,7 @@ public void assignTrainingSurveyTest() throws Exception {
                     dairiesAcceptance,
                     allergies,
                     foodIntolerance,
-                    MeasureSystemType.Metric));
+                    MeasureSystemType.METRIC));
     }
 
 public static HealthInformation createHealthInformation() {

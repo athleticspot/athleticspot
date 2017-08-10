@@ -1,5 +1,8 @@
 package com.athleticspot.web.rest;
 
+import com.athleticspot.domain.Authority;
+import com.athleticspot.domain.User;
+import com.athleticspot.security.AuthoritiesConstants;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -11,6 +14,8 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -90,6 +95,25 @@ public class TestUtil {
         public void describeTo(Description description) {
             description.appendText("a String representing the same Instant as ").appendValue(date);
         }
+    }
+
+
+    public static User createFakeUser() {
+        Set<Authority> authorities = new HashSet<>();
+        Authority authority = new Authority();
+        authority.setName(AuthoritiesConstants.ADMIN);
+        authorities.add(authority);
+
+        User user = new User();
+        user.setId(3L);
+        user.setLogin("test");
+        user.setFirstName("john");
+        user.setLastName("doe");
+        user.setEmail("john.doe@jhipster.com");
+        user.setImageUrl("http://placehold.it/50x50");
+        user.setLangKey("en");
+        user.setAuthorities(authorities);
+        return user;
     }
 
     /**

@@ -4,6 +4,7 @@ import com.athleticspot.training.domain.MeasureSystemType;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 /**
@@ -13,7 +14,7 @@ import javax.persistence.Enumerated;
 public class MeasureSystem {
 
     @Column(nullable = false)
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     MeasureSystemType measureSystemType;
 
     public MeasureSystem() {
@@ -25,7 +26,7 @@ public class MeasureSystem {
     }
 
     public String getMassUnit() {
-        if (measureSystemType.equals(MeasureSystemType.Metric)) {
+        if (measureSystemType.equals(MeasureSystemType.METRIC)) {
             return "kg";
         } else {
             return "pound";
@@ -33,7 +34,7 @@ public class MeasureSystem {
     }
 
     public String getHeightUnit() {
-        if (measureSystemType.equals(MeasureSystemType.Metric)) {
+        if (measureSystemType.equals(MeasureSystemType.METRIC)) {
             return "cm";
         } else {
             return "foot";

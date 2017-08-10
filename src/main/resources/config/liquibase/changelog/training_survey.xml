@@ -19,7 +19,7 @@
             <column name="athlete_uuid" type="varchar(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="measure_system_type" type="INTEGER">
+            <column name="measure_system_type" type="varchar(36)">
             </column>
             <column name="birthday" type="DATE">
                 <constraints nullable="false"/>
@@ -40,9 +40,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="stress_test" type="BOOLEAN">
-                <constraints nullable="false"/>
-            </column>
-            <column name="measure_type" type="INT">
                 <constraints nullable="false"/>
             </column>
             <column name="allergies" type="BOOLEAN">

@@ -11,4 +11,11 @@
                   tableName="athlete">
         </loadData>
     </changeSet>
+    <changeSet id="1211213" author="tomkasp">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/training_survey.csv"
+                  separator=";"
+                  tableName="training_survey">
+        </loadData>
+    </changeSet>
 </databaseChangeLog>

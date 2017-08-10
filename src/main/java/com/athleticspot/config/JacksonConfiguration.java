@@ -4,9 +4,10 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class JacksonConfiguration {
+public class JacksonConfiguration extends WebMvcConfigurerAdapter {
 
     /**
      * Support for Hibernate types in Jackson.
@@ -23,4 +24,5 @@ public class JacksonConfiguration {
     public AfterburnerModule afterburnerModule() {
         return new AfterburnerModule();
     }
+
 }

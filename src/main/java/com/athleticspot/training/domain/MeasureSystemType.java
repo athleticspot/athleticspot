@@ -7,6 +7,19 @@ package com.athleticspot.training.domain;
  */
 public enum MeasureSystemType {
 
-    Metric,
-    Imperial
+    METRIC("metric"),
+    IMPERIAL("imperial");
+
+    private String value;
+
+    MeasureSystemType(String measureType) {
+        this.value = measureType;
+    }
+
+    @Override
+    public String toString() {
+        return "MeasureSystemType{" +
+            "value='" + value + '\'' +
+            '}';
+    }
 }

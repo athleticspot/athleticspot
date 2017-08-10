@@ -1,11 +1,20 @@
 package com.athleticspot.training.infrastracture.dto.out;
 
 import com.athleticspot.training.domain.trainingsurvey.*;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import java.io.Serializable;
 
 /**
  * @author Tomasz Kasprzycki
  */
-public class TrainingSurveyOutDto {
+@JsonDeserialize
+@JsonSerialize
+@JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
+public class TrainingSurveyOutDto implements Serializable {
 
     private String trainingSurveyUuid;
     private MeasureSystem measureSystem;
