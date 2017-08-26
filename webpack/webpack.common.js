@@ -10,9 +10,7 @@ const path = require('path');
 
 const parseVersion = require('./utils.js').parseVersion;
 
-module.exports = (options) =
->
-{
+module.exports = (options) => {
     const DATAS = {
         VERSION: `'${parseVersion()}'`,
         DEBUG_INFO_ENABLED: options.env === 'dev'
@@ -29,7 +27,7 @@ module.exports = (options) =
         },
         module: {
             rules: [
-                {test: /bootstrap\/dist\/js\/umd\//, loader: 'imports-loader?jQuery=jquery'},
+                { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports-loader?jQuery=jquery' },
                 {
                     test: /\.ts$/,
                     loaders: [
@@ -44,9 +42,9 @@ module.exports = (options) =
                     options: {
                         minimize: true,
                         caseSensitive: true,
-                        removeAttributeQuotes: false,
-                        minifyJS: false,
-                        minifyCSS: false
+                        removeAttributeQuotes:false,
+                        minifyJS:false,
+                        minifyCSS:false
                     },
                     exclude: ['./src/main/webapp/index.html']
                 },
@@ -72,11 +70,11 @@ module.exports = (options) =
                     loader: StringReplacePlugin.replace({
                         replacements: [{
                             pattern: /\/\* @toreplace (\w*?) \*\//ig,
-                            replacement: (match, p1, offset, string) = > `_${p1} = ${DATAS[p1]};`
+                            replacement: (match, p1, offset, string) => `_${p1} = ${DATAS[p1]};`
                     }]
-        }
-)
-}]
+        })
+}
+]
 },
     plugins: [
         new CommonsChunkPlugin({
@@ -87,13 +85,13 @@ module.exports = (options) =
             manifest: require(path.resolve('./target/www/vendor.json'))
         }),
         new CopyWebpackPlugin([
-            {from: './node_modules/core-js/client/shim.min.js', to: 'core-js-shim.min.js'},
-            {from: './node_modules/swagger-ui/dist', to: 'swagger-ui/dist'},
-            {from: './src/main/webapp/swagger-ui/', to: 'swagger-ui'},
-            {from: './src/main/webapp/favicon.ico', to: 'favicon.ico'},
-            {from: './src/main/webapp/manifest.webapp', to: 'manifest.webapp'},
+            { from: './node_modules/core-js/client/shim.min.js', to: 'core-js-shim.min.js' },
+            { from: './node_modules/swagger-ui/dist', to: 'swagger-ui/dist' },
+            { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui' },
+            { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
+            { from: './src/main/webapp/manifest.webapp', to: 'manifest.webapp' },
             // { from: './src/main/webapp/sw.js', to: 'sw.js' },
-            {from: './src/main/webapp/robots.txt', to: 'robots.txt'}
+            { from: './src/main/webapp/robots.txt', to: 'robots.txt' }
         ]),
         new webpack.ProvidePlugin({
             $: "jquery",
@@ -102,7 +100,7 @@ module.exports = (options) =
         new MergeJsonWebpackPlugin({
             output: {
                 groupBy: [
-                    {pattern: "./src/main/webapp/i18n/en/*.json", fileName: "./target/www/i18n/en.json"}
+                    { pattern: "./src/main/webapp/i18n/en/*.json", fileName: "./target/www/i18n/en.json" }
                     // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
                 ]
             }
@@ -113,7 +111,7 @@ module.exports = (options) =
             inject: 'body'
         }),
         new AddAssetHtmlPlugin([
-            {filepath: path.resolve('./target/www/vendor.dll.js'), includeSourcemap: false}
+            { filepath: path.resolve('./target/www/vendor.dll.js'), includeSourcemap: false }
         ]),
         new StringReplacePlugin(),
         new WebpackNotifierPlugin({
@@ -121,7 +119,5 @@ module.exports = (options) =
             contentImage: path.join(__dirname, 'logo-jhipster.png')
         })
     ]
-}
-    ;
-}
-;
+};
+};
