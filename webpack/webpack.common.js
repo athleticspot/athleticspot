@@ -76,8 +76,7 @@ module.exports = (options) =
                     }]
         }
 )
-}
-]
+}]
 },
     plugins: [
         new CommonsChunkPlugin({
