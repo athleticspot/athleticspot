@@ -30,4 +30,16 @@ public class TrainingGoal {
         this.duration = duration;
         this.runCategory = runCategory;
     }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public Double getDuration() {
+        return duration;
+    }
+
+    public RunCategory getRunCategory() {
+        return runCategory;
+    }
 }

@@ -52,6 +52,7 @@ public class TrainingSurvey extends IdentifiedDomainObject {
         NutritionInformation nutritionInformation,
         TrainingGoal trainingGoals,
         MeasureSystem measureSystem) {
+        this.athleteId = athleteId;
         this.baseInformation = baseInformation;
         this.healthInformation = healthInformation;
         this.nutritionInformation = nutritionInformation;

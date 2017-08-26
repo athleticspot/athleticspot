@@ -12,6 +12,7 @@ import java.time.LocalDate;
  */
 public class AssignTrainingSurveyToAthleteCommand
     extends ResponseAwareDomainCommand<String> {
+
     private final BaseInformation baseInformation;
     private final HealthInformation healthInformation;
     private final NutritionInformation nutritionInformation;

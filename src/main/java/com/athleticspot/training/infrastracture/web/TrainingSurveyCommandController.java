@@ -6,6 +6,8 @@ import com.athleticspot.training.infrastracture.dto.in.AssignTrainingSurveyInDto
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @author Tomasz Kasprzycki
  */
@@ -21,25 +23,25 @@ public class TrainingSurveyCommandController {
     }
 
     @PostMapping
-    public void createTrainingSurvey(@RequestBody AssignTrainingSurveyInDto assignTrainingSurveyInDto) {
+    public void createTrainingSurvey(@Valid @RequestBody AssignTrainingSurveyInDto assignTrainingSurveyInDto) {
 
         AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand
             = new AssignTrainingSurveyToAthleteCommand(
-            null,
-            null,
-            null,
-            true,
-            true,
-            true,
-            null,
-            null,
-            null,
-            null,
-            false,
-            false,
-            false,
-            false,
-            null
+            assignTrainingSurveyInDto.getBaseInformation().getBirthday(),
+            assignTrainingSurveyInDto.getBaseInformation().getWeight(),
+            assignTrainingSurveyInDto.getBaseInformation().getHeight(),
+            assignTrainingSurveyInDto.getHealthInformation().getHealthContraindications(),
+            assignTrainingSurveyInDto.getHealthInformation().getStressTest(),
+            assignTrainingSurveyInDto.getHealthInformation().getBloodTest(),
+            assignTrainingSurveyInDto.getHealthInformation().getHoursOfSleep(),
+            assignTrainingSurveyInDto.getTrainingGoal().getDuration(),
+            assignTrainingSurveyInDto.getTrainingGoal().getDistance(),
+            assignTrainingSurveyInDto.getTrainingGoal().getRunCategory(),
+            assignTrainingSurveyInDto.getNutritionInformation().isMeatAcceptance(),
+            assignTrainingSurveyInDto.getNutritionInformation().isDairyedAcceptance(),
+            assignTrainingSurveyInDto.getNutritionInformation().isAllergies(),
+            assignTrainingSurveyInDto.getNutritionInformation().isFoodIntolerance(),
+            assignTrainingSurveyInDto.getMeasureSystemType()
 
         );
         trainingSurveyApplicationService.assignTrainingSurveyToAthlete(assignTrainingSurveyToAthleteCommand);

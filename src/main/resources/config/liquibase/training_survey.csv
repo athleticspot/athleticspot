@@ -1,2 +1,2 @@
 id;survey_uuid;athlete_uuid;measure_system_type;birthday;height;weight;blood_test;health_contraindications;hours_of_sleep;stress_test;allergies;dairyed_acceptance;food_intolerance;meat_acceptance;distance;duration;run_category
-1;098bb728-0dbd-4c1d-a50f-a856c6b7f0b8;7455e4fb-b4ee-4257-bddb-1bb89e1fb549;METRIC;2017-02-08;172;70;1;0;6;0;0;1;1;1;5;27;1
+9999;098bb728-0dbd-4c1d-a50f-a856c6b7f0b8;7455e4fb-b4ee-4257-bddb-1bb89e1fb549;METRIC;2017-02-08;172;70;1;0;6;0;0;1;1;1;5;27;1
