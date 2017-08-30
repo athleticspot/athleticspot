@@ -21,6 +21,7 @@
             "mobile": false,
             "styles": [
                 "content/css/vendor.css",
+                "content/css/app.css",
                 "content/css/global.css"
             ],
             "scripts": []
