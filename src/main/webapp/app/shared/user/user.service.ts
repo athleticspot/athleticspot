@@ -9,6 +9,7 @@ import {createRequestOption} from "../model/request-util";
 @Injectable()
 export class UserService {
     private resourceUrl = 'api/users';
+    private trainingSurveyUrl = 'api/survey';
 
     constructor(private http: Http) {
     }
@@ -42,6 +43,10 @@ export class UserService {
             const json = res.json();
             return <string[]> json;
         });
+    }
+    survey(): Observable<ResponseWrapper>{
+        return this.http.get(this.trainingSurveyUrl)
+            .map((res: Response) => this.convertResponse(res));
     }
 
     private convertResponse(res: Response): ResponseWrapper {
