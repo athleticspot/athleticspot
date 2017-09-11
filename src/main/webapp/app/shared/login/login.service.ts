@@ -3,13 +3,15 @@ import {JhiLanguageService} from "ng-jhipster";
 
 import {Principal} from "../auth/principal.service";
 import {AuthServerProvider} from "../auth/auth-jwt.service";
+import {UserService} from "../user/user.service";
 
 @Injectable()
 export class LoginService {
 
     constructor(private languageService: JhiLanguageService,
                 private principal: Principal,
-                private authServerProvider: AuthServerProvider) {
+                private authServerProvider: AuthServerProvider,
+                private userService: UserService) {
     }
 
     login(credentials, callback?) {
@@ -42,5 +44,16 @@ export class LoginService {
     logout() {
         this.authServerProvider.logout().subscribe();
         this.principal.authenticate(null);
+    }
+
+    checkAfterLoginActions() {
+        return new Promise((resolve, reject) => {
+            this.userService.survey().subscribe((data) => {
+                resolve(data);
+            }, (err) => {
+                reject(err)
+            })
+        });
+
     }
 }

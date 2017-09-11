@@ -22,6 +22,7 @@ import {
     PageRibbonComponent,
     ProfileService
 } from "./layouts";
+import {TrainingModule} from "./training/training.module";
 
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 
@@ -35,6 +36,7 @@ import {
         AthleticspotAdminModule,
         AthleticspotAccountModule,
         AthleticspotEntityModule,
+        TrainingModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
