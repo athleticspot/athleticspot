@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Achievement} from "../model/achievement.model";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
     selector: 'achievement-list',
@@ -7,8 +8,17 @@ import {Achievement} from "../model/achievement.model";
 })
 export class AchievementListComponent implements OnInit {
 
+    date: Date;
+    form: FormGroup;
+
+
+    constructor() {
+        this.date = new Date();
+    }
+
     achievements: Achievement[] = [];
     ngOnInit(): void {
+
         let achievement = new Achievement();
         achievement.id = 1;
         achievement.distance = 21;
