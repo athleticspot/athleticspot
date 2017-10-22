@@ -1,0 +1,65 @@
+<div class="tech-background">
+    <div class="container padder-v">
+
+        <p class="m-n font-thin h1">Dodaj wynik</p>
+
+        <form>
+            <!--Distance-->
+
+
+
+
+            <div class="row">
+                <div class="form-group col-sm-8 m-t-md">
+                    <label class=" font-thin h3 m-xxs">Dystans</label>
+                    <select class="form-control no-border">
+                        <option>400m</option>
+                        <option>1k</option>
+                        <option>2k</option>
+                        <option>3k</option>
+                        <option>4k</option>
+                        <option>10k</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12 ">
+                    <label class=" font-thin h3 m-xxs">Rekord zyciowy</label>
+                    <time-duration-picker [inputDisabled]=false returnedValueUnit="second" (onChange)="onNumberChanged($event)" class="row">
+                        <time-duration-picker-unit class="col-md-4" [name]="'second'" [label]="'Seconds'" [min]="0" [max]="59" [step]="1"></time-duration-picker-unit>
+                        <time-duration-picker-unit class="col-md-4" [name]="'minute'" [label]="'Minutes'" [min]="0" [max]="59" [step]="1"></time-duration-picker-unit>
+                        <time-duration-picker-unit class="col-md-4" [name]="'hour'" [label]="'Hours'" [min]="0" [max]="23" [step]="1"></time-duration-picker-unit>
+                    </time-duration-picker>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-8 m-t-md">
+                    <label class=" font-thin h3 m-xxs">Data ostatniego czasu</label>
+                    <div class="ngx-datepicker-container">
+                        <ng-datepicker [(ngModel)]="date" name="test"></ng-datepicker>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="form-group col-sm-8 m-t-md">
+                    <label class=" font-thin h3 m-xxs">Ostatni czas</label>
+                    <time-duration-picker [inputDisabled]=false returnedValueUnit="second" (onChange)="onNumberChanged($event)" class="row">
+                        <time-duration-picker-unit class="col-md-4" [name]="'second'" [label]="'Seconds'" [min]="0" [max]="59" [step]="1"></time-duration-picker-unit>
+                        <time-duration-picker-unit class="col-md-4" [name]="'minute'" [label]="'Minutes'" [min]="0" [max]="59" [step]="1"></time-duration-picker-unit>
+                        <time-duration-picker-unit class="col-md-4" [name]="'hour'" [label]="'Hours'" [min]="0" [max]="23" [step]="1"></time-duration-picker-unit>
+                    </time-duration-picker>                </div>
+            </div>
+
+
+        </form>
+
+        <button class="btn  btn-primary" (click)="click()">Dodaj</button>
+
+    </div>
+</div>
