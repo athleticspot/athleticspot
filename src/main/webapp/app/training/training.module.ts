@@ -8,9 +8,12 @@ import {NgDatepickerModule} from 'ng2-datepicker';
 import {AddResultModalService} from "./results/add-result-modal.service";
 import {AddResultComponent} from "./results/add-result.component";
 import {TimeDurationPickerModule} from "angular2-time-duration-picker/dist";
+import {ResultsDataservice} from "./results/results.dataservice";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     imports: [
+        ReactiveFormsModule,
         AthleticspotSharedModule,
         NgDatepickerModule,
         TimeDurationPickerModule,
@@ -22,7 +25,8 @@ import {TimeDurationPickerModule} from "angular2-time-duration-picker/dist";
         SurveyComponent,
     ],
     entryComponents: [AddResultComponent],
-    providers: [AddResultModalService],
+    providers: [AddResultModalService,
+    ResultsDataservice],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TrainingModule {

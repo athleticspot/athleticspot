@@ -1,7 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {Achievement} from "./achievement.model";
+import {Result} from "./result.model";
 import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {AddResultModalService} from "./add-result-modal.service";
+import {ResultsDataservice} from "./results.dataservice";
 
 @Component({
     selector: 'results',
@@ -9,28 +10,19 @@ import {AddResultModalService} from "./add-result-modal.service";
 })
 export class ResultsComponent implements OnInit {
 
-    date: Date;
-    modalRef: NgbModalRef;
+    addResultsModalRef: NgbModalRef;
 
-    constructor(private addResultsModalService: AddResultModalService,) {
-        this.date = new Date();
+    constructor(private addResultsModalService: AddResultModalService,
+                private resultsDataService: ResultsDataservice) {
     }
 
-    achievements: Achievement[] = [];
+    results: Result[] = [];
 
     ngOnInit(): void {
-
-        let achievement = new Achievement();
-        achievement.id = 1;
-        achievement.distance = 21;
-        achievement.date = '21/02/2017';
-        achievement.time = '1h 21s';
-        this.achievements.push(achievement);
+        this.results = this.resultsDataService.getResults();
     }
 
     public click(): void {
-        this.modalRef = this.addResultsModalService.open();
+        this.addResultsModalRef = this.addResultsModalService.open();
     }
-
-
 }
