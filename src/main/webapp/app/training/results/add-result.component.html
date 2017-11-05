@@ -2,93 +2,22 @@
     <div class="container padder-v">
 
         <p class="m-n font-thin h1 padder">Dodaj wynik</p>
-
-        <!--<form #f="ngForm" novalidate class="form-validation">-->
-        <!--&lt;!&ndash;Distance&ndash;&gt;-->
-        <!--<div class="row">-->
-        <!--<div class="form-group">-->
-        <!--<label class="font-thin h3 m-xxs m-t-md padder">Dystans</label>-->
-        <!--<div class="form-inline col-md-12 m-t-md">-->
-        <!--<input type="number" name="distance" [(ngModel)]="newResult.distance"-->
-        <!--class="col-sm-8 form-control " placeholder="Dystans"-->
-        <!--#distance="ngModel" required>-->
-        <!--<select class="input-group-addon" [(ngModel)]="newResult.distanceUnit" name="distanceUnit">-->
-        <!--<option *ngFor="let c of unit" [ngValue]="c">{{c.name}}</option>-->
-        <!--</select>-->
-        <!--</div>-->
-        <!--<span class="m-b-none padder" *ngIf="distance?.dirty && distance?.errors?.required">To pole jest wymagane.</span>-->
-
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="row">-->
-        <!--<div class="form-group">-->
-        <!--<label class=" font-thin h3 m-xxs m-t-md padder">Rekord zyciowy</label>-->
-        <!--<div class="form-group form-inline m-t-md">-->
-        <!--<div class="col-md-4 input-group ">-->
-        <!--<input type="number" class=" form-control no-border">-->
-        <!--<span class=" input-group-addon">hours</span>-->
-
-        <!--</div>-->
-        <!--<div class="col-md-4 input-group ">-->
-        <!--<input type="number" class=" form-control no-border">-->
-        <!--<span class=" input-group-addon">minutes</span>-->
-
-        <!--</div>-->
-        <!--<div class="col-md-4 input-group ">-->
-        <!--<input type="number" class=" form-control no-border">-->
-        <!--<span class=" input-group-addon">seconds</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="row">-->
-        <!--<div class="form-group">-->
-        <!--<label class="font-thin h3 m-xxs m-t-md padder">Data ostatniego czasu</label>-->
-        <!--<div class="padder m-t-md">-->
-        <!--<ng-datepicker [(ngModel)]="date" name="test"></ng-datepicker>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-
-        <!--<div class="row" style="position: relative;">-->
-        <!--<div class="form-group">-->
-        <!--<label class="font-thin h3 m-xxs m-t-md padder">Ostatni czas</label>-->
-        <!--<div class="form-group form-inline  m-t-md">-->
-        <!--<div class="col-md-4 input-group ">-->
-        <!--<input type="number" class=" form-control no-border">-->
-        <!--<span class=" input-group-addon">hours</span>-->
-
-        <!--</div>-->
-        <!--<div class="col-md-4 input-group ">-->
-        <!--<input type="number" class=" form-control no-border">-->
-        <!--<span class=" input-group-addon">minutes</span>-->
-
-        <!--</div>-->
-        <!--<div class="col-md-4 input-group ">-->
-        <!--<input type="number" class=" form-control no-border">-->
-        <!--<span class=" input-group-addon">seconds</span>-->
-
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-
-        <!--</form>-->
-
-        <!--&lt;!&ndash;<button class="btn btn-primary" (click)="addNewResult()">Dodaj</button>&ndash;&gt;-->
-
-
         <form [formGroup]="newResultForm" novalidate class="form-validation padder">
+
+
             <div class="row">
                 <div class="form-group">
+
                     <label class="font-thin h3 m-xxs m-t-md padder">Dystans</label>
                     <div class="form-inline col-md-12 m-t-md">
-                        <input type="number" name="distance" class="col-sm-8 form-control " placeholder="Dystans"
+                        <input type="number" name="distance" class=" form-control " placeholder="Dystans"
                                formControlName="distance">
+                        <select class="form-control">
+                            <option>kilometers</option>
+                            <option>meters</option>
+                            <option>miles</option>
+                            <option>yards</option>
+                        </select>
                     </div>
                     <span class="m-b-none padder"
                           *ngIf="newResultForm.dirty && newResultForm.controls.distance.errors?.required">To pole jest wymagane.</span>
@@ -96,22 +25,21 @@
             </div>
             <div class="row">
                 <form [formGroup]="durationGroup">
-                    <div class="form-group">
+                    <div class="">
                         <label class=" font-thin h3 m-xxs m-t-md padder">Rekord zyciowy</label>
                         <div class="form-group form-inline m-t-md">
-                            <div class="col-md-4 input-group ">
+                            <div class="col-sm input-group">
                                 <input type="number" class="form-control" formControlName="hours">
-                                <span class=" input-group-addon">hours</span>
+                                <span class="input-group-addon">hours</span>
 
                             </div>
-                            <div class="col-md-4 input-group ">
+                            <div class="col-4 input-group">
                                 <input type="number" class="form-control" formControlName="minutes">
-                                <span class=" input-group-addon">minutes</span>
-
+                                <span class=" input-group-addon">min</span>
                             </div>
-                            <div class="col-md-4 input-group ">
+                            <div class="col-4 input-group ">
                                 <input type="number" class="form-control" formControlName="seconds">
-                                <span class=" input-group-addon">seconds</span>
+                                <span class=" input-group-addon">sec</span>
                             </div>
                         </div>
                     </div>
@@ -141,16 +69,16 @@
                             </div>
                             <div class="col-md-4 input-group">
                                 <input type="number" class=" form-control" formControlName="minutes">
-                                <span class=" input-group-addon">minutes</span>
+                                <span class=" input-group-addon">min</span>
 
                             </div>
                             <div class="col-md-4 input-group">
                                 <input type="number" class=" form-control" formControlName="seconds">
-                                <span class=" input-group-addon">seconds</span>
+                                <span class=" input-group-addon">sec</span>
                             </div>
                         </div>
                     </div>
-                    <span class="m-b-none"
+                    <span class="m-b-none padder"
                           *ngIf="lastRunTimeGroup.dirty && !lastRunTimeGroup.valid">To pole jest wymagane.</span>
                 </form>
             </div>

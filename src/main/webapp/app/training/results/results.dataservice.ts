@@ -1,8 +1,13 @@
 import {Injectable} from "@angular/core";
 import {Result, Unit} from "./result.model";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class ResultsDataservice {
+
+    constructor(private http: Http) {
+    }
+
 
     public getResults(): Result[] {
 
@@ -34,6 +39,16 @@ export class ResultsDataservice {
 
         ]
 
+    }
+
+    public saveResult(result: Result) {
+        this.http.post("/api/result", JSON.stringify(result))
+            .subscribe(
+                () => {
+                    console.log("saved")
+                },
+                err => console.error(err)
+            );
     }
 
 }

@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {Result, Unit} from "./result.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {validateDuration} from "./validateDuration";
+import {ResultsDataservice} from "./results.dataservice";
 
 @Component({
     selector: 'add-result-modal',
@@ -11,6 +12,7 @@ export class AddResultComponent {
 
     date: Date;
     unit: Unit;
+    resultsDataService: ResultsDataservice;
     newResultForm: FormGroup;
     durationGroup: FormGroup;
     lastRunTimeGroup: FormGroup;
@@ -24,7 +26,8 @@ export class AddResultComponent {
         4444
     );
 
-    constructor() {
+    constructor(resultsDataService: ResultsDataservice) {
+        this.resultsDataService = resultsDataService;
         this.date = new Date();
         this.newResultForm = new FormGroup({
             distance: new FormControl('', [Validators.required]),
@@ -52,11 +55,7 @@ export class AddResultComponent {
     }
 
     public addNewResult() {
-        //save it on a server side
-    }
-
-    public onNumberChanged(event) {
-        console.log(event);
+        this.resultsDataService.saveResult(new Result())
     }
 
 }

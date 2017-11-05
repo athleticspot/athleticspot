@@ -7,16 +7,18 @@ import {SurveyComponent} from "./survey/survey.component";
 import {NgDatepickerModule} from 'ng2-datepicker';
 import {AddResultModalService} from "./results/add-result-modal.service";
 import {AddResultComponent} from "./results/add-result.component";
-import {TimeDurationPickerModule} from "angular2-time-duration-picker/dist";
 import {ResultsDataservice} from "./results/results.dataservice";
 import {ReactiveFormsModule} from "@angular/forms";
+import {Ng2DropdownModule} from 'ng2-material-dropdown';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     imports: [
         ReactiveFormsModule,
         AthleticspotSharedModule,
         NgDatepickerModule,
-        TimeDurationPickerModule,
+        BrowserAnimationsModule,
+        Ng2DropdownModule,
         RouterModule.forRoot(trainingState, {useHash: true}),
     ],
     declarations: [
