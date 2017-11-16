@@ -32,18 +32,16 @@ public class AssignTrainingSurveyInDto implements Serializable {
     @NotNull
     private NutritionInformation nutritionInformation;
 
-    @NotNull
     private TrainingGoal trainingGoal;
 
     @NotNull
     private MeasureSystemType measureSystemType;
 
-    private AssignTrainingSurveyInDto(
-        BaseInformation baseInformation,
-        HealthInformation healthInformation,
-        NutritionInformation nutritionInformation,
-        TrainingGoal trainingGoal,
-        MeasureSystemType measureSystemType) {
+    private AssignTrainingSurveyInDto(BaseInformation baseInformation,
+                                      HealthInformation healthInformation,
+                                      NutritionInformation nutritionInformation,
+                                      TrainingGoal trainingGoal,
+                                      MeasureSystemType measureSystemType) {
         this.baseInformation = baseInformation;
         this.healthInformation = healthInformation;
         this.nutritionInformation = nutritionInformation;

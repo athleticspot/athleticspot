@@ -7,8 +7,8 @@ package com.athleticspot.training.domain;
  */
 public enum MeasureSystemType {
 
-    METRIC("metric"),
-    IMPERIAL("imperial");
+    METRIC("metric"), //kg, km, cm ...
+    IMPERIAL("imperial"); //miles, yards, pounds ...
 
     private String value;
 

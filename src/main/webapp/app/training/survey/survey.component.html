@@ -1,24 +1,59 @@
 <div class="tech-background">
     <div class="container padder-v">
-        <form>
+        <form novalidate (ngSubmit)="submitSurvey()" [formGroup]="surveyForm"  class="form-validation">
             <!--INFORMACJE PODSTAWOWE-->
             <p class="m-n font-thin h1">Informacje podstawowe</p>
             <div class="row">
-                <div class="form-group col-sm-4 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Data urodzenia</label>
-                    <input type="datetime" class="form-control no-border" placeholder="Data urodzenia">
+
+                <div class="form-group padder">
+                    <label class="font-thin h3 m-xxs m-t-md">Data urodzenia</label>
+                    <div class="m-t-md">
+                        <ng-datepicker formControlName="birthDay"></ng-datepicker>
+                    </div>
                 </div>
+
             </div>
-            <div class="row">
-                <div class="form-group col-sm-4 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Masa ciala</label>
-                    <input type="number" class="form-control no-border" placeholder="masa">
+            <div [ngSwitch]="isMetric()">
+                <div class="row">
+                    <div class="form-group col-sm-4 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Masa ciala
+                            <span *ngSwitchCase="true">[kg]</span>
+                            <span *ngSwitchCase="false">[lb]</span>
+                        </label>
+                        <input type="number" class="form-control" formControlName="bodyMass">
+                        <span class="m-b-none padder"
+                              *ngIf="surveyForm.dirty && surveyForm.controls.bodyMass.errors?.required">To pole jest wymagane.</span>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-4 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Wzrost</label>
-                    <input type="number" class="form-control no-border" placeholder="wzrost">
+                <div class="row">
+                    <div class="form-group col-sm-4 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Wzrost
+                            <span *ngSwitchCase="true">[cm]</span>
+                            <span *ngSwitchCase="false">[in]</span>
+                        </label>
+                        <input type="number" class="form-control" formControlName="height">
+                        <span class="m-b-none padder"
+                              *ngIf="surveyForm.dirty && surveyForm.controls.height.errors?.required">To pole jest wymagane.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-8 m-t-md">
+                        <label class="font-thin h3 m-xxs">Jednostki</label>
+                        <div class="row">
+                            <div class="col-sm-2 m-t-xs text-right">
+                                <span class="h4 font-thin">lb, in</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="metricSystem">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-2 m-t-xs text-left">
+                                <span class="h4 font-thin">kg, m</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!--ZDROWIE-->
@@ -86,7 +121,9 @@
             <div class="row">
                 <div class="form-group col-sm-12 m-t-md">
                     <label class=" font-thin h3 m-xxs">Ile średnio godzin przeznaczas na sen?</label>
-                    <input type="number" class="col-sm-4 form-control no-border" placeholder="godziny">
+                    <input type="number" class="col-sm-4 form-control" formControlName="hoursOfSleep">
+                    <span class="m-b-none padder"
+                          *ngIf="surveyForm.dirty && surveyForm.controls.hoursOfSleep.errors?.required">To pole jest wymagane.</span>
                 </div>
             </div>
 
@@ -170,18 +207,14 @@
                 </div>
             </div>
             <!--CEL TRENINGOWY-->
+            <button type="submit" class="btn btn-lg btn-primary">Submit</button>
         </form>
     </div>
 </div>
 
 
-
-
-
-
 <!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
 
-<!--<button type="submit" class="btn btn-lg btn-primary">Submit</button>-->
 <!--</form>-->
 <!--</div>-->
 <!--</div>-->

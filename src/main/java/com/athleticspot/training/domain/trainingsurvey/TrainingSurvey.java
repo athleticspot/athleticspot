@@ -43,7 +43,7 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     private NutritionInformation nutritionInformation;
 
     @Embedded
-    private TrainingGoal trainingGoal;
+    private TrainingGoal runningTrainingGoal;
 
     public TrainingSurvey(
         AthleteId athleteId,
@@ -56,7 +56,7 @@ public class TrainingSurvey extends IdentifiedDomainObject {
         this.baseInformation = baseInformation;
         this.healthInformation = healthInformation;
         this.nutritionInformation = nutritionInformation;
-        this.trainingGoal = trainingGoals;
+        this.runningTrainingGoal = trainingGoals;
         this.measureSystem = measureSystem;
     }
 
@@ -125,7 +125,7 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     }
 
     public TrainingGoal trainingGoal() {
-        return this.trainingGoal;
+        return this.runningTrainingGoal;
     }
 
     public MeasureSystem measureSystem() {
