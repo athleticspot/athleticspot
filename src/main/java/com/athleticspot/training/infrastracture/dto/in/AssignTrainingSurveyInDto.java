@@ -1,6 +1,6 @@
 package com.athleticspot.training.infrastracture.dto.in;
 
-import com.athleticspot.training.domain.MeasureSystemType;
+import com.athleticspot.training.domain.MetricSystemType;
 import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
 import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
 import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
@@ -32,21 +32,12 @@ public class AssignTrainingSurveyInDto implements Serializable {
     @NotNull
     private NutritionInformation nutritionInformation;
 
-    private TrainingGoal trainingGoal;
-
-    @NotNull
-    private MeasureSystemType measureSystemType;
-
     private AssignTrainingSurveyInDto(BaseInformation baseInformation,
                                       HealthInformation healthInformation,
-                                      NutritionInformation nutritionInformation,
-                                      TrainingGoal trainingGoal,
-                                      MeasureSystemType measureSystemType) {
+                                      NutritionInformation nutritionInformation) {
         this.baseInformation = baseInformation;
         this.healthInformation = healthInformation;
         this.nutritionInformation = nutritionInformation;
-        this.trainingGoal = trainingGoal;
-        this.measureSystemType = measureSystemType;
     }
 
     public BaseInformation getBaseInformation() {
@@ -61,14 +52,6 @@ public class AssignTrainingSurveyInDto implements Serializable {
         return nutritionInformation;
     }
 
-    public TrainingGoal getTrainingGoal() {
-        return trainingGoal;
-    }
-
-    public MeasureSystemType getMeasureSystemType() {
-        return measureSystemType;
-    }
-
     @JsonPOJOBuilder(withPrefix = "set")
     public static class AssignTrainingSurveyInDtoBuilder {
 
@@ -76,7 +59,7 @@ public class AssignTrainingSurveyInDto implements Serializable {
         private HealthInformation healthInformation;
         private NutritionInformation nutritionInformation;
         private TrainingGoal trainingGoal;
-        private MeasureSystemType measureSystemType;
+        private MetricSystemType metricSystemType;
 
 
         public AssignTrainingSurveyInDtoBuilder setBaseInformation(final BaseInformation baseInformation) {
@@ -99,8 +82,8 @@ public class AssignTrainingSurveyInDto implements Serializable {
             return this;
         }
 
-        public AssignTrainingSurveyInDtoBuilder setMeasureSystemType(final MeasureSystemType measureSystemType) {
-            this.measureSystemType = measureSystemType;
+        public AssignTrainingSurveyInDtoBuilder setMetricSystemType(final MetricSystemType metricSystemType) {
+            this.metricSystemType = metricSystemType;
             return this;
         }
 
@@ -109,11 +92,10 @@ public class AssignTrainingSurveyInDto implements Serializable {
             return new AssignTrainingSurveyInDto(
                 this.baseInformation,
                 this.healthInformation,
-                this.nutritionInformation,
-                this.trainingGoal,
-                this.measureSystemType
+                this.nutritionInformation
             );
         }
+
 
     }
 }

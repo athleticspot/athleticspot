@@ -1,8 +1,10 @@
 package com.athleticspot.training.application.command;
 
 import com.athleticspot.common.command.ResponseAwareDomainCommand;
-import com.athleticspot.training.domain.MeasureSystemType;
-import com.athleticspot.training.domain.trainingsurvey.*;
+import com.athleticspot.training.domain.MetricSystemType;
+import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
+import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
+import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
 
 import java.time.LocalDate;
 
@@ -16,8 +18,7 @@ public class AssignTrainingSurveyToAthleteCommand
     private final BaseInformation baseInformation;
     private final HealthInformation healthInformation;
     private final NutritionInformation nutritionInformation;
-    private final TrainingGoal trainingGoal;
-    private final MeasureSystemType measureSystemType;
+    private final MetricSystemType metricSystemType;
 
     public AssignTrainingSurveyToAthleteCommand(LocalDate birthday,
                                                 Double weight,
@@ -26,15 +27,12 @@ public class AssignTrainingSurveyToAthleteCommand
                                                 boolean stressTest,
                                                 boolean bloodTest,
                                                 Double hoursOfSleep,
-                                                Double durationRunGoal,
-                                                Double distanceGoal,
-                                                RunCategory runCategoryGoal,
                                                 boolean meatAcceptance,
                                                 boolean dairiesAcceptance,
                                                 boolean allergies,
                                                 boolean foodIntolerance,
-                                                MeasureSystemType measureSystemType) {
-        this.measureSystemType = measureSystemType;
+                                                MetricSystemType metricSystemType) {
+        this.metricSystemType = metricSystemType;
         this.healthInformation = new HealthInformation(
             healthContraindications,
             stressTest,
@@ -48,9 +46,6 @@ public class AssignTrainingSurveyToAthleteCommand
             dairiesAcceptance,
             allergies,
             foodIntolerance);
-        trainingGoal = new TrainingGoal(distanceGoal,
-            durationRunGoal,
-            runCategoryGoal);
     }
 
     public BaseInformation getBaseInformation() {
@@ -65,11 +60,7 @@ public class AssignTrainingSurveyToAthleteCommand
         return nutritionInformation;
     }
 
-    public TrainingGoal getTrainingGoal() {
-        return trainingGoal;
-    }
-
-    public MeasureSystemType getMeasureSystemType() {
-        return measureSystemType;
+    public MetricSystemType getMetricSystemType() {
+        return metricSystemType;
     }
 }

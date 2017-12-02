@@ -55,8 +55,8 @@ public class TrainingSurveyApplicationService {
                 assignTrainingSurveyToAthleteCommand.getBaseInformation(),
                 assignTrainingSurveyToAthleteCommand.getHealthInformation(),
                 assignTrainingSurveyToAthleteCommand.getNutritionInformation(),
-                assignTrainingSurveyToAthleteCommand.getTrainingGoal(),
-                assignTrainingSurveyToAthleteCommand.getMeasureSystemType());
+                null,//                assignTrainingSurveyToAthleteCommand.getTrainingGoal(),
+                assignTrainingSurveyToAthleteCommand.getMetricSystemType());
         trainingSurveyRepository.save(trainingSurvey);
 
         if (trainingSurvey == null) {

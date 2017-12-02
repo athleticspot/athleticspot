@@ -1,207 +1,212 @@
 <div class="tech-background">
     <div class="container padder-v">
-        <form novalidate (ngSubmit)="submitSurvey()" [formGroup]="surveyForm"  class="form-validation">
+        <form novalidate (ngSubmit)="submitSurvey()" [formGroup]="surveyForm" class="form-validation">
             <!--INFORMACJE PODSTAWOWE-->
-            <p class="m-n font-thin h1">Informacje podstawowe</p>
-            <div class="row">
+            <div formGroupName="baseInformation">
+                <p class="m-n font-thin h1">Informacje podstawowe</p>
+                <div class="row">
 
-                <div class="form-group padder">
-                    <label class="font-thin h3 m-xxs m-t-md">Data urodzenia</label>
-                    <div class="m-t-md">
-                        <ng-datepicker formControlName="birthDay"></ng-datepicker>
+                    <div class="form-group padder">
+                        <label class="font-thin h3 m-xxs m-t-md">Data urodzenia</label>
+                        <div class="m-t-md">
+                            <ng-datepicker formControlName="birthDay"></ng-datepicker>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-            <div [ngSwitch]="isMetric()">
-                <div class="row">
-                    <div class="form-group col-sm-4 m-t-md">
-                        <label class=" font-thin h3 m-xxs">Masa ciala
-                            <span *ngSwitchCase="true">[kg]</span>
-                            <span *ngSwitchCase="false">[lb]</span>
-                        </label>
-                        <input type="number" class="form-control" formControlName="bodyMass">
-                        <span class="m-b-none padder"
-                              *ngIf="surveyForm.dirty && surveyForm.controls.bodyMass.errors?.required">To pole jest wymagane.</span>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-sm-4 m-t-md">
-                        <label class=" font-thin h3 m-xxs">Wzrost
-                            <span *ngSwitchCase="true">[cm]</span>
-                            <span *ngSwitchCase="false">[in]</span>
-                        </label>
-                        <input type="number" class="form-control" formControlName="height">
-                        <span class="m-b-none padder"
-                              *ngIf="surveyForm.dirty && surveyForm.controls.height.errors?.required">To pole jest wymagane.</span>
+                <div [ngSwitch]="isMetric()">
+                    <div class="row">
+                        <div class="form-group col-sm-4 m-t-md">
+                            <label class=" font-thin h3 m-xxs">Masa ciala
+                                <span *ngSwitchCase="true">[kg]</span>
+                                <span *ngSwitchCase="false">[lb]</span>
+                            </label>
+                            <input type="number" class="form-control" formControlName="bodyMass">
+                            <span class="m-b-none padder"
+                                  *ngIf="surveyForm.dirty && surveyForm.controls.baseInformation.controls.bodyMass.errors?.required">To pole jest wymagane.</span>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-8 m-t-md">
-                        <label class="font-thin h3 m-xxs">Jednostki</label>
-                        <div class="row">
-                            <div class="col-sm-2 m-t-xs text-right">
-                                <span class="h4 font-thin">lb, in</span>
-                            </div>
-                            <div>
-                                <label class="i-switch m-t-xs">
-                                    <input type="checkbox" formControlName="metricSystem">
-                                    <i></i>
-                                </label>
-                            </div>
-                            <div class="col-sm-2 m-t-xs text-left">
-                                <span class="h4 font-thin">kg, m</span>
+                    <div class="row">
+                        <div class="form-group col-sm-4 m-t-md">
+                            <label class=" font-thin h3 m-xxs">Wzrost
+                                <span *ngSwitchCase="true">[cm]</span>
+                                <span *ngSwitchCase="false">[in]</span>
+                            </label>
+                            <input type="number" class="form-control" formControlName="height">
+                            <span class="m-b-none padder"
+                                  *ngIf="surveyForm.dirty && surveyForm.controls.baseInformation.controls.height.errors?.required">To pole jest wymagane.</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-8 m-t-md">
+                            <label class="font-thin h3 m-xxs">Jednostki</label>
+                            <div class="row">
+                                <div class="col-sm-2 m-t-xs text-right">
+                                    <span class="h4 font-thin">lb, in</span>
+                                </div>
+                                <div>
+                                    <label class="i-switch m-t-xs">
+                                        <input type="checkbox" formControlName="metricSystem">
+                                        <i></i>
+                                    </label>
+                                </div>
+                                <div class="col-sm-2 m-t-xs text-left">
+                                    <span class="h4 font-thin">kg, m</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--ZDROWIE-->
-            <div class="line line b-b line-lg pull-in"></div>
-            <p class="m-n font-thin h1">Zdrowie</p>
-            <div class="row">
-                <div class="form-group col-sm-12 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Czy jestes swiadomy przeciwskazan
-                        zdrowotnych do podjecia treningu?</label>
-                    <div class="row">
-                        <div class="col-sm-1 m-t-xs text-right ">
-                            <span class="h4 font-thin m-l-n">Nie</span>
-                        </div>
-                        <div>
-                            <label class="i-switch m-t-xs">
-                                <input type="checkbox" checked>
-                                <i></i>
-                            </label>
-                        </div>
-                        <div class="col-sm-1 m-t-xs text-left">
-                            <span class="h4 font-thin">Tak</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-12 m-t-md">
-                    <label class=" font-thin h3 m-xxs"> Czy robiles próbe wysiłkową lub EKG w ciagu ostatniego
-                        roku?</label>
-                    <div class="row">
-                        <div class="col-sm-1 m-t-xs text-right ">
-                            <span class="h4 font-thin m-l-n">Nie</span>
-                        </div>
-                        <div>
-                            <label class="i-switch m-t-xs">
-                                <input type="checkbox" checked>
-                                <i></i>
-                            </label>
-                        </div>
-                        <div class="col-sm-1 m-t-xs text-left">
-                            <span class="h4 font-thin">Tak</span>
+            <div formGroupName="healthInformation">
+                <div class="line line b-b line-lg pull-in"></div>
+                <p class="m-n font-thin h1">Zdrowie</p>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Czy jestes swiadomy przeciwskazan
+                            zdrowotnych do podjecia treningu?</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="healthContraindications">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-12 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Czy robileś badania krwi w ciągu ostatnich 6 mieśięcy</label>
-                    <div class="row">
-                        <div class="col-sm-1 m-t-xs text-right ">
-                            <span class="h4 font-thin m-l-n">Nie</span>
-                        </div>
-                        <div>
-                            <label class="i-switch m-t-xs">
-                                <input type="checkbox" checked>
-                                <i></i>
-                            </label>
-                        </div>
-                        <div class="col-sm-1 m-t-xs text-left">
-                            <span class="h4 font-thin">Tak</span>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs"> Czy robiles próbe wysiłkową lub EKG w ciagu ostatniego
+                            roku?</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="stressTest">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-12 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Ile średnio godzin przeznaczas na sen?</label>
-                    <input type="number" class="col-sm-4 form-control" formControlName="hoursOfSleep">
-                    <span class="m-b-none padder"
-                          *ngIf="surveyForm.dirty && surveyForm.controls.hoursOfSleep.errors?.required">To pole jest wymagane.</span>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Czy robileś badania krwi w ciągu ostatnich 6 mieśięcy</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="bloodTest">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Ile średnio godzin przeznaczas na sen?</label>
+                        <input type="number" class="col-sm-4 form-control" formControlName="hoursOfSleep">
+                        <span class="m-b-none padder"
+                              *ngIf="surveyForm.dirty && surveyForm.controls.healthInformation.controls.hoursOfSleep.errors?.required">To pole jest wymagane.</span>
+                    </div>
                 </div>
             </div>
-
             <!--ODZYWIANIE-->
-            <div class="line line b-b line-lg pull-in"></div>
-            <p class="m-n font-thin h1">Odzywianie</p>
-            <div class="row">
-                <div class="form-group col-sm-12 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Spożywanie produktow mięsnych i pochodnych</label>
-                    <div class="row">
-                        <div class="col-sm-1 m-t-xs text-right ">
-                            <span class="h4 font-thin m-l-n">Nie</span>
-                        </div>
-                        <div>
-                            <label class="i-switch m-t-xs">
-                                <input type="checkbox" checked>
-                                <i></i>
-                            </label>
-                        </div>
-                        <div class="col-sm-1 m-t-xs text-left">
-                            <span class="h4 font-thin">Tak</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-12 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Spożywanie nabiału i pochodnych</label>
-                    <div class="row">
-                        <div class="col-sm-1 m-t-xs text-right ">
-                            <span class="h4 font-thin m-l-n">Nie</span>
-                        </div>
-                        <div>
-                            <label class="i-switch m-t-xs">
-                                <input type="checkbox" checked>
-                                <i></i>
-                            </label>
-                        </div>
-                        <div class="col-sm-1 m-t-xs text-left">
-                            <span class="h4 font-thin">Tak</span>
+            <div formGroupName="nutritionInformation">
+                <div class="line line b-b line-lg pull-in"></div>
+                <p class="m-n font-thin h1">Odzywianie</p>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Spożywanie produktow mięsnych i pochodnych</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="meatAcceptance">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-12 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Uczulenie na skladniki spożywcze</label>
-                    <div class="row">
-                        <div class="col-sm-1 m-t-xs text-right ">
-                            <span class="h4 font-thin m-l-n">Nie</span>
-                        </div>
-                        <div>
-                            <label class="i-switch m-t-xs">
-                                <input type="checkbox" checked>
-                                <i></i>
-                            </label>
-                        </div>
-                        <div class="col-sm-1 m-t-xs text-left">
-                            <span class="h4 font-thin">Tak</span>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Spożywanie nabiału i pochodnych</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="dairyedAcceptance">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-12 m-t-md">
-                    <label class=" font-thin h3 m-xxs">Nietolerancja na składniki odżywcze</label>
-                    <div class="row">
-                        <div class="col-sm-1 m-t-xs text-right ">
-                            <span class="h4 font-thin m-l-n">Nie</span>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Uczulenie na skladniki spożywcze</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="allergies">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
                         </div>
-                        <div>
-                            <label class="i-switch m-t-xs">
-                                <input type="checkbox" checked>
-                                <i></i>
-                            </label>
-                        </div>
-                        <div class="col-sm-1 m-t-xs text-left">
-                            <span class="h4 font-thin">Tak</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Nietolerancja na składniki odżywcze</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="foodIntolerance">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
                         </div>
                     </div>
                 </div>

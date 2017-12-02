@@ -11,6 +11,7 @@ import {ResultsDataservice} from "./results/results.dataservice";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Ng2DropdownModule} from 'ng2-material-dropdown';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {SurveyDataservice} from "./survey/survey.dataservice";
 
 @NgModule({
     imports: [
@@ -27,8 +28,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         SurveyComponent,
     ],
     entryComponents: [AddResultComponent],
-    providers: [AddResultModalService,
-    ResultsDataservice],
+    providers: [
+        AddResultModalService,
+        ResultsDataservice,
+        SurveyDataservice],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TrainingModule {

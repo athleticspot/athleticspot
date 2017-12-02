@@ -4,7 +4,7 @@ import com.athleticspot.AthleticspotApp;
 import com.athleticspot.service.UserService;
 import com.athleticspot.training.application.TrainingSurveyApplicationService;
 import com.athleticspot.training.domain.AthleteRepository;
-import com.athleticspot.training.domain.MeasureSystemType;
+import com.athleticspot.training.domain.MetricSystemType;
 import com.athleticspot.training.domain.trainingsurvey.*;
 import com.athleticspot.training.infrastracture.dto.in.AssignTrainingSurveyInDto;
 import com.athleticspot.web.rest.TestUtil;
@@ -121,7 +121,7 @@ public class TrainingSurveyCommandControllerTest {
                     RunCategory.FIVE_K
                 )
             )
-            .setMeasureSystemType(MeasureSystemType.METRIC)
+            .setMetricSystemType(MetricSystemType.METRIC)
             .build();
 
         return assignTrainingSurveyInDto;

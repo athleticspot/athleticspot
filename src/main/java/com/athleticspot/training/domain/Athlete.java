@@ -39,14 +39,14 @@ public class Athlete extends IdentifiedDomainObject {
         HealthInformation healthInformation,
         NutritionInformation nutritionInformation,
         TrainingGoal trainingGoals,
-        MeasureSystemType measureSystemType) {
+        MetricSystemType metricSystemType) {
         TrainingSurvey trainingSurvey = new TrainingSurvey(
             this.athleteId(),
             baseInformation,
             healthInformation,
             nutritionInformation,
             trainingGoals,
-            new MeasureSystem(measureSystemType));
+            new MeasureSystem(metricSystemType));
 
 //        DomainEventPublisher
 //            .instance()

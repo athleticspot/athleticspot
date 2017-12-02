@@ -1,7 +1,11 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
+import com.athleticspot.training.domain.MetricSystemType;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -12,37 +16,45 @@ import java.util.Objects;
 public class BaseInformation {
 
     @Column(nullable = false)
-    private LocalDate birthday;
+    private LocalDate birthDay;
 
     @Column(nullable = false)
-    private Double weight;
+    private Double bodyMass;
 
     @Column(nullable = false)
     private Double height;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private MetricSystemType metricSystemType;
 
     protected BaseInformation() {
         super();
     }
 
     public BaseInformation(
-        LocalDate birthday,
-        Double weight,
+        LocalDate birthDay,
+        Double bodyMass,
         Double height) {
-        this.birthday = birthday;
-        this.weight = weight;
+        this.birthDay = birthDay;
+        this.bodyMass = bodyMass;
         this.height = height;
     }
 
-    public LocalDate getBirthday() {
-        return birthday;
+    public LocalDate getBirthDay() {
+        return birthDay;
     }
 
-    public Double getWeight() {
-        return weight;
+    public Double getBodyMass() {
+        return bodyMass;
     }
 
     public Double getHeight() {
         return height;
+    }
+
+    public MetricSystemType getMetricSystemType() {
+        return metricSystemType;
     }
 
     @Override
@@ -50,13 +62,13 @@ public class BaseInformation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BaseInformation that = (BaseInformation) o;
-        return Objects.equals(birthday, that.birthday) &&
-            Objects.equals(weight, that.weight) &&
+        return Objects.equals(birthDay, that.birthDay) &&
+            Objects.equals(bodyMass, that.bodyMass) &&
             Objects.equals(height, that.height);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(birthday, weight, height);
+        return Objects.hash(birthDay, bodyMass, height);
     }
 }

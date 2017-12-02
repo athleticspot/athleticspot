@@ -1,29 +1,50 @@
 import {AfterViewChecked, Component, OnInit} from "@angular/core";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ScrollHelper} from "./ScrollHelper";
+import {SurveyDataservice} from "./survey.dataservice";
+import {MetricSystem, SurveyModel} from "./survey.model";
 
 @Component({
     selector: 'athleticspot-survey',
     templateUrl: './survey.component.html'
 })
-export class SurveyComponent implements OnInit, AfterViewChecked  {
+export class SurveyComponent implements OnInit, AfterViewChecked {
 
     surveyForm: FormGroup;
     isMetricSystem: boolean;
-    private scrollHelper : ScrollHelper = new ScrollHelper();
+    private scrollHelper: ScrollHelper = new ScrollHelper();
 
 
-    constructor() {
+    constructor(private surveyDataservice: SurveyDataservice, private formBuilder: FormBuilder) {
         this.isMetricSystem = true;
-        this.surveyForm = new FormGroup({
-            birthDay: new FormControl(new Date(), [Validators.required]),
-            bodyMass: new FormControl('', [Validators.required]),
-            height: new FormControl('', [Validators.required]),
-            hoursOfSleep: new FormControl('', [Validators.required]),
-            metricSystem: new FormControl(true, Validators.required)
+
+        this.surveyForm = this.formBuilder.group({
+            baseInformation: this.formBuilder.group({
+                birthDay: [new Date(), [Validators.required]],
+                bodyMass: ['', [Validators.required]],
+                height: ['', [Validators.required]],
+                metricSystem: [true, Validators.required]
+
+            }),
+            healthInformation: this.formBuilder.group({
+                healthContraindications: new FormControl(false, [Validators.required]),
+                stressTest: new FormControl(false, [Validators.required]),
+                bloodTest: new FormControl(true, [Validators.required]),
+                hoursOfSleep: new FormControl('', [Validators.required]),
+
+            }),
+            nutritionInformation: this.formBuilder.group({
+                meatAcceptance: new FormControl(true, [Validators.required]),
+                dairyedAcceptance: new FormControl(true, [Validators.required]),
+                allergies: new FormControl(false, [Validators.required]),
+                foodIntolerance: new FormControl(false, [Validators.required]),
+
+            })
         });
 
-        this.surveyForm.get('metricSystem').valueChanges.subscribe(val => {
+        new FormGroup({});
+
+        this.surveyForm.get("baseInformation").get('metricSystem').valueChanges.subscribe(val => {
             console.log(val);
             this.isMetricSystem = val;
         })
@@ -32,7 +53,7 @@ export class SurveyComponent implements OnInit, AfterViewChecked  {
     ngOnInit(): void {
     }
 
-    ngAfterViewChecked(){
+    ngAfterViewChecked() {
         this.scrollHelper.doScroll();
     }
 
@@ -44,12 +65,33 @@ export class SurveyComponent implements OnInit, AfterViewChecked  {
     public submitSurvey() {
         if (this.surveyForm.valid) {
             console.log('submit');
+            const survey = this.surveyForm.value as SurveyModel;
+
+
+
+            ///////////
+
+            if(this.isMetric()){
+                survey.baseInformation.metricSystemType = MetricSystem[0];
+            }else {
+                survey.baseInformation.metricSystemType = MetricSystem[1];
+            }
+
+            //////////
+
+            console.log(survey);
+            this.surveyDataservice.saveSurvey(survey).subscribe(isSuccess => {
+                console.log(isSuccess);
+            }, error => {
+                console.log(error);
+            });
         } else {
             this.surveyForm.markAsDirty({onlySelf: true})
-            Object.keys(this.surveyForm.controls).forEach(field => {
-                const control = this.surveyForm.get(field);
-                control.markAsDirty({onlySelf: true});
-
+            Object.keys(this.surveyForm.controls).forEach(group => {
+                const formGroup = this.surveyForm.get(group) as FormGroup;
+                Object.keys(formGroup.controls).forEach(control => {
+                    formGroup.get(control).markAsDirty({onlySelf: true});
+                });
             });
             this.scrollHelper.scrollToFirst("form-control ng-invalid");
         }

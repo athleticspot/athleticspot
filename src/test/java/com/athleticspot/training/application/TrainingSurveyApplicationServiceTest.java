@@ -3,7 +3,7 @@ package com.athleticspot.training.application;
 import com.athleticspot.AthleticspotApp;
 import com.athleticspot.training.application.command.AddTrainingHistoryCommand;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
-import com.athleticspot.training.domain.MeasureSystemType;
+import com.athleticspot.training.domain.MetricSystemType;
 import com.athleticspot.training.domain.trainingsurvey.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,21 +66,18 @@ public void assignTrainingSurveyTest() throws Exception {
     final TrainingSurvey trainingSurvey = trainingSurveyApplicationService
         .assignTrainingSurveyToAthlete(
             new AssignTrainingSurveyToAthleteCommand(
-                createBaseInformation().getBirthday(),
-                createBaseInformation().getWeight(),
+                createBaseInformation().getBirthDay(),
+                createBaseInformation().getBodyMass(),
                 createBaseInformation().getHeight(),
                 healthInformation.getHealthContraindications(),
                 healthInformation.getStressTest(),
                 healthInformation.getBloodTest(),
                 healthInformation.getHoursOfSleep(),
-                5D,
-                25d,
-                RunCategory.MARATHON,
                 meat_acceptance,
                 dairiesAcceptance,
                 allergies,
                 foodIntolerance,
-                MeasureSystemType.METRIC));
+                MetricSystemType.METRIC));
 
 //        expectedEvent(SurveyAssignedToAthlete.class);
 
@@ -263,21 +260,18 @@ public void assignTrainingSurveyTest() throws Exception {
         return trainingSurveyApplicationService
             .assignTrainingSurveyToAthlete(
                 new AssignTrainingSurveyToAthleteCommand(
-                    createBaseInformation().getBirthday(),
-                    createBaseInformation().getWeight(),
+                    createBaseInformation().getBirthDay(),
+                    createBaseInformation().getBodyMass(),
                     createBaseInformation().getHeight(),
                     healthInformation.getHealthContraindications(),
                     healthInformation.getStressTest(),
                     healthInformation.getBloodTest(),
                     healthInformation.getHoursOfSleep(),
-                    5D,
-                    25d,
-                    RunCategory.MARATHON,
                     meat_acceptance,
                     dairiesAcceptance,
                     allergies,
                     foodIntolerance,
-                    MeasureSystemType.METRIC));
+                    MetricSystemType.METRIC));
     }
 
 public static HealthInformation createHealthInformation() {
