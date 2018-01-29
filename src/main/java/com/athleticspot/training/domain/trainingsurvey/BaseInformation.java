@@ -15,16 +15,16 @@ import java.util.Objects;
 @Embeddable
 public class BaseInformation {
 
-    @Column(nullable = false)
+    @Column(name = "birth_day", nullable = false)
     private LocalDate birthDay;
 
-    @Column(nullable = false)
+    @Column(name = "body_mass", nullable = false)
     private Double bodyMass;
 
     @Column(nullable = false)
     private Double height;
 
-    @Column
+    @Column(name ="metric_system_type")
     @Enumerated(EnumType.STRING)
     private MetricSystemType metricSystemType;
 

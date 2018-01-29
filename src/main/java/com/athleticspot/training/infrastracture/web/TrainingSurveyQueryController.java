@@ -21,11 +21,12 @@ import java.util.Optional;
 public class TrainingSurveyQueryController {
 
     private final TrainingSurveyProvider trainingSurveyProvider;
+
     private final TrainingSurveyOutDtoAssembler trainingSurveyOutDtoAssembler;
 
     @Autowired
-    public TrainingSurveyQueryController(
-        TrainingSurveyProvider trainingSurveyProvider, TrainingSurveyOutDtoAssembler trainingSurveyOutDtoAssembler) {
+    public TrainingSurveyQueryController(TrainingSurveyProvider trainingSurveyProvider,
+                                         TrainingSurveyOutDtoAssembler trainingSurveyOutDtoAssembler) {
         this.trainingSurveyProvider = trainingSurveyProvider;
         this.trainingSurveyOutDtoAssembler = trainingSurveyOutDtoAssembler;
     }

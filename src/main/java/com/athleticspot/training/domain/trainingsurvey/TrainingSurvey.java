@@ -42,13 +42,11 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     @Embedded
     private TrainingGoal runningTrainingGoal;
 
-    public TrainingSurvey(
-        AthleteId athleteId,
-        BaseInformation baseInformation,
-        HealthInformation healthInformation,
-        NutritionInformation nutritionInformation,
-        TrainingGoal trainingGoals,
-        MeasureSystem measureSystem) {
+    private TrainingSurvey(AthleteId athleteId,
+                           BaseInformation baseInformation,
+                           HealthInformation healthInformation,
+                           NutritionInformation nutritionInformation,
+                           TrainingGoal trainingGoals) {
         this.athleteId = athleteId;
         this.baseInformation = baseInformation;
         this.healthInformation = healthInformation;
@@ -56,19 +54,23 @@ public class TrainingSurvey extends IdentifiedDomainObject {
         this.runningTrainingGoal = trainingGoals;
     }
 
+    public static TrainingSurvey of(AthleteId athleteId,
+                                    BaseInformation baseInformation,
+                                    HealthInformation healthInformation,
+                                    NutritionInformation nutritionInformation,
+                                    TrainingGoal trainingGoals) {
+        return new TrainingSurvey(
+            athleteId,
+            baseInformation,
+            healthInformation,
+            nutritionInformation,
+            trainingGoals);
+    }
 
-    public TrainingHistory addTrainingHistoryToSurvey(
-        Distance distance,
-        Duration personalRecord,
-        Duration lastTime) {
-//        DomainEventPublisher
-//            .instance()
-//            .publish(new TrainingHistoryAssignedToSurvey(
-//                distance,
-//                personalRecord,
-//                lastTime,
-//                new TrainingSurveyId(this.getId())
-//            ));
+
+    public TrainingHistory addTrainingHistoryToSurvey(Distance distance,
+                                                      Duration personalRecord,
+                                                      Duration lastTime) {
         return new TrainingHistory(
             distance,
             personalRecord,
@@ -82,24 +84,11 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     }
 
     public void removeTrainingHistoryFromSurvey(Long trainingHistoryId) {
-//        DomainEventPublisher
-//            .instance()
-//            .publish(new TrainingHistoryRemovedFromSurvey(
-//                trainingHistoryId,
-//                this.id
-//            ));
     }
 
     public TrainingIntensityInformation addTrainingIntensityPlanToSurvey(
         DayOfWeek dayOfWeek,
         TrainingIntensity trainingIntensity) {
-//        DomainEventPublisher
-//            .instance()
-//            .publish(new TrainingIntensityPlanAssignedToSurvey(
-//                dayOfWeek,
-//                trainingIntensity,
-//                new TrainingSurveyId(this.getId())
-//            ));
         return new TrainingIntensityInformation(
             dayOfWeek,
             trainingIntensity,
@@ -128,4 +117,11 @@ public class TrainingSurvey extends IdentifiedDomainObject {
         return this.trainingSurveyId.uuid();
     }
 
+    public void update(BaseInformation baseInformation,
+                       HealthInformation healthInformation,
+                       NutritionInformation nutritionInformation) {
+        this.baseInformation = baseInformation;
+        this.healthInformation = healthInformation;
+        this.nutritionInformation = nutritionInformation;
+    }
 }

@@ -19,15 +19,15 @@
             <column name="athlete_uuid" type="varchar(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="measure_system_type" type="varchar(36)">
+            <column name="metric_system_type" type="varchar(36)">
             </column>
-            <column name="birthDay" type="DATE">
+            <column name="birth_day" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="height" type="DOUBLE">
                 <constraints nullable="false"/>
             </column>
-            <column name="bodyMass" type="DOUBLE">
+            <column name="body_mass" type="DOUBLE">
                 <constraints nullable="false"/>
             </column>
             <column name="blood_test" type="BOOLEAN">
@@ -54,15 +54,9 @@
             <column name="meat_acceptance" type="BOOLEAN">
                 <constraints nullable="false"/>
             </column>
-            <column name="distance" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="duration" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="run_category" type="INT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="distance" type="DOUBLE"/>
+            <column name="duration" type="DOUBLE"/>
+            <column name="run_category" type="INT"/>
         </createTable>
     </changeSet>
     <changeSet author="tomkasp (generated)" id="1501323723659-16">

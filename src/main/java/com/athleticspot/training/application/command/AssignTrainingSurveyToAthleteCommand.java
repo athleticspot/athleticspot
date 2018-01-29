@@ -1,7 +1,6 @@
 package com.athleticspot.training.application.command;
 
 import com.athleticspot.common.command.ResponseAwareDomainCommand;
-import com.athleticspot.training.domain.MetricSystemType;
 import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
 import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
 import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
@@ -18,21 +17,18 @@ public class AssignTrainingSurveyToAthleteCommand
     private final BaseInformation baseInformation;
     private final HealthInformation healthInformation;
     private final NutritionInformation nutritionInformation;
-    private final MetricSystemType metricSystemType;
 
-    public AssignTrainingSurveyToAthleteCommand(LocalDate birthday,
-                                                Double weight,
-                                                Double height,
-                                                boolean healthContraindications,
-                                                boolean stressTest,
-                                                boolean bloodTest,
-                                                Double hoursOfSleep,
-                                                boolean meatAcceptance,
-                                                boolean dairiesAcceptance,
-                                                boolean allergies,
-                                                boolean foodIntolerance,
-                                                MetricSystemType metricSystemType) {
-        this.metricSystemType = metricSystemType;
+    private AssignTrainingSurveyToAthleteCommand(LocalDate birthday,
+                                                 Double weight,
+                                                 Double height,
+                                                 boolean healthContraindications,
+                                                 boolean stressTest,
+                                                 boolean bloodTest,
+                                                 Double hoursOfSleep,
+                                                 boolean meatAcceptance,
+                                                 boolean dairiesAcceptance,
+                                                 boolean allergies,
+                                                 boolean foodIntolerance) {
         this.healthInformation = new HealthInformation(
             healthContraindications,
             stressTest,
@@ -43,6 +39,31 @@ public class AssignTrainingSurveyToAthleteCommand
             weight,
             height);
         nutritionInformation = new NutritionInformation(meatAcceptance,
+            dairiesAcceptance,
+            allergies,
+            foodIntolerance);
+    }
+
+    public static AssignTrainingSurveyToAthleteCommand of(LocalDate birthday,
+                                                          Double weight,
+                                                          Double height,
+                                                          boolean healthContraindications,
+                                                          boolean stressTest,
+                                                          boolean bloodTest,
+                                                          Double hoursOfSleep,
+                                                          boolean meatAcceptance,
+                                                          boolean dairiesAcceptance,
+                                                          boolean allergies,
+                                                          boolean foodIntolerance) {
+        return new AssignTrainingSurveyToAthleteCommand(
+            birthday,
+            weight,
+            height,
+            healthContraindications,
+            stressTest,
+            bloodTest,
+            hoursOfSleep,
+            meatAcceptance,
             dairiesAcceptance,
             allergies,
             foodIntolerance);
@@ -60,7 +81,4 @@ public class AssignTrainingSurveyToAthleteCommand
         return nutritionInformation;
     }
 
-    public MetricSystemType getMetricSystemType() {
-        return metricSystemType;
-    }
 }

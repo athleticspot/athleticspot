@@ -9,13 +9,13 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TrainingGoal {
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Double distance;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Double duration;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private RunCategory runCategory;
 
     protected TrainingGoal() {

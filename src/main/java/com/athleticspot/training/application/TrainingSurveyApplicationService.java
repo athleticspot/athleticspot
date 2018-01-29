@@ -4,12 +4,11 @@ import com.athleticspot.domain.User;
 import com.athleticspot.service.UserService;
 import com.athleticspot.training.application.command.AddTrainingHistoryCommand;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
+import com.athleticspot.training.application.command.UpdateTrainingSurveyCommand;
+import com.athleticspot.training.application.exception.SurveyAlreadyAssignException;
 import com.athleticspot.training.domain.Athlete;
 import com.athleticspot.training.domain.AthleteRepository;
-import com.athleticspot.training.domain.trainingsurvey.TrainingHistory;
-import com.athleticspot.training.domain.trainingsurvey.TrainingHistoryRepository;
-import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
-import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyRepository;
+import com.athleticspot.training.domain.trainingsurvey.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +19,7 @@ import java.util.Optional;
  * @author Tomasz Kasprzycki
  */
 @Service
+@Transactional
 public class TrainingSurveyApplicationService {
 
     private final TrainingSurveyRepository trainingSurveyRepository;
@@ -29,36 +29,33 @@ public class TrainingSurveyApplicationService {
     private final AthleteRepository athleteRepository;
 
     private final TrainingHistoryRepository trainingHistoryRepository;
-//
-//    private final TrainingIntensityPlanRepository trainingIntensityPlanRepository;
+
+    private final TrainingSurveyProvider trainingSurveyProvider;
 
     @Autowired
-    public TrainingSurveyApplicationService(
-        TrainingSurveyRepository trainingSurveyRepository,
-        UserService userService,
-        AthleteRepository athleteRepository,
-        TrainingHistoryRepository trainingHistoryRepository) {
-
-//        TrainingIntensityPlanRepository trainingIntensityPlanRepository) {
+    public TrainingSurveyApplicationService(TrainingSurveyRepository trainingSurveyRepository,
+                                            UserService userService,
+                                            AthleteRepository athleteRepository,
+                                            TrainingHistoryRepository trainingHistoryRepository, TrainingSurveyProvider trainingSurveyProvider) {
         this.trainingSurveyRepository = trainingSurveyRepository;
         this.userService = userService;
         this.athleteRepository = athleteRepository;
         this.trainingHistoryRepository = trainingHistoryRepository;
-//        this.trainingIntensityPlanRepository = trainingIntensityPlanRepository;
+        this.trainingSurveyProvider = trainingSurveyProvider;
     }
 
-    @Transactional
     public TrainingSurvey assignTrainingSurveyToAthlete(AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand) {
         Athlete athlete = this.athleteData();
-        final TrainingSurvey trainingSurvey = athlete
-            .assignSurvey(
+        if (trainingSurveyProvider.getAthleteSurvey().isPresent()) {
+            throw new SurveyAlreadyAssignException("Survey allready assigned");
+        }
+        final TrainingSurvey trainingSurvey =
+            athlete.assignSurvey(
                 assignTrainingSurveyToAthleteCommand.getBaseInformation(),
                 assignTrainingSurveyToAthleteCommand.getHealthInformation(),
                 assignTrainingSurveyToAthleteCommand.getNutritionInformation(),
-                null,//                assignTrainingSurveyToAthleteCommand.getTrainingGoal(),
-                assignTrainingSurveyToAthleteCommand.getMetricSystemType());
+                null);
         trainingSurveyRepository.save(trainingSurvey);
-
         if (trainingSurvey == null) {
             throw new IllegalArgumentException("survey not assigned");
         }
@@ -66,19 +63,32 @@ public class TrainingSurveyApplicationService {
         return trainingSurvey;
     }
 
-    @Transactional
+    public void updateTrainingSurvey(UpdateTrainingSurveyCommand updateTrainingSurveyCommand) {
+        final TrainingSurvey athleteSurvey =
+            trainingSurveyProvider
+                .getAthleteSurvey()
+                .orElseThrow(() -> new IllegalArgumentException("Survey not assigned to user"));
+        athleteSurvey.update(
+            updateTrainingSurveyCommand.getBaseInformation(),
+            updateTrainingSurveyCommand.getHealthInformation(),
+            updateTrainingSurveyCommand.getNutritionInformation()
+        );
+        trainingSurveyRepository.save(athleteSurvey);
+    }
+
     public void addTrainingHistory(AddTrainingHistoryCommand addTrainingHistoryCommand) {
         final TrainingSurvey trainingSurvey =
-            trainingSurveyRepository.findByTrainingSurveyId(
+            trainingSurveyRepository.findByTrainingSurveyIdUuid(
                 addTrainingHistoryCommand
                     .getTrainingSurveyId().uuid()).get();
 
-        final TrainingHistory trainingHistory = trainingSurvey.addTrainingHistoryToSurvey(
+        TrainingHistory trainingHistory = trainingSurvey.addTrainingHistoryToSurvey(
             addTrainingHistoryCommand.getDistance(),
             addTrainingHistoryCommand.getPersonalRecord(),
-            addTrainingHistoryCommand.getLastTime());
+            addTrainingHistoryCommand.getLastTime()
+        );
 
-        trainingHistoryRepository.save(trainingHistory);
+        trainingHistory = trainingHistoryRepository.save(trainingHistory);
         addTrainingHistoryCommand.setResponse(trainingHistory.getId());
     }
 

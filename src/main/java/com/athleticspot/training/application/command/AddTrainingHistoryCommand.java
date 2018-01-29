@@ -19,15 +19,21 @@ public class AddTrainingHistoryCommand extends ResponseAwareDomainCommand<Long> 
 
     private final Duration lastTime;
 
-    public AddTrainingHistoryCommand(
-        TrainingSurveyId trainingSurveyId,
-        Distance distance,
-        Duration personalRecord,
-        Duration lastTime) {
+    private AddTrainingHistoryCommand(TrainingSurveyId trainingSurveyId,
+                                      Distance distance,
+                                      Duration personalRecord,
+                                      Duration lastTime) {
         this.trainingSurveyId = trainingSurveyId;
         this.distance = distance;
         this.personalRecord = personalRecord;
         this.lastTime = lastTime;
+    }
+
+    public static AddTrainingHistoryCommand of(TrainingSurveyId trainingSurveyId,
+                                               Distance distance,
+                                               Duration personalRecord,
+                                               Duration lastTime) {
+        return new AddTrainingHistoryCommand(trainingSurveyId, distance, personalRecord, lastTime);
     }
 
     public Distance getDistance() {

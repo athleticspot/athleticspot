@@ -34,20 +34,16 @@ public class Athlete extends IdentifiedDomainObject {
     @JoinColumn(name = "USER_ID", unique = true, nullable = false, updatable = false)
     private User user;
 
-    public TrainingSurvey assignSurvey(
-        BaseInformation baseInformation,
-        HealthInformation healthInformation,
-        NutritionInformation nutritionInformation,
-        TrainingGoal trainingGoals,
-        MetricSystemType metricSystemType) {
-        TrainingSurvey trainingSurvey = new TrainingSurvey(
+    public TrainingSurvey assignSurvey(BaseInformation baseInformation,
+                                       HealthInformation healthInformation,
+                                       NutritionInformation nutritionInformation,
+                                       TrainingGoal trainingGoals) {
+        TrainingSurvey trainingSurvey = TrainingSurvey.of(
             this.athleteId(),
             baseInformation,
             healthInformation,
             nutritionInformation,
-            trainingGoals,
-            new MeasureSystem(metricSystemType));
-
+            trainingGoals);
 //        DomainEventPublisher
 //            .instance()
 //            .publish(new SurveyAssignedToAthlete(

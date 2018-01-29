@@ -63,6 +63,9 @@ public class TrainingSurveyCommandControllerTest {
     @Autowired
     private ExceptionTranslator exceptionTranslator;
 
+    @Autowired
+    private TrainingSurveyProvider trainingSurveyProvider;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -70,8 +73,8 @@ public class TrainingSurveyCommandControllerTest {
             trainingSurveyRepository,
             userService,
             athleteRepository,
-            trainingHistoryRepository
-        );
+            trainingHistoryRepository,
+            trainingSurveyProvider);
         TrainingSurveyCommandController trainingSurveyCommandController =
             new TrainingSurveyCommandController(trainingSurveyApplicationService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(trainingSurveyCommandController)
