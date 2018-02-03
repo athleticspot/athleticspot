@@ -14,8 +14,7 @@ public class TrainingSurveyOutDtoAssembler {
             .trainingSurveyUuid(trainingSurvey.trainingSurveyId())
             .baseInformation(trainingSurvey.baseInformation())
             .healthInformation(trainingSurvey.healthInformation())
-            .nutritionInformation(trainingSurvey.nutritionInformation())
-            .trainingGoal(trainingSurvey.trainingGoal());
+            .nutritionInformation(trainingSurvey.nutritionInformation());
 
     }
 }

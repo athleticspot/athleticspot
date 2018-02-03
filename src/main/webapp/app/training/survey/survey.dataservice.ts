@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, Response} from "@angular/http";
 import {SurveyModel} from "./survey.model";
 import {Observable} from "rxjs/Observable";
 
@@ -10,8 +10,11 @@ export class SurveyDataservice {
     }
 
     public saveSurvey(survey: SurveyModel): Observable<any> {
-        console.log("saving survey");
         return this.http.post('api/survey', survey);
+    }
+
+    public fetchSurvey(): Observable<Response>{
+        return this.http.get('api/survey');
     }
 
 

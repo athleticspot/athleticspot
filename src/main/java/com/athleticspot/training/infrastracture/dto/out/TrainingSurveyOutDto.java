@@ -17,19 +17,12 @@ import java.io.Serializable;
 public class TrainingSurveyOutDto implements Serializable {
 
     private String trainingSurveyUuid;
-    private MeasureSystem measureSystem;
     private BaseInformation baseInformation;
     private HealthInformation healthInformation;
     private NutritionInformation nutritionInformation;
-    private TrainingGoal trainingGoal;
 
     public TrainingSurveyOutDto trainingSurveyUuid(final String trainingSurveyUuid) {
         this.trainingSurveyUuid = trainingSurveyUuid;
-        return this;
-    }
-
-    public TrainingSurveyOutDto measureSystem(final MeasureSystem measureSystem) {
-        this.measureSystem = measureSystem;
         return this;
     }
 
@@ -45,11 +38,6 @@ public class TrainingSurveyOutDto implements Serializable {
 
     public TrainingSurveyOutDto nutritionInformation(final NutritionInformation nutritionInformation) {
         this.nutritionInformation = nutritionInformation;
-        return this;
-    }
-
-    public TrainingSurveyOutDto trainingGoal(final TrainingGoal trainingGoal) {
-        this.trainingGoal = trainingGoal;
         return this;
     }
 

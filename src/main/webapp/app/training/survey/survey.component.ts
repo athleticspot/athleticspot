@@ -19,11 +19,12 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
         this.isMetricSystem = true;
 
         this.surveyForm = this.formBuilder.group({
+            trainingSurveyUuid: new FormControl(),
             baseInformation: this.formBuilder.group({
                 birthDay: [new Date(), [Validators.required]],
                 bodyMass: ['', [Validators.required]],
                 height: ['', [Validators.required]],
-                metricSystem: [true, Validators.required]
+                metricSystemType: [true, Validators.required]
 
             }),
             healthInformation: this.formBuilder.group({
@@ -44,13 +45,21 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
 
         new FormGroup({});
 
-        this.surveyForm.get("baseInformation").get('metricSystem').valueChanges.subscribe(val => {
+        this.surveyForm.get("baseInformation").get('metricSystemType').valueChanges.subscribe(val => {
             console.log(val);
             this.isMetricSystem = val;
         })
     }
 
     ngOnInit(): void {
+        this.surveyDataservice
+            .fetchSurvey()
+            .subscribe(value => {
+                    console.log(value)
+                    console.log(value.json() as SurveyModel);
+                    this.surveyForm.setValue(value.json() as SurveyModel);
+                }
+            );
     }
 
     ngAfterViewChecked() {
@@ -68,12 +77,11 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
             const survey = this.surveyForm.value as SurveyModel;
 
 
-
             ///////////
 
-            if(this.isMetric()){
+            if (this.isMetric()) {
                 survey.baseInformation.metricSystemType = MetricSystem[0];
-            }else {
+            } else {
                 survey.baseInformation.metricSystemType = MetricSystem[1];
             }
 
