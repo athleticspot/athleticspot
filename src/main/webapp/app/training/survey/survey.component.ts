@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ScrollHelper} from "./ScrollHelper";
 import {SurveyDataservice} from "./survey.dataservice";
 import {MetricSystem, SurveyModel} from "./survey.model";
+import * as moment from 'moment';
 
 @Component({
     selector: 'athleticspot-survey',
@@ -55,9 +56,13 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
         this.surveyDataservice
             .fetchSurvey()
             .subscribe(value => {
-                    console.log(value)
-                    console.log(value.json() as SurveyModel);
-                    this.surveyForm.setValue(value.json() as SurveyModel);
+                    let survey = value.json() as SurveyModel;
+                    this.surveyForm.setValue(survey);
+                    if (survey.baseInformation.metricSystemType == "imperial") {
+                        this.surveyForm.get("baseInformation").get('metricSystemType').setValue(false);
+                    } else {
+                        this.surveyForm.get("baseInformation").get('metricSystemType').setValue(true);
+                    }
                 }
             );
     }
@@ -71,28 +76,24 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
         return this.isMetricSystem;
     }
 
+    //TODO: change notification to toastr
     public submitSurvey() {
         if (this.surveyForm.valid) {
-            console.log('submit');
-            const survey = this.surveyForm.value as SurveyModel;
-
-
-            ///////////
-
-            if (this.isMetric()) {
-                survey.baseInformation.metricSystemType = MetricSystem[0];
+            const survey = this.provideSurvey();
+            survey.baseInformation.birthDay = moment(this.surveyForm.get("baseInformation").get('birthDay').value).format('YYYY-MM-DD');
+            if (survey.trainingSurveyUuid) {
+                this.surveyDataservice.updateSurvey(survey).subscribe(isSuccess => {
+                    console.log(isSuccess);
+                }, error => {
+                    console.log(error);
+                });
             } else {
-                survey.baseInformation.metricSystemType = MetricSystem[1];
+                this.surveyDataservice.saveSurvey(survey).subscribe(isSuccess => {
+                    console.log(isSuccess);
+                }, error => {
+                    console.log(error);
+                });
             }
-
-            //////////
-
-            console.log(survey);
-            this.surveyDataservice.saveSurvey(survey).subscribe(isSuccess => {
-                console.log(isSuccess);
-            }, error => {
-                console.log(error);
-            });
         } else {
             this.surveyForm.markAsDirty({onlySelf: true})
             Object.keys(this.surveyForm.controls).forEach(group => {
@@ -103,5 +104,15 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
             });
             this.scrollHelper.scrollToFirst("form-control ng-invalid");
         }
+    }
+
+    private provideSurvey() {
+        const survey = this.surveyForm.value as SurveyModel;
+        if (this.isMetric()) {
+            survey.baseInformation.metricSystemType = MetricSystem[0];
+        } else {
+            survey.baseInformation.metricSystemType = MetricSystem[1];
+        }
+        return JSON.parse(JSON.stringify(survey));
     }
 }

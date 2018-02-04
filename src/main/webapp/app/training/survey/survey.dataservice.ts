@@ -13,6 +13,10 @@ export class SurveyDataservice {
         return this.http.post('api/survey', survey);
     }
 
+    public updateSurvey(survey: SurveyModel): Observable<Response>{
+        return this.http.put('api/survey', survey);
+    }
+
     public fetchSurvey(): Observable<Response>{
         return this.http.get('api/survey');
     }

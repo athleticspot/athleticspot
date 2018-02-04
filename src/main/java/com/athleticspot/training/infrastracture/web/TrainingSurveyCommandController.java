@@ -2,7 +2,9 @@ package com.athleticspot.training.infrastracture.web;
 
 import com.athleticspot.training.application.TrainingSurveyApplicationService;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
+import com.athleticspot.training.application.command.UpdateTrainingSurveyCommand;
 import com.athleticspot.training.infrastracture.dto.in.AssignTrainingSurveyInDto;
+import com.athleticspot.training.infrastracture.dto.in.UpdateTrainingSurveyInDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +53,14 @@ public class TrainingSurveyCommandController {
 
 
     @PutMapping
-    public void updateTrainingSurvey() {
-
+    public void updateTrainingSurvey(@Valid @RequestBody UpdateTrainingSurveyInDto updateTrainingSurveyInDto) {
+        trainingSurveyApplicationService.updateTrainingSurvey(
+            UpdateTrainingSurveyCommand.create(
+                updateTrainingSurveyInDto.getBaseInformation(),
+                updateTrainingSurveyInDto.getHealthInformation(),
+                updateTrainingSurveyInDto.getNutritionInformation()
+            )
+        );
     }
 
     @DeleteMapping
