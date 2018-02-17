@@ -13,7 +13,7 @@
     <groupId>com.athleticspot</groupId>
     <artifactId>athleticspot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <name>Athleticspot</name>
 
     <properties>
@@ -106,6 +106,12 @@
         <validation-api.version>1.1.0.Final</validation-api.version>
         <yarn.version>v0.24.6</yarn.version>
     </properties>
+
+    <modules>
+        <module>tracker</module>
+        <module>core</module>
+        <module>web</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
