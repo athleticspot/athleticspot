@@ -2,8 +2,8 @@ import {ComponentFixture, inject, TestBed} from "@angular/core/testing";
 import {ElementRef, Renderer} from "@angular/core";
 import {Observable} from "rxjs/Rx";
 import {AthleticspotTestModule} from "../../../../test.module";
-import {PasswordResetInitComponent} from "../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.component";
-import {PasswordResetInitService} from "../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.service";
+import {PasswordResetInitComponent} from "../../../../../../../main/webapp-old/app/account/password-reset/init/password-reset-init.component";
+import {PasswordResetInitService} from "../../../../../../../main/webapp-old/app/account/password-reset/init/password-reset-init.service";
 
 
 describe('Component Tests', () => {

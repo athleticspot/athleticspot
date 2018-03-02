@@ -17,9 +17,9 @@ module.exports = (options) => {
     };
     return {
         entry: {
-            'polyfills': './web/src/main/webapp/app/polyfills',
-            'global': './web/src/main/webapp/content/css/global.css',
-            'main': './web/src/main/webapp/app/app.main'
+            'polyfills': './src/main/webapp/app/polyfills',
+            'global': './src/main/webapp/content/css/global.css',
+            'main': './src/main/webapp/app/app.main'
         },
         resolve: {
             extensions: ['.ts', '.js'],
@@ -46,7 +46,7 @@ module.exports = (options) => {
                         minifyJS:false,
                         minifyCSS:false
                     },
-                    exclude: ['./web/src/main/webapp/index.html']
+                    exclude: ['./src/main/webapp/index.html']
                 },
                 {
                     test: /\.css$/,
@@ -82,16 +82,16 @@ module.exports = (options) => {
         }),
         new webpack.DllReferencePlugin({
             context: './',
-            manifest: require(path.resolve('./web/target/www/vendor.json'))
+            manifest: require(path.resolve('./target/www/vendor.json'))
         }),
         new CopyWebpackPlugin([
             { from: './node_modules/core-js/client/shim.min.js', to: 'core-js-shim.min.js' },
             { from: './node_modules/swagger-ui/dist', to: 'swagger-ui/dist' },
-            { from: './web/src/main/webapp/swagger-ui/', to: 'swagger-ui' },
-            { from: './web/src/main/webapp/favicon.ico', to: 'favicon.ico' },
-            { from: './web/src/main/webapp/manifest.webapp', to: 'manifest.webapp' },
+            { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui' },
+            { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
+            { from: './src/main/webapp/manifest.webapp', to: 'manifest.webapp' },
             // { from: './src/main/webapp/sw.js', to: 'sw.js' },
-            { from: './web/src/main/webapp/robots.txt', to: 'robots.txt' }
+            { from: './src/main/webapp/robots.txt', to: 'robots.txt' }
         ]),
         new webpack.ProvidePlugin({
             $: "jquery",
@@ -100,18 +100,18 @@ module.exports = (options) => {
         new MergeJsonWebpackPlugin({
             output: {
                 groupBy: [
-                    { pattern: "./web/src/main/webapp/i18n/en/*.json", fileName: "./web/target/www/i18n/en.json" }
+                    { pattern: "./src/main/webapp/i18n/en/*.json", fileName: "./target/www/i18n/en.json" }
                     // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
                 ]
             }
         }),
         new HtmlWebpackPlugin({
-            template: './web/src/main/webapp/index.html',
+            template: './src/main/webapp/index.html',
             chunksSortMode: 'dependency',
             inject: 'body'
         }),
         new AddAssetHtmlPlugin([
-            { filepath: path.resolve('./web/target/www/vendor.dll.js'), includeSourcemap: false }
+            { filepath: path.resolve('./target/www/vendor.dll.js'), includeSourcemap: false }
         ]),
         new StringReplacePlugin(),
         new WebpackNotifierPlugin({

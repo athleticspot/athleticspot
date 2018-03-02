@@ -3,10 +3,10 @@ import {DatePipe} from "@angular/common";
 import {NgbPaginationConfig} from "@ng-bootstrap/ng-bootstrap";
 import {JhiParseLinks} from "ng-jhipster";
 import {AthleticspotTestModule} from "../../../test.module";
-import {PaginationConfig} from "../../../../../../main/webapp/app/blocks/config/uib-pagination.config";
-import {AuditsComponent} from "../../../../../../main/webapp/app/admin/audits/audits.component";
-import {AuditsService} from "../../../../../../main/webapp/app/admin/audits/audits.service";
-import {ITEMS_PER_PAGE} from "../../../../../../main/webapp/app/shared";
+import {PaginationConfig} from "../../../../../../main/webapp-old/app/blocks/config/uib-pagination.config";
+import {AuditsComponent} from "../../../../../../main/webapp-old/app/admin/audits/audits.component";
+import {AuditsService} from "../../../../../../main/webapp-old/app/admin/audits/audits.service";
+import {ITEMS_PER_PAGE} from "../../../../../../main/webapp-old/app/shared";
 
 
 function getDate(isToday = true) {

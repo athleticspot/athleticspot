@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
     entry: {
         'vendor': [
-            './web/src/main/webapp/app/vendor',
+            './src/main/webapp/app/vendor',
             '@angular/common',
             '@angular/compiler',
             '@angular/core',
@@ -41,13 +41,13 @@ module.exports = {
     },
     output: {
         filename: '[name].dll.js',
-        path: path.resolve('./web/target/www'),
+        path: path.resolve('./target/www'),
         library: '[name]'
     },
     plugins: [
         new webpack.DllPlugin({
             name: '[name]',
-            path: path.resolve('./web/target/www/[name].json')
+            path: path.resolve('./target/www/[name].json')
         })
     ]
 };
