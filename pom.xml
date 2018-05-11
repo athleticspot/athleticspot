@@ -20,6 +20,7 @@
         <module>tracker</module>
         <!--<module>core</module>-->
         <module>web</module>
+        <module>common</module>
     </modules>
 
 

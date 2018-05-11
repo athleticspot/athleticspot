@@ -73,7 +73,7 @@ public class ExceptionTranslator {
         if (log.isDebugEnabled()) {
             log.debug("An unexpected error occurred: {}", ex.getMessage(), ex);
         } else {
-            log.error("An unexpected error occurred: {}", ex.getMessage());
+            log.error("An unexpected error occurred: {}", ex);
         }
         BodyBuilder builder;
         ErrorVM errorVM;

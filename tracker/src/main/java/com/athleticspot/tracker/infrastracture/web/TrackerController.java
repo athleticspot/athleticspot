@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Tomasz Kasprzycki
  */
 @RestController
-@RequestMapping(value = ApiUrl.TRACKER_URL)
+@RequestMapping(value = SportTrackersApiUrl.TRACKER_URL)
 public class TrackerController {
 
     @GetMapping

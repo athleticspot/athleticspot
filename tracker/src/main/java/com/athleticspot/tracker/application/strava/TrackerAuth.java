@@ -5,7 +5,7 @@ package com.athleticspot.tracker.application.strava;
  */
 public interface TrackerAuth {
 
-    String activateTracker();
+    String authenticateTracker();
 
-    void authenticateTracker(String secret, String code);
+    void fetchToken(String code, String username);
 }
