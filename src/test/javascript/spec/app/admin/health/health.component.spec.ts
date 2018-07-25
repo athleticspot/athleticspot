@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AthleticspotTestModule} from "../../../test.module";
-import {JhiHealthCheckComponent} from "../../../../../../main/webapp/app/admin/health/health.component";
-import {JhiHealthService} from "../../../../../../main/webapp/app/admin/health/health.service";
+import {JhiHealthCheckComponent} from "../../../../../../main/webapp-old/app/admin/health/health.component";
+import {JhiHealthService} from "../../../../../../main/webapp-old/app/admin/health/health.service";
 
 
 describe('Component Tests', () => {

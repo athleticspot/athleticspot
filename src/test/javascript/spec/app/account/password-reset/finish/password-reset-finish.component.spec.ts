@@ -1,10 +1,10 @@
 import {ComponentFixture, inject, TestBed} from "@angular/core/testing";
 import {ElementRef, Renderer} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {LoginModalService} from "../../../../../../../main/webapp/app/shared";
+import {LoginModalService} from "../../../../../../../main/webapp-old/app/shared";
 import {AthleticspotTestModule} from "../../../../test.module";
-import {PasswordResetFinishComponent} from "../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.component";
-import {PasswordResetFinishService} from "../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.service";
+import {PasswordResetFinishComponent} from "../../../../../../../main/webapp-old/app/account/password-reset/finish/password-reset-finish.component";
+import {PasswordResetFinishService} from "../../../../../../../main/webapp-old/app/account/password-reset/finish/password-reset-finish.service";
 import {MockActivatedRoute} from "../../../../helpers/mock-route.service";
 
 

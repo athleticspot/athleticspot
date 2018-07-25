@@ -74,7 +74,7 @@ module.exports = (config) =
                 new webpack.ContextReplacementPlugin(
                     // The (\\|\/) piece accounts for path separators in *nix and Windows
                     /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-                    root('./src') // location of your src
+                    root('./web/src') // location of your src
                 ),
                 new LoaderOptionsPlugin({
                     options: {

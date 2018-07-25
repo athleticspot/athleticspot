@@ -4,9 +4,9 @@ import {Observable} from "rxjs/Rx";
 import {JhiLanguageService} from "ng-jhipster";
 import {MockLanguageService} from "../../../helpers/mock-language.service";
 import {AthleticspotTestModule} from "../../../test.module";
-import {LoginModalService} from "../../../../../../main/webapp/app/shared";
-import {Register} from "../../../../../../main/webapp/app/account/register/register.service";
-import {RegisterComponent} from "../../../../../../main/webapp/app/account/register/register.component";
+import {LoginModalService} from "../../../../../../main/webapp-old/app/shared";
+import {Register} from "../../../../../../main/webapp-old/app/account/register/register.service";
+import {RegisterComponent} from "../../../../../../main/webapp-old/app/account/register/register.component";
 
 describe('Component Tests', () => {
 

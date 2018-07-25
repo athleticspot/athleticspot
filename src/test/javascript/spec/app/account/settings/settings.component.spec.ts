@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {Observable} from "rxjs/Rx";
-import {AccountService, JhiLanguageHelper, Principal} from "../../../../../../main/webapp/app/shared";
+import {AccountService, JhiLanguageHelper, Principal} from "../../../../../../main/webapp-old/app/shared";
 import {AthleticspotTestModule} from "../../../test.module";
-import {SettingsComponent} from "../../../../../../main/webapp/app/account/settings/settings.component";
+import {SettingsComponent} from "../../../../../../main/webapp-old/app/account/settings/settings.component";
 import {MockAccountService} from "../../../helpers/mock-account.service";
 import {MockPrincipal} from "../../../helpers/mock-principal.service";
 

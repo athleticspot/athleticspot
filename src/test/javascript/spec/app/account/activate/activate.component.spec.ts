@@ -3,9 +3,9 @@ import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {AthleticspotTestModule} from "../../../test.module";
 import {MockActivatedRoute} from "../../../helpers/mock-route.service";
-import {LoginModalService} from "../../../../../../main/webapp/app/shared";
-import {ActivateService} from "../../../../../../main/webapp/app/account/activate/activate.service";
-import {ActivateComponent} from "../../../../../../main/webapp/app/account/activate/activate.component";
+import {LoginModalService} from "../../../../../../main/webapp-old/app/shared";
+import {ActivateService} from "../../../../../../main/webapp-old/app/account/activate/activate.service";
+import {ActivateComponent} from "../../../../../../main/webapp-old/app/account/activate/activate.component";
 
 describe('Component Tests', () => {
 

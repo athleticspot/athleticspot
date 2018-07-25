@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {Observable} from "rxjs/Rx";
 import {AthleticspotTestModule} from "../../../test.module";
-import {PasswordComponent} from "../../../../../../main/webapp/app/account/password/password.component";
-import {PasswordService} from "../../../../../../main/webapp/app/account/password/password.service";
-import {Principal} from "../../../../../../main/webapp/app/shared/auth/principal.service";
-import {AccountService} from "../../../../../../main/webapp/app/shared/auth/account.service";
+import {PasswordComponent} from "../../../../../../main/webapp-old/app/account/password/password.component";
+import {PasswordService} from "../../../../../../main/webapp-old/app/account/password/password.service";
+import {Principal} from "../../../../../../main/webapp-old/app/shared/auth/principal.service";
+import {AccountService} from "../../../../../../main/webapp-old/app/shared/auth/account.service";
 
 
 describe('Component Tests', () => {
