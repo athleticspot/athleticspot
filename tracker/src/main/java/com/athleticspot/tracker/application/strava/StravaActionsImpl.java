@@ -6,12 +6,14 @@ import javastrava.api.v3.model.StravaActivity;
 import javastrava.api.v3.rest.API;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 /**
  * @author Tomasz Kasprzycki
  */
+@Component
 public class StravaActionsImpl implements TrackerActions {
 
     private final Logger LOG = LoggerFactory.getLogger(StravaActionsImpl.class);
@@ -28,7 +30,7 @@ public class StravaActionsImpl implements TrackerActions {
             StravaActivity[] stravaActivities = api.listAuthenticatedAthleteActivities(null, null, 1, 10);
 
             Arrays.asList(stravaActivities).forEach(activity ->
-                LOG.info("")
+                LOG.info(String.valueOf(activity))
             );
 //            return Arrays.stream(stravaActivities).map(stravaActivity -> new StravaActivitiesDto()
 //                .distance(stravaActivity.getDistance())
