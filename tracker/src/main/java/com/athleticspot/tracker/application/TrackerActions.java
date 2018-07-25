@@ -1,4 +1,4 @@
-package com.athleticspot.tracker.application.strava;
+package com.athleticspot.tracker.application;
 
 /**
  * @author Tomasz Kasprzycki

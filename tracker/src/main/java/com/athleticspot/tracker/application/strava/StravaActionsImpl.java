@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.application.strava;
 
+import com.athleticspot.tracker.application.TrackerActions;
 import javastrava.api.v3.auth.TokenManager;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.model.StravaActivity;

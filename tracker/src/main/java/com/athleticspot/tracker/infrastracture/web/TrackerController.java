@@ -1,6 +1,6 @@
 package com.athleticspot.tracker.infrastracture.web;
 
-import com.athleticspot.tracker.application.strava.TrackerActions;
+import com.athleticspot.tracker.application.TrackerActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +25,4 @@ public class TrackerController {
          trackerActions.fetchActivities();
          return "test";
     }
-
-
-
 }
