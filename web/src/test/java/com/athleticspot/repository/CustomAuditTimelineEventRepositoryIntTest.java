@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
 @Transactional
-public class CustomAuditEventRepositoryIntTest {
+public class CustomAuditTimelineEventRepositoryIntTest {
 
     @Autowired
     private PersistenceAuditEventRepository persistenceAuditEventRepository;
