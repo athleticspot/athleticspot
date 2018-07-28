@@ -2,7 +2,7 @@ package com.athleticspot.tracker.application.strava;
 
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.StravaDataFactory;
-import com.athleticspot.tracker.domain.TrackerUser;
+import com.athleticspot.tracker.domain.model.TrackerUser;
 import javastrava.api.v3.auth.TokenManager;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;

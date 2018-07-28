@@ -1,4 +1,4 @@
-package com.athleticspot.tracker.domain;
+package com.athleticspot.tracker.domain.model;
 
 import org.springframework.stereotype.Component;
 
