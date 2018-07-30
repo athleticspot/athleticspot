@@ -80,15 +80,47 @@ public class TimelineTest {
 
     @Test
     public void whenActivityIsRemovedFromTimelineThenTimelineDoesntContainItLonger() {
+        //given
+        final Timeline timeline = testTimeline();
+        final String sportActivityIdentifier = UUID.randomUUID().toString();
+        timeline.addTimelineEvent(new SportActivity(sportActivityIdentifier));
+        Assertions.assertThat(timeline.timelineEvents()).hasSize(1);
 
+        //when
+        timeline.removeTimelineEvent(sportActivityIdentifier);
+
+        //then
+        Assertions.assertThat(timeline.timelineEvents()).hasSize(0);
     }
 
+    @Test
     public void whenActivitiesAreAddedInBulkThenTimelineContainsAllOfThem() {
+        //given
+        final Timeline timeline = testTimeline();
+        final List testActivities = testActivities(5);
+        Assertions.assertThat(timeline.timelineEvents()).hasSize(0);
 
+        //when
+        timeline.addTimelineEvents(testActivities);
+
+        //then
+        Assertions.assertThat(timeline.timelineEvents()).hasSize(5);
     }
 
+    @Test
     public void whenActivitiesAreRemovedInBulkThenTimelineDoesntContainAnyOfThem() {
+        //given
+        final Timeline timeline = testTimeline();
+        final List testActivities = testActivities(10);
+        timeline.addTimelineEvents(testActivities);
+        Assertions.assertThat(timeline.timelineEvents()).hasSize(10);
+        final TimelineEvent leftTimlineEvent = (TimelineEvent) testActivities.remove(0);
 
+        //when
+        timeline.removeTimelineEvents(testActivities);
+
+        Assertions.assertThat(timeline.timelineEvents()).hasSize(1);
+        Assertions.assertThat(timeline.timelineEvents()).contains(leftTimlineEvent);
     }
 
     private List testActivities(int activitiesSize) {
@@ -97,5 +129,11 @@ public class TimelineTest {
             timelineEvents.add(new SportActivity(UUID.randomUUID().toString()));
         }
         return timelineEvents;
+    }
+
+    private Timeline testTimeline() {
+        String timelineIdentifier = UUID.randomUUID().toString();
+        ApplicationUserId mockApplicationUserId = ApplicationUserId.create(UUID.randomUUID().toString());
+        return Timeline.create(mockApplicationUserId, timelineIdentifier);
     }
 }

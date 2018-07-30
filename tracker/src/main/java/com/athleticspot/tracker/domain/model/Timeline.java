@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Tomasz Kasprzycki
@@ -45,8 +46,27 @@ public class Timeline {
         this.timelineEvents.add(timelineEvent);
     }
 
+    public void addTimelineEvents(List activities) {
+        this.timelineEvents.addAll(activities);
+    }
+
     public List<TimelineEvent> timelineEvents() {
         return this.timelineEvents;
 
+    }
+
+    public void removeTimelineEvent(String sportActivityIdentifier) {
+        this.timelineEvents
+            = this.timelineEvents
+            .stream()
+            .filter(timelineEvent -> !timelineEvent.identifier().equals(sportActivityIdentifier))
+            .collect(Collectors.toList());
+    }
+
+    public void removeTimelineEvents(List testActivities) {
+        this.timelineEvents
+            = this.timelineEvents.stream()
+            .filter(timelineEvent -> !testActivities.contains(timelineEvent))
+            .collect(Collectors.toList());
     }
 }
