@@ -12,10 +12,22 @@ public class SportActivity implements TimelineEvent, Entity {
 
 
     private final String sportyActivityIdentifier;
+    private final SportActivityDetails details;
+    private final String source;
 
-    public SportActivity(String sportActivityIdentifier) {
+    private SportActivity(String sportActivityIdentifier,
+                          String sportActivitySource,
+                          SportActivityDetails sportActivityDetails) {
         Assert.notNull(sportActivityIdentifier, "Sport activity identifier cannot be null");
+        Assert.notNull(sportActivitySource, "Source cannot be null");
+        Assert.notNull(sportActivityDetails, "Sport activity details cannot be null");
         this.sportyActivityIdentifier = sportActivityIdentifier;
+        this.details = sportActivityDetails;
+        this.source = sportActivitySource;
+    }
+
+    public static SportActivity create(String sportActivityIdentifier, String sportActivitySource, SportActivityDetails sportActivityDetails) {
+        return new SportActivity(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
     }
 
     @Override
@@ -34,5 +46,13 @@ public class SportActivity implements TimelineEvent, Entity {
     @Override
     public int hashCode() {
         return Objects.hash(sportyActivityIdentifier);
+    }
+
+    public SportActivityDetails details() {
+        return this.details;
+    }
+
+    public String source() {
+        return this.source;
     }
 }

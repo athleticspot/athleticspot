@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.domain.model;
 
+import com.athleticspot.tracker.domain.shared.Entity;
 import com.google.common.collect.Lists;
 import org.springframework.util.Assert;
 
@@ -7,9 +8,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Aggregate root
  * @author Tomasz Kasprzycki
  */
-public class Timeline {
+public class Timeline implements Entity {
 
     private String timelineIdentifier;
     private final ApplicationUserId applicationUserId;
