@@ -10,3 +10,4 @@ public interface TimelineEvent {
     String identifier();
 
 }
+
