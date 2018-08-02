@@ -1,20 +1,14 @@
 package com.athleticspot.tracker.application;
 
 import com.athleticspot.tracker.application.impl.TimelineServiceImpl;
-import com.athleticspot.tracker.domain.model.ApplicationUserId;
-import com.athleticspot.tracker.domain.model.Timeline;
-import com.athleticspot.tracker.domain.model.TimelineRepository;
-import com.athleticspot.tracker.domain.model.UserRepository;
+import com.athleticspot.tracker.domain.model.*;
 import org.assertj.core.api.Assertions;
-import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import java.util.UUID;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Tomasz Kasprzycki
@@ -24,12 +18,14 @@ public class TimelineServiceTest {
     private TimelineService timelineService;
     private UserRepository userRepository;
     private TimelineRepository timelineRepository;
+    private ApplicationEvents applicationEvents;
 
     @Before
     public void setUp() {
         timelineRepository = Mockito.mock(TimelineRepository.class);
         userRepository = Mockito.mock(UserRepository.class);
-        timelineService = new TimelineServiceImpl(timelineRepository, userRepository);
+        applicationEvents = Mockito.mock(ApplicationEvents.class);
+        timelineService = new TimelineServiceImpl(timelineRepository, userRepository, applicationEvents);
     }
 
     @Test
@@ -49,6 +45,7 @@ public class TimelineServiceTest {
         Mockito.verify(timelineRepository,Mockito.times(1)).nextTimelineId();
         Mockito.verify(timelineRepository,Mockito.times(1)).store(Matchers.isA(Timeline.class));
         Mockito.verify(userRepository,Mockito.times(1)).getCurrentUserId();
+        Mockito.verify(applicationEvents,Mockito.times(1)).timelineWasCreated();
 
         //TODO: add assertion for event emit
     }
