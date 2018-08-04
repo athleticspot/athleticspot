@@ -9,5 +9,6 @@ public interface TimelineEvent {
 
     String identifier();
 
+    void assignToTimeline(String timelineIdentifier);
 }
 

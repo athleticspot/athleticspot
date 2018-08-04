@@ -19,4 +19,9 @@ public class TimelineRepositoryImpl implements TimelineRepository {
     public void store(Timeline timeline) {
 
     }
+
+    @Override
+    public Timeline find(String timelineIdentifier) {
+        return null;
+    }
 }

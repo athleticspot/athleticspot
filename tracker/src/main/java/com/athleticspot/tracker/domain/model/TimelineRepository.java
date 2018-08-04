@@ -8,4 +8,6 @@ public interface TimelineRepository {
     String nextTimelineId();
 
     void store(Timeline timeline);
+
+    Timeline find(String timelineIdentifier);
 }

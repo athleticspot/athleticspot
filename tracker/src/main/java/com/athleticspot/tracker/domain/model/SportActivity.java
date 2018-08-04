@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.domain.model;
 
 import com.athleticspot.tracker.domain.shared.Entity;
+import org.assertj.core.api.Assertions;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
@@ -10,10 +11,10 @@ import java.util.Objects;
  */
 public class SportActivity implements TimelineEvent, Entity {
 
-
     private final String sportyActivityIdentifier;
     private final SportActivityDetails details;
     private final String source;
+    private String timelineIdentifier;
 
     private SportActivity(String sportActivityIdentifier,
                           String sportActivitySource,
@@ -33,6 +34,12 @@ public class SportActivity implements TimelineEvent, Entity {
     @Override
     public String identifier() {
         return sportyActivityIdentifier;
+    }
+
+    @Override
+    public void assignToTimeline(String timelineIdentifier) {
+        Assert.notNull(timelineIdentifier, "timeline identifier cannot be null");
+        this.timelineIdentifier = timelineIdentifier;
     }
 
     @Override
