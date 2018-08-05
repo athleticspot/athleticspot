@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -70,5 +71,18 @@ public class Timeline implements Entity {
             = this.timelineEvents.stream()
             .filter(timelineEvent -> !testActivities.contains(timelineEvent))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Timeline)) return false;
+        Timeline timeline = (Timeline) o;
+        return Objects.equals(timelineIdentifier, timeline.timelineIdentifier);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timelineIdentifier);
     }
 }

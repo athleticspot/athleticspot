@@ -30,15 +30,16 @@ public class TimelineServiceTest {
         applicationEvents = Mockito.mock(ApplicationEvents.class);
         sportActivityRepository = Mockito.mock(SportActivityRepository.class);
         timelineService = new TimelineServiceImpl(timelineRepository, userRepository, sportActivityRepository, applicationEvents);
+
+        final ApplicationUserId mockUser = ApplicationUserId.create(UUID.randomUUID().toString());
+        Mockito.when(userRepository.getCurrentUserId()).thenReturn(mockUser);
     }
 
     @Test
     public void whenTimelineIsCreatedThenItIsStored() {
         //given
         final String expectedTimelineId = UUID.randomUUID().toString();
-        final ApplicationUserId mockUser = ApplicationUserId.create(UUID.randomUUID().toString());
         Mockito.when(timelineRepository.nextTimelineId()).thenReturn(expectedTimelineId);
-        Mockito.when(userRepository.getCurrentUserId()).thenReturn(mockUser);
 
         //when
         final String timelineId = timelineService.createTimeline();
@@ -80,6 +81,29 @@ public class TimelineServiceTest {
 
     @Test
     public void whenSystemAddActivityAndTimelineDoesntExisitNewTimelineIsCreated() {
+        //given
+        final String expectedTimelineId = UUID.randomUUID().toString();
+        Mockito.when(userRepository.getTimelineIdentifier()).thenReturn(null);
+        Mockito.when(timelineRepository.nextTimelineId()).thenReturn(expectedTimelineId);
+        Timeline timeline = TestTimelineFactory.testTimeline(expectedTimelineId);
+        SportActivity sportActivity = SportActivity.create(
+            UUID.randomUUID().toString(),
+            "Manual",
+            TimelineEventFactory.testSportActivity()
+        );
+
+        //when
+        timelineService.addActivity(sportActivity);
+
+        //then
+        Mockito.verify(userRepository, Mockito.times(1)).getTimelineIdentifier();
+        Mockito.verify(timelineRepository, Mockito.times(1)).store(timeline);
+        Mockito.verify(sportActivityRepository, Mockito.times(1)).store(sportActivity);
+        Mockito.verify(applicationEvents, Mockito.times(1)).sportActivityAdded(sportActivity);
+    }
+
+    @Test
+    public void whenActivityIsRemovedFromTimelineThenTimelineDoestHaveIt(){
 
     }
 

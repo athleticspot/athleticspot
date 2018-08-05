@@ -4,6 +4,8 @@ import com.athleticspot.tracker.application.ApplicationEvents;
 import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.domain.model.*;
 
+import java.util.Objects;
+
 /**
  * @author Tomasz Kasprzycki
  */
@@ -37,17 +39,24 @@ public class TimelineServiceImpl implements TimelineService {
     @Override
     public void addActivity(SportActivity sportActivity) {
 
-        final Timeline timeline = timelineRepository.find(userRepository.getTimelineIdentifier());
+        final String timelineIdentifier = userRepository.getTimelineIdentifier();
+        Timeline timeline = timelineRepository.find(timelineIdentifier);
+        if (Objects.isNull(timeline)) {
+            timeline = Timeline.create(userRepository.getCurrentUserId(), timelineRepository.nextTimelineId());
+            timelineRepository.store(timeline);
+            sportActivity.assignToTimeline(timeline.timelineIdentifier());
+        } else {
+            sportActivity.assignToTimeline(timelineIdentifier);
+        }
         //TODO: do we need below line? We can just simply save sport activity.
         timeline.addTimelineEvent(sportActivity);
-        sportActivity.assignToTimeline(userRepository.getTimelineIdentifier());
         sportActivityRepository.store(sportActivity);
         applicationEvents.sportActivityAdded(sportActivity);
     }
 
     @Override
     public void addActivities() {
-
+        //TODO: future state
     }
 
     @Override
@@ -57,6 +66,6 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public void removeActivities() {
-
+        //TODO: future state
     }
 }
