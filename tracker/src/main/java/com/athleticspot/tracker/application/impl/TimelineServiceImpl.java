@@ -3,6 +3,7 @@ package com.athleticspot.tracker.application.impl;
 import com.athleticspot.tracker.application.ApplicationEvents;
 import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.domain.model.*;
+import org.springframework.util.Assert;
 
 import java.util.Objects;
 
@@ -60,8 +61,15 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     @Override
-    public void removeActivity() {
-
+    public void removeActivity(SportActivity sportActivity) {
+        final String timelineIdentifier = userRepository.getTimelineIdentifier();
+        Timeline timeline = timelineRepository.find(timelineIdentifier);
+        if (Objects.isNull(timeline)) {
+            throw new IllegalStateException("Cannot remove sport activity when timeline doesn't exists");
+        }
+        timeline.removeTimelineEvent(sportActivity.identifier());
+        sportActivityRepository.delete(sportActivity.identifier());
+        timelineRepository.store(timeline);
     }
 
     @Override

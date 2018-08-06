@@ -26,8 +26,9 @@ public interface TimelineService {
 
     /**
      *
+     * @param sportActivity
      */
-    void removeActivity();
+    void removeActivity(SportActivity sportActivity);
 
     /**
      *
