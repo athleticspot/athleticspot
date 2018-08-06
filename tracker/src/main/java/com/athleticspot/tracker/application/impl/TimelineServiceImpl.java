@@ -3,13 +3,16 @@ package com.athleticspot.tracker.application.impl;
 import com.athleticspot.tracker.application.ApplicationEvents;
 import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.domain.model.*;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.xml.ws.ServiceMode;
 import java.util.Objects;
 
 /**
  * @author Tomasz Kasprzycki
  */
+@Service
 public class TimelineServiceImpl implements TimelineService {
 
     private final TimelineRepository timelineRepository;

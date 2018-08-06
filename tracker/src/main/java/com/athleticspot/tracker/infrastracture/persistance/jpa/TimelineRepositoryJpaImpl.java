@@ -1,14 +1,16 @@
-package com.athleticspot.tracker.infrastracture.persistance;
+package com.athleticspot.tracker.infrastracture.persistance.jpa;
 
 import com.athleticspot.tracker.domain.model.Timeline;
 import com.athleticspot.tracker.domain.model.TimelineRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 /**
  * @author Tomasz Kasprzycki
  */
-public class TimelineRepositoryImpl implements TimelineRepository {
+@Repository
+public class TimelineRepositoryJpaImpl implements TimelineRepository {
 
     @Override
     public String nextTimelineId() {
