@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -22,8 +23,13 @@ public class Timeline implements Entity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Transient
     private String timelineIdentifier;
+
+    @Transient
     private final ApplicationUserId applicationUserId;
+
+    @Transient
     private List<TimelineEvent> timelineEvents;
 
     private Timeline(ApplicationUserId applicationUserId, String timelineIdentifier) {
