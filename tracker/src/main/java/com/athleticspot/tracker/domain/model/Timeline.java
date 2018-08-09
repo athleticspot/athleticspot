@@ -4,10 +4,7 @@ import com.athleticspot.tracker.domain.shared.Entity;
 import com.google.common.collect.Lists;
 import org.springframework.util.Assert;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -23,7 +20,7 @@ public class Timeline implements Entity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Transient
+    @Column
     private String timelineIdentifier;
 
     @Transient

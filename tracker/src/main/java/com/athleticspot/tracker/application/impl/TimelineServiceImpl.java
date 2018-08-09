@@ -4,13 +4,16 @@ import com.athleticspot.tracker.application.ApplicationEvents;
 import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.domain.model.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Tomasz Kasprzycki
  */
 @Service
+@Transactional
 public class TimelineServiceImpl implements TimelineService {
 
     private final TimelineRepository timelineRepository;
@@ -42,12 +45,17 @@ public class TimelineServiceImpl implements TimelineService {
     public void addActivity(SportActivity sportActivity) {
 
         final String timelineIdentifier = userRepository.getTimelineIdentifier();
-        Timeline timeline = timelineRepository.find(timelineIdentifier);
-        if (Objects.isNull(timeline)) {
+        //TODO: if timeline identifier is null then we need to assign it back to user
+        Optional<Timeline> timelineOptional = timelineRepository.find(timelineIdentifier);
+
+
+        Timeline timeline;
+        if (!timelineOptional.isPresent()) {
             timeline = Timeline.create(userRepository.getCurrentUserId(), timelineRepository.nextTimelineId());
             timelineRepository.store(timeline);
             sportActivity.assignToTimeline(timeline.timelineIdentifier());
         } else {
+            timeline = timelineOptional.get();
             sportActivity.assignToTimeline(timelineIdentifier);
         }
         //TODO: do we need below line? We can just simply save sport activity.
@@ -64,13 +72,13 @@ public class TimelineServiceImpl implements TimelineService {
     @Override
     public void removeActivity(SportActivity sportActivity) {
         final String timelineIdentifier = userRepository.getTimelineIdentifier();
-        Timeline timeline = timelineRepository.find(timelineIdentifier);
-        if (Objects.isNull(timeline)) {
+        Optional<Timeline> timeline = timelineRepository.find(timelineIdentifier);
+        if (!timeline.isPresent()) {
             throw new IllegalStateException("Cannot remove sport activity when timeline doesn't exists");
         }
-        timeline.removeTimelineEvent(sportActivity.identifier());
+        timeline.get().removeTimelineEvent(sportActivity.identifier());
         sportActivityRepository.delete(sportActivity.identifier());
-        timelineRepository.store(timeline);
+        timelineRepository.store(timeline.get());
     }
 
     @Override

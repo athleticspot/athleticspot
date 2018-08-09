@@ -19,30 +19,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * @author Tomasz Kasprzycki
  */
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TrackerApplication.class)
 @Transactional
 public class TimelineIT {
 
-
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
-    TimelineService timelineService;
+    private TimelineService timelineService;
 
     @Autowired
-    TimelineRepository timelineRepository;
+    private TimelineRepository timelineRepository;
 
     @MockBean
     UserRepository userRepository;
-
 
     private final String expectedTimelineIdentifier = UUID.randomUUID().toString();
 
@@ -56,17 +54,11 @@ public class TimelineIT {
     public void testTimeline() {
         //given
 
-        Timeline timeline2 = Timeline.create(ApplicationUserId.create(""), "");
-        entityManager.persist(timeline2);
-        entityManager.flush();
-
-
         //when
-        timelineService.createTimeline();
-
+        final String expectedTimelineIdentifier = timelineService.createTimeline();
 
         //then
-        final Timeline timeline = timelineRepository.find(expectedTimelineIdentifier);
-        Assertions.assertThat(timeline).isNotNull();
+        final Optional<Timeline> timeline = timelineRepository.find(expectedTimelineIdentifier);
+        Assertions.assertThat(timeline.get()).isNotNull();
     }
 }

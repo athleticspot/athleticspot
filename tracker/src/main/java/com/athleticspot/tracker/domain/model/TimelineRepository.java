@@ -1,5 +1,7 @@
 package com.athleticspot.tracker.domain.model;
 
+import java.util.Optional;
+
 /**
  * @author Tomasz Kasprzycki
  */
@@ -9,5 +11,5 @@ public interface TimelineRepository {
 
     void store(Timeline timeline);
 
-    Timeline find(String timelineIdentifier);
+    Optional<Timeline> find(String timelineIdentifier);
 }

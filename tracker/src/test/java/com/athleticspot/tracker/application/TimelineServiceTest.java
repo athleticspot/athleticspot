@@ -8,9 +8,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -36,7 +36,7 @@ public class TimelineServiceTest {
         timelineService = new TimelineServiceImpl(timelineRepository, userRepository, sportActivityRepository, applicationEvents);
 
         final ApplicationUserId mockUser = ApplicationUserId.create(UUID.randomUUID().toString());
-        timeline = TestTimelineFactory.testTimeline(expectedTimelineId);
+        timeline =  TestTimelineFactory.testTimeline(expectedTimelineId);
         Mockito.when(userRepository.getCurrentUserId()).thenReturn(mockUser);
     }
 
@@ -63,7 +63,7 @@ public class TimelineServiceTest {
         final String expectedSportActivityIdentifier = UUID.randomUUID().toString();
         Mockito.when(userRepository.getTimelineIdentifier()).thenReturn(expectedTimelineId);
         Mockito.when(sportActivityRepository.nextSportActivityId()).thenReturn(expectedSportActivityIdentifier);
-        Mockito.when(timelineRepository.find(expectedTimelineId)).thenReturn(timeline);
+        Mockito.when(timelineRepository.find(expectedTimelineId)).thenReturn(Optional.of(timeline));
         SportActivity sportActivity = SportActivity.create(
             UUID.randomUUID().toString(),
             "Manual",
@@ -86,6 +86,7 @@ public class TimelineServiceTest {
         //given
         Mockito.when(userRepository.getTimelineIdentifier()).thenReturn(null);
         Mockito.when(timelineRepository.nextTimelineId()).thenReturn(expectedTimelineId);
+        Mockito.when(timelineRepository.find(null)).thenReturn(Optional.empty());
         SportActivity sportActivity = SportActivity.create(
             UUID.randomUUID().toString(),
             "Manual",
@@ -106,7 +107,7 @@ public class TimelineServiceTest {
     public void whenActivityIsRemovedFromTimelineThenTimelineDoestHaveIt() {
         //given
         Mockito.when(userRepository.getTimelineIdentifier()).thenReturn(expectedTimelineId);
-        Mockito.when(timelineRepository.find(expectedTimelineId)).thenReturn(timeline);
+        Mockito.when(timelineRepository.find(expectedTimelineId)).thenReturn(Optional.of(timeline));
         final String sportActivityIdentifier = UUID.randomUUID().toString();
         SportActivity sportActivity = SportActivity.create(
             sportActivityIdentifier,
@@ -124,8 +125,6 @@ public class TimelineServiceTest {
         Mockito.verify(userRepository, Mockito.times(1)).getTimelineIdentifier();
         Mockito.verify(sportActivityRepository, Mockito.times(1)).delete(sportActivityIdentifier);
         Mockito.verify(timelineRepository, Mockito.times(1)).store(timeline);
-
-
     }
 
 }
