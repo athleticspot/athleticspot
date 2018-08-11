@@ -20,7 +20,10 @@ public class TimelineServiceImpl implements TimelineService {
     private final SportActivityRepository sportActivityRepository;
     private final ApplicationEvents applicationEvents;
 
-    public TimelineServiceImpl(TimelineRepository timelineRepository, UserRepository userRepository, SportActivityRepository sportActivityRepository, ApplicationEvents applicationEvents) {
+    public TimelineServiceImpl(TimelineRepository timelineRepository,
+                               UserRepository userRepository,
+                               SportActivityRepository sportActivityRepository,
+                               ApplicationEvents applicationEvents) {
         this.timelineRepository = timelineRepository;
         this.userRepository = userRepository;
         this.sportActivityRepository = sportActivityRepository;
@@ -41,8 +44,16 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     @Override
-    public void addActivity(SportActivity sportActivity) {
+    public void addActivity(SportActivityDetails sportActivityDetails, String activitySource) {
         final String timelineIdentifier = userRepository.getTimelineIdentifier();
+        final String sportActivityIdentifier = sportActivityRepository.nextSportActivityId();
+        SportActivity sportActivity =
+            SportActivity.create(
+                sportActivityIdentifier,
+                activitySource,
+                sportActivityDetails
+
+            );
         //TODO: if timeline identifier is null then we need to assign it back to user
         Optional<Timeline> timelineOptional = timelineRepository.find(timelineIdentifier);
 

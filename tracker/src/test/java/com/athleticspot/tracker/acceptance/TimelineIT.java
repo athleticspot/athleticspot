@@ -63,4 +63,18 @@ public class TimelineIT {
         Assertions.assertThat(timelineUnderTest).isNotNull();
         Assertions.assertThat(timelineUnderTest.timelineIdentifier()).isEqualTo(expectedTimelineIdentifier);
     }
+
+    @Test
+    public void whenSportEventIsAddedToTimelineThenItsStored(){
+        //given
+        final String expectedTimelineIdentifier = timelineService.createTimeline();
+
+
+        //when
+//        timelineService.addActivity();
+
+
+        //them
+        Assertions.assertThat(false).isTrue();
+    }
 }

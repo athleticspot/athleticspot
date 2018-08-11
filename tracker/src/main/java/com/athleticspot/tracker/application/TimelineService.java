@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.application;
 
 import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.domain.model.SportActivityDetails;
 
 /**
  * @author Tomasz Kasprzycki
@@ -15,9 +16,10 @@ public interface TimelineService {
 
     /**
      *
-     * @param sportActivity
+     * @param sportActivityDetails
+     * @param activitySource
      */
-    void addActivity(SportActivity sportActivity);
+    void addActivity(SportActivityDetails sportActivityDetails, String activitySource);
 
     /**
      *

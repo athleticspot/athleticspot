@@ -40,7 +40,7 @@ public class SportActivityTest {
         );
 
         //when
-        SportActivity sportActivity = SportActivity.create(sportActivityIdentifier,sportActivitySource, sportActivityDetails);
+        SportActivity sportActivity = SportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
 
         //then
         Assertions.assertThat(sportActivity.identifier()).isEqualTo(sportActivityIdentifier);
@@ -57,5 +57,4 @@ public class SportActivityTest {
         Assertions.assertThat(sportActivityAssignedDetails.units()).isEqualTo(sportActivityUnits);
 
     }
-
 }
