@@ -6,7 +6,6 @@ import com.athleticspot.tracker.domain.model.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -30,7 +29,7 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public String createTimeline() {
-        final Timeline timeline = Timeline.create(userRepository.getCurrentUserId(), timelineRepository.nextTimelineId());
+        final Timeline timeline = Timeline.create(timelineRepository.nextTimelineId());
         timelineRepository.store(timeline);
         applicationEvents.timelineWasCreated(timeline);
         return timeline.timelineIdentifier();
@@ -43,21 +42,21 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public void addActivity(SportActivity sportActivity) {
-
         final String timelineIdentifier = userRepository.getTimelineIdentifier();
         //TODO: if timeline identifier is null then we need to assign it back to user
         Optional<Timeline> timelineOptional = timelineRepository.find(timelineIdentifier);
 
-
         Timeline timeline;
         if (!timelineOptional.isPresent()) {
-            timeline = Timeline.create(userRepository.getCurrentUserId(), timelineRepository.nextTimelineId());
-            timelineRepository.store(timeline);
+            final String availableTimelineId = timelineRepository.nextTimelineId();
+            timeline = Timeline.create(availableTimelineId);
             sportActivity.assignToTimeline(timeline.timelineIdentifier());
+            userRepository.addTimelineIdentifier("user id", availableTimelineId);
         } else {
             timeline = timelineOptional.get();
             sportActivity.assignToTimeline(timelineIdentifier);
         }
+        timelineRepository.store(timeline);
         //TODO: do we need below line? We can just simply save sport activity.
         timeline.addTimelineEvent(sportActivity);
         sportActivityRepository.store(sportActivity);

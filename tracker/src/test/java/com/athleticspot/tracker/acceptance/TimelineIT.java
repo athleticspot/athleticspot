@@ -51,7 +51,7 @@ public class TimelineIT {
     }
 
     @Test
-    public void testTimeline() {
+    public void whenTimelineIsCreatedThenItsStored() {
         //given
 
         //when
@@ -59,6 +59,8 @@ public class TimelineIT {
 
         //then
         final Optional<Timeline> timeline = timelineRepository.find(expectedTimelineIdentifier);
-        Assertions.assertThat(timeline.get()).isNotNull();
+        final Timeline timelineUnderTest = timeline.get();
+        Assertions.assertThat(timelineUnderTest).isNotNull();
+        Assertions.assertThat(timelineUnderTest.timelineIdentifier()).isEqualTo(expectedTimelineIdentifier);
     }
 }

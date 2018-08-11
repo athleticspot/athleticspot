@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserRepositoryJpaImpl implements UserRepository {
+
     @Override
     public ApplicationUserId getCurrentUserId() {
         return null;
@@ -17,5 +18,10 @@ public class UserRepositoryJpaImpl implements UserRepository {
     @Override
     public String getTimelineIdentifier() {
         return null;
+    }
+
+    @Override
+    public void addTimelineIdentifier(String user_id, String availableTimelineId) {
+
     }
 }

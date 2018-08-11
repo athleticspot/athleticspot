@@ -24,33 +24,24 @@ public class Timeline implements Entity {
     private String timelineIdentifier;
 
     @Transient
-    private final ApplicationUserId applicationUserId;
-
-    @Transient
     private List<TimelineEvent> timelineEvents;
 
-    private Timeline(ApplicationUserId applicationUserId, String timelineIdentifier) {
+    private Timeline(String timelineIdentifier) {
         Assert.notNull(timelineIdentifier, "Timeline identifier cannot be null");
-        Assert.notNull(applicationUserId, "Application user identifier cannot be null");
-        this.applicationUserId = applicationUserId;
         this.timelineIdentifier = timelineIdentifier;
         this.timelineEvents = Lists.newArrayList();
     }
 
-    public static Timeline create(ApplicationUserId applicationUserId, String timelineIdentifier) {
-        return new Timeline(applicationUserId, timelineIdentifier);
+    public static Timeline create(String timelineIdentifier) {
+        return new Timeline(timelineIdentifier);
     }
 
-    public static Timeline createWitActivities(String timelineIdentifier, ApplicationUserId mockApplicationUserId, List<TimelineEvent> timelineEvents) {
-        Timeline timeline = new Timeline(mockApplicationUserId, timelineIdentifier);
+    public static Timeline createWitActivities(String timelineIdentifier, List<TimelineEvent> timelineEvents) {
+        Timeline timeline = new Timeline(timelineIdentifier);
         timeline.timelineEvents = timelineEvents;
         return timeline;
-
     }
 
-    public ApplicationUserId user() {
-        return applicationUserId;
-    }
 
     public String timelineIdentifier() {
         return this.timelineIdentifier;

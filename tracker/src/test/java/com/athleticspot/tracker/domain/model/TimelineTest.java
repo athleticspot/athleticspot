@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,19 +15,17 @@ import static com.athleticspot.tracker.shared.TimelineEventFactory.testSportActi
 public class TimelineTest {
 
     private final String sportActivitySource = "Manual";
-    private SportActivityDetails sportActivityDetails = testSportActivity();
+    private final SportActivityDetails sportActivityDetails = testSportActivity();
 
     @Test
     public void whenThereIsNoTimelineNewOneIsCreated() {
         //given
         String timelineIdentifier = UUID.randomUUID().toString();
-        ApplicationUserId mockApplicationUserId = ApplicationUserId.create(UUID.randomUUID().toString());
 
         //when
-        Timeline timeline = Timeline.create(mockApplicationUserId, timelineIdentifier);
+        Timeline timeline = Timeline.create(timelineIdentifier);
 
         //then:
-        Assertions.assertThat(timeline.user()).isNotNull();
         Assertions.assertThat(timeline.timelineIdentifier()).isEqualTo(timelineIdentifier);
     }
 
@@ -36,27 +33,15 @@ public class TimelineTest {
     public void whenNullTimelieneIdentiefierIsPassedToTimelineConstructorThenObjectIsNotCreated() {
         //given
         String timelineIdentifier = null;
-        ApplicationUserId mockApplicationUserId = ApplicationUserId.create(UUID.randomUUID().toString());
 
-        Timeline.create(mockApplicationUserId, timelineIdentifier);
-    }
-
-
-    @Test(expected = IllegalArgumentException.class)
-    public void whenNullApplicationIdentiefierIsPassedToTimelineConstructorThenObjectIsNotCreated() {
-        //given
-        String timelineIdentifier = UUID.randomUUID().toString();
-        ApplicationUserId mockApplicationUserId = null;
-
-        Timeline.create(mockApplicationUserId, timelineIdentifier);
+        Timeline.create(timelineIdentifier);
     }
 
     @Test
     public void whenNewEventIsCreatedItIsAddedToTimeline() {
         //given
         String timelineIdentifier = UUID.randomUUID().toString();
-        ApplicationUserId mockApplicationUserId = ApplicationUserId.create(UUID.randomUUID().toString());
-        Timeline timeline = Timeline.create(mockApplicationUserId, timelineIdentifier);
+        Timeline timeline = Timeline.create(timelineIdentifier);
         String sportActivityIdentifier = UUID.randomUUID().toString();
         TimelineEvent sportActivity = SportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
 
@@ -74,13 +59,11 @@ public class TimelineTest {
         //given
         List<TimelineEvent> timelineEvents = testActivities(5);
         String timelineIdentifier = UUID.randomUUID().toString();
-        ApplicationUserId mockApplicationUserId = ApplicationUserId.create(UUID.randomUUID().toString());
 
         //when
-        Timeline timeline = Timeline.createWitActivities(timelineIdentifier, mockApplicationUserId, timelineEvents);
+        Timeline timeline = Timeline.createWitActivities(timelineIdentifier, timelineEvents);
 
         Assertions.assertThat(timeline.timelineIdentifier()).isEqualTo(timelineIdentifier);
-        Assertions.assertThat(timeline.user()).isEqualTo(mockApplicationUserId);
         Assertions.assertThat(timeline.timelineEvents()).hasSize(5);
     }
 
@@ -139,8 +122,7 @@ public class TimelineTest {
 
     private Timeline testTimeline() {
         String timelineIdentifier = UUID.randomUUID().toString();
-        ApplicationUserId mockApplicationUserId = ApplicationUserId.create(UUID.randomUUID().toString());
-        return Timeline.create(mockApplicationUserId, timelineIdentifier);
+        return Timeline.create(timelineIdentifier);
     }
 
 }

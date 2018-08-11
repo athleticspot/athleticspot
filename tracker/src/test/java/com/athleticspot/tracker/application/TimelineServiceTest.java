@@ -53,7 +53,6 @@ public class TimelineServiceTest {
 
         Mockito.verify(timelineRepository, Mockito.times(1)).nextTimelineId();
         Mockito.verify(timelineRepository, Mockito.times(1)).store(Matchers.isA(Timeline.class));
-        Mockito.verify(userRepository, Mockito.times(1)).getCurrentUserId();
         Mockito.verify(applicationEvents, Mockito.times(1)).timelineWasCreated(Matchers.isA(Timeline.class));
     }
 
