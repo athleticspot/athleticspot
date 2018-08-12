@@ -2,10 +2,8 @@ package com.athleticspot.tracker.acceptance;
 
 import com.athleticspot.tracker.TrackerApplication;
 import com.athleticspot.tracker.application.TimelineService;
-import com.athleticspot.tracker.domain.model.ApplicationUserId;
-import com.athleticspot.tracker.domain.model.Timeline;
-import com.athleticspot.tracker.domain.model.TimelineRepository;
-import com.athleticspot.tracker.domain.model.UserRepository;
+import com.athleticspot.tracker.domain.model.*;
+import com.athleticspot.tracker.shared.TestSportActivityDetailsFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,8 +37,11 @@ public class TimelineIT {
     @Autowired
     private TimelineRepository timelineRepository;
 
+    @Autowired
+    private SportActivityRepository sportActivityRepository;
+
     @MockBean
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     private final String expectedTimelineIdentifier = UUID.randomUUID().toString();
 
@@ -68,13 +69,18 @@ public class TimelineIT {
     public void whenSportEventIsAddedToTimelineThenItsStored(){
         //given
         final String expectedTimelineIdentifier = timelineService.createTimeline();
+        final String expectedSportActivityId = UUID.randomUUID().toString();
 
 
         //when
-//        timelineService.addActivity();
+        timelineService.addActivity(
+            TestSportActivityDetailsFactory.create(),
+            "Manual"
+        );
 
+        //then
+        final SportActivity byTimelineId = sportActivityRepository.findByTimelineId(expectedTimelineIdentifier);
+        Assertions.assertThat(byTimelineId).isNotNull();
 
-        //them
-        Assertions.assertThat(false).isTrue();
     }
 }

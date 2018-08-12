@@ -10,4 +10,6 @@ public interface SportActivityRepository {
     String nextSportActivityId();
 
     void delete(String sportActivityIdentifier);
+
+    SportActivity findByTimelineId(String timelineIdentifier);
 }

@@ -4,16 +4,31 @@ import com.athleticspot.tracker.domain.shared.Entity;
 import org.assertj.core.api.Assertions;
 import org.springframework.util.Assert;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * @author Tomasz Kasprzycki
  */
+@javax.persistence.Entity
 public class SportActivity implements TimelineEvent, Entity {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column
     private final String sportyActivityIdentifier;
+
+    @Transient
+    //TODO: remove transient annotation
     private final SportActivityDetails details;
+
+    @Column
     private final String source;
+
+    @Column
     private String timelineIdentifier;
 
     private SportActivity(String sportActivityIdentifier,
