@@ -15,11 +15,10 @@ public interface TimelineService {
     String createTimeline();
 
     /**
-     *
-     * @param sportActivityDetails
+     *  @param sportActivityDetails
      * @param activitySource
      */
-    void addActivity(SportActivityDetails sportActivityDetails, String activitySource);
+    String addActivity(SportActivityDetails sportActivityDetails, String activitySource);
 
     /**
      *

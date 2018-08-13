@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -66,21 +67,30 @@ public class TimelineIT {
     }
 
     @Test
-    public void whenSportEventIsAddedToTimelineThenItsStored(){
+    public void whenSportEventIsAddedToTimelineThenItsStored() {
         //given
-        final String expectedTimelineIdentifier = timelineService.createTimeline();
-        final String expectedSportActivityId = UUID.randomUUID().toString();
-
+        String expectedSportActivityId;
 
         //when
-        timelineService.addActivity(
-            TestSportActivityDetailsFactory.create(),
+        final SportActivityDetails expectedSportActivityDetails = TestSportActivityDetailsFactory.create();
+        expectedSportActivityId = timelineService.addActivity(
+            expectedSportActivityDetails,
             "Manual"
         );
 
         //then
-        final SportActivity byTimelineId = sportActivityRepository.findByTimelineId(expectedTimelineIdentifier);
-        Assertions.assertThat(byTimelineId).isNotNull();
+        final Optional<SportActivity> byTimelineId = sportActivityRepository.findBySportActivityId(expectedSportActivityId);
+        Assertions.assertThat(byTimelineId.isPresent()).isTrue();
+        Assertions.assertThat(byTimelineId.get().details()).isEqualTo(expectedSportActivityDetails);
+        Assertions.assertThat(byTimelineId.get().source()).isEqualTo("Manual");
+//        Assertions.assertThat(byTimelineId).containsExactly(
+//            SportActivity.create(
+//                expectedSportActivityId,
+//                "Manual",
+//                TestSportActivityDetailsFactory.create()
+//
+//            )
+//        );
 
     }
 }

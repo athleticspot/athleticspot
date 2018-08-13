@@ -3,6 +3,7 @@ package com.athleticspot.tracker.domain.model;
 import com.athleticspot.tracker.domain.shared.ValueObject;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author Tomasz Kasprzycki
@@ -79,5 +80,26 @@ public class SportActivityDetails implements ValueObject {
 
     public LocalDateTime dateTime() {
         return dateTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SportActivityDetails)) return false;
+        SportActivityDetails that = (SportActivityDetails) o;
+        return Objects.equals(description, that.description) &&
+            Objects.equals(title, that.title) &&
+            Objects.equals(type, that.type) &&
+            Objects.equals(duration, that.duration) &&
+            Objects.equals(distance, that.distance) &&
+            Objects.equals(units, that.units) &&
+            Objects.equals(maxSpeed, that.maxSpeed) &&
+            Objects.equals(meanSpeed, that.meanSpeed) &&
+            Objects.equals(dateTime, that.dateTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, title, type, duration, distance, units, maxSpeed, meanSpeed, dateTime);
     }
 }

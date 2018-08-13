@@ -1,5 +1,8 @@
 package com.athleticspot.tracker.domain.model;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * @author Tomasz Kasprzycki
  */
@@ -11,5 +14,7 @@ public interface SportActivityRepository {
 
     void delete(String sportActivityIdentifier);
 
-    SportActivity findByTimelineId(String timelineIdentifier);
+    List<SportActivity> findByTimelineId(String timelineIdentifier);
+
+    Optional<SportActivity> findBySportActivityId(String sportActivityId);
 }

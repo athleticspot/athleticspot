@@ -44,7 +44,7 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     @Override
-    public void addActivity(SportActivityDetails sportActivityDetails, String activitySource) {
+    public String addActivity(SportActivityDetails sportActivityDetails, String activitySource) {
         final String timelineIdentifier = userRepository.getTimelineIdentifier();
         final String sportActivityIdentifier = sportActivityRepository.nextSportActivityId();
         SportActivity sportActivity =
@@ -72,6 +72,7 @@ public class TimelineServiceImpl implements TimelineService {
         timeline.addTimelineEvent(sportActivity);
         sportActivityRepository.store(sportActivity);
         applicationEvents.sportActivityAdded(sportActivity);
+        return sportActivityIdentifier;
     }
 
     @Override
