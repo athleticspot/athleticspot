@@ -21,8 +21,7 @@ public class SportActivity implements TimelineEvent, Entity {
     @Column
     private final String sportyActivityIdentifier;
 
-    @Transient
-    //TODO: remove transient annotation
+    @Embedded
     private final SportActivityDetails details;
 
     @Column

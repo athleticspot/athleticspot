@@ -2,23 +2,29 @@ package com.athleticspot.tracker.domain.model;
 
 import com.athleticspot.tracker.domain.shared.ValueObject;
 
+import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
  * @author Tomasz Kasprzycki
  */
+@Embeddable
 public class SportActivityDetails implements ValueObject {
 
-    private final String description;
-    private final String title;
-    private final String type;
-    private final String duration;
-    private final String distance;
-    private final String units;
-    private final String maxSpeed;
-    private final String meanSpeed;
-    private final LocalDateTime dateTime;
+    private String description;
+    private String title;
+    private String type;
+    private String duration;
+    private String distance;
+    private String units;
+    private String maxSpeed;
+    private String meanSpeed;
+    private LocalDateTime dateTime;
+
+    private SportActivityDetails() {
+
+    }
 
     private SportActivityDetails(String description, String title, String type, String duration, String distance, String units, String maxSpeed, String meanSpeed, LocalDateTime dateTime) {
 

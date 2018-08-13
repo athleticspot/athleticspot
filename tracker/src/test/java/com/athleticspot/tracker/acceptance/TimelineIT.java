@@ -83,14 +83,5 @@ public class TimelineIT {
         Assertions.assertThat(byTimelineId.isPresent()).isTrue();
         Assertions.assertThat(byTimelineId.get().details()).isEqualTo(expectedSportActivityDetails);
         Assertions.assertThat(byTimelineId.get().source()).isEqualTo("Manual");
-//        Assertions.assertThat(byTimelineId).containsExactly(
-//            SportActivity.create(
-//                expectedSportActivityId,
-//                "Manual",
-//                TestSportActivityDetailsFactory.create()
-//
-//            )
-//        );
-
     }
 }
