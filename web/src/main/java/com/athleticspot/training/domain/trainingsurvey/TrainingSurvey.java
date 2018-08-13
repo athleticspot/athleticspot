@@ -16,7 +16,6 @@ import java.time.Duration;
  */
 @Entity
 @Table(name = "training_survey")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "training_survey_seq", allocationSize = 1)
 public class TrainingSurvey extends IdentifiedDomainObject {
 

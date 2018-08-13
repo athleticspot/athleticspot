@@ -23,7 +23,7 @@ public class SportActivityDetails implements ValueObject {
     private LocalDateTime dateTime;
 
     private SportActivityDetails() {
-
+        //jpa purpose
     }
 
     private SportActivityDetails(String description, String title, String type, String duration, String distance, String units, String maxSpeed, String meanSpeed, LocalDateTime dateTime) {

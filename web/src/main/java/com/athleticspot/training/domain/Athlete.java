@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "athlete")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "athlete_seq", allocationSize = 1)
 public class Athlete extends IdentifiedDomainObject {
 
@@ -44,30 +43,10 @@ public class Athlete extends IdentifiedDomainObject {
             healthInformation,
             nutritionInformation,
             trainingGoals);
-//        DomainEventPublisher
-//            .instance()
-//            .publish(new SurveyAssignedToAthlete(
-//                this.getId(),
-//                new TrainingSurveyId(trainingSurvey.getId()),
-//                baseInformation,
-//                healthInformation,
-//                nutritionInformation,
-//                trainingGoals));
 
         return trainingSurvey;
     }
 
-//    public Training assignTrainingToAthlete(
-//        RunCategory trainingDistance,
-//        RaceResult raceResult) {
-//        return new Training(
-//            trainingDistance,
-//            raceResult
-//        );
-//        //        DomainEventPublisher
-//            .instance()
-////            .publish();
-//    }
 
     public String getName() {
         return name;
