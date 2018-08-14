@@ -1,6 +1,5 @@
 package com.athleticspot.tracker.domain.model;
 
-import com.athleticspot.tracker.domain.shared.Entity;
 import com.google.common.collect.Lists;
 import org.springframework.util.Assert;
 
@@ -13,18 +12,20 @@ import java.util.stream.Collectors;
  * Aggregate root
  * @author Tomasz Kasprzycki
  */
-@javax.persistence.Entity
-public class Timeline implements Entity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@Entity
+@Table(name = "timeline")
+@SequenceGenerator(name = "sequenceGenerator", sequenceName = "athlete_seq", allocationSize = 1)
+public class Timeline extends com.athleticspot.common.domain.model.Entity {
 
     @Column
     private String timelineIdentifier;
 
     @Transient
     private List<TimelineEvent> timelineEvents;
+
+    private Timeline(){
+
+    }
 
     private Timeline(String timelineIdentifier) {
         Assert.notNull(timelineIdentifier, "Timeline identifier cannot be null");
