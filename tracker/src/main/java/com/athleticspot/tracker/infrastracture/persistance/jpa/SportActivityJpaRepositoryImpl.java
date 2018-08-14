@@ -51,7 +51,6 @@ public class SportActivityJpaRepositoryImpl extends SimpleJpaRepository<SportAct
         query.setParameter("timelineIdentifier", timelineIdentifier);
         return query.getResultList();
 
-
     }
 
     @Override

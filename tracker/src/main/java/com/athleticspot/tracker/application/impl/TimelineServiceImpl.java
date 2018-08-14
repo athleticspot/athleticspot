@@ -6,6 +6,8 @@ import com.athleticspot.tracker.domain.model.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -36,6 +38,12 @@ public class TimelineServiceImpl implements TimelineService {
         timelineRepository.store(timeline);
         applicationEvents.timelineWasCreated(timeline);
         return timeline.timelineIdentifier();
+    }
+
+    @Override
+    public List<SportActivity> getSportActivities() {
+        final String timelineIdentifier = userRepository.getTimelineIdentifier();
+        return sportActivityRepository.findByTimelineId(timelineIdentifier);
     }
 
     @Override
@@ -95,5 +103,13 @@ public class TimelineServiceImpl implements TimelineService {
     @Override
     public void removeActivities() {
         //TODO: future state
+    }
+
+    private String checkUserTimelineIdentifier() {
+        final String timelineIdentifier = userRepository.getTimelineIdentifier();
+        if (Objects.isNull(timelineIdentifier)) {
+            return createTimeline();
+        }
+        return timelineIdentifier;
     }
 }
