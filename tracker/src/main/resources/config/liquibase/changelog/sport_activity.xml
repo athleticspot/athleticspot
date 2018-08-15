@@ -43,7 +43,7 @@
             <column name="mean_speed" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="activity_time" type="varchar(50)">
+            <column name="activity_time" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
         </createTable>

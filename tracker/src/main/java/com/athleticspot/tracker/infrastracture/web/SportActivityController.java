@@ -1,14 +1,12 @@
 package com.athleticspot.tracker.infrastracture.web;
 
 import com.athleticspot.tracker.application.TimelineService;
-import com.athleticspot.tracker.application.strava.StravaAuthService;
-import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 import com.athleticspot.tracker.infrastracture.web.dto.out.SportActivityOutDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,8 +39,8 @@ public class SportActivityController {
 
     @PostMapping
     public void createSportActivity(@RequestBody SportActivityInDto sportActivityInDto){
-        LOG.info("Incomming request: {}", sportActivityInDto);
-
+        LOG.info("Incoming request: {}", sportActivityInDto);
+        timelineService.addActivity(SportActivityAssembler.assemble(sportActivityInDto), TrackerSource.MANUAL.getSource());
     }
 
     @PutMapping
