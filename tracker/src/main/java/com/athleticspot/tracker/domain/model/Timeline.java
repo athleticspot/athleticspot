@@ -14,17 +14,17 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "timeline")
-@SequenceGenerator(name = "sequenceGenerator", sequenceName = "athlete_seq", allocationSize = 1)
+@SequenceGenerator(name = "sequenceGenerator", sequenceName = "timeline_seq", allocationSize = 1)
 public class Timeline extends com.athleticspot.common.domain.model.Entity {
 
-    @Column
+    @Column(name = "timeline_id")
     private String timelineIdentifier;
 
     @Transient
     private List<TimelineEvent> timelineEvents;
 
     private Timeline(){
-
+        //jpa only
     }
 
     private Timeline(String timelineIdentifier) {
@@ -37,7 +37,7 @@ public class Timeline extends com.athleticspot.common.domain.model.Entity {
         return new Timeline(timelineIdentifier);
     }
 
-    public static Timeline createWitActivities(String timelineIdentifier, List<TimelineEvent> timelineEvents) {
+    static Timeline createWitActivities(String timelineIdentifier, List<TimelineEvent> timelineEvents) {
         Timeline timeline = new Timeline(timelineIdentifier);
         timeline.timelineEvents = timelineEvents;
         return timeline;

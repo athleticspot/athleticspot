@@ -2,28 +2,50 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet author="tomkasp" id="sport_activity">
-        <createSequence sequenceName="athlete_seq"/>
+    <changeSet author="tomkasp" id="sport_activity_seq">
+        <createSequence sequenceName="sport_activity_seq"/>
     </changeSet>
-    <changeSet author="tomkasp (generated)" id="1500488770808-2">
-        <createTable tableName="athlete">
+    <changeSet author="tomkasp" id="sport_activity">
+        <createTable tableName="sport_activity">
             <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="athletePK"/>
+                <constraints primaryKey="true" primaryKeyName="pk_sport_activity"/>
             </column>
-            <column name="athlete_id" type="varchar(36)">
+            <column name="sport_activity_id" type="varchar(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="VARCHAR(100)">
+            <column name="source" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="BIGINT">
+            <column name="timeline_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="units" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_speed" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mean_speed" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activity_time" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="tomkasp (generated)" id="1500488770808-20">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="athlete"
-                                 constraintName="FKqdls1olkg0mxplqpo38ywnt5h" deferrable="false"
-                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
     </changeSet>
 </databaseChangeLog>

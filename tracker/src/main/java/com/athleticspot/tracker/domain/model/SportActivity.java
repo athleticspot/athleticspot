@@ -11,6 +11,7 @@ import java.util.Objects;
  * @author Tomasz Kasprzycki
  */
 @javax.persistence.Entity
+@Table(name = "sport_activity")
 public class SportActivity implements TimelineEvent, Entity {
 
 
@@ -18,16 +19,16 @@ public class SportActivity implements TimelineEvent, Entity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(name = "sport_activity_id")
     private final String sportyActivityIdentifier;
 
     @Embedded
     private final SportActivityDetails details;
 
-    @Column
+    @Column(name = "source")
     private final String source;
 
-    @Column
+    @Column(name = "timeline_id")
     private String timelineIdentifier;
 
     private SportActivity(String sportActivityIdentifier,

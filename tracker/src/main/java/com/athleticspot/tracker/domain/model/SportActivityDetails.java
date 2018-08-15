@@ -2,6 +2,7 @@ package com.athleticspot.tracker.domain.model;
 
 import com.athleticspot.tracker.domain.shared.ValueObject;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -12,21 +13,38 @@ import java.util.Objects;
 @Embeddable
 public class SportActivityDetails implements ValueObject {
 
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "type")
     private String type;
+
+    @Column(name = "duration")
     private String duration;
+
+    @Column(name = "distance")
     private String distance;
+
+    @Column(name = "units")
     private String units;
+
+    @Column(name = "max_speed")
     private String maxSpeed;
+
+    @Column(name = "mean_speed")
     private String meanSpeed;
-    private LocalDateTime dateTime;
+
+    @Column(name = "activity_time")
+    private LocalDateTime sportActivityTime;
 
     private SportActivityDetails() {
         //jpa purpose
     }
 
-    private SportActivityDetails(String description, String title, String type, String duration, String distance, String units, String maxSpeed, String meanSpeed, LocalDateTime dateTime) {
+    private SportActivityDetails(String description, String title, String type, String duration, String distance, String units, String maxSpeed, String meanSpeed, LocalDateTime sportActivityTime) {
 
         this.description = description;
         this.title = title;
@@ -36,7 +54,7 @@ public class SportActivityDetails implements ValueObject {
         this.units = units;
         this.maxSpeed = maxSpeed;
         this.meanSpeed = meanSpeed;
-        this.dateTime = dateTime;
+        this.sportActivityTime = sportActivityTime;
     }
 
     public static SportActivityDetails create(
@@ -85,7 +103,7 @@ public class SportActivityDetails implements ValueObject {
     }
 
     public LocalDateTime dateTime() {
-        return dateTime;
+        return sportActivityTime;
     }
 
     @Override
@@ -101,11 +119,11 @@ public class SportActivityDetails implements ValueObject {
             Objects.equals(units, that.units) &&
             Objects.equals(maxSpeed, that.maxSpeed) &&
             Objects.equals(meanSpeed, that.meanSpeed) &&
-            Objects.equals(dateTime, that.dateTime);
+            Objects.equals(sportActivityTime, that.sportActivityTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, title, type, duration, distance, units, maxSpeed, meanSpeed, dateTime);
+        return Objects.hash(description, title, type, duration, distance, units, maxSpeed, meanSpeed, sportActivityTime);
     }
 }
