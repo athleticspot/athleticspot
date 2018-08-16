@@ -1,4 +1,4 @@
-package com.athleticspot.domain;
+package com.athleticspot.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.envers.Audited;

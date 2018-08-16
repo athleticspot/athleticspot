@@ -1,6 +1,6 @@
 package com.athleticspot.training.application;
 
-import com.athleticspot.domain.User;
+import com.athleticspot.common.domain.User;
 import com.athleticspot.service.UserService;
 import com.athleticspot.training.application.command.AddTrainingHistoryCommand;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;

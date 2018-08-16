@@ -2,6 +2,7 @@ package com.athleticspot.tracker.application.impl;
 
 import com.athleticspot.tracker.application.ApplicationEvents;
 import com.athleticspot.tracker.application.TimelineService;
+import com.athleticspot.tracker.application.TrackerUserService;
 import com.athleticspot.tracker.domain.model.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,16 +19,16 @@ import java.util.Optional;
 public class TimelineServiceImpl implements TimelineService {
 
     private final TimelineRepository timelineRepository;
-    private final UserRepository userRepository;
+    private final TrackerUserService trackerUserService;
     private final SportActivityRepository sportActivityRepository;
     private final ApplicationEvents applicationEvents;
 
     public TimelineServiceImpl(TimelineRepository timelineRepository,
-                               UserRepository userRepository,
+                               TrackerUserService trackerUserService,
                                SportActivityRepository sportActivityRepository,
                                ApplicationEvents applicationEvents) {
         this.timelineRepository = timelineRepository;
-        this.userRepository = userRepository;
+        this.trackerUserService = trackerUserService;
         this.sportActivityRepository = sportActivityRepository;
         this.applicationEvents = applicationEvents;
     }
@@ -42,7 +43,7 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public List<SportActivity> getSportActivities() {
-        final String timelineIdentifier = userRepository.getTimelineIdentifier();
+        final String timelineIdentifier = trackerUserService.getTimelineIdentifier();
         return sportActivityRepository.findByTimelineId(timelineIdentifier);
     }
 
@@ -53,7 +54,7 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public String addActivity(SportActivityDetails sportActivityDetails, String activitySource) {
-        final String timelineIdentifier = userRepository.getTimelineIdentifier();
+        final String timelineIdentifier = trackerUserService.getTimelineIdentifier();
         final String sportActivityIdentifier = sportActivityRepository.nextSportActivityId();
         SportActivity sportActivity =
             SportActivity.create(
@@ -70,7 +71,7 @@ public class TimelineServiceImpl implements TimelineService {
             final String availableTimelineId = timelineRepository.nextTimelineId();
             timeline = Timeline.create(availableTimelineId);
             sportActivity.assignToTimeline(timeline.timelineIdentifier());
-            userRepository.addTimelineIdentifier("user id", availableTimelineId);
+            trackerUserService.addTimelineIdentifier("user id", availableTimelineId);
         } else {
             timeline = timelineOptional.get();
             sportActivity.assignToTimeline(timelineIdentifier);
@@ -90,7 +91,7 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public void removeActivity(SportActivity sportActivity) {
-        final String timelineIdentifier = userRepository.getTimelineIdentifier();
+        final String timelineIdentifier = trackerUserService.getTimelineIdentifier();
         Optional<Timeline> timeline = timelineRepository.find(timelineIdentifier);
         if (!timeline.isPresent()) {
             throw new IllegalStateException("Cannot remove sport activity when timeline doesn't exists");
@@ -106,7 +107,7 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     private String checkUserTimelineIdentifier() {
-        final String timelineIdentifier = userRepository.getTimelineIdentifier();
+        final String timelineIdentifier = trackerUserService.getTimelineIdentifier();
         if (Objects.isNull(timelineIdentifier)) {
             return createTimeline();
         }

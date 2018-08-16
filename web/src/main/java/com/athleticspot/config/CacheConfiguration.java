@@ -1,5 +1,6 @@
 package com.athleticspot.config;
 
+import com.athleticspot.common.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
@@ -37,11 +38,11 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            cm.createCache(com.athleticspot.domain.User.class.getName(), jcacheConfiguration);
+            cm.createCache(User.class.getName(), jcacheConfiguration);
             cm.createCache(com.athleticspot.training.domain.trainingsurvey.TrainingSurvey.class.getName(), jcacheConfiguration);
             cm.createCache(com.athleticspot.training.domain.Athlete.class.getName(), jcacheConfiguration);
             cm.createCache(com.athleticspot.domain.Authority.class.getName(), jcacheConfiguration);
-            cm.createCache(com.athleticspot.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(com.athleticspot.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };

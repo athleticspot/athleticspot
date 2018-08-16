@@ -1,22 +1,23 @@
 package com.athleticspot.tracker.domain.model;
 
-import org.springframework.stereotype.Component;
-
-import java.util.List;
+import javax.persistence.*;
 
 /**
  * @author Tomasz Kasprzycki
  */
-@Component
-public class TrackerUser  {
+@Entity
+@Table(name = "jhi_user")
+@SequenceGenerator(name = "sequenceGenerator", sequenceName = "timeline_seq", allocationSize = 1)
+public class TrackerUser {
 
-    private String stravaUsername;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String athleticspotUsername;
+    @Column(name = "timeline_id")
+    private String timelineIdentifier;
 
-    private String token;
 
-    List<SportTracker> sportTrackers;
 
 }
 

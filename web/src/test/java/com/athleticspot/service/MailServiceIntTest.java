@@ -1,7 +1,7 @@
 package com.athleticspot.service;
 
 import com.athleticspot.AthleticspotApp;
-import com.athleticspot.domain.User;
+import com.athleticspot.common.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,10 +1,8 @@
 package com.athleticspot.training.domain;
 
 import com.athleticspot.common.domain.model.IdentifiedDomainObject;
-import com.athleticspot.domain.User;
+import com.athleticspot.common.domain.User;
 import com.athleticspot.training.domain.trainingsurvey.*;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

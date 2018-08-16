@@ -2,7 +2,6 @@ package com.athleticspot.tracker.application.strava;
 
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.StravaDataFactory;
-import com.athleticspot.tracker.domain.model.TrackerUser;
 import javastrava.api.v3.auth.TokenManager;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;
@@ -23,11 +22,8 @@ public class StravaAuthService implements TrackerAuth {
 
     private final StravaDataFactory stravaDataProvider;
 
-    private final TrackerUser stravaUser;
-
-    public StravaAuthService(StravaDataFactory stravaDataProvider, TrackerUser stravaUser) {
+    public StravaAuthService(StravaDataFactory stravaDataProvider) {
         this.stravaDataProvider = stravaDataProvider;
-        this.stravaUser = stravaUser;
     }
 
     /**

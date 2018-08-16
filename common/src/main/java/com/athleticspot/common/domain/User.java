@@ -1,10 +1,10 @@
-package com.athleticspot.domain;
+package com.athleticspot.common.domain;
 
 import com.athleticspot.config.Constants;
+import com.athleticspot.domain.AbstractAuditingEntity;
+import com.athleticspot.domain.Authority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -79,6 +79,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "reset_date")
     private Instant resetDate = null;
+
+    @Column(name = "timeline_id")
+    private String timelineIdentifier;
+
 
     @JsonIgnore
     @ManyToMany

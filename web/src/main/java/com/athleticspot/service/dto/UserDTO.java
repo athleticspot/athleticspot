@@ -2,7 +2,7 @@ package com.athleticspot.service.dto;
 
 import com.athleticspot.config.Constants;
 import com.athleticspot.domain.Authority;
-import com.athleticspot.domain.User;
+import com.athleticspot.common.domain.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
