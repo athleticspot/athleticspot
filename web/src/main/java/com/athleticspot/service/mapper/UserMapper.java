@@ -1,7 +1,7 @@
 package com.athleticspot.service.mapper;
 
 import com.athleticspot.domain.Authority;
-import com.athleticspot.common.domain.User;
+import com.athleticspot.domain.User;
 import com.athleticspot.service.dto.UserDTO;
 import org.springframework.stereotype.Service;
 

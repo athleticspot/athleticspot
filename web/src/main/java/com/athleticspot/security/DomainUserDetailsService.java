@@ -1,7 +1,7 @@
 package com.athleticspot.security;
 
-import com.athleticspot.common.domain.User;
-import com.athleticspot.common.infrastracture.repository.UserRepository;
+import com.athleticspot.domain.User;
+import com.athleticspot.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;

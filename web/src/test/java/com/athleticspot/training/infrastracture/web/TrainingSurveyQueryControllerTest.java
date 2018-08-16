@@ -1,7 +1,7 @@
 package com.athleticspot.training.infrastracture.web;
 
 import com.athleticspot.AthleticspotApp;
-import com.athleticspot.common.domain.User;
+import com.athleticspot.domain.User;
 import com.athleticspot.service.UserService;
 import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyProvider;

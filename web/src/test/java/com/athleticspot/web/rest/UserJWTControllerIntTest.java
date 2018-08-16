@@ -1,8 +1,8 @@
 package com.athleticspot.web.rest;
 
 import com.athleticspot.AthleticspotApp;
-import com.athleticspot.common.domain.User;
-import com.athleticspot.common.infrastracture.repository.UserRepository;
+import com.athleticspot.domain.User;
+import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.jwt.TokenProvider;
 import com.athleticspot.web.rest.vm.LoginVM;
 import org.junit.Before;

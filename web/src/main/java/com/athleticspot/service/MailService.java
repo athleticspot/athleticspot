@@ -1,6 +1,6 @@
 package com.athleticspot.service;
 
-import com.athleticspot.common.domain.User;
+import com.athleticspot.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.StringUtils;

@@ -1,7 +1,7 @@
 package com.athleticspot.training.domain;
 
 import com.athleticspot.common.domain.model.IdentifiedDomainObject;
-import com.athleticspot.common.domain.User;
+import com.athleticspot.domain.User;
 import com.athleticspot.training.domain.trainingsurvey.*;
 
 import javax.persistence.*;

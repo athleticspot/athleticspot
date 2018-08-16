@@ -1,5 +1,6 @@
-package com.athleticspot.common.infrastracture.repository;
+package com.athleticspot.repository;
 
+import com.athleticspot.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;

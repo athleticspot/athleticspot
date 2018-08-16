@@ -1,8 +1,9 @@
 package com.athleticspot.tracker.infrastracture.service;
 
+import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.TrackerUserService;
 import com.athleticspot.tracker.domain.model.ApplicationUserId;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.athleticspot.tracker.domain.model.UserRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,7 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class TrackerUserServiceImpl implements TrackerUserService {
 
-    private final UserService userService
+    private final UserRepository userRepository;
+
+    public TrackerUserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public String getTimelineIdentifier() {
@@ -25,6 +30,9 @@ public class TrackerUserServiceImpl implements TrackerUserService {
 
     @Override
     public ApplicationUserId getCurrentUserId() {
+
+        SecurityUtils.getCurrentUserLogin();
+
         return null;
     }
 }

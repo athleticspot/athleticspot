@@ -1,9 +1,9 @@
 package com.athleticspot.service;
 
 import com.athleticspot.domain.Authority;
-import com.athleticspot.common.domain.User;
+import com.athleticspot.domain.User;
 import com.athleticspot.repository.AuthorityRepository;
-import com.athleticspot.common.infrastracture.repository.UserRepository;
+import com.athleticspot.repository.UserRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

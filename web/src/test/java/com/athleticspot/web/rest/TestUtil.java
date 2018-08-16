@@ -1,7 +1,7 @@
 package com.athleticspot.web.rest;
 
 import com.athleticspot.domain.Authority;
-import com.athleticspot.common.domain.User;
+import com.athleticspot.domain.User;
 import com.athleticspot.security.AuthoritiesConstants;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

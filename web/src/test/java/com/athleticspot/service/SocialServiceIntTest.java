@@ -2,9 +2,9 @@ package com.athleticspot.service;
 
 import com.athleticspot.AthleticspotApp;
 import com.athleticspot.domain.Authority;
-import com.athleticspot.common.domain.User;
+import com.athleticspot.domain.User;
 import com.athleticspot.repository.AuthorityRepository;
-import com.athleticspot.common.infrastracture.repository.UserRepository;
+import com.athleticspot.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

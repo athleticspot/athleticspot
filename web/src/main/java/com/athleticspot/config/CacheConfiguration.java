@@ -1,6 +1,6 @@
 package com.athleticspot.config;
 
-import com.athleticspot.common.domain.User;
+import com.athleticspot.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;

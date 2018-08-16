@@ -2,8 +2,8 @@ package com.athleticspot.service;
 
 import com.athleticspot.AthleticspotApp;
 import com.athleticspot.config.Constants;
-import com.athleticspot.common.domain.User;
-import com.athleticspot.common.infrastracture.repository.UserRepository;
+import com.athleticspot.domain.User;
+import com.athleticspot.repository.UserRepository;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.util.RandomUtil;
 import org.junit.Test;
