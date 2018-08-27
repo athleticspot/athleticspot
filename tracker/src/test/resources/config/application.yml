@@ -32,7 +32,6 @@ spring:
         open-in-view: false
         show-sql: true
         hibernate:
-            ddl-auto: update
             naming:
                 physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
@@ -42,8 +41,7 @@ spring:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
-            hibernate.hbm2ddl.auto: update
-        generate-ddl: true
+            hibernate.hbm2ddl.auto: update #This property is used to create table for tests
     mail:
         host: localhost
     messages:

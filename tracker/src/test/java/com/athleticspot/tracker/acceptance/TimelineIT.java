@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -48,7 +48,7 @@ public class TimelineIT {
 
     @Before
     public void setUp() {
-        Mockito.when(userRepository.getTimelineIdentifier()).thenReturn(expectedTimelineIdentifier);
+        Mockito.when(userRepository.getTimelineIdentifier(Matchers.any())).thenReturn(expectedTimelineIdentifier);
         Mockito.when(userRepository.getCurrentUserId()).thenReturn(ApplicationUserId.create(UUID.randomUUID().toString()));
     }
 
