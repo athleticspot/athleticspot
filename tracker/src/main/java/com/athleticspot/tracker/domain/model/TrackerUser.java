@@ -16,17 +16,17 @@ public class TrackerUser {
     @Column(name = "login")
     private String login;
 
-//
-//    @Column(name = "timeline_id")
-//    private String timelineIdentifier;
+
+    @Column(name = "timeline_id")
+    private String timelineIdentifier;
 
     public String getLogin() {
         return login;
     }
 
-//    public String getTimelineIdentifier() {
-//        return timelineIdentifier;
-//    }
+    public String getTimelineIdentifier() {
+        return timelineIdentifier;
+    }
 }
 
 

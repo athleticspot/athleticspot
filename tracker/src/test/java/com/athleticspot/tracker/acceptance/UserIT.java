@@ -31,6 +31,6 @@ public class UserIT {
         final List<TrackerUser> allUsers = userRepository.findAllUsers();
         //then
         Assertions.assertThat(allUsers).isNotNull();
-        Assertions.assertThat(allUsers).isNotEmpty();
+        Assertions.assertThat(allUsers).isEmpty();
     }
 }
