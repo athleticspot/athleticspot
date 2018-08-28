@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -32,12 +33,25 @@ public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUse
     }
 
     @Override
-    public String getTimelineIdentifier(String currentUserLogin) {
-        return null;
+    public String getTimelineIdentifier(String userLogin) {
+        final String queryString = "select e from TrackerUser e" +
+            " where e.login = :userLogin";
+
+        Query query = em.createQuery(queryString, TrackerUser.class);
+
+        query.setParameter("userLogin", userLogin);
+        final List<TrackerUser> resultList = query.getResultList();
+
+        if (resultList.isEmpty()) {
+            return null;
+        } else if (resultList.size() > 1) {
+            throw new IllegalStateException("There is more than one timeline");
+        }
+        return resultList.get(0).getTimelineIdentifier();
     }
 
     @Override
-    public void addTimelineIdentifier(String user_id, String availableTimelineId) {
+    public void addTimelineIdentifier(String userLogin, String timelineIdentifier) {
 
     }
 

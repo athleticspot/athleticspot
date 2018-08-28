@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.acceptance;
 
 import com.athleticspot.tracker.TrackerApplication;
+import com.athleticspot.tracker.application.TrackerUserService;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.domain.model.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -25,6 +26,9 @@ public class UserIT {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    TrackerUserService trackerUserService;
+
     @Test
     public void whenThereIsNoUserThenEmpyUserListIsReturned(){
         //when
@@ -32,5 +36,10 @@ public class UserIT {
         //then
         Assertions.assertThat(allUsers).isNotNull();
         Assertions.assertThat(allUsers).isEmpty();
+    }
+
+    @Test
+    public void whenThereAreNoUserSetUu(){
+        trackerUserService.getTimelineIdentifier();
     }
 }

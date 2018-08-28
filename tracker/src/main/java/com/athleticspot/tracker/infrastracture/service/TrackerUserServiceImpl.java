@@ -21,8 +21,7 @@ public class TrackerUserServiceImpl implements TrackerUserService {
     @Override
     public String getTimelineIdentifier() {
         final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
-        userRepository.getTimelineIdentifier(currentUserLogin);
-        return null;
+        return userRepository.getTimelineIdentifier(currentUserLogin);
     }
 
     @Override
@@ -32,7 +31,6 @@ public class TrackerUserServiceImpl implements TrackerUserService {
 
     @Override
     public ApplicationUserId getCurrentUserId() {
-
 
 
         return null;

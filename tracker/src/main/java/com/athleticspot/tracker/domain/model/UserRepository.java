@@ -9,15 +9,22 @@ public interface UserRepository {
 
     ApplicationUserId getCurrentUserId();
 
-    String getTimelineIdentifier(String currentUserLogin);
+    /**
+     * Gets timeline identifier which is assigned to the user.
+     * To fetch this we use user login.
+     * @param userLogin
+     * @return
+     */
+    String getTimelineIdentifier(String userLogin);
 
     /**
      * Assigns timeline identifier to particular user.
+     * User fetch is done based on user login.
      *
-     * @param user_id
-     * @param availableTimelineId
+     * @param userLogin
+     * @param timelineIdentifier
      */
-    void addTimelineIdentifier(String user_id, String availableTimelineId);
+    void addTimelineIdentifier(String userLogin, String timelineIdentifier);
 
     /**
      * Finds all users stored within system
