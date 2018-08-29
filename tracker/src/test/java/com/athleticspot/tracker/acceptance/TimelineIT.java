@@ -49,7 +49,6 @@ public class TimelineIT {
     @Before
     public void setUp() {
         Mockito.when(userRepository.getTimelineIdentifier(Matchers.any())).thenReturn(expectedTimelineIdentifier);
-        Mockito.when(userRepository.getCurrentUserId()).thenReturn(ApplicationUserId.create(UUID.randomUUID().toString()));
     }
 
     @Test

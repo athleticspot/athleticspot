@@ -20,12 +20,25 @@ public class TrackerUser {
     @Column(name = "timeline_id")
     private String timelineIdentifier;
 
+    public TrackerUser() {
+    }
+
+    public TrackerUser(String login, String timelineIdentifier) {
+        this.login = login;
+        this.timelineIdentifier = timelineIdentifier;
+    }
+
     public String getLogin() {
         return login;
     }
 
     public String getTimelineIdentifier() {
         return timelineIdentifier;
+    }
+
+    public TrackerUser assignTimelineIdentifier(String timelineIdentifier) {
+        this.timelineIdentifier = timelineIdentifier;
+        return this;
     }
 }
 

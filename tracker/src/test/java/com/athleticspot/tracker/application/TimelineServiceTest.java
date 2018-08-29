@@ -35,9 +35,7 @@ public class TimelineServiceTest {
         sportActivityRepository = Mockito.mock(SportActivityRepository.class);
         timelineService = new TimelineServiceImpl(timelineRepository, trackerUserService, sportActivityRepository, applicationEvents);
 
-        final ApplicationUserId mockUser = ApplicationUserId.create(UUID.randomUUID().toString());
         timeline = TestTimelineFactory.testTimeline(expectedTimelineId);
-        Mockito.when(trackerUserService.getCurrentUserId()).thenReturn(mockUser);
     }
 
     @Test

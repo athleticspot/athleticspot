@@ -1,6 +1,5 @@
 package com.athleticspot.tracker.infrastracture.persistance.jpa;
 
-import com.athleticspot.tracker.domain.model.ApplicationUserId;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.domain.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +26,29 @@ public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUse
     }
 
     @Override
-    public ApplicationUserId getCurrentUserId() {
+    public String getTimelineIdentifier(String userLogin) {
 
-        return null;
+        final TrackerUser trackerUser = getTrackerUser(userLogin);
+        if (trackerUser == null) return null;
+        return trackerUser.getTimelineIdentifier();
     }
 
     @Override
-    public String getTimelineIdentifier(String userLogin) {
+    public List<TrackerUser> findAllUsers() {
+        return this.findAll();
+    }
+
+    @Override
+    public void saveTrackerUser(TrackerUser trackerUser) {
+        this.save(trackerUser);
+    }
+
+    @Override
+    public TrackerUser getUser(String userLogin) {
+        return this.getTrackerUser(userLogin);
+    }
+
+    private TrackerUser getTrackerUser(String userLogin) {
         final String queryString = "select e from TrackerUser e" +
             " where e.login = :userLogin";
 
@@ -45,18 +60,8 @@ public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUse
         if (resultList.isEmpty()) {
             return null;
         } else if (resultList.size() > 1) {
-            throw new IllegalStateException("There is more than one timeline");
+            throw new IllegalStateException("There is more than one timeline for user login: " + userLogin);
         }
-        return resultList.get(0).getTimelineIdentifier();
-    }
-
-    @Override
-    public void addTimelineIdentifier(String userLogin, String timelineIdentifier) {
-
-    }
-
-    @Override
-    public List<TrackerUser> findAllUsers() {
-        return this.findAll();
+        return resultList.get(0);
     }
 }

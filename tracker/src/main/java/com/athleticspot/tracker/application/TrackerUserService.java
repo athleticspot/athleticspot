@@ -11,5 +11,4 @@ public interface TrackerUserService {
 
     void addTimelineIdentifier(String user_id, String availableTimelineId);
 
-    ApplicationUserId getCurrentUserId();
 }
