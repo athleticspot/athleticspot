@@ -71,7 +71,7 @@ public class TimelineServiceImpl implements TimelineService {
             final String availableTimelineId = timelineRepository.nextTimelineId();
             timeline = Timeline.create(availableTimelineId);
             sportActivity.assignToTimeline(timeline.timelineIdentifier());
-            trackerUserService.addTimelineIdentifier("user id", availableTimelineId);
+            trackerUserService.addTimelineIdentifier(availableTimelineId);
         } else {
             timeline = timelineOptional.get();
             sportActivity.assignToTimeline(timelineIdentifier);

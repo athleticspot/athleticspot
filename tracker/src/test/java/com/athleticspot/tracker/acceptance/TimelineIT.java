@@ -13,6 +13,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,10 +48,14 @@ public class TimelineIT {
     private UserRepository userRepository;
 
     private final String expectedTimelineIdentifier = UUID.randomUUID().toString();
+    private final String userLogin = "admin";
 
     @Before
     public void setUp() {
         Mockito.when(userRepository.getTimelineIdentifier(Matchers.any())).thenReturn(expectedTimelineIdentifier);
+        Mockito.when(userRepository.getUser(Matchers.any())).thenReturn(
+            new TrackerUser("admin", null)
+        );
     }
 
     @Test
