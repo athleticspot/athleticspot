@@ -23,6 +23,7 @@ import {
     ProfileService
 } from "./layouts";
 import {TrainingModule} from "./training/training.module";
+import {TimelineModule} from "./timeline/timeline.module";
 
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 
@@ -36,7 +37,8 @@ import {TrainingModule} from "./training/training.module";
         AthleticspotAdminModule,
         AthleticspotAccountModule,
         AthleticspotEntityModule,
-        TrainingModule
+        TrainingModule,
+        TimelineModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
