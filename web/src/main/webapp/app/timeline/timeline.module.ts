@@ -7,6 +7,7 @@ import {Ng2DropdownModule} from 'ng2-material-dropdown';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ActivitiesComponent} from "./activities/activities.component";
 import {timelineState} from "./timeline.route";
+import {ActivitiesDataservice} from "./activities/activities.dataservice";
 
 @NgModule({
     imports: [
@@ -21,7 +22,9 @@ import {timelineState} from "./timeline.route";
         ActivitiesComponent,
     ],
     entryComponents: [ActivitiesComponent],
-    providers: [],
+    providers: [
+        ActivitiesDataservice
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TimelineModule {
