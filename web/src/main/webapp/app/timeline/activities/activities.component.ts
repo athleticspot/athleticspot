@@ -32,6 +32,9 @@ export class ActivitiesComponent implements OnInit {
 
     submitActivity() {
         let activity = this.addActivityForm.value as ActivityModel;
+        activity.source = "MANUAL";
+        activity.dateTime = new Date();
+        activity.units = 'metric';
         console.log(activity);
         this.activityDataservice.createActivity(activity).subscribe(isSuccess => {
             console.log(isSuccess);

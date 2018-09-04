@@ -3,6 +3,7 @@ package com.athleticspot.tracker.infrastracture.web.dto.in;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -18,15 +19,31 @@ import java.time.LocalDateTime;
 public class SportActivityInDto implements Serializable {
 
     private String sportyActivityIdentifier;
+
+    @NotNull
     private String source;
+
     private String description;
+
+    @NotNull
     private String title;
+
+    @NotNull
     private String type;
+
+    @NotNull
     private String duration;
+
+    @NotNull
     private String distance;
+
     private String units;
+
     private String maxSpeed;
+
     private String meanSpeed;
+
+    @NotNull
     private LocalDateTime dateTime;
 
     public String getSportyActivityIdentifier() {

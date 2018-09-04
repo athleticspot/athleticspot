@@ -7,8 +7,10 @@ import com.athleticspot.tracker.infrastracture.web.dto.out.SportActivityOutDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Timed;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +40,7 @@ public class SportActivityController {
     }
 
     @PostMapping
-    public void createSportActivity(@RequestBody SportActivityInDto sportActivityInDto){
+    public void createSportActivity(@RequestBody @Valid SportActivityInDto sportActivityInDto){
         LOG.info("Incoming request: {}", sportActivityInDto);
         timelineService.addActivity(SportActivityAssembler.assemble(sportActivityInDto), TrackerSource.MANUAL.getSource());
     }
