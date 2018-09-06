@@ -35,14 +35,25 @@
                         </select>
                 </div>
 
-
-                <div class="form-group">
+                <div formGroupName="duration">
                     <label>Duration</label>
-                    <input
-                        type="text"
-                        formControlName="duration"
-                        placeholder="Event type" class="input-sm form-control">
+                    <div class="form-group ">
+                        <div class=" input-group">
+                            <input type="number" class="form-control" formControlName="hours">
+                            <span class="input-group-addon">hours</span>
+
+                        </div>
+                        <div class="input-group">
+                            <input type="number" class="form-control" formControlName="minutes">
+                            <span class=" input-group-addon">min</span>
+                        </div>
+                        <div class=" input-group ">
+                            <input type="number" class="form-control" formControlName="seconds">
+                            <span class=" input-group-addon">sec</span>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="form-group">
                     <label>Distance</label>
                     <input
