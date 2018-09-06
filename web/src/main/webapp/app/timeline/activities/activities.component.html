@@ -17,6 +17,65 @@
                         placeholder="Event title"
                         class="input-sm form-control">
                 </div>
+
+                <div class="form-group">
+                    <label>Date & Time</label>
+                    <div class="form-group form-inline">
+                        <div class="col-sm-8 form-control">
+                            <ng-datepicker formControlName="date"></ng-datepicker>
+                        </div>
+
+                        <select class="form-control col-sm-4">
+                            <option>00:00</option>
+                            <option>00:30</option>
+                            <option>01:00</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Type</label>
+                    <select class="input-sm form-control" formControlName="type">
+                        <option>Running</option>
+                        <option>Walking</option>
+                        <option>Gym</option>
+                    </select>
+                </div>
+
+                <div formGroupName="duration">
+                    <label>Duration</label>
+                    <div class="form-group ">
+                        <div class=" input-group">
+                            <input type="number" class="form-control col-sm-8" formControlName="hours">
+                            <span class="input-group-addon col-sm-4">hours</span>
+
+                        </div>
+                        <div class="input-group">
+                            <input type="number" class="form-control col-sm-8" formControlName="minutes">
+                            <span class=" input-group-addon col-sm-4">min</span>
+                        </div>
+                        <div class=" input-group ">
+                            <input type="number" class="form-control col-sm-8" formControlName="seconds">
+                            <span class=" input-group-addon col-sm-4">sec</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Distance</label>
+                    <div class="form-inline">
+                        <input type="number" name="distance" class="form-control col-sm-6" placeholder="Distance"
+                               formControlName="distance">
+                        <select class="form-control col-sm-6" formControlName="unit">
+                            <option>kilometers</option>
+                            <option>meters</option>
+                            <option>miles</option>
+                            <option>yards</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>Description</label>
                     <input
@@ -26,42 +85,6 @@
                         class="input-sm form-control">
                 </div>
 
-                <div class="form-group">
-                    <label>Type</label>
-                        <select class="input-sm form-control" formControlName="type">
-                            <option>Running</option>
-                            <option>Walking</option>
-                            <option>Gym</option>
-                        </select>
-                </div>
-
-                <div formGroupName="duration">
-                    <label>Duration</label>
-                    <div class="form-group ">
-                        <div class=" input-group">
-                            <input type="number" class="form-control" formControlName="hours">
-                            <span class="input-group-addon">hours</span>
-
-                        </div>
-                        <div class="input-group">
-                            <input type="number" class="form-control" formControlName="minutes">
-                            <span class=" input-group-addon">min</span>
-                        </div>
-                        <div class=" input-group ">
-                            <input type="number" class="form-control" formControlName="seconds">
-                            <span class=" input-group-addon">sec</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Distance</label>
-                    <input
-                        type="text"
-                        formControlName="distance"
-                        placeholder="Event type"
-                        class="input-sm form-control">
-                </div>
                 <div class="form-group">
                     <label>Max Speed</label>
                     <input
@@ -77,27 +100,6 @@
                         formControlName="meanSpeed"
                         placeholder="Event type"
                         class="input-sm form-control">
-                </div>
-                <div class="form-group">
-                    <label>Time</label>
-                    <input type="text" placeholder="eg. 3:00 pm" class="input-sm form-control">
-                </div>
-                <div class="form-group">
-                    <label>Type</label>
-                    <div>
-                        <div class="btn-group dropdown" dropdown>
-                            <button class="btn btn-sm btn-default dropdown-toggle" dropdown-toggle>
-                                <span class="dropdown-label">Choose a type</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href>Travel</a></li>
-                                <li><a href>Phone</a></li>
-                                <li><a href>Meeting</a></li>
-                                <li><a href>Appointment</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <div class="m-t-md m-b-md">
                     <button class="btn btn-sm btn-primary">Add an event</button>

@@ -26,19 +26,17 @@ export class ActivitiesComponent implements OnInit {
                 "seconds": new FormControl(0)
             }),
             'distance': new FormControl(),
+            'unit': new FormControl(),
+            'date' : new FormControl(new Date()),
             'maxSpeed': new FormControl(),
             'meanSpeed': new FormControl()
         });
-        // this.activityDataservice.fetchActivity().subscribe(value =>
-        //     console.log(value)
-        // );
     }
 
     submitActivity() {
         let activity = this.addActivityForm.value as ActivityModel;
         activity.source = "MANUAL";
         activity.dateTime = new Date();
-        activity.units = 'metric';
         activity.duration = this.addActivityForm.get("duration.hours").value + "," +
             this.addActivityForm.get("duration.minutes").value + "," +
             this.addActivityForm.get("duration.seconds").value;

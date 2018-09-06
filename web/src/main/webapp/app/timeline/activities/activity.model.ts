@@ -6,7 +6,7 @@ export class ActivityModel {
     type = "running";
     duration = "25";
     distance = "10";
-    units = "km";
+    unit = "km";
     maxSpeed = "33";
     meanSpeed = "15";
     dateTime = new Date();
