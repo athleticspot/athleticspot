@@ -23,10 +23,10 @@ public class SportActivityInDto implements Serializable {
     @NotNull
     private String source;
 
-    private String description;
-
     @NotNull
     private String title;
+
+    private String description;
 
     @NotNull
     private String type;
@@ -34,7 +34,6 @@ public class SportActivityInDto implements Serializable {
     @NotNull
     private String duration;
 
-    @NotNull
     private String distance;
 
     private String units;

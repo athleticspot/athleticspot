@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivitiesDataservice} from "./activities.dataservice";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityModel} from "./activity.model";
 
 @Component({
@@ -17,10 +17,10 @@ export class ActivitiesComponent implements OnInit {
 
     ngOnInit(): void {
         this.addActivityForm = new FormGroup({
-            'title': new FormControl(),
+            'title': new FormControl(null, Validators.required),
             'description': new FormControl(),
-            'type': new FormControl(),
-            'duration': new FormControl(),
+            'type': new FormControl("Running", Validators.required),
+            'duration': new FormControl(null, Validators.required),
             'distance': new FormControl(),
             'maxSpeed': new FormControl(),
             'meanSpeed': new FormControl()
@@ -43,15 +43,3 @@ export class ActivitiesComponent implements OnInit {
         });
     }
 }
-
-//
-// public _source = "MANUAL",
-//     public _title = "title",
-//     public _description = "description",
-//     public _type = "running",
-//     public _duration = "25",
-//     public _distance = "10",
-//     public _units = "km",
-//     public _maxSpeed = "33",
-//     public _meanSpeed = "15",
-//     public _dateTime = new Date())
