@@ -27,9 +27,9 @@ export class ActivitiesComponent implements OnInit {
                 "seconds": new FormControl(0)
             }),
             'distance': new FormControl(),
-            'unit': new FormControl(),
+            'unit': new FormControl("kilometers"),
             'date': new FormControl(new Date()),
-            'time': new FormControl("00:00AM"),
+            'time': new FormControl("0"),
             'maxSpeed': new FormControl(),
             'meanSpeed': new FormControl()
         });
@@ -42,7 +42,8 @@ export class ActivitiesComponent implements OnInit {
             .startOf('day')
             .add(this.addActivityForm.get('time').value,
                 'hours')
-            .toDate();
+            .format("YYYY-MM-DDTHH:mm:ss");
+
         activity.duration =
             this.addActivityForm.get("duration.hours").value + "," +
             this.addActivityForm.get("duration.minutes").value + "," +

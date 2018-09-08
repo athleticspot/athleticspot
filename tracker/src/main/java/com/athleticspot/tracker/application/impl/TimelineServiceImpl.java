@@ -77,8 +77,6 @@ public class TimelineServiceImpl implements TimelineService {
             sportActivity.assignToTimeline(timelineIdentifier);
         }
         timelineRepository.store(timeline);
-        //TODO: do we need below line? We can just simply save sport activity.
-        timeline.addTimelineEvent(sportActivity);
         sportActivityRepository.store(sportActivity);
         applicationEvents.sportActivityAdded(sportActivity);
         return sportActivityIdentifier;

@@ -2,6 +2,7 @@ package com.athleticspot.tracker.infrastracture.web.dto.in;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -43,6 +44,7 @@ public class SportActivityInDto implements Serializable {
     private String meanSpeed;
 
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dateTime;
 
     public String getSportyActivityIdentifier() {

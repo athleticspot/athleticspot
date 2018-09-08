@@ -20,7 +20,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="varchar(255)">
-                <constraints nullable="false"/>
             </column>
             <column name="title" type="varchar(100)">
                 <constraints nullable="false"/>
@@ -31,18 +30,10 @@
             <column name="duration" type="varchar(200)">
                 <constraints nullable="false"/>
             </column>
-            <column name="distance" type="varchar(200)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="units" type="varchar(200)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="max_speed" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="mean_speed" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="distance" type="varchar(200)"/>
+            <column name="units" type="varchar(200)"/>
+            <column name="max_speed" type="varchar(50)"/>
+            <column name="mean_speed" type="varchar(50)"/>
             <column name="activity_time" type="DATETIME">
                 <constraints nullable="false"/>
             </column>

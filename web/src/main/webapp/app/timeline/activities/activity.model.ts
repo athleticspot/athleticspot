@@ -9,7 +9,7 @@ export class ActivityModel {
     unit = "km";
     maxSpeed = "33";
     meanSpeed = "15";
-    dateTime = new Date();
+    dateTime : String;
 
 
 }

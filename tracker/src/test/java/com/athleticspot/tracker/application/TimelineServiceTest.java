@@ -71,7 +71,6 @@ public class TimelineServiceTest {
         timelineService.addActivity(TimelineEventFactory.testSportActivity(), "Manual");
 
         //then
-        Assertions.assertThat(timeline.timelineEvents()).containsExactly(sportActivity);
         Mockito.verify(timelineRepository, Mockito.times(1)).find(expectedTimelineId);
         Mockito.verify(sportActivityRepository, Mockito.times(1)).store(sportActivity);
         Mockito.verify(applicationEvents, Mockito.times(1)).sportActivityAdded(sportActivity);
