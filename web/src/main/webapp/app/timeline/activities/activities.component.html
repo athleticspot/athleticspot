@@ -25,10 +25,10 @@
                             <ng-datepicker formControlName="date"></ng-datepicker>
                         </div>
 
-                        <select class="form-control col-sm-4">
-                            <option>00:00</option>
-                            <option>00:30</option>
-                            <option>01:00</option>
+                        <select class="form-control col-sm-4" formControlName="time">
+                            <option value="0">00:00AM</option>
+                            <option value="0,5">00:30AM</option>
+                            <option value="1">01:00AM</option>
                         </select>
 
                     </div>

@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivitiesDataservice} from "./activities.dataservice";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityModel} from "./activity.model";
+import * as moment from 'moment';
 
 @Component({
     selector: 'athleticspot-activities',
@@ -27,7 +28,8 @@ export class ActivitiesComponent implements OnInit {
             }),
             'distance': new FormControl(),
             'unit': new FormControl(),
-            'date' : new FormControl(new Date()),
+            'date': new FormControl(new Date()),
+            'time': new FormControl("00:00AM"),
             'maxSpeed': new FormControl(),
             'meanSpeed': new FormControl()
         });
@@ -36,8 +38,13 @@ export class ActivitiesComponent implements OnInit {
     submitActivity() {
         let activity = this.addActivityForm.value as ActivityModel;
         activity.source = "MANUAL";
-        activity.dateTime = new Date();
-        activity.duration = this.addActivityForm.get("duration.hours").value + "," +
+        activity.dateTime = moment(this.addActivityForm.get('date').value)
+            .startOf('day')
+            .add(this.addActivityForm.get('time').value,
+                'hours')
+            .toDate();
+        activity.duration =
+            this.addActivityForm.get("duration.hours").value + "," +
             this.addActivityForm.get("duration.minutes").value + "," +
             this.addActivityForm.get("duration.seconds").value;
         console.log(activity);
