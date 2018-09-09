@@ -23,7 +23,7 @@ export class ActivitiesDataservice {
     //     return this.http.put('api/survey', survey);
     // }
     //
-    public fetchActivity(): Observable<Response>{
+    public fetchActivity(){
         return this.http.get('api/sportactivities').map(
             (response: Response) => {
                 return response.json();

@@ -3,6 +3,8 @@ import {ActivitiesDataservice} from "./activities.dataservice";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityModel} from "./activity.model";
 import * as moment from 'moment';
+import { Response } from '@angular/http';
+
 
 @Component({
     selector: 'athleticspot-activities',
@@ -18,7 +20,6 @@ export class ActivitiesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.activities.push("test");
         this.addActivityForm = new FormGroup({
             'title': new FormControl(null, Validators.required),
             'description': new FormControl(),
@@ -35,8 +36,8 @@ export class ActivitiesComponent implements OnInit {
             'maxSpeed': new FormControl(),
             'meanSpeed': new FormControl()
         });
-        this.activityDataservice.fetchActivity().subscribe((activities) =>
-            this.activities.push(activities)
+        this.activityDataservice.fetchActivity().subscribe((activities: any[]) =>
+            this.activities = activities
         );
     }
 
