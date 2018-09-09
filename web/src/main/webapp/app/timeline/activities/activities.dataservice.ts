@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http";
-import {Observable} from "rxjs/Observable";
 import {ActivityModel} from "./activity.model";
+import 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ActivitiesDataservice {
@@ -23,7 +24,11 @@ export class ActivitiesDataservice {
     // }
     //
     public fetchActivity(): Observable<Response>{
-        return this.http.get('api/sportactivities');
+        return this.http.get('api/sportactivities').map(
+            (response: Response) => {
+                return response.json();
+            }
+        );
 
     }
 

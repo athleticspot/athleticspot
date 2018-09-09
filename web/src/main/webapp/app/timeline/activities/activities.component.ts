@@ -11,12 +11,14 @@ import * as moment from 'moment';
 export class ActivitiesComponent implements OnInit {
 
     private addActivityForm: FormGroup;
+    private activities = [];
 
 
     constructor(private activityDataservice: ActivitiesDataservice) {
     }
 
     ngOnInit(): void {
+        this.activities.push("test");
         this.addActivityForm = new FormGroup({
             'title': new FormControl(null, Validators.required),
             'description': new FormControl(),
@@ -33,6 +35,9 @@ export class ActivitiesComponent implements OnInit {
             'maxSpeed': new FormControl(),
             'meanSpeed': new FormControl()
         });
+        this.activityDataservice.fetchActivity().subscribe((activities) =>
+            this.activities.push(activities)
+        );
     }
 
     submitActivity() {

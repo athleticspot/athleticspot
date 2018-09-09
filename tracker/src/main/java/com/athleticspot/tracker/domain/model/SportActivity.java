@@ -20,16 +20,20 @@ public class SportActivity implements TimelineEvent, Entity {
     private Long id;
 
     @Column(name = "sport_activity_id")
-    private final String sportyActivityIdentifier;
+    private String sportyActivityIdentifier;
 
     @Embedded
-    private final SportActivityDetails details;
+    private SportActivityDetails details;
 
     @Column(name = "source")
-    private final String source;
+    private String source;
 
     @Column(name = "timeline_id")
     private String timelineIdentifier;
+
+    private SportActivity() {
+        //jpa purpose
+    }
 
     private SportActivity(String sportActivityIdentifier,
                           String sportActivitySource,
