@@ -10,14 +10,8 @@ export class ActivityDetailsModel {
     meanSpeed = "";
     dateTime : String;
 
+
+
+
 }
 
-// ate String description;
-// private String title;
-// private String type;
-// private String duration;
-// private String distance;
-// private String units;
-// private String maxSpeed;
-// private String meanSpeed;
-// private LocalDateTime dateTime;

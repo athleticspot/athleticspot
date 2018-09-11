@@ -4,6 +4,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityModel} from "./activity.model";
 import * as moment from 'moment';
 import { Response } from '@angular/http';
+import {forEach} from "../../../../../../node_modules/@angular/router/src/utils/collection";
+import {ActivityDetailsModel} from "./activity-details.model";
 
 
 @Component({
@@ -37,7 +39,13 @@ export class ActivitiesComponent implements OnInit {
             'meanSpeed': new FormControl()
         });
         this.activityDataservice.fetchActivity().subscribe((activities: any[]) =>
-            this.activities = activities
+            activities.forEach(sportActivity => {
+                this.activities.push(new ActivityModel(
+                    sportActivity.sportyActivityIdentifier,
+                    sportActivity.source,
+                    sportActivity.details
+                    ));
+            })
         );
     }
 

@@ -1,248 +1,266 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm">
-    <!-- .col -->
-    <div class="col w-lg bg-light dk b-r bg-auto" id="aside">
-        <div class="wrapper bg b-b">
-            <button class="btn btn-sm btn-success pull-right" ui-toggle-class="timeline-center" target=".timeline">
-                Center
-            </button>
-            <h3 class="m-n font-thin">Timeline</h3>
-        </div>
-        <div class="wrapper">
-            <form novalidate [formGroup]="addActivityForm" (ngSubmit)="submitActivity()">
-                <div class="form-group">
-                    <label>Title</label>
-                    <input
-                        type="text"
-                        formControlName="title"
-                        placeholder="Event title"
-                        class="input-sm form-control">
-                </div>
-
-                <div class="form-group">
-                    <label>Date & Time</label>
-                    <div class="form-inline">
-
-                        <div class=""><ng-datepicker formControlName="date" class=""></ng-datepicker></div>
-
-                        <select class="form-control" formControlName="time">
-                            <option value="0">00:00AM</option>
-                            <option value="0,5">00:30AM</option>
-                            <option value="1">01:00AM</option>
-                        </select>
-
+<div class="app-content-body">
+    <div class="hbox hbox-auto-xs hbox-auto-sm">
+        <!-- .col -->
+        <div class="col w-lg bg-light dk b-r bg-auto" id="aside">
+            <div class="wrapper bg b-b">
+                <button class="btn btn-sm btn-success pull-right" ui-toggle-class="timeline-center" target=".timeline">
+                    Center
+                </button>
+                <h3 class="m-n font-thin">Timeline</h3>
+            </div>
+            <div class="wrapper">
+                <form novalidate [formGroup]="addActivityForm" (ngSubmit)="submitActivity()">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input
+                            type="text"
+                            formControlName="title"
+                            placeholder="Event title"
+                            class="input-sm form-control">
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label>Type</label>
-                    <select class="input-sm form-control" formControlName="type">
-                        <option>Running</option>
-                        <option>Walking</option>
-                        <option>Gym</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label>Date & Time</label>
+                        <div class="form-inline">
 
-                <div formGroupName="duration">
-                    <label>Duration</label>
-                    <div class="form-group ">
-                        <div class=" input-group">
-                            <input type="number" class="form-control col-sm-8" formControlName="hours">
-                            <span class="input-group-addon col-sm-4">hours</span>
+                            <div class="">
+                                <ng-datepicker formControlName="date" class=""></ng-datepicker>
+                            </div>
 
-                        </div>
-                        <div class="input-group">
-                            <input type="number" class="form-control col-sm-8" formControlName="minutes">
-                            <span class=" input-group-addon col-sm-4">min</span>
-                        </div>
-                        <div class=" input-group ">
-                            <input type="number" class="form-control col-sm-8" formControlName="seconds">
-                            <span class=" input-group-addon col-sm-4">sec</span>
+                            <select class="form-control" formControlName="time">
+                                <option value="0">00:00AM</option>
+                                <option value="0,5">00:30AM</option>
+                                <option value="1">01:00AM</option>
+                            </select>
+
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label>Distance</label>
-                    <div class="form-inline">
-                        <input type="number" name="distance" class="form-control col-sm-6" placeholder="Distance"
-                               formControlName="distance">
-                        <select class="form-control col-sm-6" formControlName="unit">
-                            <option>kilometers</option>
-                            <option>meters</option>
-                            <option>miles</option>
-                            <option>yards</option>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select class="input-sm form-control" formControlName="type">
+                            <option>Running</option>
+                            <option>Walking</option>
+                            <option>Gym</option>
                         </select>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label>Description</label>
-                    <input
-                        type="text"
-                        formControlName="description"
-                        placeholder="Event description"
-                        class="input-sm form-control">
-                </div>
+                    <div formGroupName="duration">
+                        <label>Duration</label>
+                        <div class="form-group ">
+                            <div class=" input-group">
+                                <input type="number" class="form-control col-sm-8" formControlName="hours">
+                                <span class="input-group-addon col-sm-4">hours</span>
 
-                <div class="form-group">
-                    <label>Max Speed</label>
-                    <input
-                        type="text"
-                        formControlName="maxSpeed"
-                        placeholder="Event type"
-                        class="input-sm form-control">
-                </div>
-                <div class="form-group">
-                    <label>Mean Speed</label>
-                    <input
-                        type="text"
-                        formControlName="meanSpeed"
-                        placeholder="Event type"
-                        class="input-sm form-control">
-                </div>
-                <div class="m-t-md m-b-md">
-                    <button class="btn btn-sm btn-primary">Add an event</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- /.col -->
-    <!-- .col -->
-    <div class="col">
-        <div class="wrapper">
-            <ul class="timeline">
-                <li class="tl-header">
-                    <div class="btn btn-info">Now</div>
-                </li>
-                <li class="tl-item" *ngFor="let activity of activities; let i = index">
-                    <div class="tl-wrap b-info">
-                        <span class="tl-date">5s ago</span>
-                        <div class="tl-content">
-                            Just a title {{i}} {{activity}}
+                            </div>
+                            <div class="input-group">
+                                <input type="number" class="form-control col-sm-8" formControlName="minutes">
+                                <span class=" input-group-addon col-sm-4">min</span>
+                            </div>
+                            <div class=" input-group ">
+                                <input type="number" class="form-control col-sm-8" formControlName="seconds">
+                                <span class=" input-group-addon col-sm-4">sec</span>
+                            </div>
                         </div>
                     </div>
-                </li>
+
+                    <div class="form-group">
+                        <label>Distance</label>
+                        <div class="form-inline">
+                            <input type="number" name="distance" class="form-control col-sm-6" placeholder="Distance"
+                                   formControlName="distance">
+                            <select class="form-control col-sm-6" formControlName="unit">
+                                <option>kilometers</option>
+                                <option>meters</option>
+                                <option>miles</option>
+                                <option>yards</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input
+                            type="text"
+                            formControlName="description"
+                            placeholder="Event description"
+                            class="input-sm form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Max Speed</label>
+                        <input
+                            type="text"
+                            formControlName="maxSpeed"
+                            placeholder="Event type"
+                            class="input-sm form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Mean Speed</label>
+                        <input
+                            type="text"
+                            formControlName="meanSpeed"
+                            placeholder="Event type"
+                            class="input-sm form-control">
+                    </div>
+                    <div class="m-t-md m-b-md">
+                        <button class="btn btn-sm btn-primary">Add an event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.col -->
+        <!-- .col -->
+        <div class="col">
+            <div class="wrapper">
+                <ul class="timeline">
+                    <li class="tl-header">
+                        <div class="btn btn-info">Now</div>
+                    </li>
+                    <li class="tl-item" *ngFor="let activity of activities; let i = index">
+                        <div class="tl-wrap b-primary">
+                            <span class="tl-date">{{activity.activityDetails.dateTime}}</span>
+                            <div class="tl-content panel padder b-a w-md w-auto-xs">
+                                <span class="arrow left pull-up"></span>
+                                <div class="text-lt m-b-sm">{{activity.activityDetails.title}}</div>
+                                <div class="panel-body pull-in b-t b-light">
+
+                                    <div class="clear">
+                                        <a href="" class="text-primary block m-b-xs">
+                                            Distance: {{activity.activityDetails.distance}}
+                                        </a>
+                                        <a href="" class="text-primary block m-b-xs">
+                                            Sport Category: {{activity.activityDetails.type}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
 
 
-                <!--<li class="tl-item">-->
+                    <!--<li class="tl-item">-->
                     <!--<div class="tl-wrap">-->
-                        <!--<span class="tl-date">2h ago</span>-->
-                        <!--<div class="tl-content panel padder b-a">-->
-                            <!--<span class="arrow left pull-up"></span>-->
-                            <!--<div>Content in a panel</div>-->
-                        <!--</div>-->
+                    <!--<span class="tl-date">2h ago</span>-->
+                    <!--<div class="tl-content panel padder b-a">-->
+                    <!--<span class="arrow left pull-up"></span>-->
+                    <!--<div>Content in a panel</div>-->
                     <!--</div>-->
-                <!--</li>-->
-                <!--<li class="tl-item tl-left">-->
+                    <!--</div>-->
+                    <!--</li>-->
+                    <!--<li class="tl-item tl-left">-->
                     <!--<div class="tl-wrap b-success">-->
-                        <!--<span class="tl-date">7:30 am</span>-->
-                        <!--<div class="tl-content panel bg-success padder">-->
-                            <!--<span class="arrow arrow-success left pull-up hidden-left"></span>-->
-                            <!--<span class="arrow arrow-success right pull-up visible-left"></span>-->
-                            <!--<div class="text-lt">Oh! Colorful</div>-->
-                        <!--</div>-->
+                    <!--<span class="tl-date">7:30 am</span>-->
+                    <!--<div class="tl-content panel bg-success padder">-->
+                    <!--<span class="arrow arrow-success left pull-up hidden-left"></span>-->
+                    <!--<span class="arrow arrow-success right pull-up visible-left"></span>-->
+                    <!--<div class="text-lt">Oh! Colorful</div>-->
                     <!--</div>-->
-                <!--</li>-->
-                <!--<li class="tl-item">-->
-                    <!--<div class="tl-wrap b-primary">-->
-                        <!--<span class="tl-date">04.2014</span>-->
-                        <!--<div class="tl-content panel padder b-a w-md w-auto-xs">-->
-                            <!--<span class="arrow left pull-up"></span>-->
-                            <!--<div class="text-lt m-b-sm">With Title</div>-->
-                            <!--<div class="panel-body pull-in b-t b-light">-->
-                                <!--<a href="" class="thumb pull-right m-l m-t-xs avatar">-->
-                                    <!--&lt;!&ndash;<img src="img/a4.jpg" alt="...">&ndash;&gt;-->
-                                    <!--<i class="on md b-white bottom"></i>-->
-                                <!--</a>-->
-                                <!--<div class="clear">-->
-                                    <!--<a href="" class="text-primary block m-b-xs">@Mike Mcalidek <i-->
-                                        <!--class="icon-twitter"></i></a>-->
-                                    <!--<a href="" class="btn btn-addon btn-sm btn-primary m-t-xs"><i class="fa fa-eye"></i>-->
-                                        <!--Follow</a>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
                     <!--</div>-->
-                <!--</li>-->
-                <!--<li class="tl-item tl-left">-->
-                    <!--<div class="tl-wrap b-primary">-->
-                        <!--<span class="tl-date">04.2014</span>-->
-                        <!--<div class="tl-content panel padder b-a block">-->
-                            <!--<span class="arrow left pull-up hidden-left"></span>-->
-                            <!--<span class="arrow right pull-up visible-left"></span>-->
-                            <!--<div class="text-lt m-b-sm">Block</div>-->
-                            <!--<div class="panel-body pull-in b-t b-light">-->
-                                <!--<p>I'm working on a realy amazing application, It will be available soon. here is a-->
-                                    <!--little tease. </p>-->
-                                <!--<div class="m-b m-t">-->
-                                    <!--<a href class="avatar thumb-xs m-r-xs">-->
-                                        <!--&lt;!&ndash;<img src="img/a7.jpg" alt="...">&ndash;&gt;-->
-                                        <!--<i class="on b-white left"></i>-->
+                    <!--</li>-->
+                    <!--<li class="tl-item">-->
+                        <!--<div class="tl-wrap b-primary">-->
+                            <!--<span class="tl-date">04.2014</span>-->
+                            <!--<div class="tl-content panel padder b-a w-md w-auto-xs">-->
+                                <!--<span class="arrow left pull-up"></span>-->
+                                <!--<div class="text-lt m-b-sm">With Title</div>-->
+                                <!--<div class="panel-body pull-in b-t b-light">-->
+                                    <!--<a href="" class="thumb pull-right m-l m-t-xs avatar">-->
+                                        <!--&lt;!&ndash;<img src="img/a4.jpg" alt="...">&ndash;&gt;-->
+                                        <!--<i class="on md b-white bottom"></i>-->
                                     <!--</a>-->
-                                    <!--<a href class="avatar thumb-xs m-r-xs">-->
-                                        <!--&lt;!&ndash;<img src="img/a8.jpg" alt="...">&ndash;&gt;-->
-                                        <!--<i class="busy b-white left"></i>-->
-                                    <!--</a>-->
-                                    <!--<a href class="avatar thumb-xs m-r-xs">-->
-                                        <!--&lt;!&ndash;<img src="img/a9.jpg" alt="...">&ndash;&gt;-->
-                                        <!--<i class="away b-white left"></i>-->
-                                    <!--</a>-->
-                                    <!--<a href class="avatar thumb-xs m-r-xs">-->
-                                        <!--&lt;!&ndash;<img src="img/a10.jpg" alt="...">&ndash;&gt;-->
-                                        <!--<i class="on b-white left"></i>-->
-                                    <!--</a>-->
-                                    <!--<a href class="btn btn-success btn-rounded font-bold"> +152 </a>-->
-                                    <!--<span class="h5 m-l-sm">Liked</span>-->
-                                <!--</div>-->
-                                <!--<div class="panel panel-default m-t-md m-b-n-sm pos-rlt">-->
-                                    <!--<span class="arrow top pull-left"></span>-->
-                                    <!--<form>-->
-                                        <!--<textarea class="form-control no-border" rows="3"-->
-                                                  <!--placeholder="Your comment..."></textarea>-->
-                                    <!--</form>-->
-                                    <!--<div class="panel-footer bg-light lter">-->
-                                        <!--<button class="btn btn-info pull-right btn-sm">Comment</button>-->
-                                        <!--<ul class="nav nav-pills nav-sm">-->
-                                            <!--<li><a href><i class="fa fa-camera text-muted"></i></a></li>-->
-                                            <!--<li><a href><i class="fa fa-video-camera text-muted"></i></a></li>-->
-                                        <!--</ul>-->
+                                    <!--<div class="clear">-->
+                                        <!--<a href="" class="text-primary block m-b-xs">@Mike Mcalidek <i-->
+                                            <!--class="icon-twitter"></i></a>-->
+                                        <!--<a href="" class="btn btn-addon btn-sm btn-primary m-t-xs"><i-->
+                                            <!--class="fa fa-eye"></i>-->
+                                            <!--Follow</a>-->
                                     <!--</div>-->
                                 <!--</div>-->
                             <!--</div>-->
                         <!--</div>-->
+                    <!--</li>-->
+                    <!--<li class="tl-item tl-left">-->
+                    <!--<div class="tl-wrap b-primary">-->
+                    <!--<span class="tl-date">04.2014</span>-->
+                    <!--<div class="tl-content panel padder b-a block">-->
+                    <!--<span class="arrow left pull-up hidden-left"></span>-->
+                    <!--<span class="arrow right pull-up visible-left"></span>-->
+                    <!--<div class="text-lt m-b-sm">Block</div>-->
+                    <!--<div class="panel-body pull-in b-t b-light">-->
+                    <!--<p>I'm working on a realy amazing application, It will be available soon. here is a-->
+                    <!--little tease. </p>-->
+                    <!--<div class="m-b m-t">-->
+                    <!--<a href class="avatar thumb-xs m-r-xs">-->
+                    <!--&lt;!&ndash;<img src="img/a7.jpg" alt="...">&ndash;&gt;-->
+                    <!--<i class="on b-white left"></i>-->
+                    <!--</a>-->
+                    <!--<a href class="avatar thumb-xs m-r-xs">-->
+                    <!--&lt;!&ndash;<img src="img/a8.jpg" alt="...">&ndash;&gt;-->
+                    <!--<i class="busy b-white left"></i>-->
+                    <!--</a>-->
+                    <!--<a href class="avatar thumb-xs m-r-xs">-->
+                    <!--&lt;!&ndash;<img src="img/a9.jpg" alt="...">&ndash;&gt;-->
+                    <!--<i class="away b-white left"></i>-->
+                    <!--</a>-->
+                    <!--<a href class="avatar thumb-xs m-r-xs">-->
+                    <!--&lt;!&ndash;<img src="img/a10.jpg" alt="...">&ndash;&gt;-->
+                    <!--<i class="on b-white left"></i>-->
+                    <!--</a>-->
+                    <!--<a href class="btn btn-success btn-rounded font-bold"> +152 </a>-->
+                    <!--<span class="h5 m-l-sm">Liked</span>-->
                     <!--</div>-->
-                <!--</li>-->
-                <!--<li class="tl-header">-->
+                    <!--<div class="panel panel-default m-t-md m-b-n-sm pos-rlt">-->
+                    <!--<span class="arrow top pull-left"></span>-->
+                    <!--<form>-->
+                    <!--<textarea class="form-control no-border" rows="3"-->
+                    <!--placeholder="Your comment..."></textarea>-->
+                    <!--</form>-->
+                    <!--<div class="panel-footer bg-light lter">-->
+                    <!--<button class="btn btn-info pull-right btn-sm">Comment</button>-->
+                    <!--<ul class="nav nav-pills nav-sm">-->
+                    <!--<li><a href><i class="fa fa-camera text-muted"></i></a></li>-->
+                    <!--<li><a href><i class="fa fa-video-camera text-muted"></i></a></li>-->
+                    <!--</ul>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</li>-->
+                    <!--<li class="tl-header">-->
                     <!--<div class="btn btn-sm btn-default btn-rounded">2014</div>-->
-                <!--</li>-->
-                <!--<li class="tl-item">-->
+                    <!--</li>-->
+                    <!--<li class="tl-item">-->
                     <!--<div class="tl-wrap">-->
-                        <!--<span class="tl-date">10.08.2013</span>-->
-                        <!--<div class="tl-content panel padder b-a">-->
-                            <!--<span class="arrow left pull-up hidden-left"></span>-->
-                            <!--<span class="arrow right pull-up visible-left"></span>-->
-                            <!--<div class="text-lt">A good story to hear.</div>-->
-                        <!--</div>-->
+                    <!--<span class="tl-date">10.08.2013</span>-->
+                    <!--<div class="tl-content panel padder b-a">-->
+                    <!--<span class="arrow left pull-up hidden-left"></span>-->
+                    <!--<span class="arrow right pull-up visible-left"></span>-->
+                    <!--<div class="text-lt">A good story to hear.</div>-->
                     <!--</div>-->
-                <!--</li>-->
-                <!--<li class="tl-header">-->
+                    <!--</div>-->
+                    <!--</li>-->
+                    <!--<li class="tl-header">-->
                     <!--<div class="btn btn-icon btn-rounded btn-default"><i class="fa fa-twitter"></i></div>-->
-                <!--</li>-->
-                <!--<li class="tl-item tl-left">-->
+                    <!--</li>-->
+                    <!--<li class="tl-item tl-left">-->
                     <!--<div class="tl-wrap b-white">-->
-                        <!--<span class="tl-date">5.07.2013</span>-->
-                        <!--<div class="tl-content panel padder b-a">-->
-                            <!--<span class="arrow left pull-up hidden-left"></span>-->
-                            <!--<span class="arrow right pull-up visible-left"></span>-->
-                            <!--<div class="text-lt">Yesterday is History</div>-->
-                        <!--</div>-->
+                    <!--<span class="tl-date">5.07.2013</span>-->
+                    <!--<div class="tl-content panel padder b-a">-->
+                    <!--<span class="arrow left pull-up hidden-left"></span>-->
+                    <!--<span class="arrow right pull-up visible-left"></span>-->
+                    <!--<div class="text-lt">Yesterday is History</div>-->
                     <!--</div>-->
-                <!--</li>-->
-                <li class="tl-header">
-                    <div class="btn btn-sm btn-default btn-rounded">more</div>
-                </li>
-            </ul>
+                    <!--</div>-->
+                    <!--</li>-->
+                    <li class="tl-header">
+                        <div class="btn btn-sm btn-default btn-rounded">more</div>
+                    </li>
+                </ul>
+            </div>
         </div>
+        <!-- /.col -->
     </div>
-    <!-- /.col -->
 </div>
