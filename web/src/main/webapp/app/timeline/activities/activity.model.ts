@@ -1,5 +1,8 @@
+import {ActivityDetailsModel} from "./activity-details.model";
+
 export class ActivityModel {
 
+    activityDetails : ActivityDetailsModel
     source = "MANUAL";
     title = "title";
     description = "description";
@@ -7,8 +10,8 @@ export class ActivityModel {
     duration = "25";
     distance = "10";
     unit = "km";
-    maxSpeed = "33";
-    meanSpeed = "15";
+    maxSpeed = "";
+    meanSpeed = "";
     dateTime : String;
 
 
