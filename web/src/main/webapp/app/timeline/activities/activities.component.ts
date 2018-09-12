@@ -3,7 +3,7 @@ import {ActivitiesDataservice} from "./activities.dataservice";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityModel} from "./activity.model";
 import * as moment from 'moment';
-import { Response } from '@angular/http';
+import {Response} from '@angular/http';
 import {forEach} from "../../../../../../node_modules/@angular/router/src/utils/collection";
 import {ActivityDetailsModel} from "./activity-details.model";
 
@@ -38,15 +38,7 @@ export class ActivitiesComponent implements OnInit {
             'maxSpeed': new FormControl(),
             'meanSpeed': new FormControl()
         });
-        this.activityDataservice.fetchActivity().subscribe((activities: any[]) =>
-            activities.forEach(sportActivity => {
-                this.activities.push(new ActivityModel(
-                    sportActivity.sportyActivityIdentifier,
-                    sportActivity.source,
-                    sportActivity.details
-                    ));
-            })
-        );
+        this.refreshActivities();
     }
 
     submitActivity() {
@@ -64,9 +56,22 @@ export class ActivitiesComponent implements OnInit {
             this.addActivityForm.get("duration.seconds").value;
         console.log(activity);
         this.activityDataservice.createActivity(activity).subscribe(isSuccess => {
-            console.log(isSuccess);
+            this.refreshActivities();
         }, error => {
             console.log(error);
         });
+    }
+
+    private refreshActivities() {
+        this.activities = [];
+        this.activityDataservice.fetchActivity().subscribe((activities: any[]) =>
+            activities.forEach(sportActivity => {
+                this.activities.push(new ActivityModel(
+                    sportActivity.sportyActivityIdentifier,
+                    sportActivity.source,
+                    sportActivity.details
+                ));
+            })
+        );
     }
 }
