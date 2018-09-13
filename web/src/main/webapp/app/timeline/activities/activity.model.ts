@@ -1,4 +1,5 @@
 import {ActivityDetailsModel} from "./activity-details.model";
+import moment = require("moment");
 
 export class ActivityModel {
 
@@ -18,6 +19,8 @@ export class ActivityModel {
     constructor(sportActivityIdentifier: String,
                 source: String,
                 sportActivityDetails :ActivityDetailsModel){
+        sportActivityDetails.dateTime = moment(sportActivityDetails.dateTime)
+            .format("YYYY-MM-DD HH:mm:ss");
         this.source = this.source
         this.sportActivityIdentifier = sportActivityIdentifier;
         this.activityDetails = sportActivityDetails;
