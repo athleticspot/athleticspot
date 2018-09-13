@@ -23,7 +23,7 @@ public class SportActivityController {
 
     private final Logger LOG = LoggerFactory.getLogger(SportActivityController.class);
 
-    public final TimelineService timelineService;
+    private final TimelineService timelineService;
 
     @Autowired
     public SportActivityController(TimelineService timelineService) {
@@ -36,6 +36,7 @@ public class SportActivityController {
             .getSportActivities()
             .stream()
             .map(SportActivityOutDto::create)
+            .sorted((o1, o2) -> o2.getDetails().getDateTime().compareTo(o1.getDetails().getDateTime()))
             .collect(Collectors.toList());
     }
 
