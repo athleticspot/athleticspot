@@ -46,8 +46,19 @@ public class SportActivity implements TimelineEvent, Entity {
         this.source = sportActivitySource;
     }
 
+    private SportActivity(String sportyActivitySource, SportActivityDetails sportActivityDetails) {
+        Assert.notNull(sportActivityDetails, "Sport activity details cannot be null");
+        Assert.notNull(sportyActivitySource, "Sport activity source cannot be null");
+        this.source = sportyActivitySource;
+        this.details = sportActivityDetails;
+    }
+
     public static SportActivity create(String sportActivityIdentifier, String sportActivitySource, SportActivityDetails sportActivityDetails) {
         return new SportActivity(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
+    }
+
+    public static SportActivity createNew(String sportyActivitySource, SportActivityDetails sportActivityDetails){
+        return new SportActivity(sportyActivitySource, sportActivityDetails);
     }
 
     @Override

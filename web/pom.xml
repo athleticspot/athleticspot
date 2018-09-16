@@ -515,7 +515,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!-- Force alphabetical order to have a reproducible build -->
+                    <!-- Force alphabetical order to have a reproducible buildFromStrava -->
                     <runOrder>alphabetical</runOrder>
                 </configuration>
             </plugin>
@@ -630,7 +630,7 @@
             <plugins>
                 <!--
                     This plugin's configuration is used to store Eclipse m2e settings only.
-                    It has no influence on the Maven build itself.
+                    It has no influence on the Maven buildFromStrava itself.
                     Remove when the m2e plugin can correctly bind to Maven lifecycle
                 -->
                 <plugin>
