@@ -2,7 +2,9 @@ package com.athleticspot.tracker.infrastracture.assambler;
 
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityDetails;
+import com.athleticspot.tracker.domain.model.SportActivityType;
 import javastrava.api.v3.model.StravaActivity;
+import javastrava.api.v3.model.reference.StravaActivityType;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class StravaActivityAssembler {
         final SportActivityDetails sportActivityDetails = SportActivityDetails.create(
             stravaActivity.getDescription(),
             stravaActivity.getName(),
-            stravaActivity.getType().getValue(),
+            SportActivityType.valueOf(stravaActivity.getType().getValue().toUpperCase()),
             stravaActivity.getElapsedTime().toString(),
             stravaActivity.getDistance().toString(),
             null,

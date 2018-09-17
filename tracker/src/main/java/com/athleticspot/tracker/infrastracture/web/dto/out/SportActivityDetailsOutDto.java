@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.infrastracture.web.dto.out;
 
 import com.athleticspot.tracker.domain.model.SportActivityDetails;
+import com.athleticspot.tracker.domain.model.SportActivityType;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,7 @@ public class SportActivityDetailsOutDto {
 
     private String description;
     private String title;
-    private String type;
+    private SportActivityType type;
     private String duration;
     private String distance;
     private String units;
@@ -43,7 +44,7 @@ public class SportActivityDetailsOutDto {
         return title;
     }
 
-    public String getType() {
+    public SportActivityType getType() {
         return type;
     }
 

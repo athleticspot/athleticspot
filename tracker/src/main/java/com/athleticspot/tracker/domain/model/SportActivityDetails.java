@@ -4,6 +4,8 @@ import com.athleticspot.tracker.domain.shared.ValueObject;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -20,7 +22,8 @@ public class SportActivityDetails implements ValueObject {
     private String title;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private SportActivityType type;
 
     @Column(name = "duration")
     private String duration;
@@ -44,7 +47,7 @@ public class SportActivityDetails implements ValueObject {
         //jpa purpose
     }
 
-    private SportActivityDetails(String description, String title, String type, String duration, String distance, String units, String maxSpeed, String meanSpeed, LocalDateTime sportActivityTime) {
+    private SportActivityDetails(String description, String title, SportActivityType type, String duration, String distance, String units, String maxSpeed, String meanSpeed, LocalDateTime sportActivityTime) {
 
         this.description = description;
         this.title = title;
@@ -60,7 +63,7 @@ public class SportActivityDetails implements ValueObject {
     public static SportActivityDetails create(
         String sportActivityDescription,
         String sportActivityTitle,
-        String sportActivityType,
+        SportActivityType sportActivityType,
         String sportActivityDuration,
         String sportActivityDistance,
         String sportActivityUnits,
@@ -78,7 +81,7 @@ public class SportActivityDetails implements ValueObject {
         return title;
     }
 
-    public String type() {
+    public SportActivityType type() {
         return type;
     }
 

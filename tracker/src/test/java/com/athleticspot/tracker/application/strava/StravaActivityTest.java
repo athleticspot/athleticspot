@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.application.strava;
 
 import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.infrastracture.assambler.StravaActivityAssembler;
 import javastrava.api.v3.model.StravaActivity;
 import javastrava.api.v3.model.reference.StravaActivityType;
@@ -31,7 +32,7 @@ public class StravaActivityTest {
         SportActivity sportActivity = sportActivityAssembler.buildFromStrava(buildStravaActivity());
 
         Assertions.assertThat(sportActivity.source()).isEqualTo("STRAVA");
-        Assertions.assertThat(sportActivity.details().type()).isEqualToIgnoringCase("RUN");
+        Assertions.assertThat(sportActivity.details().type()).isEqualByComparingTo(SportActivityType.RUN);
         Assertions.assertThat(sportActivity.details().description()).isEqualTo(description);
         Assertions.assertThat(sportActivity.details().title()).isEqualTo(activityName);
         Assertions.assertThat(sportActivity.details().dateTime()).isEqualTo(LocalDateTime.parse(startDateTime));

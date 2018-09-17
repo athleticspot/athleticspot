@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.infrastracture.web.dto.in;
 
+import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,7 +31,7 @@ public class SportActivityInDto implements Serializable {
     private String description;
 
     @NotNull
-    private String type;
+    private SportActivityType type;
 
     @NotNull
     private String duration;
@@ -63,7 +64,7 @@ public class SportActivityInDto implements Serializable {
         return title;
     }
 
-    public String getType() {
+    public SportActivityType getType() {
         return type;
     }
 

@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.shared;
 
 import com.athleticspot.tracker.domain.model.SportActivityDetails;
+import com.athleticspot.tracker.domain.model.SportActivityType;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +14,7 @@ public class TestSportActivityDetailsFactory {
 
         String sportActivityDescription = "description";
         String sportActivityTitle = "title";
-        String sportActivityType = "running";
+        SportActivityType sportActivityType = SportActivityType.RUN;
         String sportActivityDuration = "2h 25s";
         String sportActivityDistance = "10.5";
         String sportActivityUnits = "Metric";

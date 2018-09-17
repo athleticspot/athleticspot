@@ -1,7 +1,6 @@
 package com.athleticspot.tracker.domain.model;
 
 import com.athleticspot.tracker.domain.shared.Entity;
-import org.assertj.core.api.Assertions;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -57,7 +56,7 @@ public class SportActivity implements TimelineEvent, Entity {
         return new SportActivity(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
     }
 
-    public static SportActivity createNew(String sportyActivitySource, SportActivityDetails sportActivityDetails){
+    public static SportActivity createNew(String sportyActivitySource, SportActivityDetails sportActivityDetails) {
         return new SportActivity(sportyActivitySource, sportActivityDetails);
     }
 
