@@ -1,10 +1,9 @@
 package com.athleticspot.tracker.application.strava;
 
-import com.athleticspot.tracker.application.StravaDataFactory;
+import com.athleticspot.tracker.application.StravaApplicationService;
 import javastrava.api.v3.auth.TokenManager;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;
-import javastrava.api.v3.auth.ref.AuthorisationScope;
 import javastrava.api.v3.model.StravaActivity;
 import javastrava.api.v3.rest.API;
 import javastrava.api.v3.rest.ActivityAPI;
@@ -23,13 +22,13 @@ public class StravaAuthServiceTest {
     @Test
     public void getTokenTest() {
 
-        StravaDataFactory stravaDataFactory = new StravaDataFactory();
+        StravaApplicationService stravaApplicationService = new StravaApplicationService(null);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
         TokenResponse response = auth.tokenExchange(
-            stravaDataFactory.clientCode(),
-            stravaDataFactory.clientSecret(),
+            stravaApplicationService.clientCode(),
+            stravaApplicationService.clientSecret(),
             code);
         Token token = new Token(response);
         TokenManager.instance().storeToken(token);
@@ -41,13 +40,13 @@ public class StravaAuthServiceTest {
     @Test
     public void getActivitiesTest() {
 
-        StravaDataFactory stravaDataFactory = new StravaDataFactory();
+        StravaApplicationService stravaApplicationService = new StravaApplicationService(null);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
         TokenResponse response = auth.tokenExchange(
-            stravaDataFactory.clientCode(),
-            stravaDataFactory.clientSecret(),
+            stravaApplicationService.clientCode(),
+            stravaApplicationService.clientSecret(),
             code);
         Token token = new Token(response);
 

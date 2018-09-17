@@ -3,10 +3,15 @@ package com.athleticspot.tracker.infrastracture.assambler;
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityDetails;
 import javastrava.api.v3.model.StravaActivity;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Tomasz Kasprzycki
  */
+@Component
 public class StravaActivityAssembler {
 
     public SportActivity buildFromStrava(StravaActivity stravaActivity) {
@@ -27,5 +32,11 @@ public class StravaActivityAssembler {
             "STRAVA",
             sportActivityDetails
         );
+    }
+
+    public List<SportActivity> buildFromStravaActivities(List<StravaActivity> stravaActivities) {
+        return stravaActivities.stream()
+            .map(this::buildFromStrava)
+            .collect(Collectors.toList());
     }
 }

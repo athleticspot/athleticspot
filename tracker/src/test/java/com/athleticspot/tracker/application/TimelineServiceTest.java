@@ -20,6 +20,7 @@ public class TimelineServiceTest {
 
     private TimelineService timelineService;
     private TrackerUserService trackerUserService;
+    private StravaApplicationService stravaApplicationService;
     private TimelineRepository timelineRepository;
     private SportActivityRepository sportActivityRepository;
     private ApplicationEvents applicationEvents;
@@ -31,9 +32,10 @@ public class TimelineServiceTest {
     public void setUp() {
         timelineRepository = Mockito.mock(TimelineRepository.class);
         trackerUserService = Mockito.mock(TrackerUserService.class);
+        stravaApplicationService = Mockito.mock(StravaApplicationService.class);
         applicationEvents = Mockito.mock(ApplicationEvents.class);
         sportActivityRepository = Mockito.mock(SportActivityRepository.class);
-        timelineService = new TimelineServiceImpl(timelineRepository, trackerUserService, sportActivityRepository, applicationEvents);
+        timelineService = new TimelineServiceImpl(timelineRepository, trackerUserService, sportActivityRepository, applicationEvents, stravaApplicationService);
 
         timeline = TestTimelineFactory.testTimeline(expectedTimelineId);
     }
