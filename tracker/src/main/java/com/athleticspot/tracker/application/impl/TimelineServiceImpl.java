@@ -45,6 +45,8 @@ public class TimelineServiceImpl implements TimelineService {
     public List<SportActivity> getSportActivities() {
         final String timelineIdentifier = trackerUserService.getTimelineIdentifier();
         return sportActivityRepository.findByTimelineId(timelineIdentifier);
+
+
     }
 
     @Override

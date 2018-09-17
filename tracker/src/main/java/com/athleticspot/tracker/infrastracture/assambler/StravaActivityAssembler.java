@@ -14,13 +14,13 @@ public class StravaActivityAssembler {
         final SportActivityDetails sportActivityDetails = SportActivityDetails.create(
             stravaActivity.getDescription(),
             stravaActivity.getName(),
-            stravaActivity.getWorkoutType().toString(),
+            stravaActivity.getType().getValue(),
             stravaActivity.getElapsedTime().toString(),
             stravaActivity.getDistance().toString(),
             null,
             stravaActivity.getMaxSpeed().toString(),
             stravaActivity.getAverageSpeed().toString(),
-            null
+            stravaActivity.getStartDateLocal()
         );
 
         return SportActivity.createNew(
