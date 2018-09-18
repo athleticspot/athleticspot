@@ -25,7 +25,7 @@ export class ActivitiesComponent implements OnInit {
         this.addActivityForm = new FormGroup({
             'title': new FormControl(null, Validators.required),
             'description': new FormControl(),
-            'type': new FormControl("Running", Validators.required),
+            'type': new FormControl("RUN", Validators.required),
             'duration': new FormGroup({
                 "hours": new FormControl(0),
                 "minutes": new FormControl(0),
@@ -60,6 +60,7 @@ export class ActivitiesComponent implements OnInit {
         }, error => {
             console.log(error);
         });
+        this.addActivityForm.reset();
     }
 
     private refreshActivities() {
