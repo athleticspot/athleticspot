@@ -19,6 +19,7 @@
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.26",
     "@types/jquery": "^3.2.13",
     "angular2-time-duration-picker": "^1.1.0",
+    "angular2-toaster": "4.0.2",
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "2.4.1",
     "font-awesome": "4.7.0",

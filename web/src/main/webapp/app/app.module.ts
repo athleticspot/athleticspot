@@ -20,10 +20,11 @@ import {
     LayoutRoutingModule,
     NavbarComponent,
     PageRibbonComponent,
-    ProfileService
+    ProfileService,
 } from "./layouts";
 import {TrainingModule} from "./training/training.module";
 import {TimelineModule} from "./timeline/timeline.module";
+import {ToasterModule} from "angular2-toaster";
 
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 
@@ -38,7 +39,8 @@ import {TimelineModule} from "./timeline/timeline.module";
         AthleticspotAccountModule,
         AthleticspotEntityModule,
         TrainingModule,
-        TimelineModule
+        TimelineModule,
+        ToasterModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

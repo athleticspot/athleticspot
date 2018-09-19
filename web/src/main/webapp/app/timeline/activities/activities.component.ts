@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import {Response} from '@angular/http';
 import {forEach} from "../../../../../../node_modules/@angular/router/src/utils/collection";
 import {ActivityDetailsModel} from "./activity-details.model";
+import {ToasterService} from "angular2-toaster";
 
 
 @Component({
@@ -15,10 +16,12 @@ import {ActivityDetailsModel} from "./activity-details.model";
 export class ActivitiesComponent implements OnInit {
 
     private addActivityForm: FormGroup;
+    private toasterService: ToasterService;
     private activities = [];
 
 
-    constructor(private activityDataservice: ActivitiesDataservice) {
+    constructor(private activityDataservice: ActivitiesDataservice, toasterService: ToasterService) {
+        this.toasterService = toasterService;
     }
 
     ngOnInit(): void {
@@ -42,6 +45,7 @@ export class ActivitiesComponent implements OnInit {
     }
 
     submitActivity() {
+
         let activity = this.addActivityForm.value as ActivityModel;
         activity.source = "MANUAL";
         activity.dateTime = moment(this.addActivityForm.get('date').value)
@@ -57,7 +61,9 @@ export class ActivitiesComponent implements OnInit {
         console.log(activity);
         this.activityDataservice.createActivity(activity).subscribe(isSuccess => {
             this.refreshActivities();
+            this.toasterService.pop('success', 'Activity', 'Activity created successfully');
         }, error => {
+            this.toasterService.pop('error', 'Activity', 'Activity create failed');
             console.log(error);
         });
         this.addActivityForm.reset();
