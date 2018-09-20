@@ -2,18 +2,22 @@
     <div class="hbox hbox-auto-xs hbox-auto-sm">
         <!-- .col -->
         <div class="col w-lg bg-light dk b-r bg-auto" id="aside">
-            <div class="wrapper bg b-b">
-                <h3 class="m-n font-thin">Timeline</h3>
+            <div class="wrapper b-b">
+                <h3 class="m-n font-thin">Add Activity</h3>
             </div>
             <div class="wrapper">
-                <form novalidate [formGroup]="addActivityForm" (ngSubmit)="submitActivity()">
+                <form novalidate [formGroup]="addActivityForm" (ngSubmit)="submitActivity()" class="form-validation">
                     <div class="form-group">
                         <label>Title</label>
                         <input
                             type="text"
                             formControlName="title"
-                            placeholder="Event title"
+                            placeholder="Add title..."
                             class="input-sm form-control">
+                        <span class="m-b-none padder"
+                              *ngIf="addActivityForm.dirty && addActivityForm.controls.title.errors?.required">
+                            This field is required
+                        </span>
                     </div>
 
                     <div class="form-group">
@@ -30,6 +34,11 @@
                                 <option value="1">01:00AM</option>
                             </select>
 
+                            <span class="m-b-none padder"
+                                  *ngIf="addActivityForm.dirty && addActivityForm.controls.date.errors?.required">
+                            This field is required
+                        </span>
+
                         </div>
                     </div>
 
@@ -40,6 +49,10 @@
                             <option value="RIDE">Riding</option>
                             <option value="SWIM">Swimming</option>
                         </select>
+                        <span class="m-b-none padder"
+                              *ngIf="addActivityForm.dirty && addActivityForm.controls.title.errors?.required">
+                            This field is required
+                        </span>
                     </div>
 
                     <div formGroupName="duration">
@@ -64,7 +77,9 @@
                     <div class="form-group">
                         <label>Distance</label>
                         <div class="form-inline">
-                            <input type="number" name="distance" class="form-control col-sm-6" placeholder="Distance"
+                            <input type="number"
+                                   name="distance" class="form-control col-sm-6"
+                                   placeholder="Distance..."
                                    formControlName="distance">
                             <select class="form-control col-sm-6" formControlName="unit">
                                 <option>kilometers</option>
@@ -80,7 +95,7 @@
                         <input
                             type="text"
                             formControlName="description"
-                            placeholder="Event description"
+                            placeholder="Add description..."
                             class="input-sm form-control">
                     </div>
 
@@ -89,7 +104,7 @@
                         <input
                             type="text"
                             formControlName="maxSpeed"
-                            placeholder="Event type"
+                            placeholder="Add max speed..."
                             class="input-sm form-control">
                     </div>
                     <div class="form-group">
@@ -97,7 +112,7 @@
                         <input
                             type="text"
                             formControlName="meanSpeed"
-                            placeholder="Event type"
+                            placeholder="Add mean speed..."
                             class="input-sm form-control">
                     </div>
                     <div class="m-t-md m-b-md">

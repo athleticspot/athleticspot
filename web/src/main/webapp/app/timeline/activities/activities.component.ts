@@ -26,9 +26,9 @@ export class ActivitiesComponent implements OnInit {
 
     ngOnInit(): void {
         this.addActivityForm = new FormGroup({
-            'title': new FormControl(null, Validators.required),
+            'title': new FormControl(null, [Validators.required]),
             'description': new FormControl(),
-            'type': new FormControl("RUN", Validators.required),
+            'type': new FormControl("RUN", [Validators.required]),
             'duration': new FormGroup({
                 "hours": new FormControl(0),
                 "minutes": new FormControl(0),
@@ -37,7 +37,7 @@ export class ActivitiesComponent implements OnInit {
             'distance': new FormControl(),
             'unit': new FormControl("kilometers"),
             'date': new FormControl(new Date()),
-            'time': new FormControl("0"),
+            'time': new FormControl("0", [Validators.required]),
             'maxSpeed': new FormControl(),
             'meanSpeed': new FormControl()
         });
@@ -45,28 +45,33 @@ export class ActivitiesComponent implements OnInit {
     }
 
     submitActivity() {
+        console.log(this.addActivityForm);
+        if (this.addActivityForm.valid) {
+            let activity = this.addActivityForm.value as ActivityModel;
+            activity.source = "MANUAL";
+            activity.dateTime = moment(this.addActivityForm.get('date').value)
+                .startOf('day')
+                .add(this.addActivityForm.get('time').value,
+                    'hours')
+                .format("YYYY-MM-DDTHH:mm:ss");
 
-        let activity = this.addActivityForm.value as ActivityModel;
-        activity.source = "MANUAL";
-        activity.dateTime = moment(this.addActivityForm.get('date').value)
-            .startOf('day')
-            .add(this.addActivityForm.get('time').value,
-                'hours')
-            .format("YYYY-MM-DDTHH:mm:ss");
-
-        activity.duration =
-            this.addActivityForm.get("duration.hours").value + "," +
-            this.addActivityForm.get("duration.minutes").value + "," +
-            this.addActivityForm.get("duration.seconds").value;
-        console.log(activity);
-        this.activityDataservice.createActivity(activity).subscribe(isSuccess => {
-            this.refreshActivities();
-            this.toasterService.pop('success', 'Activity', 'Activity created successfully');
-        }, error => {
-            this.toasterService.pop('error', 'Activity', 'Activity create failed');
-            console.log(error);
-        });
-        this.addActivityForm.reset();
+            activity.duration =
+                this.addActivityForm.get("duration.hours").value + "," +
+                this.addActivityForm.get("duration.minutes").value + "," +
+                this.addActivityForm.get("duration.seconds").value;
+            console.log(activity);
+            this.activityDataservice.createActivity(activity).subscribe(isSuccess => {
+                this.refreshActivities();
+                this.toasterService.pop('success', 'Activity', 'Activity created successfully');
+            }, error => {
+                this.toasterService.pop('error', 'Activity', 'Activity create failed');
+                console.log(error);
+            });
+            this.addActivityForm.reset();
+        } else {
+            this.addActivityForm.markAsDirty({onlySelf: true});
+            this.markFormGroupTouchedAndDirty(this.addActivityForm)
+        }
     }
 
     private refreshActivities() {
@@ -80,5 +85,20 @@ export class ActivitiesComponent implements OnInit {
                 ));
             })
         );
+    }
+
+    /**
+     * Marks all controls in a form group as touched
+     * @param formGroup - The group to caress..hah
+     */
+    private markFormGroupTouchedAndDirty(formGroup: FormGroup) {
+        (<any>Object).values(formGroup.controls).forEach(control => {
+            control.markAsTouched();
+            control.markAsDirty();
+
+            if (control.controls) {
+                this.markFormGroupTouchedAndDirty(control);
+            }
+        });
     }
 }
