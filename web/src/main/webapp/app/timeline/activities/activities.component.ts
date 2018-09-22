@@ -18,6 +18,7 @@ export class ActivitiesComponent implements OnInit {
     private addActivityForm: FormGroup;
     private toasterService: ToasterService;
     private activities = [];
+    private showTimeline = false;
 
 
     constructor(private activityDataservice: ActivitiesDataservice, toasterService: ToasterService) {
@@ -75,9 +76,11 @@ export class ActivitiesComponent implements OnInit {
     }
 
     private refreshActivities() {
+        this.showTimeline = false;
         this.activities = [];
         this.activityDataservice.fetchActivity().subscribe((activities: any[]) =>
             activities.forEach(sportActivity => {
+                this.showTimeline = true;
                 this.activities.push(new ActivityModel(
                     sportActivity.sportyActivityIdentifier,
                     sportActivity.source,

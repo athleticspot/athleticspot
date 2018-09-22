@@ -1,6 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {CSRFService} from "../auth/csrf.service";
-import {SocialService} from "../social/social.service";
+import {Component, OnInit} from "@angular/core";
 
 @Component({
     selector: 'athl-spinner',
