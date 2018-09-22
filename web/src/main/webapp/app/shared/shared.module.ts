@@ -15,8 +15,9 @@ import {
     Principal,
     SocialService,
     StateStorageService,
-    UserService
+    UserService,
 } from "./";
+import {AthlSpinnerComponent} from "./spinner/spinner.component";
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import {
     declarations: [
         JhiSocialComponent,
         JhiLoginModalComponent,
+        AthlSpinnerComponent,
         HasAnyAuthorityDirective
     ],
     providers: [
@@ -46,7 +48,8 @@ import {
         JhiSocialComponent,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
-        DatePipe
+        DatePipe,
+        AthlSpinnerComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
