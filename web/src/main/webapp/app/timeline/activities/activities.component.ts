@@ -3,10 +3,8 @@ import {ActivitiesDataservice} from "./activities.dataservice";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityModel} from "./activity.model";
 import * as moment from 'moment';
-import {Response} from '@angular/http';
-import {forEach} from "../../../../../../node_modules/@angular/router/src/utils/collection";
-import {ActivityDetailsModel} from "./activity-details.model";
 import {ToasterService} from "angular2-toaster";
+import {StravaDataservice} from "./strava.dataservice";
 
 
 @Component({
@@ -16,12 +14,13 @@ import {ToasterService} from "angular2-toaster";
 export class ActivitiesComponent implements OnInit {
 
     private addActivityForm: FormGroup;
-    private toasterService: ToasterService;
     private activities = [];
     private showTimeline = false;
 
 
-    constructor(private activityDataservice: ActivitiesDataservice, toasterService: ToasterService) {
+    constructor(private activityDataservice: ActivitiesDataservice,
+                private stravaDataservice: StravaDataservice,
+                private toasterService: ToasterService) {
         this.toasterService = toasterService;
     }
 
@@ -43,6 +42,10 @@ export class ActivitiesComponent implements OnInit {
             'meanSpeed': new FormControl()
         });
         this.refreshActivities();
+        this.stravaDataservice.fetchStravaActivationLink()
+            .subscribe(value => {
+                console.log(value);
+            })
     }
 
     submitActivity() {

@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ActivitiesComponent} from "./activities/activities.component";
 import {timelineState} from "./timeline.route";
 import {ActivitiesDataservice} from "./activities/activities.dataservice";
+import {StravaDataservice} from "./activities/strava.dataservice";
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import {ActivitiesDataservice} from "./activities/activities.dataservice";
     ],
     entryComponents: [ActivitiesComponent],
     providers: [
-        ActivitiesDataservice
+        ActivitiesDataservice,
+        StravaDataservice
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

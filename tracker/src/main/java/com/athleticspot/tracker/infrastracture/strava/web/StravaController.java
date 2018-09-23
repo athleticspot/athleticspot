@@ -3,6 +3,7 @@ package com.athleticspot.tracker.infrastracture.strava.web;
 import com.athleticspot.tracker.application.strava.StravaAuthService;
 import com.athleticspot.tracker.application.strava.TrackerAuth;
 import com.athleticspot.tracker.infrastracture.web.SportTrackersApiUrl;
+import com.google.gson.Gson;
 import javastrava.api.v3.rest.API;
 import javastrava.api.v3.rest.AuthorisationAPI;
 import org.slf4j.Logger;
@@ -41,8 +42,8 @@ public class StravaController {
 
     @GetMapping(value = "/activate")
     public String activateStravaUser(HttpServletRequest httpServletRequest) throws IOException {
-        final String activationLink = stravaTrackerAuth.authenticateTracker();
-        return activationLink;
+        final Gson gson = new Gson();
+        return gson.toJson(stravaTrackerAuth.authenticateTracker()) ;
     }
 
 }
