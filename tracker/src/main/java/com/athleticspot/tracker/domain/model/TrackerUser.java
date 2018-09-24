@@ -16,9 +16,11 @@ public class TrackerUser {
     @Column(name = "login")
     private String login;
 
-
     @Column(name = "timeline_id")
     private String timelineIdentifier;
+
+    @Column(name = "strava_code")
+    private String stravaCode;
 
     public TrackerUser() {
     }
@@ -34,6 +36,14 @@ public class TrackerUser {
 
     public String getTimelineIdentifier() {
         return timelineIdentifier;
+    }
+
+    public String getStravaCode() {
+        return stravaCode;
+    }
+
+    public void assignStravaCode(String stravaCode){
+        this.stravaCode = stravaCode;
     }
 
     public TrackerUser assignTimelineIdentifier(String timelineIdentifier) {

@@ -1,8 +1,8 @@
 package com.athleticspot.tracker.application;
 
+import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.infrastracture.assambler.StravaActivityAssembler;
-import com.google.common.collect.Lists;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;
 import javastrava.api.v3.model.StravaActivity;
@@ -29,10 +29,13 @@ public class StravaApplicationService {
     //returned during user registration
     private final String code = "0ad0891d82ad2aab88ec82cb59829bb4ebda78c6";
 
+    private final TrackerUserService trackerUserService;
+
     private final StravaActivityAssembler stravaActivityAssembler;
 
     @Autowired
-    public StravaApplicationService(StravaActivityAssembler stravaActivityAssembler) {
+    public StravaApplicationService(TrackerUserService trackerUserService, StravaActivityAssembler stravaActivityAssembler) {
+        this.trackerUserService = trackerUserService;
         this.stravaActivityAssembler = stravaActivityAssembler;
     }
 
@@ -45,13 +48,17 @@ public class StravaApplicationService {
         return clientCode;
     }
 
-    public List<SportActivity> getStravaActivities(){
+    private String getCode() {
+        return trackerUserService.getStravaCode(SecurityUtils.getCurrentUserLogin());
+    }
+
+    public List<SportActivity> getStravaActivities() {
         AuthorisationAPI auth = API.authorisationInstance();
 
         TokenResponse response = auth.tokenExchange(
             this.clientCode(),
             this.clientSecret(),
-            code);
+            this.getCode());
         Token token = new Token(response);
 
         final ActivityAPI api = API.instance(ActivityAPI.class, token);

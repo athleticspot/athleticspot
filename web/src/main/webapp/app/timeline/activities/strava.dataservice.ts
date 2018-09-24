@@ -15,7 +15,6 @@ export class StravaDataservice {
                 return response.json();
             }
         );
-
     }
 
 

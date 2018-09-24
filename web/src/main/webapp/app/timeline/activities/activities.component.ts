@@ -16,6 +16,7 @@ export class ActivitiesComponent implements OnInit {
     private addActivityForm: FormGroup;
     private activities = [];
     private showTimeline = false;
+    private stravaActivationUrl: String;
 
 
     constructor(private activityDataservice: ActivitiesDataservice,
@@ -44,7 +45,7 @@ export class ActivitiesComponent implements OnInit {
         this.refreshActivities();
         this.stravaDataservice.fetchStravaActivationLink()
             .subscribe(value => {
-                console.log(value);
+                this.stravaActivationUrl = value;
             })
     }
 
@@ -81,7 +82,7 @@ export class ActivitiesComponent implements OnInit {
     private refreshActivities() {
         this.showTimeline = false;
         this.activities = [];
-        this.activityDataservice.fetchActivity().subscribe((activities: any[]) =>
+        this.activityDataservice.fetchActivity().subscribe((activities: any[]) => {
             activities.forEach(sportActivity => {
                 this.showTimeline = true;
                 this.activities.push(new ActivityModel(
@@ -89,7 +90,10 @@ export class ActivitiesComponent implements OnInit {
                     sportActivity.source,
                     sportActivity.details
                 ));
-            })
+            })}, error => {
+                this.showTimeline = true;
+                this.toasterService.pop('error', 'Activity', 'Error during fetching activities');
+            }
         );
     }
 

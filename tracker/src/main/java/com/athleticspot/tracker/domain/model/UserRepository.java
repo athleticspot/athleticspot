@@ -25,5 +25,6 @@ public interface UserRepository {
      */
     void saveTrackerUser(TrackerUser trackerUser);
 
+
     TrackerUser getUser(String userLogin);
 }

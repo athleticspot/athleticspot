@@ -2,6 +2,7 @@ package com.athleticspot.tracker.application.strava;
 
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.StravaApplicationService;
+import com.athleticspot.tracker.application.TrackerUserService;
 import javastrava.api.v3.auth.TokenManager;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;
@@ -22,8 +23,11 @@ public class StravaAuthService implements TrackerAuth {
 
     private final StravaApplicationService stravaDataProvider;
 
-    public StravaAuthService(StravaApplicationService stravaDataProvider) {
+    private final TrackerUserService trackerUserService;
+
+    public StravaAuthService(StravaApplicationService stravaDataProvider, TrackerUserService trackerUserService) {
         this.stravaDataProvider = stravaDataProvider;
+        this.trackerUserService = trackerUserService;
     }
 
     /**
@@ -57,11 +61,12 @@ public class StravaAuthService implements TrackerAuth {
         log.info("Strava code value: {}", code);
         AuthorisationAPI auth = API.authorisationInstance();
 
-        TokenResponse response = auth.tokenExchange(clientCode, clientSecret, code);
-        Token token = new Token(response);
-        TokenManager.instance().storeToken(token);
+//        TokenResponse response = auth.tokenExchange(clientCode, clientSecret, code);
+//        Token token = new Token(response);
+//        TokenManager.instance().storeToken(token);
 
-        //TDOD: store token with strava username and athleticspot username in athleticspot database
-        TokenManager.instance().retrieveTokenWithExactScope("tomkasp@gmail.com");
+        trackerUserService.addStravaCode(code, username);
+//        TokenManager.instance().retrieveTokenWithExactScope("tomkasp@gmail.com");
+
     }
 }

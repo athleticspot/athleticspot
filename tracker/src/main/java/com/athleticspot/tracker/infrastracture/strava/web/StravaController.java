@@ -16,6 +16,10 @@ import java.io.IOException;
 /**
  * @author Tomasz Kasprzycki
  */
+//Steps
+//1. Use activateStravaUser method to get activation link
+//2. Response from 1 executes registerCode method which fetch Strava token
+//3. Strava token from 2 should be stored for future reference
 @RestController
 @RequestMapping(SportTrackersApiUrl.STRAVA_URL)
 public class StravaController {
@@ -47,7 +51,3 @@ public class StravaController {
     }
 
 }
-//Steps
-//1. Use activateStravaUser method to get activation link
-//2. Response from 1 executes registerCode method which fetch Strava token
-//3. Strava token from 2 should be stored for future reference

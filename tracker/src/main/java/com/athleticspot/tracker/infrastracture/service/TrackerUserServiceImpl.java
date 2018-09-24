@@ -5,6 +5,7 @@ import com.athleticspot.tracker.application.TrackerUserService;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.domain.model.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 /**
@@ -34,5 +35,22 @@ public class TrackerUserServiceImpl implements TrackerUserService {
         trackerUser.assignTimelineIdentifier(timelineIdentifier);
         userRepository.saveTrackerUser(trackerUser);
     }
+
+    @Override
+    @Transactional
+    public void addStravaCode(String stravaCode, String username) {
+        Assert.notNull(stravaCode, "strava code cannot be null");
+        Assert.notNull(username, "username cannot be null");
+
+        final TrackerUser user = userRepository.getUser(username);
+        user.assignStravaCode(stravaCode);
+        userRepository.saveTrackerUser(user);
+    }
+
+    @Override
+    public String getStravaCode(String username) {
+        return userRepository.getUser(username).getStravaCode();
+    }
+
 
 }
