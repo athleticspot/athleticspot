@@ -21,15 +21,15 @@ public enum SportActivityType {
     /**
      * Swim
      */
-    SWIM("SWIM");
+    SWIM("SWIM"),
     /**
      * Hike
      */
-//    HIKE(),
-//    /**
-//     * Walk
-//     */
-//    WALK(),
+    HIKE("HIKE"),
+    /**
+     * Walk
+     */
+    WALK("WALK");
 //    /**
 //     * Alpine skiing
 //     */
