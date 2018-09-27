@@ -101,7 +101,6 @@ public class StravaApplicationService {
     }
 
     private Token getToken() {
-
         TokenResponse response = auth.tokenExchange(
             this.clientCode(),
             this.clientSecret(),
