@@ -49,7 +49,7 @@ public class TrackerUserServiceImpl implements TrackerUserService {
 
     @Override
     public String getStravaCode(String username) {
-        return userRepository.getUser(username).getStravaCode();
+        return userRepository.getUser("admin").getStravaCode();
     }
 
 

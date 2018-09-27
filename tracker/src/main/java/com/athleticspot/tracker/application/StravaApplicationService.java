@@ -1,7 +1,9 @@
 package com.athleticspot.tracker.application;
 
 import com.athleticspot.common.SecurityUtils;
+import com.athleticspot.tracker.domain.model.GeneralSportActivityRepository;
 import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.domain.model.StravaSportActivity;
 import com.athleticspot.tracker.infrastracture.assambler.StravaActivityAssembler;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;
@@ -15,12 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Tomasz Kasprzycki
@@ -29,6 +30,12 @@ import java.util.List;
 public class StravaApplicationService {
 
     private final Logger log = LoggerFactory.getLogger(StravaApplicationService.class);
+
+    private final TrackerUserService trackerUserService;
+
+    private final StravaActivityAssembler stravaActivityAssembler;
+
+    private final GeneralSportActivityRepository generalSportActivityRepository;
 
     private final String clientSecret = "91ad80ea231505275883acc75d7c088c1cf07773";
 
@@ -40,14 +47,12 @@ public class StravaApplicationService {
 
     private final AuthorisationAPI auth = API.authorisationInstance();
 
-    private final TrackerUserService trackerUserService;
-
-    private final StravaActivityAssembler stravaActivityAssembler;
 
     @Autowired
-    public StravaApplicationService(TrackerUserService trackerUserService, StravaActivityAssembler stravaActivityAssembler) {
+    public StravaApplicationService(TrackerUserService trackerUserService, StravaActivityAssembler stravaActivityAssembler, GeneralSportActivityRepository generalSportActivityRepository) {
         this.trackerUserService = trackerUserService;
         this.stravaActivityAssembler = stravaActivityAssembler;
+        this.generalSportActivityRepository = generalSportActivityRepository;
     }
 
 
@@ -77,7 +82,7 @@ public class StravaApplicationService {
         return stravaActivityAssembler.buildFromStravaActivities(Arrays.asList(stravaActivities));
     }
 
-    @Scheduled(cron = "*/1 * * * *")
+    @Scheduled(cron = "*/40 * * * * *")
     public void synchronizedStravaActivities(){
         final ActivityAPI api = API.instance(ActivityAPI.class, getToken());
         boolean isDataAvailable = true;
@@ -97,10 +102,16 @@ public class StravaApplicationService {
                 isDataAvailable = false;
             }
 
+            final List<StravaSportActivity> ts = Arrays.asList(stravaActivities).stream()
+                .map(stravaActivity -> new StravaSportActivity().setProperties(stravaActivity))
+                .collect(Collectors.toList());
+            generalSportActivityRepository.save(ts);
+
         }
     }
 
     private Token getToken() {
+        //TODO : we need to get List of tokens for all users.
         TokenResponse response = auth.tokenExchange(
             this.clientCode(),
             this.clientSecret(),

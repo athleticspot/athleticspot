@@ -41,7 +41,7 @@ public class StravaAuthServiceTest {
     @Test
     public void getTokenTest() {
 
-        StravaApplicationService stravaApplicationService = new StravaApplicationService(null, null);
+        StravaApplicationService stravaApplicationService = new StravaApplicationService(null, null, null);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
@@ -59,7 +59,7 @@ public class StravaAuthServiceTest {
     @Test
     public void getActivitiesTest() {
 
-        StravaApplicationService stravaApplicationService = new StravaApplicationService(null, null);
+        StravaApplicationService stravaApplicationService = new StravaApplicationService(null, null, null);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
@@ -84,8 +84,8 @@ public class StravaAuthServiceTest {
     public void pagingActivitiesTest(){
         StravaApplicationService stravaApplicationService = new StravaApplicationService(
             trackerUserService,
-            null
-        );
+            null,
+            null);
 
         stravaApplicationService.synchronizedStravaActivities();
     }
