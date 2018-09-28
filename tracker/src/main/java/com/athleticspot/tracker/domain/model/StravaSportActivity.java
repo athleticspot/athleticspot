@@ -13,6 +13,8 @@ public class StravaSportActivity {
     @Id
     public String id;
 
+    public String username;
+
     public String title;
 
     public TrackerSource trackerSource = TrackerSource.STRAVA;
@@ -22,15 +24,15 @@ public class StravaSportActivity {
         return this;
     }
 
-    public StravaSportActivity setTrackerSource(final TrackerSource trackerSource) {
-        this.trackerSource = trackerSource;
+    private StravaSportActivity setUsername(final String username) {
+        this.username = username;
         return this;
     }
 
-    public StravaSportActivity setProperties(final StravaActivity id) {
+
+    public StravaSportActivity setProperties(final StravaActivity id, String username) {
         this.title = id.getName();
+        setUsername(username);
         return this;
     }
-
-
 }

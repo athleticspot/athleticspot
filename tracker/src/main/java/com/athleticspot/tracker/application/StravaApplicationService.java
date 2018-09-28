@@ -83,14 +83,14 @@ public class StravaApplicationService {
         return stravaActivityAssembler.buildFromStravaActivities(Arrays.asList(stravaActivities));
     }
 
+    //TODO: This should be separate thread per user.
     @Scheduled(cron = "*/15 * * * * *")
     public void synchronizedStravaActivities() {
         final ActivityAPI api = API.instance(ActivityAPI.class, getToken());
         final LocalDateTime now = LocalDateTime.now();
         long synchronizationAfterDate = getStravaLastSynchronizationDateAsEpoch("admin");
-        boolean isDataAvailable = true;
         int pageNumber = 1;
-        while (isDataAvailable) {
+        while (true) {
             StravaActivity[] stravaActivities = api.listAuthenticatedAthleteActivities(
                 (int) now.atZone(ZoneId.systemDefault()).toEpochSecond(),
                 (int) synchronizationAfterDate,
@@ -101,12 +101,11 @@ public class StravaApplicationService {
             log.info("Page size: {}", stravaActivities.length);
             pageNumber++;
             if (stravaActivities.length == 0) {
-                isDataAvailable = false;
                 break;
             }
 
             final List<StravaSportActivity> ts = Arrays.stream(stravaActivities)
-                .map(stravaActivity -> new StravaSportActivity().setProperties(stravaActivity))
+                .map(stravaActivity -> new StravaSportActivity().setProperties(stravaActivity, "admin"))
                 .collect(Collectors.toList());
             generalSportActivityRepository.save(ts);
         }
