@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Tomasz Kasprzycki
  */
@@ -50,6 +52,19 @@ public class TrackerUserServiceImpl implements TrackerUserService {
     @Override
     public String getStravaCode(String username) {
         return userRepository.getUser("admin").getStravaCode();
+    }
+
+    @Override
+    @Transactional
+    public void assignStravaLastSynchronizationDate(LocalDateTime stravaLastSynchronizationDate, String username) {
+        userRepository.save(userRepository
+            .getUser(username)
+            .assignStravaLastSynchronizationDate(stravaLastSynchronizationDate));
+    }
+
+    @Override
+    public LocalDateTime getStravaLastSynchronizationDate(String username) {
+        return userRepository.getUser(username).getStravaLastSynchronizationDate();
     }
 
 

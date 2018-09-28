@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -82,32 +83,42 @@ public class StravaApplicationService {
         return stravaActivityAssembler.buildFromStravaActivities(Arrays.asList(stravaActivities));
     }
 
-    @Scheduled(cron = "*/40 * * * * *")
-    public void synchronizedStravaActivities(){
+    @Scheduled(cron = "*/15 * * * * *")
+    public void synchronizedStravaActivities() {
         final ActivityAPI api = API.instance(ActivityAPI.class, getToken());
+        final LocalDateTime now = LocalDateTime.now();
+        long synchronizationAfterDate = getStravaLastSynchronizationDateAsEpoch("admin");
         boolean isDataAvailable = true;
         int pageNumber = 1;
-        while (isDataAvailable){
+        while (isDataAvailable) {
             StravaActivity[] stravaActivities = api.listAuthenticatedAthleteActivities(
-                (int) LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond(),
-                0,
+                (int) now.atZone(ZoneId.systemDefault()).toEpochSecond(),
+                (int) synchronizationAfterDate,
                 pageNumber,
                 10
             );
-            //TODO: Store within mongo database
             log.info("Page number: {}", pageNumber);
             log.info("Page size: {}", stravaActivities.length);
             pageNumber++;
-            if (stravaActivities.length == 0){
+            if (stravaActivities.length == 0) {
                 isDataAvailable = false;
+                break;
             }
 
-            final List<StravaSportActivity> ts = Arrays.asList(stravaActivities).stream()
+            final List<StravaSportActivity> ts = Arrays.stream(stravaActivities)
                 .map(stravaActivity -> new StravaSportActivity().setProperties(stravaActivity))
                 .collect(Collectors.toList());
             generalSportActivityRepository.save(ts);
-
         }
+        trackerUserService.assignStravaLastSynchronizationDate(now, "admin");
+    }
+
+    private long getStravaLastSynchronizationDateAsEpoch(String username) {
+        final LocalDateTime stravaLastSynchronizationDate = trackerUserService.getStravaLastSynchronizationDate(username);
+        if (Objects.isNull(stravaLastSynchronizationDate)) {
+            return 0;
+        }
+        return stravaLastSynchronizationDate.atZone(ZoneId.systemDefault()).toEpochSecond();
     }
 
     private Token getToken() {

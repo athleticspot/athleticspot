@@ -48,6 +48,11 @@ public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUse
         return this.getTrackerUser(userLogin);
     }
 
+    @Override
+    public TrackerUser save(TrackerUser trackerUser) {
+        return super.save(trackerUser);
+    }
+
     private TrackerUser getTrackerUser(String userLogin) {
         final String queryString = "select e from TrackerUser e" +
             " where e.login = :userLogin";

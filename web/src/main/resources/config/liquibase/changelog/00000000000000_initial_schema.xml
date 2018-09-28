@@ -46,6 +46,7 @@
             <column name="last_modified_date" type="timestamp"/>
             <column name="timeline_id" type="varchar(36)"/>
             <column name="strava_code" type="varchar(100)"/>
+            <column name="strava_last_synchronization" type="timestamp"/>
         </createTable>
         <createIndex indexName="idx_user_login"
                      tableName="jhi_user"

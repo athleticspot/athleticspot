@@ -1,6 +1,9 @@
 package com.athleticspot.tracker.domain.model;
 
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * @author Tomasz Kasprzycki
@@ -22,6 +25,9 @@ public class TrackerUser {
     @Column(name = "strava_code")
     private String stravaCode;
 
+    @Column(name = "strava_last_synchronization")
+    private LocalDateTime stravaLastSynchronizationDate;
+
     public TrackerUser() {
     }
 
@@ -42,12 +48,22 @@ public class TrackerUser {
         return stravaCode;
     }
 
+    public LocalDateTime getStravaLastSynchronizationDate() {
+        return stravaLastSynchronizationDate;
+    }
+
     public void assignStravaCode(String stravaCode){
         this.stravaCode = stravaCode;
     }
 
     public TrackerUser assignTimelineIdentifier(String timelineIdentifier) {
         this.timelineIdentifier = timelineIdentifier;
+        return this;
+    }
+
+    public TrackerUser assignStravaLastSynchronizationDate(LocalDateTime stravaLastSynchronizationDate){
+        Assert.notNull(stravaLastSynchronizationDate, "Strava last synchronization date cannot be null");
+        this.stravaLastSynchronizationDate = stravaLastSynchronizationDate;
         return this;
     }
 }
