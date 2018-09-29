@@ -84,7 +84,7 @@ public class StravaApplicationService {
     }
 
     //TODO: This should be separate thread per user.
-    @Scheduled(cron = "*/15 * * * * *")
+//    @Scheduled(cron = "*/15 * * * * *")
     public void synchronizedStravaActivities() {
         final ActivityAPI api = API.instance(ActivityAPI.class, getToken());
         final LocalDateTime now = LocalDateTime.now();
