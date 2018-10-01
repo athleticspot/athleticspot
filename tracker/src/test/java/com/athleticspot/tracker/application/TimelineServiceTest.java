@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.application;
 
+import com.athleticspot.tracker.application.impl.StravaApplicationServiceImpl;
 import com.athleticspot.tracker.application.impl.TimelineServiceImpl;
 import com.athleticspot.tracker.domain.model.*;
 import com.athleticspot.tracker.shared.TestTimelineFactory;
@@ -20,7 +21,7 @@ public class TimelineServiceTest {
 
     private TimelineService timelineService;
     private TrackerUserService trackerUserService;
-    private StravaApplicationService stravaApplicationService;
+    private StravaApplicationServiceImpl stravaApplicationService;
     private TimelineRepository timelineRepository;
     private SportActivityRepository sportActivityRepository;
     private ApplicationEvents applicationEvents;
@@ -32,7 +33,7 @@ public class TimelineServiceTest {
     public void setUp() {
         timelineRepository = Mockito.mock(TimelineRepository.class);
         trackerUserService = Mockito.mock(TrackerUserService.class);
-        stravaApplicationService = Mockito.mock(StravaApplicationService.class);
+        stravaApplicationService = Mockito.mock(StravaApplicationServiceImpl.class);
         applicationEvents = Mockito.mock(ApplicationEvents.class);
         sportActivityRepository = Mockito.mock(SportActivityRepository.class);
         timelineService = new TimelineServiceImpl(timelineRepository, trackerUserService, sportActivityRepository, applicationEvents, stravaApplicationService);

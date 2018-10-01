@@ -1,6 +1,6 @@
 package com.athleticspot.tracker.application.strava;
 
-import com.athleticspot.tracker.application.StravaApplicationService;
+import com.athleticspot.tracker.application.impl.StravaApplicationServiceImpl;
 import com.athleticspot.tracker.application.TrackerUserService;
 import javastrava.api.v3.auth.TokenManager;
 import javastrava.api.v3.auth.model.Token;
@@ -41,7 +41,7 @@ public class StravaAuthServiceTest {
     @Test
     public void getTokenTest() {
 
-        StravaApplicationService stravaApplicationService = new StravaApplicationService(null, null, null);
+        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
@@ -59,7 +59,7 @@ public class StravaAuthServiceTest {
     @Test
     public void getActivitiesTest() {
 
-        StravaApplicationService stravaApplicationService = new StravaApplicationService(null, null, null);
+        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
@@ -82,12 +82,12 @@ public class StravaAuthServiceTest {
 
     @Test
     public void pagingActivitiesTest(){
-        StravaApplicationService stravaApplicationService = new StravaApplicationService(
+        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(
             trackerUserService,
             null,
             null);
 
-        stravaApplicationService.synchronizedStravaActivities();
+        stravaApplicationService.synchronizedStravaActivities(null);
     }
 
 

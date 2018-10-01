@@ -29,4 +29,6 @@ public interface UserRepository {
     TrackerUser getUser(String userLogin);
 
     TrackerUser save(TrackerUser assignStravaLastSynchronizationDate);
+
+    List<TrackerUser> getStravaUsers();
 }

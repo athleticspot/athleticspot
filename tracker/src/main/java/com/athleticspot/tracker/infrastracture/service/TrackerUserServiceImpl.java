@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Tomasz Kasprzycki
@@ -66,6 +67,13 @@ public class TrackerUserServiceImpl implements TrackerUserService {
     public LocalDateTime getStravaLastSynchronizationDate(String username) {
         return userRepository.getUser(username).getStravaLastSynchronizationDate();
     }
+
+    @Override
+    public List<TrackerUser> getStravaUsers(){
+        return userRepository.getStravaUsers();
+    }
+
+
 
 
 }

@@ -53,9 +53,18 @@ public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUse
         return super.save(trackerUser);
     }
 
+    @Override
+    public List<TrackerUser> getStravaUsers() {
+        final String queryString = "SELECT e FROM TrackerUser e" +
+            " WHERE e.stravaCode IS NOT NULL ";
+
+        Query query = em.createQuery(queryString, TrackerUser.class);
+        return query.getResultList();
+    }
+
     private TrackerUser getTrackerUser(String userLogin) {
-        final String queryString = "select e from TrackerUser e" +
-            " where e.login = :userLogin";
+        final String queryString = "SELECT e FROM TrackerUser e" +
+            " WHERE e.login = :userLogin";
 
         Query query = em.createQuery(queryString, TrackerUser.class);
 

@@ -58,6 +58,7 @@
     <logger name="sun.rmi.transport" level="WARN"/>
     <logger name="org.springframework.data.mongodb" level="INFO"/>
     <logger name="org.apache.camel" level="DEBUG"/>
+    <logger name="org.mongodb" level="INFO"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>

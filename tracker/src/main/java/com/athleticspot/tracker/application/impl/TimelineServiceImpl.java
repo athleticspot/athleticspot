@@ -1,7 +1,6 @@
 package com.athleticspot.tracker.application.impl;
 
 import com.athleticspot.tracker.application.ApplicationEvents;
-import com.athleticspot.tracker.application.StravaApplicationService;
 import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.application.TrackerUserService;
 import com.athleticspot.tracker.domain.model.*;
@@ -23,12 +22,12 @@ public class TimelineServiceImpl implements TimelineService {
     private final TrackerUserService trackerUserService;
     private final SportActivityRepository sportActivityRepository;
     private final ApplicationEvents applicationEvents;
-    private final StravaApplicationService stravaApplicationService;
+    private final StravaApplicationServiceImpl stravaApplicationService;
 
     public TimelineServiceImpl(TimelineRepository timelineRepository,
                                TrackerUserService trackerUserService,
                                SportActivityRepository sportActivityRepository,
-                               ApplicationEvents applicationEvents, StravaApplicationService stravaApplicationService) {
+                               ApplicationEvents applicationEvents, StravaApplicationServiceImpl stravaApplicationService) {
         this.timelineRepository = timelineRepository;
         this.trackerUserService = trackerUserService;
         this.sportActivityRepository = sportActivityRepository;
