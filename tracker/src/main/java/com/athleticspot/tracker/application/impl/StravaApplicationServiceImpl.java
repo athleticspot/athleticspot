@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -65,12 +66,12 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
         return clientCode;
     }
 
-    private String getCode() {
-        return trackerUserService.getStravaCode(SecurityUtils.getCurrentUserLogin());
+    private String getCode(String username) {
+        return trackerUserService.getStravaCode(username);
     }
 
     public List<SportActivity> getStravaActivities() {
-        Token token = getToken();
+        Token token = getUserToken(SecurityUtils.getCurrentUserLogin());
 
         final ActivityAPI api = API.instance(ActivityAPI.class, token);
         final StravaActivity[] stravaActivities = api.listAuthenticatedAthleteActivities(
@@ -90,9 +91,10 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     @Override
     public void synchronizedStravaActivities(TrackerUser trackerUser) {
-        final ActivityAPI api = API.instance(ActivityAPI.class, getToken());
+        final ActivityAPI api = API.instance(ActivityAPI.class, getUserToken(SecurityUtils.getCurrentUserLogin()));
         final LocalDateTime now = LocalDateTime.now();
-        long synchronizationAfterDate = getStravaLastSynchronizationDateAsEpoch("admin");
+        final String username = trackerUser.getLogin();
+        long synchronizationAfterDate = getStravaLastSynchronizationDateAsEpoch(username);
         int pageNumber = 1;
         while (true) {
             StravaActivity[] stravaActivities = api.listAuthenticatedAthleteActivities(
@@ -107,13 +109,12 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             if (stravaActivities.length == 0) {
                 break;
             }
-
             final List<StravaSportActivity> ts = Arrays.stream(stravaActivities)
-                .map(stravaActivity -> new StravaSportActivity().setProperties(stravaActivity, trackerUser.getLogin()))
+                .map(stravaActivity -> new StravaSportActivity().setProperties(stravaActivity, username))
                 .collect(Collectors.toList());
             generalSportActivityRepository.save(ts);
         }
-        trackerUserService.assignStravaLastSynchronizationDate(now, trackerUser.getLogin());
+        trackerUserService.assignStravaLastSynchronizationDate(now, username);
     }
 
     private long getStravaLastSynchronizationDateAsEpoch(String username) {
@@ -124,12 +125,12 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
         return stravaLastSynchronizationDate.atZone(ZoneId.systemDefault()).toEpochSecond();
     }
 
-    private Token getToken() {
-        //TODO : we need to get List of tokens for all users.
+    private Token getUserToken(String username) {
+        Assert.notNull(username, "Username cannot be null");
         TokenResponse response = auth.tokenExchange(
             this.clientCode(),
             this.clientSecret(),
-            this.getCode());
+            this.getCode(username));
         return new Token(response);
     }
 }
