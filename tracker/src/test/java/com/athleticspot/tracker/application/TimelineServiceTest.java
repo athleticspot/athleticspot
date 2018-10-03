@@ -1,8 +1,12 @@
 package com.athleticspot.tracker.application;
 
+import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.impl.StravaApplicationServiceImpl;
 import com.athleticspot.tracker.application.impl.TimelineServiceImpl;
-import com.athleticspot.tracker.domain.model.*;
+import com.athleticspot.tracker.domain.model.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.SportActivityRepository;
+import com.athleticspot.tracker.domain.model.Timeline;
+import com.athleticspot.tracker.domain.model.TimelineRepository;
 import com.athleticspot.tracker.shared.TestTimelineFactory;
 import com.athleticspot.tracker.shared.TimelineEventFactory;
 import org.assertj.core.api.Assertions;
@@ -64,7 +68,7 @@ public class TimelineServiceTest {
         Mockito.when(trackerUserService.getTimelineIdentifier()).thenReturn(expectedTimelineId);
         Mockito.when(sportActivityRepository.nextSportActivityId()).thenReturn(expectedSportActivityIdentifier);
         Mockito.when(timelineRepository.find(expectedTimelineId)).thenReturn(Optional.of(timeline));
-        SportActivity sportActivity = SportActivity.create(
+        ManualSportActivity manualSportActivity = ManualSportActivity.create(
             expectedSportActivityIdentifier,
             "Manual",
             TimelineEventFactory.testSportActivity()
@@ -75,8 +79,8 @@ public class TimelineServiceTest {
 
         //then
         Mockito.verify(timelineRepository, Mockito.times(1)).find(expectedTimelineId);
-        Mockito.verify(sportActivityRepository, Mockito.times(1)).store(sportActivity);
-        Mockito.verify(applicationEvents, Mockito.times(1)).sportActivityAdded(sportActivity);
+        Mockito.verify(sportActivityRepository, Mockito.times(1)).store(manualSportActivity);
+        Mockito.verify(applicationEvents, Mockito.times(1)).manualSportActivityAdded(manualSportActivity, SecurityUtils.getCurrentUserLogin());
     }
 
     @Test
@@ -87,7 +91,7 @@ public class TimelineServiceTest {
         Mockito.when(timelineRepository.nextTimelineId()).thenReturn(expectedTimelineId);
         Mockito.when(timelineRepository.find(null)).thenReturn(Optional.empty());
         Mockito.when(sportActivityRepository.nextSportActivityId()).thenReturn(expectedSportActivityIdentifier);
-        SportActivity sportActivity = SportActivity.create(
+        ManualSportActivity manualSportActivity = ManualSportActivity.create(
             expectedSportActivityIdentifier,
             "Manual",
             TimelineEventFactory.testSportActivity()
@@ -99,8 +103,8 @@ public class TimelineServiceTest {
         //then
         Mockito.verify(trackerUserService, Mockito.times(1)).getTimelineIdentifier();
         Mockito.verify(timelineRepository, Mockito.times(1)).store(timeline);
-        Mockito.verify(sportActivityRepository, Mockito.times(1)).store(sportActivity);
-        Mockito.verify(applicationEvents, Mockito.times(1)).sportActivityAdded(sportActivity);
+        Mockito.verify(sportActivityRepository, Mockito.times(1)).store(manualSportActivity);
+        Mockito.verify(applicationEvents, Mockito.times(1)).manualSportActivityAdded(manualSportActivity, SecurityUtils.getCurrentUserLogin());
     }
 
     @Test
@@ -109,15 +113,15 @@ public class TimelineServiceTest {
         Mockito.when(trackerUserService.getTimelineIdentifier()).thenReturn(expectedTimelineId);
         Mockito.when(timelineRepository.find(expectedTimelineId)).thenReturn(Optional.of(timeline));
         final String sportActivityIdentifier = UUID.randomUUID().toString();
-        SportActivity sportActivity = SportActivity.create(
+        ManualSportActivity manualSportActivity = ManualSportActivity.create(
             sportActivityIdentifier,
             "Manual",
             TimelineEventFactory.testSportActivity()
         );
-        timeline.addTimelineEvent(sportActivity);
+        timeline.addTimelineEvent(manualSportActivity);
 
         //when
-        timelineService.removeActivity(sportActivity);
+        timelineService.removeActivity(manualSportActivity);
 
         //then
         Assertions.assertThat(timeline.timelineEvents()).hasSize(0);

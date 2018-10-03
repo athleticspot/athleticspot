@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * @author Tomasz Kasprzycki
  */
-public class SportActivityTest {
+public class ManualSportActivityTest {
 
     @Test
     public void whenNewSportActivityIsCreteadItHasAllRequiredProperties() {
@@ -40,12 +40,12 @@ public class SportActivityTest {
         );
 
         //when
-        SportActivity sportActivity = SportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
+        ManualSportActivity manualSportActivity = ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
 
         //then
-        Assertions.assertThat(sportActivity.identifier()).isEqualTo(sportActivityIdentifier);
-        Assertions.assertThat(sportActivity.source()).isEqualTo(sportActivitySource);
-        SportActivityDetails sportActivityAssignedDetails = sportActivity.details();
+        Assertions.assertThat(manualSportActivity.identifier()).isEqualTo(sportActivityIdentifier);
+        Assertions.assertThat(manualSportActivity.source()).isEqualTo(sportActivitySource);
+        SportActivityDetails sportActivityAssignedDetails = manualSportActivity.details();
         Assertions.assertThat(sportActivityAssignedDetails.description()).isEqualTo(sportActivityDescription);
         Assertions.assertThat(sportActivityAssignedDetails.dateTime()).isEqualTo(sportActivityDateTime);
         Assertions.assertThat(sportActivityAssignedDetails.distance()).isEqualTo(sportActivityDistance);

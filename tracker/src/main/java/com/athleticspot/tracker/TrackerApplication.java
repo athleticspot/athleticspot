@@ -1,7 +1,6 @@
 package com.athleticspot.tracker;
 
 import com.athleticspot.tracker.domain.model.GeneralSportActivityRepository;
-import com.athleticspot.tracker.domain.model.StravaSportActivity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

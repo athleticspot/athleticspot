@@ -1,6 +1,6 @@
 package com.athleticspot.tracker.application;
 
-import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.domain.model.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.Timeline;
 
 /**
@@ -10,5 +10,5 @@ public interface ApplicationEvents {
 
     void timelineWasCreated(Timeline timeline);
 
-    void sportActivityAdded(SportActivity sportActivity);
+    void manualSportActivityAdded(ManualSportActivity manualSportActivity, String currentUserLogin);
 }

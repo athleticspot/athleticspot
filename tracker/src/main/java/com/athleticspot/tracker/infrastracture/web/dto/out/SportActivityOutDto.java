@@ -1,10 +1,6 @@
 package com.athleticspot.tracker.infrastracture.web.dto.out;
 
-import com.athleticspot.tracker.domain.model.SportActivity;
-import com.athleticspot.tracker.domain.model.SportActivityDetails;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
+import com.athleticspot.tracker.domain.model.ManualSportActivity;
 
 /**
  * @author Tomasz Kasprzycki
@@ -15,15 +11,15 @@ public class SportActivityOutDto {
     private SportActivityDetailsOutDto details;
     private String source;
 
-    private SportActivityOutDto(SportActivity sportActivity) {
-        this.sportyActivityIdentifier = sportActivity.identifier();
-        this.details = SportActivityDetailsOutDto.create(sportActivity.details());
-        this.source = sportActivity.source();
+    private SportActivityOutDto(ManualSportActivity manualSportActivity) {
+        this.sportyActivityIdentifier = manualSportActivity.identifier();
+        this.details = SportActivityDetailsOutDto.create(manualSportActivity.details());
+        this.source = manualSportActivity.source();
     }
 
-    public static SportActivityOutDto create(SportActivity sportActivity) {
+    public static SportActivityOutDto create(ManualSportActivity manualSportActivity) {
 
-        return new SportActivityOutDto(sportActivity);
+        return new SportActivityOutDto(manualSportActivity);
     }
 
     public String getSportyActivityIdentifier() {

@@ -4,8 +4,8 @@ import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.StravaApplicationService;
 import com.athleticspot.tracker.application.TrackerUserService;
 import com.athleticspot.tracker.domain.model.GeneralSportActivityRepository;
+import com.athleticspot.tracker.domain.model.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.SportActivity;
-import com.athleticspot.tracker.domain.model.StravaSportActivity;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.infrastracture.assambler.StravaActivityAssembler;
 import javastrava.api.v3.auth.model.Token;
@@ -70,7 +70,7 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
         return trackerUserService.getStravaCode(username);
     }
 
-    public List<SportActivity> getStravaActivities() {
+    public List<ManualSportActivity> getStravaActivities() {
         Token token = getUserToken(SecurityUtils.getCurrentUserLogin());
 
         final ActivityAPI api = API.instance(ActivityAPI.class, token);
@@ -91,9 +91,9 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     @Override
     public void synchronizedStravaActivities(TrackerUser trackerUser) {
-        final ActivityAPI api = API.instance(ActivityAPI.class, getUserToken(SecurityUtils.getCurrentUserLogin()));
-        final LocalDateTime now = LocalDateTime.now();
         final String username = trackerUser.getLogin();
+        final ActivityAPI api = API.instance(ActivityAPI.class, getUserToken(username));
+        final LocalDateTime now = LocalDateTime.now();
         long synchronizationAfterDate = getStravaLastSynchronizationDateAsEpoch(username);
         int pageNumber = 1;
         while (true) {
@@ -109,8 +109,8 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             if (stravaActivities.length == 0) {
                 break;
             }
-            final List<StravaSportActivity> ts = Arrays.stream(stravaActivities)
-                .map(stravaActivity -> new StravaSportActivity().setProperties(stravaActivity, username))
+            final List<SportActivity> ts = Arrays.stream(stravaActivities)
+                .map(stravaActivity -> SportActivity.creteFromStravaActivity(stravaActivity, username))
                 .collect(Collectors.toList());
             generalSportActivityRepository.save(ts);
         }

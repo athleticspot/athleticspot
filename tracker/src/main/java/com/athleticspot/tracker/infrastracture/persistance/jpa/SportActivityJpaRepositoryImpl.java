@@ -1,8 +1,7 @@
 package com.athleticspot.tracker.infrastracture.persistance.jpa;
 
-import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.domain.model.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityRepository;
-import com.athleticspot.tracker.domain.model.Timeline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,20 +16,20 @@ import java.util.UUID;
  * @author Tomasz Kasprzycki
  */
 @Repository
-public class SportActivityJpaRepositoryImpl extends SimpleJpaRepository<SportActivity, Long> implements SportActivityRepository {
+public class SportActivityJpaRepositoryImpl extends SimpleJpaRepository<ManualSportActivity, Long> implements SportActivityRepository {
 
 
     private final EntityManager em;
 
     @Autowired
     public SportActivityJpaRepositoryImpl(EntityManager em) {
-        super(SportActivity.class, em);
+        super(ManualSportActivity.class, em);
         this.em = em;
     }
 
     @Override
-    public void store(SportActivity sportActivity) {
-        this.save(sportActivity);
+    public void store(ManualSportActivity manualSportActivity) {
+        this.save(manualSportActivity);
     }
 
     @Override
@@ -44,8 +43,8 @@ public class SportActivityJpaRepositoryImpl extends SimpleJpaRepository<SportAct
     }
 
     @Override
-    public List<SportActivity> findByTimelineId(String timelineIdentifier) {
-        Query query = em.createQuery("select e from SportActivity e " +
+    public List<ManualSportActivity> findByTimelineId(String timelineIdentifier) {
+        Query query = em.createQuery("select e from ManualSportActivity e " +
             "where e.timelineIdentifier = :timelineIdentifier");
 
         query.setParameter("timelineIdentifier", timelineIdentifier);
@@ -54,12 +53,12 @@ public class SportActivityJpaRepositoryImpl extends SimpleJpaRepository<SportAct
     }
 
     @Override
-    public Optional<SportActivity> findBySportActivityId(String sportActivityId) {
-        Query query = em.createQuery("select e from SportActivity e " +
+    public Optional<ManualSportActivity> findBySportActivityId(String sportActivityId) {
+        Query query = em.createQuery("select e from ManualSportActivity e " +
             "where e.sportyActivityIdentifier = :sportyActivityIdentifier");
 
         query.setParameter("sportyActivityIdentifier", sportActivityId);
-        List<SportActivity> list = query.getResultList();
+        List<ManualSportActivity> list = query.getResultList();
 
         if (list.isEmpty()) {
             return Optional.empty();

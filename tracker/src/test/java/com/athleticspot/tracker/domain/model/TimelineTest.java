@@ -43,7 +43,7 @@ public class TimelineTest {
         String timelineIdentifier = UUID.randomUUID().toString();
         Timeline timeline = Timeline.create(timelineIdentifier);
         String sportActivityIdentifier = UUID.randomUUID().toString();
-        TimelineEvent sportActivity = SportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
+        TimelineEvent sportActivity = ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
 
         //when
         timeline.addTimelineEvent(sportActivity);
@@ -72,7 +72,7 @@ public class TimelineTest {
         //given
         final Timeline timeline = testTimeline();
         final String sportActivityIdentifier = UUID.randomUUID().toString();
-        timeline.addTimelineEvent(SportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails));
+        timeline.addTimelineEvent(ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails));
         Assertions.assertThat(timeline.timelineEvents()).hasSize(1);
 
         //when
@@ -115,7 +115,7 @@ public class TimelineTest {
     private List<TimelineEvent> testActivities(int activitiesSize) {
         List<TimelineEvent> timelineEvents = Lists.newArrayList();
         for (int i = 0; i < activitiesSize; i++) {
-            timelineEvents.add(SportActivity.create(UUID.randomUUID().toString(), sportActivitySource, sportActivityDetails));
+            timelineEvents.add(ManualSportActivity.create(UUID.randomUUID().toString(), sportActivitySource, sportActivityDetails));
         }
         return timelineEvents;
     }

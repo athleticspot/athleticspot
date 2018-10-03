@@ -13,9 +13,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,7 +82,7 @@ public class TimelineIT {
         );
 
         //then
-        final Optional<SportActivity> byTimelineId = sportActivityRepository.findBySportActivityId(expectedSportActivityId);
+        final Optional<ManualSportActivity> byTimelineId = sportActivityRepository.findBySportActivityId(expectedSportActivityId);
         Assertions.assertThat(byTimelineId.isPresent()).isTrue();
         Assertions.assertThat(byTimelineId.get().details()).isEqualTo(expectedSportActivityDetails);
         Assertions.assertThat(byTimelineId.get().source()).isEqualTo("Manual");

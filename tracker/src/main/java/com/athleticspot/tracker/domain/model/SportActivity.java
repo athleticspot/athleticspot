@@ -1,94 +1,44 @@
 package com.athleticspot.tracker.domain.model;
 
-import com.athleticspot.tracker.domain.shared.Entity;
-import org.springframework.util.Assert;
-
-import javax.persistence.*;
-import java.util.Objects;
+import javastrava.api.v3.model.StravaActivity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author Tomasz Kasprzycki
  */
-@javax.persistence.Entity
-@Table(name = "sport_activity")
-public class SportActivity implements TimelineEvent, Entity {
-
+@Document(collection = "strava_activities")
+public class SportActivity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    public String id;
 
-    @Column(name = "sport_activity_id")
-    private String sportyActivityIdentifier;
+    public String username;
 
-    @Embedded
-    private SportActivityDetails details;
+    public String title;
 
-    @Column(name = "source")
-    private String source;
+    public TrackerSource trackerSource;
 
-    @Column(name = "timeline_id")
-    private String timelineIdentifier;
-
-    private SportActivity() {
-        //jpa purpose
+    public static SportActivity create(String username, String title, TrackerSource trackerSource) {
+        return new SportActivity(username, title, trackerSource);
     }
 
-    private SportActivity(String sportActivityIdentifier,
-                          String sportActivitySource,
-                          SportActivityDetails sportActivityDetails) {
-        Assert.notNull(sportActivityIdentifier, "Sport activity identifier cannot be null");
-        Assert.notNull(sportActivitySource, "Source cannot be null");
-        Assert.notNull(sportActivityDetails, "Sport activity details cannot be null");
-        this.sportyActivityIdentifier = sportActivityIdentifier;
-        this.details = sportActivityDetails;
-        this.source = sportActivitySource;
+    public static SportActivity creteFromStravaActivity(final StravaActivity stravaActivity, String username) {
+        return new SportActivity(
+            username,
+            stravaActivity.getName(),
+            TrackerSource.STRAVA
+        );
     }
 
-    private SportActivity(String sportyActivitySource, SportActivityDetails sportActivityDetails) {
-        Assert.notNull(sportActivityDetails, "Sport activity details cannot be null");
-        Assert.notNull(sportyActivitySource, "Sport activity source cannot be null");
-        this.source = sportyActivitySource;
-        this.details = sportActivityDetails;
+    public SportActivity setId(final String id) {
+        this.id = id;
+        return this;
     }
 
-    public static SportActivity create(String sportActivityIdentifier, String sportActivitySource, SportActivityDetails sportActivityDetails) {
-        return new SportActivity(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
-    }
-
-    public static SportActivity createNew(String sportyActivitySource, SportActivityDetails sportActivityDetails) {
-        return new SportActivity(sportyActivitySource, sportActivityDetails);
-    }
-
-    @Override
-    public String identifier() {
-        return sportyActivityIdentifier;
-    }
-
-    @Override
-    public void assignToTimeline(String timelineIdentifier) {
-        Assert.notNull(timelineIdentifier, "timeline identifier cannot be null");
-        this.timelineIdentifier = timelineIdentifier;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SportActivity)) return false;
-        SportActivity that = (SportActivity) o;
-        return Objects.equals(sportyActivityIdentifier, that.sportyActivityIdentifier);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sportyActivityIdentifier);
-    }
-
-    public SportActivityDetails details() {
-        return this.details;
-    }
-
-    public String source() {
-        return this.source;
+    private SportActivity(String username, String title, TrackerSource trackerSource) {
+        this.username = username;
+        this.title = title;
+        this.trackerSource = trackerSource;
     }
 }

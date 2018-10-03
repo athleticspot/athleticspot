@@ -1,6 +1,6 @@
 package com.athleticspot.tracker.application.strava;
 
-import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.domain.model.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.infrastracture.assambler.StravaActivityAssembler;
 import javastrava.api.v3.model.StravaActivity;
@@ -29,13 +29,13 @@ public class StravaActivityTest {
     public void whenStravaActivityIsConvertedThenSourceIsStrava() {
         StravaActivityAssembler sportActivityAssembler = new StravaActivityAssembler();
 
-        SportActivity sportActivity = sportActivityAssembler.buildFromStrava(buildStravaActivity());
+        ManualSportActivity manualSportActivity = sportActivityAssembler.buildFromStrava(buildStravaActivity());
 
-        Assertions.assertThat(sportActivity.source()).isEqualTo("STRAVA");
-        Assertions.assertThat(sportActivity.details().type()).isEqualByComparingTo(SportActivityType.RUN);
-        Assertions.assertThat(sportActivity.details().description()).isEqualTo(description);
-        Assertions.assertThat(sportActivity.details().title()).isEqualTo(activityName);
-        Assertions.assertThat(sportActivity.details().dateTime()).isEqualTo(LocalDateTime.parse(startDateTime));
+        Assertions.assertThat(manualSportActivity.source()).isEqualTo("STRAVA");
+        Assertions.assertThat(manualSportActivity.details().type()).isEqualByComparingTo(SportActivityType.RUN);
+        Assertions.assertThat(manualSportActivity.details().description()).isEqualTo(description);
+        Assertions.assertThat(manualSportActivity.details().title()).isEqualTo(activityName);
+        Assertions.assertThat(manualSportActivity.details().dateTime()).isEqualTo(LocalDateTime.parse(startDateTime));
 
     }
 

@@ -8,13 +8,13 @@ import java.util.Optional;
  */
 public interface SportActivityRepository {
 
-    void store(SportActivity sportActivity);
+    void store(ManualSportActivity manualSportActivity);
 
     String nextSportActivityId();
 
     void delete(String sportActivityIdentifier);
 
-    List<SportActivity> findByTimelineId(String timelineIdentifier);
+    List<ManualSportActivity> findByTimelineId(String timelineIdentifier);
 
-    Optional<SportActivity> findBySportActivityId(String sportActivityId);
+    Optional<ManualSportActivity> findBySportActivityId(String sportActivityId);
 }

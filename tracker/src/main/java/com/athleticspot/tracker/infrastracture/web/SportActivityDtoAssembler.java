@@ -1,13 +1,12 @@
 package com.athleticspot.tracker.infrastracture.web;
 
-import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityDetails;
 import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 
 /**
  * @author Tomasz Kasprzycki
  */
-class SportActivityAssembler {
+class SportActivityDtoAssembler {
 
     static SportActivityDetails assemble(SportActivityInDto sportActivityInDto) {
         return SportActivityDetails.create(
