@@ -3,10 +3,10 @@ package com.athleticspot.tracker.application;
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.impl.StravaApplicationServiceImpl;
 import com.athleticspot.tracker.application.impl.TimelineServiceImpl;
-import com.athleticspot.tracker.domain.model.ManualSportActivity;
-import com.athleticspot.tracker.domain.model.SportActivityRepository;
 import com.athleticspot.tracker.domain.model.Timeline;
 import com.athleticspot.tracker.domain.model.TimelineRepository;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityRepository;
 import com.athleticspot.tracker.shared.TestTimelineFactory;
 import com.athleticspot.tracker.shared.TimelineEventFactory;
 import org.assertj.core.api.Assertions;
@@ -27,7 +27,7 @@ public class TimelineServiceTest {
     private TrackerUserService trackerUserService;
     private StravaApplicationServiceImpl stravaApplicationService;
     private TimelineRepository timelineRepository;
-    private SportActivityRepository sportActivityRepository;
+    private ManualSportActivityRepository manualSportActivityRepository;
     private ApplicationEvents applicationEvents;
     private Timeline timeline;
     final String expectedTimelineId = UUID.randomUUID().toString();
@@ -39,8 +39,8 @@ public class TimelineServiceTest {
         trackerUserService = Mockito.mock(TrackerUserService.class);
         stravaApplicationService = Mockito.mock(StravaApplicationServiceImpl.class);
         applicationEvents = Mockito.mock(ApplicationEvents.class);
-        sportActivityRepository = Mockito.mock(SportActivityRepository.class);
-        timelineService = new TimelineServiceImpl(timelineRepository, trackerUserService, sportActivityRepository, applicationEvents, stravaApplicationService);
+        manualSportActivityRepository = Mockito.mock(ManualSportActivityRepository.class);
+        timelineService = new TimelineServiceImpl(timelineRepository, trackerUserService, manualSportActivityRepository, applicationEvents, stravaApplicationService);
 
         timeline = TestTimelineFactory.testTimeline(expectedTimelineId);
     }
@@ -66,7 +66,7 @@ public class TimelineServiceTest {
         //given
         final String expectedSportActivityIdentifier = UUID.randomUUID().toString();
         Mockito.when(trackerUserService.getTimelineIdentifier()).thenReturn(expectedTimelineId);
-        Mockito.when(sportActivityRepository.nextSportActivityId()).thenReturn(expectedSportActivityIdentifier);
+        Mockito.when(manualSportActivityRepository.nextSportActivityId()).thenReturn(expectedSportActivityIdentifier);
         Mockito.when(timelineRepository.find(expectedTimelineId)).thenReturn(Optional.of(timeline));
         ManualSportActivity manualSportActivity = ManualSportActivity.create(
             expectedSportActivityIdentifier,
@@ -79,7 +79,7 @@ public class TimelineServiceTest {
 
         //then
         Mockito.verify(timelineRepository, Mockito.times(1)).find(expectedTimelineId);
-        Mockito.verify(sportActivityRepository, Mockito.times(1)).store(manualSportActivity);
+        Mockito.verify(manualSportActivityRepository, Mockito.times(1)).store(manualSportActivity);
         Mockito.verify(applicationEvents, Mockito.times(1)).manualSportActivityAdded(manualSportActivity, SecurityUtils.getCurrentUserLogin());
     }
 
@@ -90,7 +90,7 @@ public class TimelineServiceTest {
         Mockito.when(trackerUserService.getTimelineIdentifier()).thenReturn(null);
         Mockito.when(timelineRepository.nextTimelineId()).thenReturn(expectedTimelineId);
         Mockito.when(timelineRepository.find(null)).thenReturn(Optional.empty());
-        Mockito.when(sportActivityRepository.nextSportActivityId()).thenReturn(expectedSportActivityIdentifier);
+        Mockito.when(manualSportActivityRepository.nextSportActivityId()).thenReturn(expectedSportActivityIdentifier);
         ManualSportActivity manualSportActivity = ManualSportActivity.create(
             expectedSportActivityIdentifier,
             "Manual",
@@ -103,7 +103,7 @@ public class TimelineServiceTest {
         //then
         Mockito.verify(trackerUserService, Mockito.times(1)).getTimelineIdentifier();
         Mockito.verify(timelineRepository, Mockito.times(1)).store(timeline);
-        Mockito.verify(sportActivityRepository, Mockito.times(1)).store(manualSportActivity);
+        Mockito.verify(manualSportActivityRepository, Mockito.times(1)).store(manualSportActivity);
         Mockito.verify(applicationEvents, Mockito.times(1)).manualSportActivityAdded(manualSportActivity, SecurityUtils.getCurrentUserLogin());
     }
 
@@ -127,7 +127,7 @@ public class TimelineServiceTest {
         Assertions.assertThat(timeline.timelineEvents()).hasSize(0);
 
         Mockito.verify(trackerUserService, Mockito.times(1)).getTimelineIdentifier();
-        Mockito.verify(sportActivityRepository, Mockito.times(1)).delete(sportActivityIdentifier);
+        Mockito.verify(manualSportActivityRepository, Mockito.times(1)).delete(sportActivityIdentifier);
         Mockito.verify(timelineRepository, Mockito.times(1)).store(timeline);
     }
 

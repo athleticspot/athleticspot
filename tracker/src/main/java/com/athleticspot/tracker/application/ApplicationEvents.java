@@ -1,7 +1,7 @@
 package com.athleticspot.tracker.application;
 
-import com.athleticspot.tracker.domain.model.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.Timeline;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 
 /**
  * @author Tomasz Kasprzycki

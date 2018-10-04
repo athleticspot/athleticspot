@@ -1,5 +1,7 @@
-package com.athleticspot.tracker.domain.model;
+package com.athleticspot.tracker.domain.model.manual;
 
+import com.athleticspot.tracker.domain.model.SportActivityGenericType;
+import com.athleticspot.tracker.domain.model.TimelineEvent;
 import com.athleticspot.tracker.domain.shared.Entity;
 import org.springframework.util.Assert;
 
@@ -11,7 +13,7 @@ import java.util.Objects;
  */
 @javax.persistence.Entity
 @Table(name = "sport_activity")
-public class ManualSportActivity implements TimelineEvent, Entity {
+public class ManualSportActivity implements TimelineEvent, Entity, SportActivityGenericType {
 
 
     @Id
@@ -22,7 +24,7 @@ public class ManualSportActivity implements TimelineEvent, Entity {
     private String sportyActivityIdentifier;
 
     @Embedded
-    private SportActivityDetails details;
+    private ManualSportActivityDetails details;
 
     @Column(name = "source")
     private String source;
@@ -36,28 +38,28 @@ public class ManualSportActivity implements TimelineEvent, Entity {
 
     private ManualSportActivity(String sportActivityIdentifier,
                                 String sportActivitySource,
-                                SportActivityDetails sportActivityDetails) {
+                                ManualSportActivityDetails manualSportActivityDetails) {
         Assert.notNull(sportActivityIdentifier, "Sport activity identifier cannot be null");
         Assert.notNull(sportActivitySource, "Source cannot be null");
-        Assert.notNull(sportActivityDetails, "Sport activity details cannot be null");
+        Assert.notNull(manualSportActivityDetails, "Sport activity details cannot be null");
         this.sportyActivityIdentifier = sportActivityIdentifier;
-        this.details = sportActivityDetails;
+        this.details = manualSportActivityDetails;
         this.source = sportActivitySource;
     }
 
-    private ManualSportActivity(String sportyActivitySource, SportActivityDetails sportActivityDetails) {
-        Assert.notNull(sportActivityDetails, "Sport activity details cannot be null");
+    private ManualSportActivity(String sportyActivitySource, ManualSportActivityDetails manualSportActivityDetails) {
+        Assert.notNull(manualSportActivityDetails, "Sport activity details cannot be null");
         Assert.notNull(sportyActivitySource, "Sport activity source cannot be null");
         this.source = sportyActivitySource;
-        this.details = sportActivityDetails;
+        this.details = manualSportActivityDetails;
     }
 
-    public static ManualSportActivity create(String sportActivityIdentifier, String sportActivitySource, SportActivityDetails sportActivityDetails) {
-        return new ManualSportActivity(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
+    public static ManualSportActivity create(String sportActivityIdentifier, String sportActivitySource, ManualSportActivityDetails manualSportActivityDetails) {
+        return new ManualSportActivity(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails);
     }
 
-    public static ManualSportActivity createNew(String sportyActivitySource, SportActivityDetails sportActivityDetails) {
-        return new ManualSportActivity(sportyActivitySource, sportActivityDetails);
+    public static ManualSportActivity createNew(String sportyActivitySource, ManualSportActivityDetails manualSportActivityDetails) {
+        return new ManualSportActivity(sportyActivitySource, manualSportActivityDetails);
     }
 
     @Override
@@ -84,7 +86,7 @@ public class ManualSportActivity implements TimelineEvent, Entity {
         return Objects.hash(sportyActivityIdentifier);
     }
 
-    public SportActivityDetails details() {
+    public ManualSportActivityDetails details() {
         return this.details;
     }
 

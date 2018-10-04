@@ -1,10 +1,9 @@
 package com.athleticspot.tracker.application.impl;
 
-import com.athleticspot.tracker.application.ActivityAssembler;
 import com.athleticspot.tracker.application.ApplicationEvents;
-import com.athleticspot.tracker.domain.model.GeneralSportActivityRepository;
-import com.athleticspot.tracker.domain.model.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import com.athleticspot.tracker.domain.model.Timeline;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationEventsImpl implements ApplicationEvents {
 
-    private final GeneralSportActivityRepository generalSportActivityRepository;
-
-    private final ActivityAssembler activityAssembler;
+    private final GenericSportActivityRepository genericSportActivityRepository;
 
     @Autowired
-    public ApplicationEventsImpl(GeneralSportActivityRepository generalSportActivityRepository, ActivityAssembler activityAssembler) {
-        this.generalSportActivityRepository = generalSportActivityRepository;
-        this.activityAssembler = activityAssembler;
+    public ApplicationEventsImpl(GenericSportActivityRepository genericSportActivityRepository) {
+        this.genericSportActivityRepository = genericSportActivityRepository;
     }
 
     @Override
@@ -31,11 +27,6 @@ public class ApplicationEventsImpl implements ApplicationEvents {
 
     @Override
     public void manualSportActivityAdded(ManualSportActivity manualSportActivity, String username) {
-        generalSportActivityRepository.save(
-            activityAssembler.buildFromManualSportActivity(
-                manualSportActivity,
-                username
-            )
-        );
+        genericSportActivityRepository.save(manualSportActivity);
     }
 }

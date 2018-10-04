@@ -4,7 +4,11 @@ import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.ApplicationEvents;
 import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.application.TrackerUserService;
-import com.athleticspot.tracker.domain.model.*;
+import com.athleticspot.tracker.domain.model.Timeline;
+import com.athleticspot.tracker.domain.model.TimelineRepository;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,17 +25,17 @@ public class TimelineServiceImpl implements TimelineService {
 
     private final TimelineRepository timelineRepository;
     private final TrackerUserService trackerUserService;
-    private final SportActivityRepository sportActivityRepository;
+    private final ManualSportActivityRepository manualSportActivityRepository;
     private final ApplicationEvents applicationEvents;
     private final StravaApplicationServiceImpl stravaApplicationService;
 
     public TimelineServiceImpl(TimelineRepository timelineRepository,
                                TrackerUserService trackerUserService,
-                               SportActivityRepository sportActivityRepository,
+                               ManualSportActivityRepository manualSportActivityRepository,
                                ApplicationEvents applicationEvents, StravaApplicationServiceImpl stravaApplicationService) {
         this.timelineRepository = timelineRepository;
         this.trackerUserService = trackerUserService;
-        this.sportActivityRepository = sportActivityRepository;
+        this.manualSportActivityRepository = manualSportActivityRepository;
         this.applicationEvents = applicationEvents;
         this.stravaApplicationService = stravaApplicationService;
     }
@@ -45,9 +49,9 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     @Override
-    public List<ManualSportActivity> getSportActivities() {
+    public List<ManualSportActivity> getManualSportActivities() {
         final String timelineIdentifier = trackerUserService.getTimelineIdentifier();
-        final List<ManualSportActivity> sportActivities = sportActivityRepository.findByTimelineId(timelineIdentifier);
+        final List<ManualSportActivity> sportActivities = manualSportActivityRepository.findByTimelineId(timelineIdentifier);
         sportActivities.addAll(stravaApplicationService.getStravaActivities());
         return sportActivities;
     }
@@ -58,14 +62,14 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     @Override
-    public String addActivity(SportActivityDetails sportActivityDetails, String activitySource) {
+    public String addActivity(ManualSportActivityDetails manualSportActivityDetails, String activitySource) {
         final String timelineIdentifier = trackerUserService.getTimelineIdentifier();
-        final String sportActivityIdentifier = sportActivityRepository.nextSportActivityId();
+        final String sportActivityIdentifier = manualSportActivityRepository.nextSportActivityId();
         ManualSportActivity manualSportActivity =
             ManualSportActivity.create(
                 sportActivityIdentifier,
                 activitySource,
-                sportActivityDetails
+                manualSportActivityDetails
 
             );
         //TODO: if timeline identifier is null then we need to assign it back to user
@@ -82,7 +86,7 @@ public class TimelineServiceImpl implements TimelineService {
             manualSportActivity.assignToTimeline(timelineIdentifier);
         }
         timelineRepository.store(timeline);
-        sportActivityRepository.store(manualSportActivity);
+        manualSportActivityRepository.store(manualSportActivity);
         applicationEvents.manualSportActivityAdded(manualSportActivity, SecurityUtils.getCurrentUserLogin());
         return sportActivityIdentifier;
     }
@@ -100,7 +104,7 @@ public class TimelineServiceImpl implements TimelineService {
             throw new IllegalStateException("Cannot remove sport activity when timeline doesn't exists");
         }
         timeline.get().removeTimelineEvent(manualSportActivity.identifier());
-        sportActivityRepository.delete(manualSportActivity.identifier());
+        manualSportActivityRepository.delete(manualSportActivity.identifier());
         timelineRepository.store(timeline.get());
     }
 

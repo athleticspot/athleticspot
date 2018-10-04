@@ -1,5 +1,6 @@
-package com.athleticspot.tracker.domain.model;
+package com.athleticspot.tracker.domain.model.manual;
 
+import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.shared.ValueObject;
 
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @author Tomasz Kasprzycki
  */
 @Embeddable
-public class SportActivityDetails implements ValueObject {
+public class ManualSportActivityDetails implements ValueObject {
 
     @Column(name = "description")
     private String description;
@@ -43,11 +44,11 @@ public class SportActivityDetails implements ValueObject {
     @Column(name = "activity_time")
     private LocalDateTime sportActivityTime;
 
-    private SportActivityDetails() {
+    private ManualSportActivityDetails() {
         //jpa purpose
     }
 
-    private SportActivityDetails(String description, String title, SportActivityType type, String duration, String distance, String units, String maxSpeed, String meanSpeed, LocalDateTime sportActivityTime) {
+    private ManualSportActivityDetails(String description, String title, SportActivityType type, String duration, String distance, String units, String maxSpeed, String meanSpeed, LocalDateTime sportActivityTime) {
 
         this.description = description;
         this.title = title;
@@ -60,7 +61,7 @@ public class SportActivityDetails implements ValueObject {
         this.sportActivityTime = sportActivityTime;
     }
 
-    public static SportActivityDetails create(
+    public static ManualSportActivityDetails create(
         String sportActivityDescription,
         String sportActivityTitle,
         SportActivityType sportActivityType,
@@ -70,7 +71,7 @@ public class SportActivityDetails implements ValueObject {
         String sportActivityMaxSpeed,
         String sportActivityMeanSpeed,
         LocalDateTime sportActivityDateTime) {
-        return new SportActivityDetails(sportActivityDescription, sportActivityTitle, sportActivityType, sportActivityDuration, sportActivityDistance, sportActivityUnits, sportActivityMaxSpeed, sportActivityMeanSpeed, sportActivityDateTime);
+        return new ManualSportActivityDetails(sportActivityDescription, sportActivityTitle, sportActivityType, sportActivityDuration, sportActivityDistance, sportActivityUnits, sportActivityMaxSpeed, sportActivityMeanSpeed, sportActivityDateTime);
     }
 
     public String description() {
@@ -112,8 +113,8 @@ public class SportActivityDetails implements ValueObject {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SportActivityDetails)) return false;
-        SportActivityDetails that = (SportActivityDetails) o;
+        if (!(o instanceof ManualSportActivityDetails)) return false;
+        ManualSportActivityDetails that = (ManualSportActivityDetails) o;
         return Objects.equals(description, that.description) &&
             Objects.equals(title, that.title) &&
             Objects.equals(type, that.type) &&

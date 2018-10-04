@@ -1,4 +1,4 @@
-package com.athleticspot.tracker.domain.model;
+package com.athleticspot.tracker.domain.model.manual;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 /**
  * @author Tomasz Kasprzycki
  */
-public interface SportActivityRepository {
+public interface ManualSportActivityRepository {
 
     void store(ManualSportActivity manualSportActivity);
 

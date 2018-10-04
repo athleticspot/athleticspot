@@ -1,6 +1,6 @@
 package com.athleticspot.tracker.infrastracture.web.dto.out;
 
-import com.athleticspot.tracker.domain.model.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 
 /**
  * @author Tomasz Kasprzycki

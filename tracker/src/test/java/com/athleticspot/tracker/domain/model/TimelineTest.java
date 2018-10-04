@@ -1,5 +1,7 @@
 package com.athleticspot.tracker.domain.model;
 
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 import com.google.common.collect.Lists;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -15,7 +17,7 @@ import static com.athleticspot.tracker.shared.TimelineEventFactory.testSportActi
 public class TimelineTest {
 
     private final String sportActivitySource = "Manual";
-    private final SportActivityDetails sportActivityDetails = testSportActivity();
+    private final ManualSportActivityDetails manualSportActivityDetails = testSportActivity();
 
     @Test
     public void whenThereIsNoTimelineNewOneIsCreated() {
@@ -43,7 +45,7 @@ public class TimelineTest {
         String timelineIdentifier = UUID.randomUUID().toString();
         Timeline timeline = Timeline.create(timelineIdentifier);
         String sportActivityIdentifier = UUID.randomUUID().toString();
-        TimelineEvent sportActivity = ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
+        TimelineEvent sportActivity = ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails);
 
         //when
         timeline.addTimelineEvent(sportActivity);
@@ -72,7 +74,7 @@ public class TimelineTest {
         //given
         final Timeline timeline = testTimeline();
         final String sportActivityIdentifier = UUID.randomUUID().toString();
-        timeline.addTimelineEvent(ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails));
+        timeline.addTimelineEvent(ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails));
         Assertions.assertThat(timeline.timelineEvents()).hasSize(1);
 
         //when
@@ -115,7 +117,7 @@ public class TimelineTest {
     private List<TimelineEvent> testActivities(int activitiesSize) {
         List<TimelineEvent> timelineEvents = Lists.newArrayList();
         for (int i = 0; i < activitiesSize; i++) {
-            timelineEvents.add(ManualSportActivity.create(UUID.randomUUID().toString(), sportActivitySource, sportActivityDetails));
+            timelineEvents.add(ManualSportActivity.create(UUID.randomUUID().toString(), sportActivitySource, manualSportActivityDetails));
         }
         return timelineEvents;
     }

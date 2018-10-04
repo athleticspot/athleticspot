@@ -3,11 +3,12 @@ package com.athleticspot.tracker.application.impl;
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.StravaApplicationService;
 import com.athleticspot.tracker.application.TrackerUserService;
-import com.athleticspot.tracker.domain.model.GeneralSportActivityRepository;
-import com.athleticspot.tracker.domain.model.ManualSportActivity;
-import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
+import com.athleticspot.tracker.domain.model.SportActivityGenericType;
 import com.athleticspot.tracker.domain.model.TrackerUser;
-import com.athleticspot.tracker.infrastracture.assambler.StravaActivityAssembler;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.strava.StravaSportActivity;
+import com.athleticspot.tracker.infrastracture.assembler.StravaActivityAssembler;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;
 import javastrava.api.v3.model.StravaActivity;
@@ -39,7 +40,7 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     private final StravaActivityAssembler stravaActivityAssembler;
 
-    private final GeneralSportActivityRepository generalSportActivityRepository;
+    private final GenericSportActivityRepository genericSportActivityRepository;
 
     private final String clientSecret = "91ad80ea231505275883acc75d7c088c1cf07773";
 
@@ -52,10 +53,12 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
     private final AuthorisationAPI auth = API.authorisationInstance();
 
     @Autowired
-    public StravaApplicationServiceImpl(TrackerUserService trackerUserService, StravaActivityAssembler stravaActivityAssembler, GeneralSportActivityRepository generalSportActivityRepository) {
+    public StravaApplicationServiceImpl(TrackerUserService trackerUserService,
+                                        StravaActivityAssembler stravaActivityAssembler,
+                                        GenericSportActivityRepository genericSportActivityRepository) {
         this.trackerUserService = trackerUserService;
         this.stravaActivityAssembler = stravaActivityAssembler;
-        this.generalSportActivityRepository = generalSportActivityRepository;
+        this.genericSportActivityRepository = genericSportActivityRepository;
     }
 
     public String clientSecret() {
@@ -85,7 +88,7 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
     }
 
     @Override
-    public List<TrackerUser> retrieveStravaUsers(){
+    public List<TrackerUser> retrieveStravaUsers() {
         return trackerUserService.getStravaUsers();
     }
 
@@ -109,10 +112,10 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             if (stravaActivities.length == 0) {
                 break;
             }
-            final List<SportActivity> ts = Arrays.stream(stravaActivities)
-                .map(stravaActivity -> SportActivity.creteFromStravaActivity(stravaActivity, username))
+            final List<SportActivityGenericType> ts = Arrays.stream(stravaActivities)
+                .map(stravaActivity -> StravaSportActivity.creteFromStravaActivity(stravaActivity, username))
                 .collect(Collectors.toList());
-            generalSportActivityRepository.save(ts);
+            genericSportActivityRepository.save(ts);
         }
         trackerUserService.assignStravaLastSynchronizationDate(now, username);
     }

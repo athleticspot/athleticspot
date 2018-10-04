@@ -1,8 +1,8 @@
 package com.athleticspot.tracker.application.strava;
 
-import com.athleticspot.tracker.domain.model.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityType;
-import com.athleticspot.tracker.infrastracture.assambler.StravaActivityAssembler;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
+import com.athleticspot.tracker.infrastracture.assembler.StravaActivityAssembler;
 import javastrava.api.v3.model.StravaActivity;
 import javastrava.api.v3.model.reference.StravaActivityType;
 import javastrava.api.v3.model.reference.StravaWorkoutType;

@@ -1,5 +1,7 @@
 package com.athleticspot.tracker.domain.model;
 
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -27,7 +29,7 @@ public class ManualSportActivityTest {
         String sportActivityMeanSpeed = "5";
         LocalDateTime sportActivityDateTime = LocalDateTime.now();
 
-        SportActivityDetails sportActivityDetails = SportActivityDetails.create(
+        ManualSportActivityDetails manualSportActivityDetails = ManualSportActivityDetails.create(
             sportActivityDescription,
             sportActivityTitle,
             sportActivityType,
@@ -40,12 +42,12 @@ public class ManualSportActivityTest {
         );
 
         //when
-        ManualSportActivity manualSportActivity = ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, sportActivityDetails);
+        ManualSportActivity manualSportActivity = ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails);
 
         //then
         Assertions.assertThat(manualSportActivity.identifier()).isEqualTo(sportActivityIdentifier);
         Assertions.assertThat(manualSportActivity.source()).isEqualTo(sportActivitySource);
-        SportActivityDetails sportActivityAssignedDetails = manualSportActivity.details();
+        ManualSportActivityDetails sportActivityAssignedDetails = manualSportActivity.details();
         Assertions.assertThat(sportActivityAssignedDetails.description()).isEqualTo(sportActivityDescription);
         Assertions.assertThat(sportActivityAssignedDetails.dateTime()).isEqualTo(sportActivityDateTime);
         Assertions.assertThat(sportActivityAssignedDetails.distance()).isEqualTo(sportActivityDistance);

@@ -1,7 +1,7 @@
 package com.athleticspot.tracker.infrastracture.persistance.jpa;
 
-import com.athleticspot.tracker.domain.model.ManualSportActivity;
-import com.athleticspot.tracker.domain.model.SportActivityRepository;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,13 +16,13 @@ import java.util.UUID;
  * @author Tomasz Kasprzycki
  */
 @Repository
-public class SportActivityJpaRepositoryImpl extends SimpleJpaRepository<ManualSportActivity, Long> implements SportActivityRepository {
+public class ManualSportActivityJpaRepositoryImpl extends SimpleJpaRepository<ManualSportActivity, Long> implements ManualSportActivityRepository {
 
 
     private final EntityManager em;
 
     @Autowired
-    public SportActivityJpaRepositoryImpl(EntityManager em) {
+    public ManualSportActivityJpaRepositoryImpl(EntityManager em) {
         super(ManualSportActivity.class, em);
         this.em = em;
     }

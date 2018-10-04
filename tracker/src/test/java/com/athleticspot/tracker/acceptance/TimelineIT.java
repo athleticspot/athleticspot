@@ -2,7 +2,13 @@ package com.athleticspot.tracker.acceptance;
 
 import com.athleticspot.tracker.TrackerApplication;
 import com.athleticspot.tracker.application.TimelineService;
-import com.athleticspot.tracker.domain.model.*;
+import com.athleticspot.tracker.domain.model.Timeline;
+import com.athleticspot.tracker.domain.model.TimelineRepository;
+import com.athleticspot.tracker.domain.model.TrackerUser;
+import com.athleticspot.tracker.domain.model.UserRepository;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityRepository;
 import com.athleticspot.tracker.shared.TestSportActivityDetailsFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -39,7 +45,7 @@ public class TimelineIT {
     private TimelineRepository timelineRepository;
 
     @Autowired
-    private SportActivityRepository sportActivityRepository;
+    private ManualSportActivityRepository manualSportActivityRepository;
 
     @MockBean
     private UserRepository userRepository;
@@ -75,16 +81,16 @@ public class TimelineIT {
         String expectedSportActivityId;
 
         //when
-        final SportActivityDetails expectedSportActivityDetails = TestSportActivityDetailsFactory.create();
+        final ManualSportActivityDetails expectedManualSportActivityDetails = TestSportActivityDetailsFactory.create();
         expectedSportActivityId = timelineService.addActivity(
-            expectedSportActivityDetails,
+            expectedManualSportActivityDetails,
             "Manual"
         );
 
         //then
-        final Optional<ManualSportActivity> byTimelineId = sportActivityRepository.findBySportActivityId(expectedSportActivityId);
+        final Optional<ManualSportActivity> byTimelineId = manualSportActivityRepository.findBySportActivityId(expectedSportActivityId);
         Assertions.assertThat(byTimelineId.isPresent()).isTrue();
-        Assertions.assertThat(byTimelineId.get().details()).isEqualTo(expectedSportActivityDetails);
+        Assertions.assertThat(byTimelineId.get().details()).isEqualTo(expectedManualSportActivityDetails);
         Assertions.assertThat(byTimelineId.get().source()).isEqualTo("Manual");
     }
 }

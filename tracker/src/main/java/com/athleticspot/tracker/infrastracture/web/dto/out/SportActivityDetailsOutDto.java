@@ -1,7 +1,7 @@
 package com.athleticspot.tracker.infrastracture.web.dto.out;
 
-import com.athleticspot.tracker.domain.model.SportActivityDetails;
 import com.athleticspot.tracker.domain.model.SportActivityType;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 
 import java.time.LocalDateTime;
 
@@ -20,20 +20,20 @@ public class SportActivityDetailsOutDto {
     private String meanSpeed;
     private LocalDateTime dateTime;
 
-    private SportActivityDetailsOutDto(SportActivityDetails sportActivityDetails) {
-        this.description = sportActivityDetails.description();
-        this.title = sportActivityDetails.title();
-        this.type = sportActivityDetails.type();
-        this.duration = sportActivityDetails.duration();
-        this.distance = sportActivityDetails.distance();
-        this.units = sportActivityDetails.units();
-        this.maxSpeed = sportActivityDetails.maxSpeed();
-        this.meanSpeed = sportActivityDetails.meanSpeed();
-        this.dateTime = sportActivityDetails.dateTime();
+    private SportActivityDetailsOutDto(ManualSportActivityDetails manualSportActivityDetails) {
+        this.description = manualSportActivityDetails.description();
+        this.title = manualSportActivityDetails.title();
+        this.type = manualSportActivityDetails.type();
+        this.duration = manualSportActivityDetails.duration();
+        this.distance = manualSportActivityDetails.distance();
+        this.units = manualSportActivityDetails.units();
+        this.maxSpeed = manualSportActivityDetails.maxSpeed();
+        this.meanSpeed = manualSportActivityDetails.meanSpeed();
+        this.dateTime = manualSportActivityDetails.dateTime();
     }
 
-    public static SportActivityDetailsOutDto create(SportActivityDetails sportActivityDetails) {
-        return new SportActivityDetailsOutDto(sportActivityDetails);
+    public static SportActivityDetailsOutDto create(ManualSportActivityDetails manualSportActivityDetails) {
+        return new SportActivityDetailsOutDto(manualSportActivityDetails);
     }
 
     public String getDescription() {

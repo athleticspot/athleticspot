@@ -1,7 +1,7 @@
 package com.athleticspot.tracker.application;
 
-import com.athleticspot.tracker.domain.model.ManualSportActivity;
-import com.athleticspot.tracker.domain.model.SportActivityDetails;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 
 import java.util.List;
 
@@ -11,33 +11,16 @@ import java.util.List;
 
 public interface TimelineService {
 
-    /**
-     * @return
-     */
     String createTimeline();
 
-    List<ManualSportActivity> getSportActivities();
+    List<ManualSportActivity> getManualSportActivities();
 
-    /**
-     *  @param sportActivityDetails
-     * @param activitySource
-     */
-    String addActivity(SportActivityDetails sportActivityDetails, String activitySource);
+    String addActivity(ManualSportActivityDetails manualSportActivityDetails, String activitySource);
 
-    /**
-     *
-     */
     void addActivities();
 
-    /**
-     *
-     * @param manualSportActivity
-     */
     void removeActivity(ManualSportActivity manualSportActivity);
 
-    /**
-     *
-     */
     void removeActivities();
 
     void createTimelineWithActivities();

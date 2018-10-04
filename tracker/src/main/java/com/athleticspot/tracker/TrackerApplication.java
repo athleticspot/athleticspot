@@ -1,6 +1,6 @@
 package com.athleticspot.tracker;
 
-import com.athleticspot.tracker.domain.model.GeneralSportActivityRepository;
+import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 public class TrackerApplication {
 
     @Autowired
-    GeneralSportActivityRepository stravaSportActivity;
+    GenericSportActivityRepository stravaSportActivity;
 
     public static void main(String[] args) {
         SpringApplication.run(TrackerApplication.class, args);
@@ -52,8 +52,8 @@ public class TrackerApplication {
 //    }
 //
 //    @Bean
-//    SportActivityRepository sportActivityRepository(){
-//        return new SportActivityJpaRepositoryImpl();
+//    ManualSportActivityRepository sportActivityRepository(){
+//        return new ManualSportActivityJpaRepositoryImpl();
 //    }
 //
 //    @Bean

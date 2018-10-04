@@ -1,15 +1,15 @@
-package com.athleticspot.tracker.infrastracture.web;
+package com.athleticspot.tracker.infrastracture.web.assembler;
 
-import com.athleticspot.tracker.domain.model.SportActivityDetails;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 
 /**
  * @author Tomasz Kasprzycki
  */
-class SportActivityDtoAssembler {
+public class ManualSportActivityDetailsInDtoAssembler {
 
-    static SportActivityDetails assemble(SportActivityInDto sportActivityInDto) {
-        return SportActivityDetails.create(
+    public static ManualSportActivityDetails assemble(SportActivityInDto sportActivityInDto) {
+        return ManualSportActivityDetails.create(
             sportActivityInDto.getDescription(),
             sportActivityInDto.getTitle(),
             sportActivityInDto.getType(),
@@ -21,4 +21,5 @@ class SportActivityDtoAssembler {
             sportActivityInDto.getDateTime()
         );
     }
+
 }

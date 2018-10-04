@@ -1,7 +1,7 @@
 package com.athleticspot.tracker.shared;
 
-import com.athleticspot.tracker.domain.model.SportActivityDetails;
 import com.athleticspot.tracker.domain.model.SportActivityType;
+import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  */
 public class TestSportActivityDetailsFactory {
 
-    public static SportActivityDetails create() {
+    public static ManualSportActivityDetails create() {
 
         String sportActivityDescription = "description";
         String sportActivityTitle = "title";
@@ -22,7 +22,7 @@ public class TestSportActivityDetailsFactory {
         String sportActivityMeanSpeed = "5";
         LocalDateTime sportActivityDateTime = LocalDateTime.now();
 
-        return SportActivityDetails.create(
+        return ManualSportActivityDetails.create(
             sportActivityDescription,
             sportActivityTitle,
             sportActivityType,

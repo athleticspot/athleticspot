@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
  * @author Tomasz Kasprzycki
  */
 @Repository
-public interface GeneralSportActivityRepository extends MongoRepository<SportActivity, String> {
+public interface GenericSportActivityRepository extends MongoRepository<SportActivityGenericType, String> {
+
 }
