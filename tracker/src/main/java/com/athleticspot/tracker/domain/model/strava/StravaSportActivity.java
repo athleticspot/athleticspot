@@ -5,19 +5,21 @@ import com.athleticspot.tracker.domain.model.TrackerSource;
 import javastrava.api.v3.model.StravaActivity;
 import org.springframework.data.annotation.Id;
 
+import java.util.UUID;
+
 /**
  * @author Tomasz Kasprzycki
  */
-public class StravaSportActivity implements SportActivityGenericType {
+public class StravaSportActivity extends SportActivityGenericType {
 
     @Id
-    public String id;
+    private String id;
 
-    public String username;
+    private String sportyActivityIdentifier;
 
-    public String title;
+    private String title;
 
-    public TrackerSource trackerSource;
+    private TrackerSource trackerSource;
 
     public static StravaSportActivity create(String username, String title, TrackerSource trackerSource) {
         return new StravaSportActivity(username, title, trackerSource);
@@ -40,5 +42,22 @@ public class StravaSportActivity implements SportActivityGenericType {
         this.username = username;
         this.title = title;
         this.trackerSource = trackerSource;
+        this.sportyActivityIdentifier = UUID.randomUUID().toString();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public TrackerSource getTrackerSource() {
+        return trackerSource;
     }
 }

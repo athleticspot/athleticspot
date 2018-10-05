@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 @javax.persistence.Entity
 @Table(name = "sport_activity")
-public class ManualSportActivity implements TimelineEvent, Entity, SportActivityGenericType {
+public class ManualSportActivity extends SportActivityGenericType implements TimelineEvent, Entity {
 
 
     @Id
@@ -31,6 +31,7 @@ public class ManualSportActivity implements TimelineEvent, Entity, SportActivity
 
     @Column(name = "timeline_id")
     private String timelineIdentifier;
+
 
     private ManualSportActivity() {
         //jpa purpose
@@ -71,6 +72,10 @@ public class ManualSportActivity implements TimelineEvent, Entity, SportActivity
     public void assignToTimeline(String timelineIdentifier) {
         Assert.notNull(timelineIdentifier, "timeline identifier cannot be null");
         this.timelineIdentifier = timelineIdentifier;
+    }
+
+    public void assignOwner(String username){
+        this.username = username;
     }
 
     @Override

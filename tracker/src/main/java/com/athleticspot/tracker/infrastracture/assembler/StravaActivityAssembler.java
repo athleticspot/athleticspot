@@ -47,8 +47,8 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
     @Override
     public SportActivity assembleSportActivity(StravaSportActivity trackerSportActivity, String username) {
         return SportActivity.create(
-            username,
-            trackerSportActivity.title,
+            trackerSportActivity.getUsername(),
+            trackerSportActivity.getTitle(),
             TrackerSource.STRAVA
         );
     }

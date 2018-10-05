@@ -27,6 +27,7 @@ public class ApplicationEventsImpl implements ApplicationEvents {
 
     @Override
     public void manualSportActivityAdded(ManualSportActivity manualSportActivity, String username) {
+        manualSportActivity.assignOwner(username);
         genericSportActivityRepository.save(manualSportActivity);
     }
 }

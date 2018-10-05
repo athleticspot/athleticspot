@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.infrastracture.web;
 
+import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import com.athleticspot.tracker.domain.model.SportActivity;
@@ -57,6 +58,6 @@ public class SportActivityReadController {
         @RequestParam(name = "page") int page,
         @RequestParam(name = "pageSize") int pageSize) {
         return sportActivityAssemblerImpl
-            .pageAssemble(genericSportActivityRepository.findAll(new PageRequest(page, pageSize)));
+            .pageAssemble(genericSportActivityRepository.findByUsername(SecurityUtils.getCurrentUserLogin(), new PageRequest(page, pageSize)));
     }
 }
