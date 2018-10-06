@@ -25,8 +25,6 @@ public class TrackerApplication {
 
     @PostConstruct
     public void run() {
-
-        stravaSportActivity.deleteAll();
     }
 
 //

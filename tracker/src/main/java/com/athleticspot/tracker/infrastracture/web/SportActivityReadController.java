@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,7 +50,7 @@ public class SportActivityReadController {
             .getManualSportActivities()
             .stream()
             .map(SportActivityOutDto::create)
-            .sorted((o1, o2) -> o2.getDetails().getDateTime().compareTo(o1.getDetails().getDateTime()))
+            .sorted((o1, o2) -> o2.getStartDate().compareTo(o1.getStartDate()))
             .collect(Collectors.toList());
     }
 
@@ -58,6 +59,7 @@ public class SportActivityReadController {
         @RequestParam(name = "page") int page,
         @RequestParam(name = "pageSize") int pageSize) {
         return sportActivityAssemblerImpl
-            .pageAssemble(genericSportActivityRepository.findByUsername(SecurityUtils.getCurrentUserLogin(), new PageRequest(page, pageSize)));
+            .pageAssemble(genericSportActivityRepository
+                .findByUsername(SecurityUtils.getCurrentUserLogin(), new PageRequest(page, pageSize, Sort.Direction.DESC, "startDate")));
     }
 }

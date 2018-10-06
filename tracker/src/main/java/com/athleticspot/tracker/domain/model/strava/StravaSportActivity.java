@@ -5,6 +5,7 @@ import com.athleticspot.tracker.domain.model.TrackerSource;
 import javastrava.api.v3.model.StravaActivity;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -21,15 +22,14 @@ public class StravaSportActivity extends SportActivityGenericType {
 
     private TrackerSource trackerSource;
 
-    public static StravaSportActivity create(String username, String title, TrackerSource trackerSource) {
-        return new StravaSportActivity(username, title, trackerSource);
-    }
+    private LocalDateTime startDate;
 
     public static StravaSportActivity creteFromStravaActivity(final StravaActivity stravaActivity, String username) {
         return new StravaSportActivity(
             username,
             stravaActivity.getName(),
-            TrackerSource.STRAVA
+            TrackerSource.STRAVA,
+            stravaActivity.getStartDateLocal()
         );
     }
 
@@ -38,11 +38,12 @@ public class StravaSportActivity extends SportActivityGenericType {
         return this;
     }
 
-    private StravaSportActivity(String username, String title, TrackerSource trackerSource) {
+    private StravaSportActivity(String username, String title, TrackerSource trackerSource, LocalDateTime startDate) {
         this.username = username;
         this.title = title;
         this.trackerSource = trackerSource;
         this.sportyActivityIdentifier = UUID.randomUUID().toString();
+        this.startDate = startDate;
     }
 
     public String getId() {
@@ -59,5 +60,13 @@ public class StravaSportActivity extends SportActivityGenericType {
 
     public TrackerSource getTrackerSource() {
         return trackerSource;
+    }
+
+    public String getSportyActivityIdentifier() {
+        return sportyActivityIdentifier;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 }

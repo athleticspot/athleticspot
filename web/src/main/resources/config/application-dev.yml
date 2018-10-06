@@ -34,7 +34,7 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:file:./target/h2db/db/athleticspot;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:file:./target/h2db/db/athleticspot;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1
         username: athleticspot
         password:
     h2:

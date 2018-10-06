@@ -29,9 +29,9 @@ public class SportActivityAssemblerImpl {
             {
                 if (sportActivityGenericType instanceof ManualSportActivity) {
                     return manualSportActivityAssembler
-                        .assembleSportActivity((ManualSportActivity) sportActivityGenericType, null);
+                        .assembleSportActivity((ManualSportActivity) sportActivityGenericType);
                 }
-                return stravaActivityAssembler.assembleSportActivity((StravaSportActivity) sportActivityGenericType, null);
+                return stravaActivityAssembler.assembleSportActivity((StravaSportActivity) sportActivityGenericType);
             }
         );
     }

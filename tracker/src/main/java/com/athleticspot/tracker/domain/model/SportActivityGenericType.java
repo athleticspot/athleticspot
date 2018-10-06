@@ -13,4 +13,7 @@ public class SportActivityGenericType {
     @Transient
     protected String username;
 
+    public String getUsername() {
+        return username;
+    }
 }

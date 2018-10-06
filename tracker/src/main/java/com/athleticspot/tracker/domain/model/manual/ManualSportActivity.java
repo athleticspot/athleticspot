@@ -6,6 +6,7 @@ import com.athleticspot.tracker.domain.shared.Entity;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -32,6 +33,8 @@ public class ManualSportActivity extends SportActivityGenericType implements Tim
     @Column(name = "timeline_id")
     private String timelineIdentifier;
 
+    @Column(name = "start_date")
+    private LocalDateTime startDate;
 
     private ManualSportActivity() {
         //jpa purpose
@@ -39,28 +42,40 @@ public class ManualSportActivity extends SportActivityGenericType implements Tim
 
     private ManualSportActivity(String sportActivityIdentifier,
                                 String sportActivitySource,
-                                ManualSportActivityDetails manualSportActivityDetails) {
+                                ManualSportActivityDetails manualSportActivityDetails,
+                                LocalDateTime startDate) {
         Assert.notNull(sportActivityIdentifier, "Sport activity identifier cannot be null");
         Assert.notNull(sportActivitySource, "Source cannot be null");
         Assert.notNull(manualSportActivityDetails, "Sport activity details cannot be null");
+        Assert.notNull(startDate, "Start date cannot be null");
         this.sportyActivityIdentifier = sportActivityIdentifier;
         this.details = manualSportActivityDetails;
         this.source = sportActivitySource;
+        this.startDate = startDate;
     }
 
-    private ManualSportActivity(String sportyActivitySource, ManualSportActivityDetails manualSportActivityDetails) {
+    private ManualSportActivity(String sportyActivitySource,
+                                ManualSportActivityDetails manualSportActivityDetails,
+                                LocalDateTime startDate) {
         Assert.notNull(manualSportActivityDetails, "Sport activity details cannot be null");
         Assert.notNull(sportyActivitySource, "Sport activity source cannot be null");
+        Assert.notNull(startDate, "Start date cannot be null");
         this.source = sportyActivitySource;
         this.details = manualSportActivityDetails;
+        this.startDate = startDate;
     }
 
-    public static ManualSportActivity create(String sportActivityIdentifier, String sportActivitySource, ManualSportActivityDetails manualSportActivityDetails) {
-        return new ManualSportActivity(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails);
+    public static ManualSportActivity create(String sportActivityIdentifier,
+                                             String sportActivitySource,
+                                             ManualSportActivityDetails manualSportActivityDetails,
+                                             LocalDateTime startDate) {
+        return new ManualSportActivity(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails, startDate);
     }
 
-    public static ManualSportActivity createNew(String sportyActivitySource, ManualSportActivityDetails manualSportActivityDetails) {
-        return new ManualSportActivity(sportyActivitySource, manualSportActivityDetails);
+    public static ManualSportActivity createNew(String sportyActivitySource,
+                                                ManualSportActivityDetails manualSportActivityDetails,
+                                                LocalDateTime startDate) {
+        return new ManualSportActivity(sportyActivitySource, manualSportActivityDetails, startDate);
     }
 
     @Override
@@ -74,7 +89,7 @@ public class ManualSportActivity extends SportActivityGenericType implements Tim
         this.timelineIdentifier = timelineIdentifier;
     }
 
-    public void assignOwner(String username){
+    public void assignOwner(String username) {
         this.username = username;
     }
 
@@ -97,5 +112,9 @@ public class ManualSportActivity extends SportActivityGenericType implements Tim
 
     public String source() {
         return this.source;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 }

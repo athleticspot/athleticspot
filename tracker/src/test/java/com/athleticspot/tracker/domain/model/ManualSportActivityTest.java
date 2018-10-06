@@ -37,19 +37,24 @@ public class ManualSportActivityTest {
             sportActivityDistance,
             sportActivityUnits,
             sportActivityMaxSpeed,
-            sportActivityMeanSpeed,
-            sportActivityDateTime
+            sportActivityMeanSpeed
         );
 
         //when
-        ManualSportActivity manualSportActivity = ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails);
+        ManualSportActivity manualSportActivity = ManualSportActivity
+            .create(
+                sportActivityIdentifier,
+                sportActivitySource,
+                manualSportActivityDetails,
+                sportActivityDateTime
+            );
 
         //then
         Assertions.assertThat(manualSportActivity.identifier()).isEqualTo(sportActivityIdentifier);
         Assertions.assertThat(manualSportActivity.source()).isEqualTo(sportActivitySource);
+        Assertions.assertThat(manualSportActivity.getStartDate()).isEqualTo(sportActivityDateTime);
         ManualSportActivityDetails sportActivityAssignedDetails = manualSportActivity.details();
         Assertions.assertThat(sportActivityAssignedDetails.description()).isEqualTo(sportActivityDescription);
-        Assertions.assertThat(sportActivityAssignedDetails.dateTime()).isEqualTo(sportActivityDateTime);
         Assertions.assertThat(sportActivityAssignedDetails.distance()).isEqualTo(sportActivityDistance);
         Assertions.assertThat(sportActivityAssignedDetails.duration()).isEqualTo(sportActivityDuration);
         Assertions.assertThat(sportActivityAssignedDetails.maxSpeed()).isEqualTo(sportActivityMaxSpeed);

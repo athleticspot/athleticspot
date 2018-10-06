@@ -30,8 +30,7 @@ public class TestSportActivityDetailsFactory {
             sportActivityDistance,
             sportActivityUnits,
             sportActivityMaxSpeed,
-            sportActivityMeanSpeed,
-            sportActivityDateTime
+            sportActivityMeanSpeed
         );
 
     }

@@ -34,7 +34,7 @@
             <column name="units" type="varchar(200)"/>
             <column name="max_speed" type="varchar(50)"/>
             <column name="mean_speed" type="varchar(50)"/>
-            <column name="activity_time" type="DATETIME">
+            <column name="start_date" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
         </createTable>

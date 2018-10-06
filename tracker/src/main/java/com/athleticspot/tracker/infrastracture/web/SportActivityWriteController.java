@@ -30,7 +30,11 @@ public class SportActivityWriteController {
     @PostMapping
     public void createSportActivity(@RequestBody @Valid SportActivityInDto sportActivityInDto) {
         LOG.info("Incoming request: {}", sportActivityInDto);
-        timelineService.addActivity(ManualSportActivityDetailsInDtoAssembler.assemble(sportActivityInDto), TrackerSource.MANUAL.getSource());
+        timelineService.addActivity(
+            ManualSportActivityDetailsInDtoAssembler.assemble(sportActivityInDto),
+            TrackerSource.MANUAL.getSource(),
+            sportActivityInDto.getDateTime()
+        );
     }
 
     @PutMapping

@@ -2,10 +2,7 @@ package com.athleticspot.tracker.acceptance;
 
 import com.athleticspot.tracker.TrackerApplication;
 import com.athleticspot.tracker.application.TimelineService;
-import com.athleticspot.tracker.domain.model.Timeline;
-import com.athleticspot.tracker.domain.model.TimelineRepository;
-import com.athleticspot.tracker.domain.model.TrackerUser;
-import com.athleticspot.tracker.domain.model.UserRepository;
+import com.athleticspot.tracker.domain.model.*;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivityRepository;
@@ -24,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -47,6 +45,9 @@ public class TimelineIT {
     @Autowired
     private ManualSportActivityRepository manualSportActivityRepository;
 
+    @Autowired
+    private GenericSportActivityRepository genericSportActivityRepository;
+
     @MockBean
     private UserRepository userRepository;
 
@@ -55,6 +56,7 @@ public class TimelineIT {
 
     @Before
     public void setUp() {
+        genericSportActivityRepository.deleteAll();
         Mockito.when(userRepository.getTimelineIdentifier(Matchers.any())).thenReturn(expectedTimelineIdentifier);
         Mockito.when(userRepository.getUser(Matchers.any())).thenReturn(
             new TrackerUser("admin", null)
@@ -84,8 +86,8 @@ public class TimelineIT {
         final ManualSportActivityDetails expectedManualSportActivityDetails = TestSportActivityDetailsFactory.create();
         expectedSportActivityId = timelineService.addActivity(
             expectedManualSportActivityDetails,
-            "Manual"
-        );
+            "Manual",
+            LocalDateTime.now());
 
         //then
         final Optional<ManualSportActivity> byTimelineId = manualSportActivityRepository.findBySportActivityId(expectedSportActivityId);

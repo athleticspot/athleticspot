@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,7 +46,8 @@ public class TimelineTest {
         String timelineIdentifier = UUID.randomUUID().toString();
         Timeline timeline = Timeline.create(timelineIdentifier);
         String sportActivityIdentifier = UUID.randomUUID().toString();
-        TimelineEvent sportActivity = ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails);
+        TimelineEvent sportActivity = ManualSportActivity
+            .create(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails, LocalDateTime.now());
 
         //when
         timeline.addTimelineEvent(sportActivity);
@@ -74,7 +76,7 @@ public class TimelineTest {
         //given
         final Timeline timeline = testTimeline();
         final String sportActivityIdentifier = UUID.randomUUID().toString();
-        timeline.addTimelineEvent(ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails));
+        timeline.addTimelineEvent(ManualSportActivity.create(sportActivityIdentifier, sportActivitySource, manualSportActivityDetails, LocalDateTime.now()));
         Assertions.assertThat(timeline.timelineEvents()).hasSize(1);
 
         //when
@@ -117,7 +119,7 @@ public class TimelineTest {
     private List<TimelineEvent> testActivities(int activitiesSize) {
         List<TimelineEvent> timelineEvents = Lists.newArrayList();
         for (int i = 0; i < activitiesSize; i++) {
-            timelineEvents.add(ManualSportActivity.create(UUID.randomUUID().toString(), sportActivitySource, manualSportActivityDetails));
+            timelineEvents.add(ManualSportActivity.create(UUID.randomUUID().toString(), sportActivitySource, manualSportActivityDetails, LocalDateTime.now()));
         }
         return timelineEvents;
     }

@@ -28,13 +28,13 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
             stravaActivity.getDistance().toString(),
             null,
             stravaActivity.getMaxSpeed().toString(),
-            stravaActivity.getAverageSpeed().toString(),
-            stravaActivity.getStartDateLocal()
+            stravaActivity.getAverageSpeed().toString()
         );
 
         return ManualSportActivity.createNew(
             "STRAVA",
-            manualSportActivityDetails
+            manualSportActivityDetails,
+            stravaActivity.getStartDateLocal()
         );
     }
 
@@ -45,11 +45,11 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
     }
 
     @Override
-    public SportActivity assembleSportActivity(StravaSportActivity trackerSportActivity, String username) {
-        return SportActivity.create(
+    public SportActivity assembleSportActivity(StravaSportActivity trackerSportActivity) {
+        return SportActivity.create(trackerSportActivity.getSportyActivityIdentifier(),
             trackerSportActivity.getUsername(),
             trackerSportActivity.getTitle(),
-            TrackerSource.STRAVA
-        );
+            TrackerSource.STRAVA,
+            trackerSportActivity.getStartDate() );
     }
 }

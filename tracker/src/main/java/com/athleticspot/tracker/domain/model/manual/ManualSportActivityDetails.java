@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -41,14 +40,11 @@ public class ManualSportActivityDetails implements ValueObject {
     @Column(name = "mean_speed")
     private String meanSpeed;
 
-    @Column(name = "activity_time")
-    private LocalDateTime sportActivityTime;
-
     private ManualSportActivityDetails() {
         //jpa purpose
     }
 
-    private ManualSportActivityDetails(String description, String title, SportActivityType type, String duration, String distance, String units, String maxSpeed, String meanSpeed, LocalDateTime sportActivityTime) {
+    private ManualSportActivityDetails(String description, String title, SportActivityType type, String duration, String distance, String units, String maxSpeed, String meanSpeed) {
 
         this.description = description;
         this.title = title;
@@ -58,7 +54,6 @@ public class ManualSportActivityDetails implements ValueObject {
         this.units = units;
         this.maxSpeed = maxSpeed;
         this.meanSpeed = meanSpeed;
-        this.sportActivityTime = sportActivityTime;
     }
 
     public static ManualSportActivityDetails create(
@@ -69,9 +64,8 @@ public class ManualSportActivityDetails implements ValueObject {
         String sportActivityDistance,
         String sportActivityUnits,
         String sportActivityMaxSpeed,
-        String sportActivityMeanSpeed,
-        LocalDateTime sportActivityDateTime) {
-        return new ManualSportActivityDetails(sportActivityDescription, sportActivityTitle, sportActivityType, sportActivityDuration, sportActivityDistance, sportActivityUnits, sportActivityMaxSpeed, sportActivityMeanSpeed, sportActivityDateTime);
+        String sportActivityMeanSpeed) {
+        return new ManualSportActivityDetails(sportActivityDescription, sportActivityTitle, sportActivityType, sportActivityDuration, sportActivityDistance, sportActivityUnits, sportActivityMaxSpeed, sportActivityMeanSpeed);
     }
 
     public String description() {
@@ -106,10 +100,6 @@ public class ManualSportActivityDetails implements ValueObject {
         return meanSpeed;
     }
 
-    public LocalDateTime dateTime() {
-        return sportActivityTime;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -122,12 +112,11 @@ public class ManualSportActivityDetails implements ValueObject {
             Objects.equals(distance, that.distance) &&
             Objects.equals(units, that.units) &&
             Objects.equals(maxSpeed, that.maxSpeed) &&
-            Objects.equals(meanSpeed, that.meanSpeed) &&
-            Objects.equals(sportActivityTime, that.sportActivityTime);
+            Objects.equals(meanSpeed, that.meanSpeed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, title, type, duration, distance, units, maxSpeed, meanSpeed, sportActivityTime);
+        return Objects.hash(description, title, type, duration, distance, units, maxSpeed, meanSpeed);
     }
 }

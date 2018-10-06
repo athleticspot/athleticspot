@@ -9,9 +9,8 @@ public interface SportActivityAssembler<T> {
 
     /**
      * @param trackerSportActivity
-     * @param username
      * @return
      */
-     SportActivity assembleSportActivity(T trackerSportActivity, String username);
+     SportActivity assembleSportActivity(T trackerSportActivity);
 
 }

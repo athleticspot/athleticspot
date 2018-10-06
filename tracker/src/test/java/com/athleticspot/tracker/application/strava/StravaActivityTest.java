@@ -35,7 +35,7 @@ public class StravaActivityTest {
         Assertions.assertThat(manualSportActivity.details().type()).isEqualByComparingTo(SportActivityType.RUN);
         Assertions.assertThat(manualSportActivity.details().description()).isEqualTo(description);
         Assertions.assertThat(manualSportActivity.details().title()).isEqualTo(activityName);
-        Assertions.assertThat(manualSportActivity.details().dateTime()).isEqualTo(LocalDateTime.parse(startDateTime));
+        Assertions.assertThat(manualSportActivity.getStartDate()).isEqualTo(LocalDateTime.parse(startDateTime));
 
     }
 

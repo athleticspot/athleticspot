@@ -29,8 +29,7 @@ public class TimelineEventFactory {
             sportActivityDistance,
             sportActivityUnits,
             sportActivityMaxSpeed,
-            sportActivityMeanSpeed,
-            sportActivityDateTime
+            sportActivityMeanSpeed
         );
         return manualSportActivityDetails;
     }

@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -71,11 +72,12 @@ public class TimelineServiceTest {
         ManualSportActivity manualSportActivity = ManualSportActivity.create(
             expectedSportActivityIdentifier,
             "Manual",
-            TimelineEventFactory.testSportActivity()
+            TimelineEventFactory.testSportActivity(),
+            LocalDateTime.now()
         );
 
         //when
-        timelineService.addActivity(TimelineEventFactory.testSportActivity(), "Manual");
+        timelineService.addActivity(TimelineEventFactory.testSportActivity(), "Manual", LocalDateTime.now());
 
         //then
         Mockito.verify(timelineRepository, Mockito.times(1)).find(expectedTimelineId);
@@ -94,11 +96,12 @@ public class TimelineServiceTest {
         ManualSportActivity manualSportActivity = ManualSportActivity.create(
             expectedSportActivityIdentifier,
             "Manual",
-            TimelineEventFactory.testSportActivity()
+            TimelineEventFactory.testSportActivity(),
+            LocalDateTime.now()
         );
 
         //when
-        timelineService.addActivity(TimelineEventFactory.testSportActivity(), "Manual" );
+        timelineService.addActivity(TimelineEventFactory.testSportActivity(), "Manual", LocalDateTime.now());
 
         //then
         Mockito.verify(trackerUserService, Mockito.times(1)).getTimelineIdentifier();
@@ -116,7 +119,8 @@ public class TimelineServiceTest {
         ManualSportActivity manualSportActivity = ManualSportActivity.create(
             sportActivityIdentifier,
             "Manual",
-            TimelineEventFactory.testSportActivity()
+            TimelineEventFactory.testSportActivity(),
+            LocalDateTime.now()
         );
         timeline.addTimelineEvent(manualSportActivity);
 

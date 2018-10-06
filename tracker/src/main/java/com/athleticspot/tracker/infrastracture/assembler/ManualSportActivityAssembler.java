@@ -12,11 +12,12 @@ import org.springframework.stereotype.Component;
 public class ManualSportActivityAssembler implements SportActivityAssembler<ManualSportActivity> {
 
     @Override
-    public SportActivity assembleSportActivity(ManualSportActivity trackerSportActivity, String username) {
+    public SportActivity assembleSportActivity(ManualSportActivity trackerSportActivity) {
         return SportActivity.create(
-            username,
+            trackerSportActivity.identifier(),
+            trackerSportActivity.getUsername(),
             trackerSportActivity.details().title(),
-            TrackerSource.MANUAL
-        );
+            TrackerSource.MANUAL,
+            trackerSportActivity.getStartDate());
     }
 }

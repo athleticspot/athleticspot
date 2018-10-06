@@ -3,6 +3,7 @@ package com.athleticspot.tracker.application;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public interface TimelineService {
 
     List<ManualSportActivity> getManualSportActivities();
 
-    String addActivity(ManualSportActivityDetails manualSportActivityDetails, String activitySource);
+    String addActivity(ManualSportActivityDetails manualSportActivityDetails, String activitySource, LocalDateTime startDate);
 
     void addActivities();
 

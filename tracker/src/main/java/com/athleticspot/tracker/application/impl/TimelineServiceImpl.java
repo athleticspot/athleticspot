@@ -12,6 +12,7 @@ import com.athleticspot.tracker.domain.model.manual.ManualSportActivityRepositor
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -62,15 +63,15 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     @Override
-    public String addActivity(ManualSportActivityDetails manualSportActivityDetails, String activitySource) {
+    public String addActivity(ManualSportActivityDetails manualSportActivityDetails, String activitySource, LocalDateTime startDate) {
         final String timelineIdentifier = trackerUserService.getTimelineIdentifier();
         final String sportActivityIdentifier = manualSportActivityRepository.nextSportActivityId();
         ManualSportActivity manualSportActivity =
             ManualSportActivity.create(
                 sportActivityIdentifier,
                 activitySource,
-                manualSportActivityDetails
-
+                manualSportActivityDetails,
+                startDate
             );
         //TODO: if timeline identifier is null then we need to assign it back to user
         Optional<Timeline> timelineOptional = timelineRepository.find(timelineIdentifier);

@@ -3,8 +3,6 @@ package com.athleticspot.tracker.infrastracture.web.dto.out;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 
-import java.time.LocalDateTime;
-
 /**
  * @author Tomasz Kasprzycki
  */
@@ -18,7 +16,6 @@ public class SportActivityDetailsOutDto {
     private String units;
     private String maxSpeed;
     private String meanSpeed;
-    private LocalDateTime dateTime;
 
     private SportActivityDetailsOutDto(ManualSportActivityDetails manualSportActivityDetails) {
         this.description = manualSportActivityDetails.description();
@@ -29,7 +26,6 @@ public class SportActivityDetailsOutDto {
         this.units = manualSportActivityDetails.units();
         this.maxSpeed = manualSportActivityDetails.maxSpeed();
         this.meanSpeed = manualSportActivityDetails.meanSpeed();
-        this.dateTime = manualSportActivityDetails.dateTime();
     }
 
     public static SportActivityDetailsOutDto create(ManualSportActivityDetails manualSportActivityDetails) {
@@ -68,9 +64,6 @@ public class SportActivityDetailsOutDto {
         return meanSpeed;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
 
     @Override
     public String toString() {
@@ -83,7 +76,6 @@ public class SportActivityDetailsOutDto {
             ", units='" + units + '\'' +
             ", maxSpeed='" + maxSpeed + '\'' +
             ", meanSpeed='" + meanSpeed + '\'' +
-            ", dateTime=" + dateTime +
             '}';
     }
 }
