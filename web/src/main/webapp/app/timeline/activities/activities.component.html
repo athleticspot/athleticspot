@@ -30,7 +30,7 @@
 
                             <select class="form-control" formControlName="time">
                                 <option value="0">00:00AM</option>
-                                <option value="0,5">00:30AM</option>
+                                <option value="0.5">00:30AM</option>
                                 <option value="1">01:00AM</option>
                             </select>
 
@@ -135,7 +135,7 @@
                     </li>
                     <li class="tl-item" *ngFor="let activity of activities; let i = index">
                         <div class="tl-wrap b-primary">
-                            <span class="tl-date">{{activity.activityDetails.dateTime}}</span>
+                            <span class="tl-date">{{activity.startDate}}</span>
                             <div class="tl-content panel padder b-a w-md w-auto-xs">
                                 <span class="arrow left pull-up"></span>
                                 <div class="text-lt m-b-sm">{{activity.activityDetails.title}}</div>

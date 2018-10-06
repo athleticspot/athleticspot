@@ -46,7 +46,7 @@ public class SportActivityInDto implements Serializable {
 
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime dateTime;
+    private LocalDateTime startDate;
 
     public String getSportyActivityIdentifier() {
         return sportyActivityIdentifier;
@@ -88,8 +88,8 @@ public class SportActivityInDto implements Serializable {
         return meanSpeed;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class SportActivityInDto implements Serializable {
             ", units='" + units + '\'' +
             ", maxSpeed='" + maxSpeed + '\'' +
             ", meanSpeed='" + meanSpeed + '\'' +
-            ", dateTime=" + dateTime +
+            ", startDate=" + startDate +
             '}';
     }
 }

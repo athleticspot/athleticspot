@@ -3,10 +3,10 @@ import moment = require("moment");
 
 export class ActivityModel {
 
-    activityDetails : ActivityDetailsModel;
+    activityDetails: ActivityDetailsModel;
     sportActivityIdentifier: String;
-    source = "MANUAL";
-    title = "title";
+    source: String;
+    title: String;
     description = "description";
     type = "running";
     duration = "25";
@@ -14,28 +14,28 @@ export class ActivityModel {
     unit = "km";
     maxSpeed = "";
     meanSpeed = "";
-    dateTime : String;
+    startDate: String; //Sting type is set on pourpose in order to not use js Date
 
     constructor(sportActivityIdentifier: String,
                 source: String,
-                sportActivityDetails :ActivityDetailsModel){
-        sportActivityDetails.dateTime = moment(sportActivityDetails.dateTime)
-            .format("YYYY-MM-DD HH:mm:ss");
-        this.source = this.source
+                sportActivityDetails: ActivityDetailsModel,
+                startDate: Date) {
+        this.startDate = moment(startDate).format("YYYY-MM-DD HH:mm:ss");
+        this.source = source;
         this.sportActivityIdentifier = sportActivityIdentifier;
         this.activityDetails = sportActivityDetails;
+
     }
 
-    public assignDetails(activityDetails: ActivityDetailsModel){
-        this.title = activityDetails.title;
-        this.description = activityDetails.description;
-        this.type = activityDetails.type;
-        this.duration = activityDetails.duration;
-        this.distance = activityDetails.distance;
-        this.unit = activityDetails.unit;
-        this.maxSpeed = activityDetails.maxSpeed;
-        this.meanSpeed = activityDetails.meanSpeed;
-        this.dateTime = activityDetails.dateTime;
-    }
+    // public assignDetails(activityDetails: ActivityDetailsModel) {
+    //     this.title = activityDetails.title;
+    //     this.description = activityDetails.description;
+    //     this.type = activityDetails.type;
+    //     this.duration = activityDetails.duration;
+    //     this.distance = activityDetails.distance;
+    //     this.unit = activityDetails.unit;
+    //     this.maxSpeed = activityDetails.maxSpeed;
+    //     this.meanSpeed = activityDetails.meanSpeed;
+    // }
 
 }

@@ -54,7 +54,7 @@ export class ActivitiesComponent implements OnInit {
         if (this.addActivityForm.valid) {
             let activity = this.addActivityForm.value as ActivityModel;
             activity.source = "MANUAL";
-            activity.dateTime = moment(this.addActivityForm.get('date').value)
+            activity.startDate = moment(this.addActivityForm.get('date').value)
                 .startOf('day')
                 .add(this.addActivityForm.get('time').value,
                     'hours')
@@ -72,7 +72,7 @@ export class ActivitiesComponent implements OnInit {
                 this.toasterService.pop('error', 'Activity', 'Activity create failed');
                 console.log(error);
             });
-            this.addActivityForm.reset();
+            this.refreshAddActivityForm();
         } else {
             this.addActivityForm.markAsDirty({onlySelf: true});
             this.markFormGroupTouchedAndDirty(this.addActivityForm)
@@ -88,7 +88,9 @@ export class ActivitiesComponent implements OnInit {
                 this.activities.push(new ActivityModel(
                     sportActivity.sportyActivityIdentifier,
                     sportActivity.source,
-                    sportActivity.details
+                    sportActivity.details,
+                    sportActivity.startDate
+
                 ));
             })}, error => {
                 this.showTimeline = true;
@@ -110,5 +112,19 @@ export class ActivitiesComponent implements OnInit {
                 this.markFormGroupTouchedAndDirty(control);
             }
         });
+    }
+
+    private refreshAddActivityForm(){
+        this.addActivityForm.reset();
+        this.addActivityForm.patchValue({
+            type: "RUN",
+            unit: "kilometers",
+            time: "0",
+            duration: {
+                hours: 0,
+                minutes: 0,
+                seconds: 0
+            }
+        })
     }
 }

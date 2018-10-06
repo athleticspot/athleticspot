@@ -33,7 +33,7 @@ public class SportActivityWriteController {
         timelineService.addActivity(
             ManualSportActivityDetailsInDtoAssembler.assemble(sportActivityInDto),
             TrackerSource.MANUAL.getSource(),
-            sportActivityInDto.getDateTime()
+            sportActivityInDto.getStartDate()
         );
     }
 
