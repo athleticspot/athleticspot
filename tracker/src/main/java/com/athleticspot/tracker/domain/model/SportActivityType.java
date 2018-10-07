@@ -1,10 +1,5 @@
 package com.athleticspot.tracker.domain.model;
 
-import javastrava.api.v3.model.reference.StravaActivityType;
-import javastrava.config.Messages;
-import javastrava.config.StravaConfig;
-import javastrava.json.impl.gson.serializer.ActivityTypeSerializer;
-
 /**
  * @author Tomasz Kasprzycki
  */
@@ -30,6 +25,8 @@ public enum SportActivityType {
      * Walk
      */
     WALK("WALK");
+
+
 //    /**
 //     * Alpine skiing
 //     */

@@ -5,11 +5,9 @@ import java.time.LocalDateTime;
 /**
  * @author Tomasz Kasprzycki
  */
-public class SportActivity {
+public class SportActivity extends SportActivityGenericType {
 
     private String id;
-
-    private String username;
 
     private String title;
 
@@ -35,10 +33,6 @@ public class SportActivity {
 
     public String getId() {
         return id;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public String getTitle() {

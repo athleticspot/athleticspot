@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 public class TrackerApplication {
 
     @Autowired
-    GenericSportActivityRepository stravaSportActivity;
+    GenericSportActivityRepository genericSportActivityRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(TrackerApplication.class, args);
@@ -25,6 +25,7 @@ public class TrackerApplication {
 
     @PostConstruct
     public void run() {
+        genericSportActivityRepository.deleteAll();
     }
 
 //

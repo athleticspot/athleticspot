@@ -1,7 +1,7 @@
 import {ActivityDetailsModel} from "./activity-details.model";
 import moment = require("moment");
 
-export class ActivityModel {
+export class SportActivityModel {
 
     activityDetails: ActivityDetailsModel;
     sportActivityIdentifier: String;
@@ -26,16 +26,4 @@ export class ActivityModel {
         this.activityDetails = sportActivityDetails;
 
     }
-
-    // public assignDetails(activityDetails: ActivityDetailsModel) {
-    //     this.title = activityDetails.title;
-    //     this.description = activityDetails.description;
-    //     this.type = activityDetails.type;
-    //     this.duration = activityDetails.duration;
-    //     this.distance = activityDetails.distance;
-    //     this.unit = activityDetails.unit;
-    //     this.maxSpeed = activityDetails.maxSpeed;
-    //     this.meanSpeed = activityDetails.meanSpeed;
-    // }
-
 }

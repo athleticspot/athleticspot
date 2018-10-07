@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivitiesDataservice} from "./activities.dataservice";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivityModel} from "./activity.model";
+import {SportActivityModel} from "./activity.model";
 import * as moment from 'moment';
 import {ToasterService} from "angular2-toaster";
 import {StravaDataservice} from "./strava.dataservice";
@@ -52,7 +52,7 @@ export class ActivitiesComponent implements OnInit {
     submitActivity() {
         console.log(this.addActivityForm);
         if (this.addActivityForm.valid) {
-            let activity = this.addActivityForm.value as ActivityModel;
+            let activity = this.addActivityForm.value as SportActivityModel;
             activity.source = "MANUAL";
             activity.startDate = moment(this.addActivityForm.get('date').value)
                 .startOf('day')
@@ -85,7 +85,7 @@ export class ActivitiesComponent implements OnInit {
         this.activityDataservice.fetchActivity().subscribe((activities: any[]) => {
             activities.forEach(sportActivity => {
                 this.showTimeline = true;
-                this.activities.push(new ActivityModel(
+                this.activities.push(new SportActivityModel(
                     sportActivity.sportyActivityIdentifier,
                     sportActivity.source,
                     sportActivity.details,
