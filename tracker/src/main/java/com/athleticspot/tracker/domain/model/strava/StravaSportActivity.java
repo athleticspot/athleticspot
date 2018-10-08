@@ -3,12 +3,12 @@ package com.athleticspot.tracker.domain.model.strava;
 import com.athleticspot.tracker.domain.model.SportActivityGenericType;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
-import com.google.gson.annotations.SerializedName;
 import javastrava.api.v3.model.*;
 import javastrava.api.v3.model.reference.StravaActivityType;
 import javastrava.api.v3.model.reference.StravaWorkoutType;
 import javastrava.api.v3.service.StreamService;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,71 +18,86 @@ import java.util.List;
  */
 public class StravaSportActivity extends SportActivityGenericType {
 
-    @Id
     /**
      *athleticspot id
      */
+    @Id
+    @Field("id")
     private String id;
 
     /**
      * Indicates source of data (Stava, manual, etc...)
      */
+    @Field("trackerSource")
     private TrackerSource trackerSource;
 
     /**
      * Athleticspot specific sport activity type
      */
+    @Field("sportActivityType")
     private SportActivityType sportActivityType;
     /**
      * Strava original id
      */
+    @Field("stravaId")
     private Integer stravaId;
     /**
      * The identifier given to the activity by the application that uploaded it
      */
+    @Field("externalId")
     private String externalId;
 
+    @Field("title")
     private String title;
 
+    @Field("description")
     private String description;
 
     /**
      * Distance travelled in metres. If you want it in funny old imperial,
      * that's up to you to convert it
      */
+    @Field("distance")
     private Float distance;
 
     /**
      * Total moving time in seconds.
      */
+    @Field("movingTime")
     private Integer movingTime;
     /**
      * Total time including stopped time, in seconds
      */
+    @Field("elapsedTime")
     private Integer elapsedTime;
     /**
      * Total elevation gain in metres
      */
+    @Field("totalElevationGain")
     private Float totalElevationGain;
 
     /**
      * Date and time the activity was started
      */
+    @Field("startDate")
     private LocalDateTime startDate;
 
     /**
      * Time zone
      */
+    @Field("timezone")
     private String timezone;
 
     /**
      * Start location
      */
+    @Field("startLatlng")
     private StravaMapPoint startLatlng;
 
     /**
      * End location
      */
+    @Field("endLatlng")
     private StravaMapPoint endLatlng;
 
 
@@ -98,6 +113,7 @@ public class StravaSportActivity extends SportActivityGenericType {
      * {@link StreamService#getActivityStreams(Integer, javastrava.api.v3.model.reference.StravaStreamResolutionType, javastrava.api.v3.model.reference.StravaStreamSeriesDownsamplingType, javastrava.api.v3.model.reference.StravaStreamType...)}
      * </p>
      */
+    @Field("map")
     private StravaMap map;
 
     /**
@@ -105,142 +121,171 @@ public class StravaSportActivity extends SportActivityGenericType {
      * Strava, rather than being uploaded as a file from some GPS device, or
      * your phone</p>
      */
+    @Field("manual")
     private Boolean manual;
 
     /**
      * Is set to <code>true</code> if the activity has been flagged as private
      * by the athlete
      */
-    @SerializedName("private")
+    @Field("privateActivity")
     private Boolean privateActivity;
 
+    @Field("workoutType")
     private StravaWorkoutType workoutType;
 
     /**
      * Unique identifier of the {@link StravaGear} used on this activity
      */
+    @Field("gearId")
     private String gearId;
     /**
      * Summary representation of the gear used for the activity
      */
+    @Field("gear")
     private StravaGear gear;
     /**
      * Average speed (in metres per second) of the activity (as calculated by
      * Strava; is not recalculated or checked by javastrava)
      */
+    @Field("averageSpeed")
     private Float averageSpeed;
     /**
      * Maximum speed (in metres per second) achieved during the activity (quite
      * often as a result of GPS inaccuracies). Calculated by Strava and not
      * recalculated or checked by javastrava.
      */
+    @Field("maxSpeed")
     private Float maxSpeed;
     /**
      * Average RPM if cadence data was provided with the uploaded activity
      */
+    @Field("averageCadence")
     private Float averageCadence;
     /**
      * Average temperature (in degrees Celsius) if temperature data was provided
      * with the uploaded activity
      */
+    @Field("averageTemp")
     private Float averageTemp;
     /**
      * Average power (in watts) for rides only. Strava calculates an estimate
      * for this if power meter data is not provided with the upload.
      */
+    @Field("averageWatts")
     private Float averageWatts;
     /**
      * Weighted average power (in watts) for rides with power meter data only.
      */
+    @Field("weightedAverageWatts")
     private Float weightedAverageWatts;
     /**
      * Total energy expended by the rider in kilojoules
      */
+    @Field("kilojoules")
     private Float kilojoules;
     /**
      * Is set to <code>true</code> if power meter data was provided with the
      * upload
      */
+    @Field("deviceWatts")
     private Boolean deviceWatts;
 
     /**
      * Is set to <code>true</code> if the activity was recorded with heartrate
      */
+    @Field("hasHeartrate")
     private Boolean hasHeartrate;
     /**
      * Average heart rate (in beats per minute) if heart rate data was provided
      * with the upload
      */
+    @Field("averageHeartrate")
     private Float averageHeartrate;
     /**
      * Maximum heart rate (in beats per minute) if heart rate data was provided
      * with the upload
      */
+    @Field("maxHeartrate")
     private Integer maxHeartrate;
     /**
      * Kilocalories expended (calculated by Strava)
      */
+    @Field("calories")
     private Float calories;
 
     /**
      * Is set to <code>true</code> if the currently authenticated athlete has
      * kudoed this activity
      */
+    @Field("hasKudoed")
     private Boolean hasKudoed;
     /**
      * Segment efforts associated with the activity
      */
+    @Field("segmentEfforts")
     private List<StravaSegmentEffort> segmentEfforts;
     /**
      * Runs only - list of metric splits
      */
+    @Field("splitsMetric")
     private List<StravaSplit> splitsMetric;
     /**
      * Runs only - list of imperial splits ("standard" hahahaha you Americans
      * are so funny)
      */
+    @Field("splitsStandard")
     private List<StravaSplit> splitsStandard;
     /**
      * Runs only - list of best efforts
      */
+    @Field("bestEfforts")
     private List<StravaBestRunningEffort> bestEfforts;
 
     /**
      * Identifier of the original upload
      */
+    @Field("uploadId")
     private Integer uploadId;
 
     /**
      * Latitude of the start point of the activity
      */
+    @Field("startLatitude")
     private Float startLatitude;
 
     /**
      * Longitude of the start point of the activity
      */
+    @Field("startLongitude")
     private Float startLongitude;
     /**
      * Instagram primary photo
      */
+    @Field("instagramPrimaryPhoto")
     private String instagramPrimaryPhoto;
     /**
      * Slightly weird summaries of the photos associated with the activity
      */
+    @Field("photos")
     private StravaActivityPhotos photos;
 
     /**
      * Seems to be the video used when doing the activity
      */
+    @Field("video")
     private StravaVideo video;
 
     /**
      * The token used to construct an embed URL in the form <a href="https://www.strava.com/activities/[ACTIVITY_ID]/embed/[embedId]">https://www.strava.com/activities/[ACTIVITY_ID]/embed/[embedId]</a>
      */
+    @Field("embedToken")
     private String embedToken;
 
     /**
      * The name of the device used to record the activity
      */
+    @Field("deviceName")
     private String deviceName;
 
     public static StravaSportActivity creteFromStravaActivity(final StravaActivity stravaActivity, String username) {
@@ -248,6 +293,9 @@ public class StravaSportActivity extends SportActivityGenericType {
             stravaActivity,
             username
         );
+    }
+
+    public StravaSportActivity() {
     }
 
     private StravaSportActivity(StravaActivity stravaActivity, String username) {

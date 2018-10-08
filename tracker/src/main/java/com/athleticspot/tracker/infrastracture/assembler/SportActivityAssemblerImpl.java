@@ -26,14 +26,16 @@ public class SportActivityAssemblerImpl {
     public Page<SportActivity> pageAssemble(Page<SportActivityGenericType> sportActivityPage) {
 
         return sportActivityPage.map(sportActivityGenericType ->
-            {
-                if (sportActivityGenericType instanceof ManualSportActivity) {
-                    return manualSportActivityAssembler
-                        .assembleSportActivity((ManualSportActivity) sportActivityGenericType);
-                }
-                return stravaActivityAssembler.assembleSportActivity((StravaSportActivity) sportActivityGenericType);
-            }
+            assembleSportActivity(sportActivityGenericType)
         );
+    }
+
+    public SportActivity assembleSportActivity(SportActivityGenericType sportActivityGenericType) {
+        if (sportActivityGenericType instanceof ManualSportActivity) {
+            return manualSportActivityAssembler
+                .assembleSportActivity((ManualSportActivity) sportActivityGenericType);
+        }
+        return stravaActivityAssembler.assembleSportActivity((StravaSportActivity) sportActivityGenericType);
     }
 
 }

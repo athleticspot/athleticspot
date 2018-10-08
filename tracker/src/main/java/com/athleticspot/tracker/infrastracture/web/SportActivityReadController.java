@@ -5,7 +5,6 @@ import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.infrastracture.assembler.SportActivityAssemblerImpl;
-import com.athleticspot.tracker.infrastracture.web.dto.out.SportActivityOutDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +44,11 @@ public class SportActivityReadController {
     }
 
     @GetMapping
-    public List<SportActivityOutDto> getUserSportActivities() {
-        return timelineService
-            .getManualSportActivities()
+    public List<SportActivity> getUserSportActivities() {
+
+        return genericSportActivityRepository.findByUsername(SecurityUtils.getCurrentUserLogin(), new Sort(Sort.Direction.DESC, "startDate"))
             .stream()
-            .map(SportActivityOutDto::create)
-            .sorted((o1, o2) -> o2.getStartDate().compareTo(o1.getStartDate()))
+            .map(sportActivityAssemblerImpl::assembleSportActivity)
             .collect(Collectors.toList());
     }
 

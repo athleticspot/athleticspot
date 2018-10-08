@@ -1,10 +1,10 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivitiesDataservice} from "./activities.dataservice";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {SportActivityModel} from "./activity.model";
 import * as moment from 'moment';
 import {ToasterService} from "angular2-toaster";
 import {StravaDataservice} from "./strava.dataservice";
+import {SportActivityModel} from "./sport-activity.model";
 
 
 @Component({
@@ -85,13 +85,7 @@ export class ActivitiesComponent implements OnInit {
         this.activityDataservice.fetchActivity().subscribe((activities: any[]) => {
             activities.forEach(sportActivity => {
                 this.showTimeline = true;
-                this.activities.push(new SportActivityModel(
-                    sportActivity.sportyActivityIdentifier,
-                    sportActivity.source,
-                    sportActivity.details,
-                    sportActivity.startDate
-
-                ));
+                this.activities.push(this.assambleSportActivity(sportActivity));
             })}, error => {
                 this.showTimeline = true;
                 this.toasterService.pop('error', 'Activity', 'Error during fetching activities');
@@ -126,5 +120,24 @@ export class ActivitiesComponent implements OnInit {
                 seconds: 0
             }
         })
+    }
+
+    private assambleSportActivity(sportActivity:any){
+         let sportActivityModel = new SportActivityModel();
+         sportActivityModel.id = sportActivity.id;
+         sportActivityModel.trackerSource = sportActivity.trackerSource;
+         sportActivityModel.sportActivityType = sportActivity.sportActivityType;
+         sportActivityModel.title = sportActivity.title;
+         sportActivityModel.description = sportActivity.description;
+         sportActivityModel.distance = sportActivity.distance;
+         sportActivityModel.movingTime = sportActivity.movingTime;
+         sportActivityModel.elapsedTime = sportActivity.elapsedTime;
+         sportActivityModel.startDate = moment(sportActivity.startDate).format("YYYY-MM-DD HH:mm:ss");
+         sportActivityModel.averageSpeed = sportActivity.averageSpeed;
+         sportActivityModel.maxSpeed = sportActivity.maxSpeed;
+         sportActivityModel.averageTemp = sportActivity.averageTemp;
+         sportActivityModel.calories = sportActivity.calories;
+         return sportActivityModel;
+
     }
 }

@@ -25,15 +25,20 @@ import java.util.Optional;
 public class TimelineServiceImpl implements TimelineService {
 
     private final TimelineRepository timelineRepository;
+
     private final TrackerUserService trackerUserService;
+
     private final ManualSportActivityRepository manualSportActivityRepository;
+
     private final ApplicationEvents applicationEvents;
+
     private final StravaApplicationServiceImpl stravaApplicationService;
 
     public TimelineServiceImpl(TimelineRepository timelineRepository,
                                TrackerUserService trackerUserService,
                                ManualSportActivityRepository manualSportActivityRepository,
-                               ApplicationEvents applicationEvents, StravaApplicationServiceImpl stravaApplicationService) {
+                               ApplicationEvents applicationEvents,
+                               StravaApplicationServiceImpl stravaApplicationService) {
         this.timelineRepository = timelineRepository;
         this.trackerUserService = trackerUserService;
         this.manualSportActivityRepository = manualSportActivityRepository;

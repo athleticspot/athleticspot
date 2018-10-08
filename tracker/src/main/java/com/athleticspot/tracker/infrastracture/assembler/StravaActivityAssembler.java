@@ -2,7 +2,6 @@ package com.athleticspot.tracker.infrastracture.assembler;
 
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityType;
-import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 import com.athleticspot.tracker.domain.model.strava.StravaSportActivity;
@@ -45,11 +44,21 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
     }
 
     @Override
-    public SportActivity assembleSportActivity(StravaSportActivity trackerSportActivity) {
-        return SportActivity.create(trackerSportActivity.getExternalId(),
-            trackerSportActivity.getUsername(),
-            trackerSportActivity.getTitle(),
-            TrackerSource.STRAVA,
-            trackerSportActivity.getStartDate() );
+    public SportActivity assembleSportActivity(StravaSportActivity stravaSportActivity) {
+        return new SportActivity()
+            .setId(stravaSportActivity.getId())
+            .setUsername(stravaSportActivity.getUsername())
+            .setTrackerSource(stravaSportActivity.getTrackerSource())
+            .setSportActivityType(stravaSportActivity.getSportActivityType())
+            .setTitle(stravaSportActivity.getTitle())
+            .setDescription(stravaSportActivity.getDescription())
+            .setDistance(stravaSportActivity.getDistance())
+            .setMovingTime(stravaSportActivity.getMovingTime())
+            .setElapsedTime(stravaSportActivity.getElapsedTime())
+            .setStartDate(stravaSportActivity.getStartDate())
+            .setAverageSpeed(stravaSportActivity.getAverageSpeed())
+            .setMaxSpeed(stravaSportActivity.getMaxSpeed())
+            .setAverageTemp(stravaSportActivity.getAverageTemp())
+            .setCalories(stravaSportActivity.getCalories());
     }
 }
