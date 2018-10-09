@@ -20,18 +20,18 @@ import java.time.LocalDateTime;
     setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class SportActivityInDto implements Serializable {
 
-    private String sportyActivityIdentifier;
+    private String id;
 
     @NotNull
-    private String source;
+    private String trackerSource;
+
+    @NotNull
+    private SportActivityType sportActivityType;
 
     @NotNull
     private String title;
 
     private String description;
-
-    @NotNull
-    private SportActivityType type;
 
     @NotNull
     private String duration;
@@ -42,18 +42,18 @@ public class SportActivityInDto implements Serializable {
 
     private String maxSpeed;
 
-    private String meanSpeed;
+    private String averageSpead;
 
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime startDate;
 
-    public String getSportyActivityIdentifier() {
-        return sportyActivityIdentifier;
+    public String getId() {
+        return id;
     }
 
-    public String getSource() {
-        return source;
+    public String getTrackerSource() {
+        return trackerSource;
     }
 
     public String getDescription() {
@@ -64,8 +64,8 @@ public class SportActivityInDto implements Serializable {
         return title;
     }
 
-    public SportActivityType getType() {
-        return type;
+    public SportActivityType getSportActivityType() {
+        return sportActivityType;
     }
 
     public String getDuration() {
@@ -84,8 +84,8 @@ public class SportActivityInDto implements Serializable {
         return maxSpeed;
     }
 
-    public String getMeanSpeed() {
-        return meanSpeed;
+    public String getAverageSpead() {
+        return averageSpead;
     }
 
     public LocalDateTime getStartDate() {
@@ -95,16 +95,16 @@ public class SportActivityInDto implements Serializable {
     @Override
     public String toString() {
         return "SportActivityInDto{" +
-            "sportyActivityIdentifier='" + sportyActivityIdentifier + '\'' +
-            ", source='" + source + '\'' +
+            "id='" + id + '\'' +
+            ", trackerSource='" + trackerSource + '\'' +
             ", description='" + description + '\'' +
             ", title='" + title + '\'' +
-            ", type='" + type + '\'' +
+            ", sportActivityType='" + sportActivityType + '\'' +
             ", duration='" + duration + '\'' +
             ", distance='" + distance + '\'' +
             ", units='" + units + '\'' +
             ", maxSpeed='" + maxSpeed + '\'' +
-            ", meanSpeed='" + meanSpeed + '\'' +
+            ", averageSpead='" + averageSpead + '\'' +
             ", startDate=" + startDate +
             '}';
     }

@@ -29,7 +29,7 @@ export class ActivitiesComponent implements OnInit {
         this.addActivityForm = new FormGroup({
             'title': new FormControl(null, [Validators.required]),
             'description': new FormControl(),
-            'type': new FormControl("RUN", [Validators.required]),
+            'sportActivityType': new FormControl("RUN", [Validators.required]),
             'duration': new FormGroup({
                 "hours": new FormControl(0),
                 "minutes": new FormControl(0),
@@ -37,10 +37,10 @@ export class ActivitiesComponent implements OnInit {
             }),
             'distance': new FormControl(),
             'unit': new FormControl("kilometers"),
-            'date': new FormControl(new Date()),
+            'startDate': new FormControl(new Date()),
             'time': new FormControl("0", [Validators.required]),
             'maxSpeed': new FormControl(),
-            'meanSpeed': new FormControl()
+            'averageSpeed': new FormControl()
         });
         this.refreshActivities();
         this.stravaDataservice.fetchStravaActivationLink()
@@ -53,8 +53,8 @@ export class ActivitiesComponent implements OnInit {
         console.log(this.addActivityForm);
         if (this.addActivityForm.valid) {
             let activity = this.addActivityForm.value as SportActivityModel;
-            activity.source = "MANUAL";
-            activity.startDate = moment(this.addActivityForm.get('date').value)
+            activity.trackerSource = "MANUAL";
+            activity.startDate = moment(this.addActivityForm.get('startDate').value)
                 .startOf('day')
                 .add(this.addActivityForm.get('time').value,
                     'hours')
@@ -83,10 +83,11 @@ export class ActivitiesComponent implements OnInit {
         this.showTimeline = false;
         this.activities = [];
         this.activityDataservice.fetchActivity().subscribe((activities: any[]) => {
-            activities.forEach(sportActivity => {
+                activities.forEach(sportActivity => {
+                    this.activities.push(this.assambleSportActivity(sportActivity));
+                });
                 this.showTimeline = true;
-                this.activities.push(this.assambleSportActivity(sportActivity));
-            })}, error => {
+            }, error => {
                 this.showTimeline = true;
                 this.toasterService.pop('error', 'Activity', 'Error during fetching activities');
             }
@@ -108,7 +109,7 @@ export class ActivitiesComponent implements OnInit {
         });
     }
 
-    private refreshAddActivityForm(){
+    private refreshAddActivityForm() {
         this.addActivityForm.reset();
         this.addActivityForm.patchValue({
             type: "RUN",
@@ -122,22 +123,22 @@ export class ActivitiesComponent implements OnInit {
         })
     }
 
-    private assambleSportActivity(sportActivity:any){
-         let sportActivityModel = new SportActivityModel();
-         sportActivityModel.id = sportActivity.id;
-         sportActivityModel.trackerSource = sportActivity.trackerSource;
-         sportActivityModel.sportActivityType = sportActivity.sportActivityType;
-         sportActivityModel.title = sportActivity.title;
-         sportActivityModel.description = sportActivity.description;
-         sportActivityModel.distance = sportActivity.distance;
-         sportActivityModel.movingTime = sportActivity.movingTime;
-         sportActivityModel.elapsedTime = sportActivity.elapsedTime;
-         sportActivityModel.startDate = moment(sportActivity.startDate).format("YYYY-MM-DD HH:mm:ss");
-         sportActivityModel.averageSpeed = sportActivity.averageSpeed;
-         sportActivityModel.maxSpeed = sportActivity.maxSpeed;
-         sportActivityModel.averageTemp = sportActivity.averageTemp;
-         sportActivityModel.calories = sportActivity.calories;
-         return sportActivityModel;
+    private assambleSportActivity(sportActivity: any) {
+        let sportActivityModel = new SportActivityModel();
+        sportActivityModel.id = sportActivity.id;
+        sportActivityModel.trackerSource = sportActivity.trackerSource;
+        sportActivityModel.sportActivityType = sportActivity.sportActivityType;
+        sportActivityModel.title = sportActivity.title;
+        sportActivityModel.description = sportActivity.description;
+        sportActivityModel.distance = sportActivity.distance;
+        sportActivityModel.movingTime = sportActivity.movingTime;
+        sportActivityModel.elapsedTime = sportActivity.elapsedTime;
+        sportActivityModel.startDate = moment(sportActivity.startDate).format("YYYY-MM-DD HH:mm:ss");
+        sportActivityModel.averageSpeed = sportActivity.averageSpeed;
+        sportActivityModel.maxSpeed = sportActivity.maxSpeed;
+        sportActivityModel.averageTemp = sportActivity.averageTemp;
+        sportActivityModel.calories = sportActivity.calories;
+        return sportActivityModel;
 
     }
 }

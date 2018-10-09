@@ -5,6 +5,8 @@ import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * @author Tomasz Kasprzycki
  */
@@ -13,11 +15,17 @@ public class ManualSportActivityAssembler implements SportActivityAssembler<Manu
 
     @Override
     public SportActivity assembleSportActivity(ManualSportActivity manualSportActivity) {
-        return new SportActivity()
+        final SportActivity sportActivity = new SportActivity()
             .setId(manualSportActivity.identifier())
             .setUsername(manualSportActivity.getUsername())
-            .setTitle(manualSportActivity.details().title())
             .setTrackerSource(TrackerSource.MANUAL)
+            .setSportActivityType(manualSportActivity.details().type())
+            .setTitle(manualSportActivity.details().title())
             .setStartDate(manualSportActivity.getStartDate());
+        final String distance = manualSportActivity.details().distance();
+        if(Objects.nonNull(distance)){
+            sportActivity.setDistance(Float.parseFloat(distance));
+        }
+        return sportActivity;
     }
 }

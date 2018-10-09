@@ -37,7 +37,7 @@ public class StravaActionsImpl implements TrackerActions {
 //                .distance(stravaActivity.getDistance())
 //                .maxSpeed(stravaActivity.getMaxSpeed())
 //                .name(stravaActivity.getName())
-//                .type(stravaActivity.getType().toString())).collect(Collectors.toList());
+//                .type(stravaActivity.getSportActivityType().toString())).collect(Collectors.toList());
 //            //TODO handle situation where there is no token
     }
 }

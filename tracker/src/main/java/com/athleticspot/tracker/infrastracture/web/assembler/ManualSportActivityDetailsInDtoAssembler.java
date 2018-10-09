@@ -12,12 +12,12 @@ public class ManualSportActivityDetailsInDtoAssembler {
         return ManualSportActivityDetails.create(
             sportActivityInDto.getDescription(),
             sportActivityInDto.getTitle(),
-            sportActivityInDto.getType(),
+            sportActivityInDto.getSportActivityType(),
             sportActivityInDto.getDuration(),
             sportActivityInDto.getDistance(),
             sportActivityInDto.getUnits(),
             sportActivityInDto.getMaxSpeed(),
-            sportActivityInDto.getMeanSpeed()
+            sportActivityInDto.getAverageSpead()
         );
     }
 

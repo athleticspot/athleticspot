@@ -1,7 +1,6 @@
 package com.athleticspot.tracker.infrastracture.web;
 
 import com.athleticspot.common.SecurityUtils;
-import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.infrastracture.assembler.SportActivityAssemblerImpl;
@@ -28,17 +27,13 @@ public class SportActivityReadController {
 
     private final Logger LOG = LoggerFactory.getLogger(SportActivityReadController.class);
 
-    private final TimelineService timelineService;
-
     private final GenericSportActivityRepository genericSportActivityRepository;
 
     private final SportActivityAssemblerImpl sportActivityAssemblerImpl;
 
     @Autowired
-    public SportActivityReadController(TimelineService timelineService,
-                                       GenericSportActivityRepository genericSportActivityRepository,
+    public SportActivityReadController(GenericSportActivityRepository genericSportActivityRepository,
                                        SportActivityAssemblerImpl sportActivityAssemblerImpl) {
-        this.timelineService = timelineService;
         this.genericSportActivityRepository = genericSportActivityRepository;
         this.sportActivityAssemblerImpl = sportActivityAssemblerImpl;
     }
