@@ -1,4 +1,9 @@
 <div>
+    <div infinite-scroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="1000"
+         (scrolled)="onScroll()">
+    </div>
     <div class="hbox hbox-auto-xs hbox-auto-sm">
         <!-- .col -->
         <div class="col w-lg bg-light dk b-r bg-auto" id="aside">
@@ -128,7 +133,15 @@
         </div>
 
         <div class="col bg-white-only" *ngIf="showTimeline">
+            <div class="inline ">
+
+            </div>
             <div class="wrapper">
+                <div class="pull-right"><h4 class=" font-thin">Connect with:</h4>
+                    <a href="{{stravaActivationUrl}}" class="btn btn-sm btn-success pull-right"
+                       ui-toggle-class="timeline-center" target=".timeline">
+                        Strava
+                    </a></div>
                 <ul class="timeline">
                     <li class="tl-header">
                         <div class="btn btn-info">Now</div>
@@ -154,23 +167,14 @@
                         </div>
 
                     </li>
-
-                    <li class="tl-header">
-                        <div class="btn btn-sm btn-default btn-rounded">more</div>
-                    </li>
                 </ul>
             </div>
-
-            <div class="inline ">
-                <h4 class=" font-thin">Connect with:</h4>
-
-                <a href="{{stravaActivationUrl}}" class="btn btn-sm btn-success pull-left"
-                   ui-toggle-class="timeline-center" target=".timeline">
-                    Strava
-                </a>
+            <div class="col" *ngIf="pageLoading">
+                <athl-spinner></athl-spinner>
             </div>
+
         </div>
     </div>
+
     <!-- /.col -->
-</div>
 </div>

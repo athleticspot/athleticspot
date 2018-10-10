@@ -40,7 +40,6 @@ public class SportActivityReadController {
 
     @GetMapping
     public List<SportActivity> getUserSportActivities() {
-
         return genericSportActivityRepository.findByUsername(SecurityUtils.getCurrentUserLogin(), new Sort(Sort.Direction.DESC, "startDate"))
             .stream()
             .map(sportActivityAssemblerImpl::assembleSportActivity)

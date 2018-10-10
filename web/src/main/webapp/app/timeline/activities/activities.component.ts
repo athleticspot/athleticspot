@@ -16,7 +16,10 @@ export class ActivitiesComponent implements OnInit {
     private addActivityForm: FormGroup;
     private activities = [];
     private showTimeline = false;
+    private pageLoading = false;
     private stravaActivationUrl: String;
+    private pageCount: 0;
+    private currentPage = 0;
 
 
     constructor(private activityDataservice: ActivitiesDataservice,
@@ -82,8 +85,9 @@ export class ActivitiesComponent implements OnInit {
     private refreshActivities() {
         this.showTimeline = false;
         this.activities = [];
-        this.activityDataservice.fetchActivity().subscribe((activities: any[]) => {
-                activities.forEach(sportActivity => {
+        this.activityDataservice.fetchActivityPaged(this.currentPage).subscribe((activitiesPage: any) => {
+                this.pageCount = activitiesPage.totalPages;
+                activitiesPage.content.forEach(sportActivity => {
                     this.activities.push(this.assambleSportActivity(sportActivity));
                 });
                 this.showTimeline = true;
@@ -140,5 +144,27 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.calories = sportActivity.calories;
         return sportActivityModel;
 
+    }
+
+    onScroll() {
+        console.log("scrolled!!!!");
+        if (this.currentPage < this.pageCount - 1) {
+            this.currentPage++;
+            console.log("Page count: " + this.pageCount);
+            console.log("Current page: " + this.currentPage);
+            this.pageLoading = true;
+        } else {
+            return;
+        }
+        this.activityDataservice.fetchActivityPaged(this.currentPage).subscribe((activitiesPage: any) => {
+                activitiesPage.content.forEach(sportActivity => {
+                    this.activities.push(this.assambleSportActivity(sportActivity));
+                    this.pageLoading = false;
+                });
+            }, error => {
+                this.toasterService.pop('error', 'Activity', 'Error during fetching activities');
+                this.pageLoading = false;
+            }
+        );
     }
 }
