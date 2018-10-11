@@ -13,8 +13,8 @@ import {SportActivityModel} from "./sport-activity.model";
 })
 export class ActivitiesComponent implements OnInit {
 
-    private addActivityForm: FormGroup;
     private activities = [];
+    private addActivityForm: FormGroup;
     private showTimeline = false;
     private pageLoading = false;
     private stravaActivationUrl: String;
