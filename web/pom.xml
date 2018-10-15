@@ -239,8 +239,9 @@
             <artifactId>cache-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -625,6 +626,19 @@
                 </configuration>
             </plugin>
             <!-- jhipster-needle-maven-add-plugin -->
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <!-- check Maven Central for the latest version -->
+                <version>1.4.0</version>
+                <configuration>
+                    <deploymentType>war</deploymentType>
+                    <resourceGroup>athleticspot</resourceGroup>
+                    <appName>athleticspot</appName>
+                    <region>westeurope</region>
+                    <linuxRuntime>tomcat 9.0-jre8</linuxRuntime>
+                </configuration>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
