@@ -13,6 +13,7 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -60,11 +61,35 @@ public class SocialService {
             log.error("Cannot create social user because connection is null");
             throw new IllegalArgumentException("Connection cannot be null");
         }
-        UserProfile userProfile = connection.fetchUserProfile();
+
+        UserProfile userProfile;
         String providerId = connection.getKey().getProviderId();
+        if (connection.getApi() instanceof Facebook) {
+            log.info("Facebook user ");
+            Facebook facebook = (Facebook) connection.getApi();
+            String[] fields = {"id", "email", "first_name", "last_name"};
+            org.springframework.social.facebook.api.User facebookUser = facebook.fetchObject("me", org.springframework.social.facebook.api.User.class, fields);
+            log.info("Facebok user value: {}", facebookUser);
+            userProfile = new UserProfile(
+                facebookUser.getId(),
+                facebookUser.getName(),
+                facebookUser.getFirstName(),
+                facebookUser.getLastName(),
+                facebookUser.getEmail(),
+                "username"
+
+            );
+            log.info("Facebok user profle value: {}", userProfile);
+
+        } else {
+            log.info("Some other user ");
+            userProfile = connection.fetchUserProfile();
+
+        }
         String imageUrl = connection.getImageUrl();
         User user = createUserIfNotExist(userProfile, langKey, providerId, imageUrl);
         createSocialConnection(user.getLogin(), connection);
+
         mailService.sendSocialRegistrationValidationEmail(user, providerId);
     }
 
