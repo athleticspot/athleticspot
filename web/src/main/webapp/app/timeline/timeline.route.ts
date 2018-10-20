@@ -10,7 +10,7 @@ const TIMELINE_ROUTES = [
 export const timelineState: Routes = [{
     path: '',
     data: {
-        // authorities: ['ROLE_ADMIN']
+        authorities: ['ROLE_USER']
     },
     canActivate: [UserRouteAccessService],
     children: TIMELINE_ROUTES
