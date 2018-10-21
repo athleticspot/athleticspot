@@ -25,7 +25,7 @@ public class Athlete extends IdentifiedDomainObject {
 
     @Embedded
     @AttributeOverride(name = "uuid", column = @Column(name = "athlete_id", nullable = false))
-    private AthleteId athleteId;
+    private AthleteId athleteId = new AthleteId();
 
     @OneToOne
     @JoinColumn(name = "USER_ID", unique = true, nullable = false, updatable = false)
@@ -56,6 +56,11 @@ public class Athlete extends IdentifiedDomainObject {
 
     public Athlete setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public Athlete setUser(User user) {
+        this.user = user;
         return this;
     }
 }

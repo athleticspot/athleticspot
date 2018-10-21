@@ -9,6 +9,8 @@ import com.athleticspot.security.AuthoritiesConstants;
 import com.athleticspot.security.SecurityUtils;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.util.RandomUtil;
+import com.athleticspot.training.domain.Athlete;
+import com.athleticspot.training.domain.AthleteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -43,11 +45,18 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService, AuthorityRepository authorityRepository) {
+    private final AthleteRepository athleteRepository;
+
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       SocialService socialService,
+                       AuthorityRepository authorityRepository,
+                       AthleteRepository athleteRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.socialService = socialService;
         this.authorityRepository = authorityRepository;
+        this.athleteRepository = athleteRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -106,7 +115,11 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
+        userRepository.saveAndFlush(newUser);
+        athleteRepository.save(new Athlete()
+            .setName(newUser.getLogin())
+            .setUser(newUser)
+        );
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -135,7 +148,11 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
         user.setActivated(true);
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
+        athleteRepository.save(new Athlete()
+            .setName(user.getLogin())
+            .setUser(user)
+        );
         log.debug("Created Information for User: {}", user);
         return user;
     }

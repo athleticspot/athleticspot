@@ -4,6 +4,7 @@ import {ScrollHelper} from "./ScrollHelper";
 import {SurveyDataservice} from "./survey.dataservice";
 import {MetricSystem, SurveyModel} from "./survey.model";
 import * as moment from 'moment';
+import {ToasterService} from "angular2-toaster";
 
 @Component({
     selector: 'athleticspot-survey',
@@ -15,8 +16,10 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
     isMetricSystem: boolean;
     private scrollHelper: ScrollHelper = new ScrollHelper();
 
+    constructor(private surveyDataservice: SurveyDataservice,
+                private formBuilder: FormBuilder,
+                private toasterService: ToasterService) {
 
-    constructor(private surveyDataservice: SurveyDataservice, private formBuilder: FormBuilder) {
         this.isMetricSystem = true;
 
         this.surveyForm = this.formBuilder.group({
@@ -76,32 +79,27 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
         return this.isMetricSystem;
     }
 
-    //TODO: change notification to toastr
     public submitSurvey() {
         if (this.surveyForm.valid) {
             const survey = this.provideSurvey();
             survey.baseInformation.birthDay = moment(this.surveyForm.get("baseInformation").get('birthDay').value).format('YYYY-MM-DD');
             if (survey.trainingSurveyUuid) {
                 this.surveyDataservice.updateSurvey(survey).subscribe(isSuccess => {
-                    console.log(isSuccess);
+                    this.toasterService.pop('success', 'Training survey', 'Survey updated');
                 }, error => {
-                    console.log(error);
+                    this.toasterService.pop('error', 'Training survey', 'Error saving survey');
                 });
             } else {
                 this.surveyDataservice.saveSurvey(survey).subscribe(isSuccess => {
-                    console.log(isSuccess);
+                    this.toasterService.pop('success', 'Training survey', 'Survey saved');
                 }, error => {
-                    console.log(error);
+                    this.toasterService.pop('error', 'Training survey', 'Error saving survey');
                 });
             }
         } else {
-            this.surveyForm.markAsDirty({onlySelf: true})
-            Object.keys(this.surveyForm.controls).forEach(group => {
-                const formGroup = this.surveyForm.get(group) as FormGroup;
-                Object.keys(formGroup.controls).forEach(control => {
-                    formGroup.get(control).markAsDirty({onlySelf: true});
-                });
-            });
+            this.toasterService.pop('error', 'Training survey', 'Training survey has errors');
+            this.surveyForm.markAsDirty({onlySelf: true});
+            this.markFormGroupTouchedAndDirty(this.surveyForm);
             this.scrollHelper.scrollToFirst("form-control ng-invalid");
         }
     }
@@ -114,5 +112,20 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
             survey.baseInformation.metricSystemType = MetricSystem[1];
         }
         return JSON.parse(JSON.stringify(survey));
+    }
+
+    /**
+     * Marks all controls in a form group as touched
+     * @param formGroup - The group to caress..hah
+     */
+    private markFormGroupTouchedAndDirty(formGroup: FormGroup) {
+        (<any>Object).values(formGroup.controls).forEach(control => {
+            control.markAsTouched();
+            control.markAsDirty();
+
+            if (control.controls) {
+                this.markFormGroupTouchedAndDirty(control);
+            }
+        });
     }
 }

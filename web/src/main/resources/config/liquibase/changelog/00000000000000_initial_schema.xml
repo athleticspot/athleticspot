@@ -9,6 +9,9 @@
     <property name="now" value="now()" dbms="postgresql"/>
     <property name="autoIncrement" value="true"/>
 
+    <changeSet author="tomkasp (generated)" id="1501323723659-3">
+        <createSequence sequenceName="jhi_user_id_seq" incrementBy="50"/>
+    </changeSet>
     <!--
         JHipster core tables.
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
@@ -92,6 +95,7 @@
                   file="config/liquibase/users.csv"
                   separator=";"
                   tableName="jhi_user">
+            <column name="id" type="NUMERIC"/>
             <column name="activated" type="boolean"/>
             <column name="created_date" type="timestamp"/>
         </loadData>
@@ -180,5 +184,7 @@
 
         <addUniqueConstraint tableName="jhi_social_user_connection" columnNames="user_id, provider_id, rank"/>
     </changeSet>
+
+
 
 </databaseChangeLog>
