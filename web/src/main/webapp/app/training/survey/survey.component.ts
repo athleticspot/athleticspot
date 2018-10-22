@@ -5,6 +5,7 @@ import {SurveyDataservice} from "./survey.dataservice";
 import {MetricSystem, SurveyModel} from "./survey.model";
 import * as moment from 'moment';
 import {ToasterService} from "angular2-toaster";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'athleticspot-survey',
@@ -16,7 +17,8 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
     isMetricSystem: boolean;
     private scrollHelper: ScrollHelper = new ScrollHelper();
 
-    constructor(private surveyDataservice: SurveyDataservice,
+    constructor(private router: Router,
+                private surveyDataservice: SurveyDataservice,
                 private formBuilder: FormBuilder,
                 private toasterService: ToasterService) {
 
@@ -92,6 +94,7 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
             } else {
                 this.surveyDataservice.saveSurvey(survey).subscribe(isSuccess => {
                     this.toasterService.pop('success', 'Training survey', 'Survey saved');
+                    this.router.navigate(['/results'])
                 }, error => {
                     this.toasterService.pop('error', 'Training survey', 'Error saving survey');
                 });
