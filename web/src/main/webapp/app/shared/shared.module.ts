@@ -28,7 +28,8 @@ import {AthlSpinnerComponent} from "./spinner/spinner.component";
         JhiSocialComponent,
         JhiLoginModalComponent,
         AthlSpinnerComponent,
-        HasAnyAuthorityDirective
+        HasAnyAuthorityDirective,
+
     ],
     providers: [
         LoginService,

@@ -1,10 +1,10 @@
 import {Component, OnInit} from "@angular/core";
-import {ActivitiesDataservice} from "./activities.dataservice";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import * as moment from 'moment';
 import {ToasterService} from "angular2-toaster";
 import {StravaDataservice} from "./strava.dataservice";
-import {SportActivityModel} from "./sport-activity.model";
+import {ActivitiesDataservice} from "../../shared/activites/activities.dataservice";
+import {SportActivityModel} from "../../shared/activites/sport-activity.model";
 
 
 @Component({

@@ -7,10 +7,10 @@ import {Ng2DropdownModule} from 'ng2-material-dropdown';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ActivitiesComponent} from "./activities/activities.component";
 import {timelineState} from "./timeline.route";
-import {ActivitiesDataservice} from "./activities/activities.dataservice";
 import {StravaDataservice} from "./activities/strava.dataservice";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {CommonModule} from "@angular/common";
+import {ActivitiesDataservice} from "../shared/activites/activities.dataservice";
 
 @NgModule({
     imports: [

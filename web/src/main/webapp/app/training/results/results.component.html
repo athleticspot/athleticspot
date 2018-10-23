@@ -11,17 +11,17 @@
                     <thead>
                     <tr>
                         <th>Dystans</th>
-                        <th>Rekord życiowy/Data</th>
-                        <th>Ostatni czas/Data</th>
+                        <th>Data</th>
+                        <th>Czas</th>
                     </tr>
                     </thead>
                     <tbody>
 
 
-                    <tr *ngFor="let result of results">
+                    <tr *ngFor="let result of activities">
                         <td><span>{{result.distance}}</span></td>
-                        <td><span>{{result.lastRunDate}}</span></td>
-                        <td><span>{{result.distance}}</span></td>
+                        <td><span>{{result.startDate}}</span></td>
+                        <td><span>{{result.movingTime}}</span></td>
                     </tr>
                     </tbody>
                 </table>
