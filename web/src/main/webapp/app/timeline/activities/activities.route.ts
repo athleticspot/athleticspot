@@ -6,6 +6,6 @@ export const activitiesRoute: Route = {
     path: 'activities',
     component: ActivitiesComponent,
     data: {
-        pageTitle: 'activities.title'
+        pageTitle: 'timeline.title'
     }
 };
