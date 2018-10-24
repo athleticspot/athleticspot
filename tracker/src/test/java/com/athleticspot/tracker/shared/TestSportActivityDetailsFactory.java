@@ -15,7 +15,7 @@ public class TestSportActivityDetailsFactory {
         String sportActivityDescription = "description";
         String sportActivityTitle = "title";
         SportActivityType sportActivityType = SportActivityType.RUN;
-        String sportActivityDuration = "2h 25s";
+        int sportActivityDuration = 2000;
         String sportActivityDistance = "10.5";
         String sportActivityUnits = "Metric";
         String sportActivityMaxSpeed = "12";

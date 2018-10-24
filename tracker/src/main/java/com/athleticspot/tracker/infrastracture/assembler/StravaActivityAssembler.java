@@ -23,7 +23,7 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
             stravaActivity.getDescription(),
             stravaActivity.getName(),
             SportActivityType.valueOf(stravaActivity.getType().getValue().toUpperCase()),
-            stravaActivity.getElapsedTime().toString(),
+            stravaActivity.getElapsedTime(),
             stravaActivity.getDistance().toString(),
             null,
             stravaActivity.getMaxSpeed().toString(),

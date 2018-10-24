@@ -34,7 +34,7 @@ public class SportActivityInDto implements Serializable {
     private String description;
 
     @NotNull
-    private String duration;
+    private Integer duration;
 
     private String distance;
 
@@ -68,7 +68,7 @@ public class SportActivityInDto implements Serializable {
         return sportActivityType;
     }
 
-    public String getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 

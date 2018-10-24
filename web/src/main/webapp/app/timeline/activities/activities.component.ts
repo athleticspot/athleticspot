@@ -64,8 +64,8 @@ export class ActivitiesComponent implements OnInit {
                 .format("YYYY-MM-DDTHH:mm:ss");
 
             activity.duration =
-                this.addActivityForm.get("duration.hours").value + "," +
-                this.addActivityForm.get("duration.minutes").value + "," +
+                this.addActivityForm.get("duration.hours").value * 36000 + +
+                this.addActivityForm.get("duration.minutes").value * 60 +
                 this.addActivityForm.get("duration.seconds").value;
             console.log(activity);
             this.activityDataservice.createActivity(activity).subscribe(isSuccess => {

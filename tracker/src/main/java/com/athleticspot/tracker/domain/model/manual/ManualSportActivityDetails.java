@@ -26,7 +26,7 @@ public class ManualSportActivityDetails implements ValueObject {
     private SportActivityType type;
 
     @Column(name = "duration")
-    private String duration;
+    private Integer duration;
 
     @Column(name = "distance")
     private String distance;
@@ -44,7 +44,7 @@ public class ManualSportActivityDetails implements ValueObject {
         //jpa purpose
     }
 
-    private ManualSportActivityDetails(String description, String title, SportActivityType type, String duration, String distance, String units, String maxSpeed, String meanSpeed) {
+    private ManualSportActivityDetails(String description, String title, SportActivityType type, Integer duration, String distance, String units, String maxSpeed, String meanSpeed) {
 
         this.description = description;
         this.title = title;
@@ -60,7 +60,7 @@ public class ManualSportActivityDetails implements ValueObject {
         String sportActivityDescription,
         String sportActivityTitle,
         SportActivityType sportActivityType,
-        String sportActivityDuration,
+        Integer sportActivityDuration,
         String sportActivityDistance,
         String sportActivityUnits,
         String sportActivityMaxSpeed,
@@ -80,7 +80,7 @@ public class ManualSportActivityDetails implements ValueObject {
         return type;
     }
 
-    public String duration() {
+    public Integer duration() {
         return duration;
     }
 

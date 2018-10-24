@@ -11,7 +11,7 @@ public class SportActivityDetailsOutDto {
     private String description;
     private String title;
     private SportActivityType type;
-    private String duration;
+    private Integer duration;
     private String distance;
     private String units;
     private String maxSpeed;
@@ -44,7 +44,7 @@ public class SportActivityDetailsOutDto {
         return type;
     }
 
-    public String getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
