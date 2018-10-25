@@ -52,7 +52,6 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
         new FormGroup({});
 
         this.surveyForm.get("baseInformation").get('metricSystemType').valueChanges.subscribe(val => {
-            console.log(val);
             this.isMetricSystem = val;
         })
     }

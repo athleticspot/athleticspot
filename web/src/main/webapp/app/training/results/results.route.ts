@@ -6,6 +6,6 @@ export const resultsRoute: Route = {
     path: 'results',
     component: ResultsComponent,
     data: {
-        pageTitle: 'survey.title'
+        pageTitle: 'results.title'
     }
 };

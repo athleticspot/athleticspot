@@ -34,4 +34,17 @@ export class ActivitiesDataservice {
             }
         );
     }
+
+    public fetchActivityPagedWithSize(page, pageSize){
+        return this.http.get('/api/sportactivities/paged', {
+            params: {
+                page: page,
+                pageSize: pageSize
+            }
+        }).map(
+            (response: Response) => {
+                return response.json();
+            }
+        );
+    }
 }

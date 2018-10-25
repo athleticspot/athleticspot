@@ -1,0 +1,5 @@
+{
+    "survey": {
+        "title": "Register with {{ label }}"
+    }
+}
