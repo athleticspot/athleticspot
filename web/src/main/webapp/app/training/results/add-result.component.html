@@ -6,6 +6,20 @@
 
             <div class="row">
                 <div class="form-group">
+                    <label class="font-thin h3 m-xxs m-t-md padder">Title</label>
+                    <div class="form-inline col-md-12 m-t-md">
+                        <input
+                            type="text"
+                            formControlName="title"
+                            placeholder="Add title..."
+                            class="form-control">
+                    </div>
+                    <span class="m-b-none padder"
+                          *ngIf="newResultForm.dirty && newResultForm.controls.title.errors?.required">
+                            This field is required
+                        </span>
+                </div>
+                <div class="form-group">
                     <label class="font-thin h3 m-xxs m-t-md padder">Distance</label>
                     <div class="form-inline col-md-12 m-t-md">
                         <input type="number" name="distance" class=" form-control " placeholder="Distance..."
@@ -22,7 +36,7 @@
                 </div>
             </div>
             <div class="row">
-                <div formGroupName="durationGroup">
+                <div formGroupName="duration">
                     <div class="">
                         <label class=" font-thin h3 m-xxs m-t-md padder">Duration</label>
                         <div class="form-group form-inline m-t-md">
@@ -41,8 +55,8 @@
                             </div>
                         </div>
                     </div>
-                    <!--<span class="m-b-none padder"-->
-                          <!--*ngIf="newResultForm.durationGroup.dirty && !newResultForm.durationGroup.valid">To pole jest wymagane.</span>-->
+                    <span class="m-b-none padder"
+                          *ngIf="newResultForm.dirty && !newResultForm.controls.duration.valid">This field is required.</span>
                 </div>
             </div>
 
@@ -50,13 +64,13 @@
                 <div class="form-group padder">
                     <label class="font-thin h3 m-xxs m-t-md">Date</label>
                     <div class="m-t-md">
-                        <ng-datepicker formControlName="activityDate"></ng-datepicker>
+                        <ng-datepicker formControlName="startDate"></ng-datepicker>
                     </div>
                 </div>
             </div>
-        <div class="">
-            <button class="btn btn-primary">Add result</button>
-        </div>
+            <div class="">
+                <button class="btn btn-primary">Add result</button>
+            </div>
         </form>
 
 

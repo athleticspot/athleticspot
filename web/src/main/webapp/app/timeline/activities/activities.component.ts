@@ -25,7 +25,6 @@ export class ActivitiesComponent implements OnInit {
     constructor(private activityDataservice: ActivitiesDataservice,
                 private stravaDataservice: StravaDataservice,
                 private toasterService: ToasterService) {
-        this.toasterService = toasterService;
     }
 
     ngOnInit(): void {
@@ -53,7 +52,6 @@ export class ActivitiesComponent implements OnInit {
     }
 
     submitActivity() {
-        console.log(this.addActivityForm);
         if (this.addActivityForm.valid) {
             let activity = this.addActivityForm.value as SportActivityModel;
             activity.trackerSource = "MANUAL";
@@ -67,7 +65,6 @@ export class ActivitiesComponent implements OnInit {
                 this.addActivityForm.get("duration.hours").value * 36000 + +
                 this.addActivityForm.get("duration.minutes").value * 60 +
                 this.addActivityForm.get("duration.seconds").value;
-            console.log(activity);
             this.activityDataservice.createActivity(activity).subscribe(isSuccess => {
                 this.refreshActivities();
                 this.toasterService.pop('success', 'Activity', 'Activity created successfully');
