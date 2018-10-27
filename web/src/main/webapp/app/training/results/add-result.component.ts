@@ -7,6 +7,8 @@ import {SportActivityModel} from "../../shared/activites/sport-activity.model";
 import * as moment from "moment";
 import {ActivitiesDataservice} from "../../shared/activites/activities.dataservice";
 import {ToasterService} from "angular2-toaster";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {JhiEventManager} from "ng-jhipster";
 
 @Component({
     selector: 'add-result-modal',
@@ -22,7 +24,9 @@ export class AddResultComponent implements OnInit {
     // durationGroup: FormGroup;
 
     constructor(private activityDataservice: ActivitiesDataservice,
-                private toasterService: ToasterService) {
+                private toasterService: ToasterService,
+                public activeModal: NgbActiveModal,
+                private eventManager: JhiEventManager) {
 
 
         // this.durationGroup = new FormGroup({
@@ -51,6 +55,7 @@ export class AddResultComponent implements OnInit {
     }
 
     public submitActivity(): void {
+        this.activeModal.dismiss();
         if (this.newResultForm.valid) {
             let activity = this.newResultForm.value as SportActivityModel;
             activity.trackerSource = "MANUAL";
@@ -67,11 +72,12 @@ export class AddResultComponent implements OnInit {
                 this.newResultForm.get("duration.seconds").value;
             this.activityDataservice.createActivity(activity).subscribe(isSuccess => {
                 this.toasterService.pop('success', 'Activity', 'Activity created successfully');
+                this.eventManager.broadcast({name: 'athleticspotApp.resultAdded', content: {}});
+
             }, error => {
                 this.toasterService.pop('error', 'Activity', 'Activity create failed');
                 console.log(error);
             });
         }
     }
-
 }

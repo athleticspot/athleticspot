@@ -7,6 +7,7 @@ import {SportActivityModel} from "../../shared/activites/sport-activity.model";
 import * as moment from "moment";
 import {ToasterService} from "angular2-toaster";
 import {Router} from "@angular/router";
+import {JhiEventManager} from "ng-jhipster";
 
 @Component({
     selector: 'results',
@@ -20,15 +21,21 @@ export class ResultsComponent implements OnInit {
                 private resultsDataService: ResultsDataservice,
                 private activitiesDataService: ActivitiesDataservice,
                 private toasterService: ToasterService,
-                private router: Router) {
+                private router: Router,
+                private eventManager: JhiEventManager) {
     }
     activities = [];
 
     ngOnInit(): void {
+        this.refreshResults();
+        this.registerAddResult()
+    }
+
+    private refreshResults() {
+        this.activities = [];
         this.activitiesDataService.fetchActivityPagedWithSize(0, 10).subscribe((activitiesPage: any) => {
                 activitiesPage.content.forEach(sportActivity => {
                     this.activities.push(this.assambleSportActivity(sportActivity));
-                    console.log(this.activities);
                 });
             }, error => {
                 this.toasterService.pop('error', 'Activity', 'Activity fetch failed');
@@ -36,8 +43,15 @@ export class ResultsComponent implements OnInit {
         );
     }
 
+    registerAddResult() {
+        this.eventManager.subscribe('athleticspotApp.resultAdded', (message) => {
+            this.refreshResults();
+        });
+    }
+
     public addActivityResult(): void {
         this.addResultsModalRef = this.addResultsModalService.open();
+        this.addResultsModalRef.result
     }
 
     public goToTimeline() : void {

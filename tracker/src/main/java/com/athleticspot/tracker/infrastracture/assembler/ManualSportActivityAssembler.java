@@ -21,6 +21,7 @@ public class ManualSportActivityAssembler implements SportActivityAssembler<Manu
             .setTrackerSource(TrackerSource.MANUAL)
             .setSportActivityType(manualSportActivity.details().type())
             .setTitle(manualSportActivity.details().title())
+            .setMovingTime(manualSportActivity.details().duration())
             .setStartDate(manualSportActivity.getStartDate());
         final String distance = manualSportActivity.details().distance();
         if(Objects.nonNull(distance)){
