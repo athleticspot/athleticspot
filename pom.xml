@@ -17,10 +17,9 @@
     <name>Athleticspot</name>
 
     <modules>
-        <module>tracker</module>
-        <!--<module>core</module>-->
-        <module>web</module>
         <module>common</module>
+        <module>web</module>
+        <module>tracker</module>
     </modules>
 
 
