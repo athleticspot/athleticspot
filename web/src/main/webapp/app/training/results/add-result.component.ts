@@ -55,7 +55,6 @@ export class AddResultComponent implements OnInit {
     }
 
     public submitActivity(): void {
-        this.activeModal.dismiss();
         if (this.newResultForm.valid) {
             let activity = this.newResultForm.value as SportActivityModel;
             activity.trackerSource = "MANUAL";
@@ -76,8 +75,30 @@ export class AddResultComponent implements OnInit {
 
             }, error => {
                 this.toasterService.pop('error', 'Activity', 'Activity create failed');
-                console.log(error);
             });
+            this.activeModal.dismiss();
+        } else {
+            this.newResultForm.markAsDirty({onlySelf: true});
+            this.markFormGroupTouchedAndDirty(this.newResultForm)
         }
+    }
+
+    public cancel() :void{
+        this.activeModal.dismiss();
+    }
+
+    /**
+     * Marks all controls in a form group as touched
+     * @param formGroup - The group to caress..hah
+     */
+    private markFormGroupTouchedAndDirty(formGroup: FormGroup) {
+        (<any>Object).values(formGroup.controls).forEach(control => {
+            control.markAsTouched();
+            control.markAsDirty();
+
+            if (control.controls) {
+                this.markFormGroupTouchedAndDirty(control);
+            }
+        });
     }
 }
