@@ -1,7 +1,7 @@
 package com.athleticspot.tracker.application.strava;
 
-import com.athleticspot.tracker.application.impl.StravaApplicationServiceImpl;
 import com.athleticspot.tracker.application.TrackerUserService;
+import com.athleticspot.tracker.application.impl.StravaApplicationServiceImpl;
 import javastrava.api.v3.auth.TokenManager;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;
@@ -11,6 +11,7 @@ import javastrava.api.v3.rest.ActivityAPI;
 import javastrava.api.v3.rest.AuthorisationAPI;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mock;
@@ -19,8 +20,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * This test should be used only from local machine to test strava connection
+ *
  * @author Tomasz Kasprzycki
+ *
  */
+@Ignore()
 public class StravaAuthServiceTest {
 
     private final Logger log = LoggerFactory.getLogger(StravaAuthServiceTest.class);
