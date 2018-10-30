@@ -16,6 +16,12 @@ public class TrackerUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
     @Column(name = "login")
     private String login;
 
@@ -34,6 +40,14 @@ public class TrackerUser {
     public TrackerUser(String login, String timelineIdentifier) {
         this.login = login;
         this.timelineIdentifier = timelineIdentifier;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getLogin() {

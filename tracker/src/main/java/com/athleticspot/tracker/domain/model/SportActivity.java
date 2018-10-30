@@ -17,6 +17,8 @@ public class SportActivity extends SportActivityGenericType {
 
     private String id;
 
+    private String firstAndLastName;
+
     private TrackerSource trackerSource;
 
     private SportActivityType sportActivityType;
@@ -57,6 +59,10 @@ public class SportActivity extends SportActivityGenericType {
     //Getters
     public String getId() {
         return id;
+    }
+
+    public String getFirstAndLastName() {
+        return firstAndLastName;
     }
 
     public String getTitle() {
@@ -113,6 +119,12 @@ public class SportActivity extends SportActivityGenericType {
         this.id = id;
         return this;
     }
+
+    public SportActivity setFirstAndLastName(final String firstAndLastName) {
+        this.firstAndLastName = firstAndLastName;
+        return this;
+    }
+
 
     public SportActivity setTrackerSource(final TrackerSource trackerSource) {
         this.trackerSource = trackerSource;
