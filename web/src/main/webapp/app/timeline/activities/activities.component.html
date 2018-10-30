@@ -11,7 +11,7 @@
                 <h3 class="m-n font-thin" jhiTranslate="timeline.manual.title">Add Activity</h3>
             </div>
             <div class="wrapper">
-                    <form novalidate [formGroup]="addActivityForm" (ngSubmit)="submitActivity()" class="form-validation">
+                <form novalidate [formGroup]="addActivityForm" (ngSubmit)="submitActivity()" class="form-validation">
                     <div class="form-group">
                         <label>Title</label>
                         <input
@@ -148,12 +148,18 @@
                     </li>
                     <li class="tl-item" *ngFor="let activity of activities; let i = index">
                         <div class="tl-wrap b-primary">
-                            <span class="tl-date">{{activity.startDate}}</span>
-                            <div class="tl-content panel padder b-a w-md w-auto-xs">
+                            <div class="tl-content panel padder b-a w-auto">
                                 <span class="arrow left pull-up"></span>
-                                <div class="text-lt m-b-sm">{{activity.title}}</div>
+                                <div class=" m-b-md">
+                                    <div class="text-dark-lt font-bold text-md">
+                                        <p>{{activity.firstAndLastName}}</p>
+                                    </div>
+                                    <p class="">{{activity.startDate}}</p>
+                                    <div class="text-dark-lt font-bold text-lg">
+                                        <p>{{activity.title}}</p>
+                                    </div>
+                                </div>
                                 <div class="panel-body pull-in b-t b-light">
-
                                     <div class="clear">
                                         <a href="" class="text-primary block m-b-xs">
                                             Distance: {{activity.distance}}
@@ -165,7 +171,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </li>
                 </ul>
             </div>

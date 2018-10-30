@@ -127,6 +127,7 @@ export class ActivitiesComponent implements OnInit {
     private assambleSportActivity(sportActivity: any) {
         let sportActivityModel = new SportActivityModel();
         sportActivityModel.id = sportActivity.id;
+        sportActivityModel.firstAndLastName = sportActivity.firstAndLastName;
         sportActivityModel.trackerSource = sportActivity.trackerSource;
         sportActivityModel.sportActivityType = sportActivity.sportActivityType;
         sportActivityModel.title = sportActivity.title;

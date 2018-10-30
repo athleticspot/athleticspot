@@ -6,6 +6,7 @@ export class SportActivityModel {
 
 
     id: String;
+    firstAndLastName: String;
     trackerSource: String;
     sportActivityType: String;
     title: String;
