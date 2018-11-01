@@ -124,6 +124,12 @@
                         <button class="btn btn-sm btn-primary">Add an event</button>
                     </div>
                 </form>
+                <div class=""><h4 class=" font-thin">Connect with:</h4>
+                    <a href="{{stravaActivationUrl}}" class="btn btn-sm btn-success"
+                       ui-toggle-class="timeline-center" target=".timeline">
+                        Strava
+                    </a>
+                </div>
             </div>
         </div>
         <!-- /.col -->
@@ -133,22 +139,14 @@
         </div>
 
         <div class="col bg-white-only" *ngIf="showTimeline">
-            <div class="inline ">
-
-            </div>
             <div class="wrapper">
-                <div class="pull-right"><h4 class=" font-thin">Connect with:</h4>
-                    <a href="{{stravaActivationUrl}}" class="btn btn-sm btn-success pull-right"
-                       ui-toggle-class="timeline-center" target=".timeline">
-                        Strava
-                    </a></div>
                 <ul class="timeline">
                     <li class="tl-header">
                         <div class="btn btn-info">Now</div>
                     </li>
                     <li class="tl-item" *ngFor="let activity of activities; let i = index">
                         <div class="tl-wrap b-primary">
-                            <div class="tl-content panel padder b-a w-auto">
+                            <div class="tl-content panel padder b-a w-xxl">
                                 <div class="panel-body pull-in">
                                     <a href="" class="thumb pull-right m-xs  avatar">
                                         <img src="b10.jpg" alt="...">
