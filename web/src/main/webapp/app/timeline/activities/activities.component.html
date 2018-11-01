@@ -149,6 +149,12 @@
                     <li class="tl-item" *ngFor="let activity of activities; let i = index">
                         <div class="tl-wrap b-primary">
                             <div class="tl-content panel padder b-a w-auto">
+                                <div class="panel-body pull-in">
+                                    <a href="" class="thumb pull-right m-xs  avatar">
+                                        <img src="b10.jpg" alt="...">
+                                    </a>
+                                </div>
+
                                 <span class="arrow left pull-up"></span>
                                 <div class=" m-b-md">
                                     <div class="text-dark-lt font-bold text-md">
@@ -159,27 +165,33 @@
                                         <p>{{activity.title}}</p>
                                     </div>
                                 </div>
-                                <div class="panel-body pull-in b-t b-light">
-                                    <div class="clear">
-                                        <p class="text-primary block m-b-xs">
-                                            Sport Category: {{activity.sportActivityType}}
-                                        </p>
-                                        <div class="row  font-normal">
-                                            <div class="col-sm-6 text-dark ">
-                                                <p class="m-xxs text-sm">Distance:/p>
-                                                <p class="text-lg m-xxs">
-                                                    {{activity.distance}}
-                                                </p>
-                                            </div>
-                                            <div class="col-sm-6 text-dark ">
-                                                <p class="m-xxs text-sm">Time:</p>
-                                                <p class="text-lg m-xxs">
-                                                    {{activity.movingTime}}
-                                                </p>
-                                            </div>
+                                <!--<div class="panel-body pull-in b-t b-light">-->
+                                <div class="m-b-md b-t b-info">
+                                    <p class="text-primary block m-b-xs">
+                                        Sport Category: {{activity.sportActivityType}}
+                                    </p>
+                                    <div class="row  font-normal">
+                                        <div class="col-sm-4 text-dark ">
+                                            <p class="m-xxs text-sm">Distance:</p>
+                                            <p class="text-lg m-xxs">
+                                                {{activity.distance}}
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-4 text-dark ">
+                                            <p class="m-xxs text-sm">Time:</p>
+                                            <p class="text-lg m-xxs">
+                                                {{activity.movingTime}}
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-4 text-dark ">
+                                            <p class="m-xxs text-sm">Avg speed:</p>
+                                            <p class="text-lg m-xxs">
+                                                {{activity.averageSpeed}}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
+                                <!--</div>-->
                             </div>
                         </div>
                     </li>

@@ -135,7 +135,7 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.distance = sportActivity.distance;
         sportActivityModel.movingTime = sportActivity.movingTime;
         sportActivityModel.elapsedTime = sportActivity.elapsedTime;
-        sportActivityModel.startDate = moment(sportActivity.startDate).format("YYYY-MM-DD HH:mm:ss");
+        sportActivityModel.startDate = moment(sportActivity.startDate).format("LLL");
         sportActivityModel.averageSpeed = sportActivity.averageSpeed;
         sportActivityModel.maxSpeed = sportActivity.maxSpeed;
         sportActivityModel.averageTemp = sportActivity.averageTemp;
