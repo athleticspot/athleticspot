@@ -38,7 +38,7 @@ export class ActivitiesComponent implements OnInit {
                 "seconds": new FormControl(0)
             }),
             'distance': new FormControl(),
-            'unit': new FormControl("kilometers"),
+            'units': new FormControl("kilometers"),
             'startDate': new FormControl(new Date()),
             'time': new FormControl("0", [Validators.required]),
             'maxSpeed': new FormControl(),
@@ -133,6 +133,7 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.title = sportActivity.title;
         sportActivityModel.description = sportActivity.description;
         sportActivityModel.distance = sportActivity.distance;
+        sportActivityModel.units = sportActivity.units;
         sportActivityModel.movingTime = sportActivity.movingTime;
         sportActivityModel.elapsedTime = sportActivity.elapsedTime;
         sportActivityModel.startDate = moment(sportActivity.startDate).format("LLL");

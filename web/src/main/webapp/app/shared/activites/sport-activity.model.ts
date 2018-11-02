@@ -12,6 +12,7 @@ export class SportActivityModel {
     title: String;
     description: String;
     distance: Number;
+    units: String;
     movingTime;
     Number;
     elapsedTime: Number;

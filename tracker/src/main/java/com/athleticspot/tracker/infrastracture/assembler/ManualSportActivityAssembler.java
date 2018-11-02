@@ -38,6 +38,7 @@ public class ManualSportActivityAssembler implements SportActivityAssembler<Manu
         final String distance = manualSportActivity.details().distance();
         if(Objects.nonNull(distance)){
             sportActivity.setDistance(Float.parseFloat(distance));
+            sportActivity.setUnits(manualSportActivity.details().units());
         }
         return sportActivity;
     }

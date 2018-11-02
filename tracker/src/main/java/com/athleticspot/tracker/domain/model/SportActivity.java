@@ -29,6 +29,8 @@ public class SportActivity extends SportActivityGenericType {
 
     private Float distance;
 
+    private String units;
+
     private Integer movingTime;
 
     private Integer elapsedTime;
@@ -88,6 +90,10 @@ public class SportActivity extends SportActivityGenericType {
 
     public Float getDistance() {
         return distance;
+    }
+
+    public String getUnits() {
+        return units;
     }
 
     public Integer getMovingTime() {
@@ -150,6 +156,12 @@ public class SportActivity extends SportActivityGenericType {
         this.distance = distance;
         return this;
     }
+
+    public SportActivity setUnits(final String units) {
+        this.units = units;
+        return this;
+    }
+
 
     public SportActivity setMovingTime(final Integer movingTime) {
         this.movingTime = movingTime;
