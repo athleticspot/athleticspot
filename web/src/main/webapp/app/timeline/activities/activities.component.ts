@@ -5,6 +5,7 @@ import {ToasterService} from "angular2-toaster";
 import {StravaDataservice} from "./strava.dataservice";
 import {ActivitiesDataservice} from "../../shared/activites/activities.dataservice";
 import {SportActivityModel} from "../../shared/activites/sport-activity.model";
+import {TrackerSource} from "../../shared/activites/tracker-source";
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ActivitiesComponent implements OnInit {
     private stravaActivationUrl: String;
     private pageCount: 0;
     private currentPage = 0;
+    private trackerSource: TrackerSource;
 
 
     constructor(private activityDataservice: ActivitiesDataservice,
@@ -28,6 +30,7 @@ export class ActivitiesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.trackerSource = TrackerSource.MANUAL;
         this.addActivityForm = new FormGroup({
             'title': new FormControl(null, [Validators.required]),
             'description': new FormControl(),
@@ -54,7 +57,7 @@ export class ActivitiesComponent implements OnInit {
     submitActivity() {
         if (this.addActivityForm.valid) {
             let activity = this.addActivityForm.value as SportActivityModel;
-            activity.trackerSource = "MANUAL";
+            activity.trackerSource = TrackerSource.MANUAL;
             activity.startDate = moment(this.addActivityForm.get('startDate').value)
                 .startOf('day')
                 .add(this.addActivityForm.get('time').value,

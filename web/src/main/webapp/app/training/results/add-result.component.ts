@@ -9,6 +9,7 @@ import {ActivitiesDataservice} from "../../shared/activites/activities.dataservi
 import {ToasterService} from "angular2-toaster";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {JhiEventManager} from "ng-jhipster";
+import {TrackerSource} from "../../shared/activites/tracker-source";
 
 @Component({
     selector: 'add-result-modal',
@@ -27,18 +28,6 @@ export class AddResultComponent implements OnInit {
                 private toasterService: ToasterService,
                 public activeModal: NgbActiveModal,
                 private eventManager: JhiEventManager) {
-
-
-        // this.durationGroup = new FormGroup({
-        //     hours: new FormControl('', []),
-        //     minutes: new FormControl('', []),
-        //     seconds: new FormControl('', []),
-        // }, validateDuration);
-        //
-
-        // this.durationGroup.valueChanges.subscribe(value => {
-        //     console.log(value);
-        // });
     }
 
     ngOnInit(): void {
@@ -57,7 +46,7 @@ export class AddResultComponent implements OnInit {
     public submitActivity(): void {
         if (this.newResultForm.valid) {
             let activity = this.newResultForm.value as SportActivityModel;
-            activity.trackerSource = "MANUAL";
+            activity.trackerSource = TrackerSource.MANUAL;
             activity.sportActivityType = "RUN";
             activity.startDate = moment(this.newResultForm.get('startDate').value)
                 .startOf('day')

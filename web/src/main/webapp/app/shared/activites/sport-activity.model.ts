@@ -1,3 +1,5 @@
+import {TrackerSource} from "./tracker-source";
+
 export class SportActivityModel {
 
     duration: String;
@@ -7,7 +9,7 @@ export class SportActivityModel {
 
     id: String;
     firstAndLastName: String;
-    trackerSource: String;
+    trackerSource: TrackerSource;
     sportActivityType: String;
     title: String;
     description: String;

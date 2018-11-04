@@ -147,11 +147,23 @@
                     <li class="tl-item" *ngFor="let activity of activities; let i = index">
                         <div class="tl-wrap b-primary">
                             <div class="tl-content panel padder b-a w-xxl">
-                                <div class="panel-body pull-in">
+                                <div class="panel-body pull-in" *ngIf="activity.trackerSource=='MANUAL'">
+                                    <a href="" class="thumb pull-right m-xs  avatar">
+                                        <img  src="athleticspot.png" alt="...">
+                                    </a>
+                                </div>
+                                <div class="panel-body pull-in" *ngIf="activity.trackerSource=='STRAVA'">
+                                    <a href="" class="thumb pull-right m-xs  avatar">
+                                        <img  src="strava.png" alt="...">
+                                    </a>
+                                </div>
+                                <div class="panel-body pull-in" >
                                     <a href="" class="thumb pull-right m-xs  avatar">
                                         <img src="b10.jpg" alt="...">
                                     </a>
                                 </div>
+
+
 
                                 <span class="arrow left pull-up"></span>
                                 <div class=" m-b-md">
