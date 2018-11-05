@@ -45,6 +45,8 @@ public class SportActivity extends SportActivityGenericType {
 
     private Float calories;
 
+
+
     private SportActivity(String id, String username, String title, TrackerSource trackerSource, LocalDateTime startDate) {
         this.username = username;
         this.title = title;

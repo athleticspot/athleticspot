@@ -2,10 +2,12 @@ package com.athleticspot.tracker.infrastracture.assembler;
 
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityType;
+import com.athleticspot.tracker.domain.model.UserRepository;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 import com.athleticspot.tracker.domain.model.strava.StravaSportActivity;
 import javastrava.api.v3.model.StravaActivity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +18,13 @@ import java.util.stream.Collectors;
  */
 @Component
 public class StravaActivityAssembler implements SportActivityAssembler<StravaSportActivity>{
+
+    private final UserRepository userRepository;
+
+    @Autowired
+    public StravaActivityAssembler(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public ManualSportActivity buildFromStrava(StravaActivity stravaActivity) {
 
@@ -62,4 +71,6 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
             .setAverageTemp(stravaSportActivity.getAverageTemp())
             .setCalories(stravaSportActivity.getCalories());
     }
+
+
 }

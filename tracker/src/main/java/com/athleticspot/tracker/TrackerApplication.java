@@ -25,7 +25,7 @@ public class TrackerApplication {
 
     @PostConstruct
     public void run() {
-
+        genericSportActivityRepository.deleteAll();
     }
 
 //
