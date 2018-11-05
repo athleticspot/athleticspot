@@ -527,7 +527,11 @@ public class StravaSportActivity extends SportActivityGenericType {
         return deviceName;
     }
 
-    //Fluent interface methods
+    public String getUsername() {
+        return username;
+    }
+
+//Fluent interface methods
 
     public StravaSportActivity setTrackerSource(final TrackerSource trackerSource) {
         this.trackerSource = trackerSource;
