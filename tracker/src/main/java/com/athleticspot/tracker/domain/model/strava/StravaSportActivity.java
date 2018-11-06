@@ -287,6 +287,9 @@ public class StravaSportActivity extends SportActivityGenericType {
      */
     @Field("deviceName")
     private String deviceName;
+//
+//    @Field("username")
+//    private String username;
 
     public static StravaSportActivity creteFromStravaActivity(final StravaActivity stravaActivity, String username) {
         return new StravaSportActivity(

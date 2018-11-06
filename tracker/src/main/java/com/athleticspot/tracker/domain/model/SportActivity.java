@@ -122,6 +122,11 @@ public class SportActivity extends SportActivityGenericType {
         return calories;
     }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
     //Fluent interfaces
     public SportActivity setId(final String id) {
         this.id = id;

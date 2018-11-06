@@ -41,7 +41,7 @@ export class ActivitiesComponent implements OnInit {
                 "seconds": new FormControl(0)
             }),
             'distance': new FormControl(),
-            'units': new FormControl("kilometers"),
+            'units': new FormControl("km"),
             'startDate': new FormControl(new Date()),
             'time': new FormControl("0", [Validators.required]),
             'maxSpeed': new FormControl(),
@@ -84,6 +84,7 @@ export class ActivitiesComponent implements OnInit {
 
     private refreshActivities() {
         this.showTimeline = false;
+        this.currentPage = 0;
         this.activities = [];
         this.activityDataservice.fetchActivityPaged(this.currentPage).subscribe((activitiesPage: any) => {
                 this.pageCount = activitiesPage.totalPages;
@@ -116,8 +117,8 @@ export class ActivitiesComponent implements OnInit {
     private refreshAddActivityForm() {
         this.addActivityForm.reset();
         this.addActivityForm.patchValue({
-            type: "RUN",
-            unit: "kilometers",
+            sportActivityType: "RUN",
+            unit: "km",
             time: "0",
             duration: {
                 hours: 0,

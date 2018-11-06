@@ -39,19 +39,21 @@ public class SportActivityAssemblerImpl {
     }
 
     public SportActivity assembleSportActivity(SportActivityGenericType sportActivityGenericType) {
+        SportActivity sportActivity;
         if (sportActivityGenericType instanceof ManualSportActivity) {
-            return manualSportActivityAssembler
+            sportActivity = manualSportActivityAssembler
                 .assembleSportActivity((ManualSportActivity) sportActivityGenericType);
+        } else {
+            sportActivity = stravaActivityAssembler.assembleSportActivity((StravaSportActivity) sportActivityGenericType);
         }
-        final SportActivity sportActivity = stravaActivityAssembler.assembleSportActivity((StravaSportActivity) sportActivityGenericType);
         sportActivity.setFirstAndLastName(retrieveFirstAndLastName(sportActivityGenericType.getUsername()));
         return sportActivity;
     }
 
-    private String retrieveFirstAndLastName(String username){
+    private String retrieveFirstAndLastName(String username) {
         final TrackerUser user = userRepository.getUser(username);
         String firstAndLastName = user.getFirstName() + " " + user.getLastName();
-        if(StringUtils.hasText(firstAndLastName)){
+        if (StringUtils.hasText(firstAndLastName)) {
             return firstAndLastName;
         }
         return username;
