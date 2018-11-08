@@ -287,6 +287,9 @@ public class StravaSportActivity extends SportActivityGenericType {
      */
     @Field("deviceName")
     private String deviceName;
+//
+//    @Field("username")
+//    private String username;
 
     public static StravaSportActivity creteFromStravaActivity(final StravaActivity stravaActivity, String username) {
         return new StravaSportActivity(
@@ -527,7 +530,11 @@ public class StravaSportActivity extends SportActivityGenericType {
         return deviceName;
     }
 
-    //Fluent interface methods
+    public String getUsername() {
+        return username;
+    }
+
+//Fluent interface methods
 
     public StravaSportActivity setTrackerSource(final TrackerSource trackerSource) {
         this.trackerSource = trackerSource;

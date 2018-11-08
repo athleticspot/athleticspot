@@ -16,7 +16,6 @@ import java.util.Objects;
 @Table(name = "sport_activity")
 public class ManualSportActivity extends SportActivityGenericType implements TimelineEvent, Entity {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -35,6 +34,7 @@ public class ManualSportActivity extends SportActivityGenericType implements Tim
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
+
 
     private ManualSportActivity() {
         //jpa purpose
@@ -116,5 +116,9 @@ public class ManualSportActivity extends SportActivityGenericType implements Tim
 
     public LocalDateTime getStartDate() {
         return startDate;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

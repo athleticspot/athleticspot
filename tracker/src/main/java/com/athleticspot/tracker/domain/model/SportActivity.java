@@ -45,6 +45,8 @@ public class SportActivity extends SportActivityGenericType {
 
     private Float calories;
 
+
+
     private SportActivity(String id, String username, String title, TrackerSource trackerSource, LocalDateTime startDate) {
         this.username = username;
         this.title = title;
@@ -118,6 +120,11 @@ public class SportActivity extends SportActivityGenericType {
 
     public Float getCalories() {
         return calories;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 
     //Fluent interfaces

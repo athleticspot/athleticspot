@@ -27,7 +27,7 @@ public class StravaActivityTest {
 
     @Test
     public void whenStravaActivityIsConvertedThenSourceIsStrava() {
-        StravaActivityAssembler sportActivityAssembler = new StravaActivityAssembler();
+        StravaActivityAssembler sportActivityAssembler = new StravaActivityAssembler(null);
 
         ManualSportActivity manualSportActivity = sportActivityAssembler.buildFromStrava(buildStravaActivity());
 
