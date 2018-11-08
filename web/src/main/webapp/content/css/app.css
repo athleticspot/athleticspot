@@ -5372,3 +5372,7 @@ Social Buttons
 .ngx-datepicker-container .ngx-datepicker-calendar-container {
     z-index: 99;
 }
+
+agm-map {
+    height: 300px;
+}

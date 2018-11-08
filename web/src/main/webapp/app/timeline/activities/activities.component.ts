@@ -10,7 +10,8 @@ import {TrackerSource} from "../../shared/activites/tracker-source";
 
 @Component({
     selector: 'athleticspot-activities',
-    templateUrl: './activities.component.html'
+    templateUrl: './activities.component.html',
+    styleUrls: ['./activities.component.css']
 })
 export class ActivitiesComponent implements OnInit {
 
@@ -22,6 +23,9 @@ export class ActivitiesComponent implements OnInit {
     private pageCount: 0;
     private currentPage = 0;
     private trackerSource: TrackerSource;
+
+    lat: number = 51.678418;
+    lng: number = 7.809007;
 
 
     constructor(private activityDataservice: ActivitiesDataservice,
@@ -127,6 +131,9 @@ export class ActivitiesComponent implements OnInit {
             }
         })
     }
+
+    // google api component:
+
 
     private assambleSportActivity(sportActivity: any) {
         let sportActivityModel = new SportActivityModel();

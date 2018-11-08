@@ -139,7 +139,17 @@
         </div>
 
         <div class="col bg-white-only" *ngIf="showTimeline">
+
+
+            <!-- this creates a google map on the page with the given lat/lng from -->
+            <!-- the component as the initial center of the map: -->
+
+
+
             <div class="wrapper">
+            <agm-map [latitude]="lat" [longitude]="lng">
+                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+            </agm-map>
                 <ul class="timeline">
                     <li class="tl-header">
                         <div class="btn btn-info">Now</div>

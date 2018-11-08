@@ -11,6 +11,8 @@ import {StravaDataservice} from "./activities/strava.dataservice";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {CommonModule} from "@angular/common";
 import {ActivitiesDataservice} from "../shared/activites/activities.dataservice";
+import {AgmCoreModule} from "@agm/core"
+
 
 @NgModule({
     imports: [
@@ -20,6 +22,11 @@ import {ActivitiesDataservice} from "../shared/activites/activities.dataservice"
         NgDatepickerModule,
         BrowserAnimationsModule,
         Ng2DropdownModule,
+        AgmCoreModule.forRoot(
+            {
+                apiKey: "AIzaSyAX3uLsEzkQIef16sJvkB5oJzQGR2Ej41k"
+            }
+        ),
         InfiniteScrollModule,
         RouterModule.forRoot(timelineState, {useHash: true}),
     ],
