@@ -6,11 +6,13 @@ import com.athleticspot.tracker.domain.model.UserRepository;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 import com.athleticspot.tracker.domain.model.strava.StravaSportActivity;
+import com.google.maps.internal.PolylineEncoding;
 import javastrava.api.v3.model.StravaActivity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -69,8 +71,10 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
             .setAverageSpeed(stravaSportActivity.getAverageSpeed())
             .setMaxSpeed(stravaSportActivity.getMaxSpeed())
             .setAverageTemp(stravaSportActivity.getAverageTemp())
-            .setCalories(stravaSportActivity.getCalories());
+            .setCalories(stravaSportActivity.getCalories())
+            .setCoordinates(PolylineEncoding.decode(
+                Optional.ofNullable(stravaSportActivity.getMap().getSummaryPolyline()).orElseGet(() -> ""))
+            );
+
     }
-
-
 }

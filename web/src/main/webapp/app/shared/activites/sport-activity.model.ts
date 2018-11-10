@@ -23,4 +23,5 @@ export class SportActivityModel {
     maxSpeed: Number;
     averageTemp: Number;
     calories: Number;
+    coordinates: any;
 }

@@ -6,6 +6,7 @@ import {StravaDataservice} from "./strava.dataservice";
 import {ActivitiesDataservice} from "../../shared/activites/activities.dataservice";
 import {SportActivityModel} from "../../shared/activites/sport-activity.model";
 import {TrackerSource} from "../../shared/activites/tracker-source";
+import {MapsAPILoader} from "@agm/core";
 
 
 @Component({
@@ -24,16 +25,34 @@ export class ActivitiesComponent implements OnInit {
     private currentPage = 0;
     private trackerSource: TrackerSource;
 
-    lat: number = 51.678418;
-    lng: number = 7.809007;
+    public latitude: number;
+    public longitude: number;
+    public maxSpeed: number;
+    public zoom: number;
+    public polyline: Array<any>;
+
 
 
     constructor(private activityDataservice: ActivitiesDataservice,
                 private stravaDataservice: StravaDataservice,
-                private toasterService: ToasterService) {
+                private toasterService: ToasterService,
+                private mapsAPILoader: MapsAPILoader) {
+
+
+
+
+
+
+
     }
 
     ngOnInit(): void {
+        //set google maps defaults
+        this.zoom = 12;
+        //load Places Autocomplete
+        this.mapsAPILoader.load().then(() => {
+        });
+
         this.trackerSource = TrackerSource.MANUAL;
         this.addActivityForm = new FormGroup({
             'title': new FormControl(null, [Validators.required]),
@@ -152,6 +171,7 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.maxSpeed = sportActivity.maxSpeed;
         sportActivityModel.averageTemp = sportActivity.averageTemp;
         sportActivityModel.calories = sportActivity.calories;
+        sportActivityModel.coordinates = sportActivity.coordinates;
         return sportActivityModel;
 
     }

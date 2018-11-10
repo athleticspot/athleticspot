@@ -9,6 +9,7 @@ import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivityRepository;
 import com.athleticspot.tracker.shared.TestTimelineFactory;
 import com.athleticspot.tracker.shared.TimelineEventFactory;
+import com.google.maps.model.EncodedPolyline;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +45,13 @@ public class TimelineServiceTest {
         timelineService = new TimelineServiceImpl(timelineRepository, trackerUserService, manualSportActivityRepository, applicationEvents, stravaApplicationService);
 
         timeline = TestTimelineFactory.testTimeline(expectedTimelineId);
+    }
+
+    @Test
+    public void polilineTest(){
+        final EncodedPolyline encodedPolyline = new EncodedPolyline("qsnpH__{xBsBj@k@b\\~@`N|Hh[fOd]yNk\\wIq_@i@sSbAuS");
+        encodedPolyline.decodePath();
+
     }
 
     @Test

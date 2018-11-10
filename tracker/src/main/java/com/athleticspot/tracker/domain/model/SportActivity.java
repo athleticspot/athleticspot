@@ -2,8 +2,10 @@ package com.athleticspot.tracker.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.maps.model.LatLng;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Tomasz Kasprzycki
@@ -45,6 +47,7 @@ public class SportActivity extends SportActivityGenericType {
 
     private Float calories;
 
+    private List<LatLng> coordinates;
 
 
     private SportActivity(String id, String username, String title, TrackerSource trackerSource, LocalDateTime startDate) {
@@ -207,6 +210,11 @@ public class SportActivity extends SportActivityGenericType {
 
     public SportActivity setUsername(final String username) {
         this.username = username;
+        return this;
+    }
+
+    public SportActivity setCoordinates(List<LatLng> coordinates) {
+        this.coordinates = coordinates;
         return this;
     }
 }

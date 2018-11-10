@@ -147,9 +147,6 @@
 
 
             <div class="wrapper">
-            <agm-map [latitude]="lat" [longitude]="lng">
-                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-            </agm-map>
                 <ul class="timeline">
                     <li class="tl-header">
                         <div class="btn btn-info">Now</div>
@@ -208,6 +205,24 @@
                                             </p>
                                         </div>
                                     </div>
+                                </div>
+                                <div *ngIf="activity.coordinates?.length >0">
+                                    <agm-map [latitude]="activity.coordinates[0].lat"
+                                             [longitude]="activity.coordinates[0].lng" [scrollwheel]="false"
+                                             [zoom]="12">
+                                        <ng-container>
+                                            <agm-polyline *ngFor="let point of activity.coordinates;let i = index;"
+                                                          [strokeColor]="'#2196f3'">
+                                                <agm-polyline-point [latitude]="point.lat" [longitude]="point.lng">
+                                                </agm-polyline-point>
+                                                <ng-container *ngIf="activity.coordinates[i+1]">
+                                                    <agm-polyline-point [latitude]="activity.coordinates[i+1].lat"
+                                                                        [longitude]="activity.coordinates[i+1].lng">
+                                                    </agm-polyline-point>
+                                                </ng-container>
+                                            </agm-polyline>
+                                        </ng-container>
+                                    </agm-map>
                                 </div>
                                 <!--</div>-->
                             </div>
