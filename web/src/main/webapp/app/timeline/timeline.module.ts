@@ -24,7 +24,7 @@ import {AgmCoreModule} from "@agm/core"
         Ng2DropdownModule,
         AgmCoreModule.forRoot(
             {
-                apiKey: "AIzaSyAX3uLsEzkQIef16sJvkB5oJzQGR2Ej41k"
+                apiKey: "AIzaSyAX3uLsEzkQIef16sJvkB5oJzQGR2Ej41a"
             }
         ),
         InfiniteScrollModule,
