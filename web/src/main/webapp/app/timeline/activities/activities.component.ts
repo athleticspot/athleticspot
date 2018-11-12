@@ -25,30 +25,18 @@ export class ActivitiesComponent implements OnInit {
     private currentPage = 0;
     private trackerSource: TrackerSource;
 
-    public latitude: number;
-    public longitude: number;
     public maxSpeed: number;
     public zoom: number;
-    public polyline: Array<any>;
-
-
 
     constructor(private activityDataservice: ActivitiesDataservice,
                 private stravaDataservice: StravaDataservice,
                 private toasterService: ToasterService,
                 private mapsAPILoader: MapsAPILoader) {
-
-
-
-
-
-
-
     }
 
     ngOnInit(): void {
         //set google maps defaults
-        this.zoom = 12;
+        this.zoom = 14;
         //load Places Autocomplete
         this.mapsAPILoader.load().then(() => {
         });
