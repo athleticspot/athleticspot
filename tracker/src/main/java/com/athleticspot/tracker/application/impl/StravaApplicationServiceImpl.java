@@ -115,7 +115,7 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             final List<SportActivityGenericType> ts = Arrays.stream(stravaActivities)
                 .map(stravaActivity -> StravaSportActivity.creteFromStravaActivity(stravaActivity, username))
                 .collect(Collectors.toList());
-            genericSportActivityRepository.save(ts);
+            genericSportActivityRepository.saveAll(ts);
         }
         trackerUserService.assignStravaLastSynchronizationDate(now, username);
     }

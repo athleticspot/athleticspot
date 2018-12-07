@@ -22,12 +22,12 @@
         <!-- Overridden to get metrics-jcache -->
         <dropwizard-metrics.version>3.2.2</dropwizard-metrics.version>
         <frontend-maven-plugin.version>1.4</frontend-maven-plugin.version>
-        <hibernate.version>5.2.8.Final</hibernate.version>
+        <hibernate.version>5.2.17.Final</hibernate.version>
         <hikaricp.version>2.6.0</hikaricp.version>
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <java.version>1.8</java.version>
         <jcache.version>1.0.0</jcache.version>
-        <jhipster.server.version>1.1.7</jhipster.server.version>
+        <jhipster-dependencies.version>2.0.28</jhipster-dependencies.version>
         <jjwt.version>0.7.0</jjwt.version>
         <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
         <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
@@ -113,6 +113,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>io.github.jhipster</groupId>
+                <artifactId>jhipster-dependencies</artifactId>
+                <version>${jhipster-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -124,8 +131,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.jhipster</groupId>
-            <artifactId>jhipster</artifactId>
-            <version>${jhipster.server.version}</version>
+            <artifactId>jhipster-framework</artifactId>
         </dependency>
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
@@ -264,6 +270,9 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
+            <version>
+                5.3.6.Final
+            </version>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
@@ -354,6 +363,10 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-neo4j</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>${jjwt.version}</version>
@@ -403,6 +416,7 @@
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-security</artifactId>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.social</groupId>
@@ -412,10 +426,7 @@
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-facebook</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-twitter</artifactId>
+            <version>2.0.3.RELEASE</version>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
