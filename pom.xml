@@ -3,13 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <groupId>org.springframework.boot</groupId>
-        <version>2.1.0.RELEASE</version>
-        <relativePath/>
-    </parent>
-
     <groupId>com.athleticspot</groupId>
     <artifactId>athleticspot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -17,9 +10,9 @@
     <name>Athleticspot</name>
 
     <modules>
-        <module>common</module>
+        <!--<module>common</module>-->
         <module>web</module>
-        <module>tracker</module>
+        <!--<module>tracker</module>-->
     </modules>
 
 </project>
