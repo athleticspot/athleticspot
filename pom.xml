@@ -9,10 +9,11 @@
     <packaging>pom</packaging>
     <name>Athleticspot</name>
 
+
     <modules>
-        <!--<module>common</module>-->
+        <module>common</module>
         <module>web</module>
-        <!--<module>tracker</module>-->
+        <module>tracker</module>
     </modules>
 
 </project>
