@@ -11,8 +11,6 @@ import javax.annotation.PostConstruct;
  * @author Tomasz Kasprzycki
  */
 @SpringBootApplication
-//@EntityScan(value = {"com.athleticspot.tracker.domain.model"})
-// @EnableJpaRepositories
 public class TrackerApplication {
 
     @Autowired
