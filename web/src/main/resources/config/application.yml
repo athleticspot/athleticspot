@@ -14,36 +14,24 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-eureka:
-    client:
-        enabled: false
-        healthcheck:
-            enabled: false
-        fetch-registry: false
-        register-with-eureka: false
-        instance-info-replication-interval-seconds: 10
-        registry-fetch-interval-seconds: 10
-    instance:
-        appname: athleticspot
-        instanceId: athleticspot:${spring.application.instance-id:${random.value}}
-        lease-renewal-interval-in-seconds: 5
-        lease-expiration-duration-in-seconds: 10
-        status-page-url-path: ${management.context-path}/info
-        health-check-url-path: ${management.context-path}/health
-        metadata-map:
-            zone: primary # This is needed for the load balancer
-            profile: ${spring.profiles.active}
-            version: ${info.project.version}
-ribbon:
-    eureka:
-        enabled: true
 management:
-    security:
-        roles: ADMIN
-    context-path: /management
+    endpoints:
+        web:
+            base-path: /management
+            exposure:
+                include: ["configprops", "env", "health", "info", "threaddump", "logfile" ]
+    endpoint:
+        health:
+            show-details: when-authorized
+    info:
+        git:
+            mode: full
     health:
         mail:
             enabled: false # When using the MailService, configure an SMTP server and set this to true
+    metrics:
+        enabled: false # http://micrometer.io/ is disabled by default, as we use http://metrics.dropwizard.io/ instead
+
 spring:
     application:
         name: athleticspot
@@ -106,17 +94,17 @@ jhipster:
     # By default CORS is disabled. Uncomment to enable.
     #cors:
         #allowed-origins: "*"
-        #allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+        #allowed-methods: "*"
         #allowed-headers: "*"
-        #exposed-headers:
+        #exposed-headers: "Authorization,Link,X-Total-Count"
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: athleticspot@localhost
+        from: jhipster5playground@localhost
     swagger:
         default-include-pattern: /api/.*
-        title: athleticspot API
-        description: athleticspot API documentation
+        title: jhipster5playground API
+        description: jhipster5playground API documentation
         version: 0.0.1
         terms-of-service-url:
         contact-name:
@@ -124,10 +112,6 @@ jhipster:
         contact-email:
         license:
         license-url:
-    social:
-        redirect-after-sign-in: "/#/social-auth"
-    ribbon:
-        display-on-active-profiles: dev
 
 # ===================================================================
 # Application specific properties
