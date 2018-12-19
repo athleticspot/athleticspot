@@ -23,7 +23,6 @@ import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
-import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 // jhipster-needle-add-social-connection-factory-import-package
 
@@ -65,17 +64,17 @@ public class SocialConfiguration implements SocialConfigurer {
         // Google configuration
         String googleClientId = environment.getProperty("spring.social.google.client-id");
         String googleClientSecret = environment.getProperty("spring.social.google.client-secret");
-        if (googleClientId != null && googleClientSecret != null) {
-            log.debug("Configuring GoogleConnectionFactory");
-            connectionFactoryConfigurer.addConnectionFactory(
-                new GoogleConnectionFactory(
-                    googleClientId,
-                    googleClientSecret
-                )
-            );
-        } else {
-            log.error("Cannot configure GoogleConnectionFactory id or secret null");
-        }
+//        if (googleClientId != null && googleClientSecret != null) {
+//            log.debug("Configuring GoogleConnectionFactory");
+//            connectionFactoryConfigurer.addConnectionFactory(
+//                new GoogleConnectionFactory(
+//                    googleClientId,
+//                    googleClientSecret
+//                )
+//            );
+//        } else {
+//            log.error("Cannot configure GoogleConnectionFactory id or secret null");
+//        }
 
         // Facebook configuration
         String facebookClientId = environment.getProperty("spring.social.facebook.client-id");
