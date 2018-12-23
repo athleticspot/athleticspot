@@ -38,21 +38,23 @@ public class CustomSignInAdapter implements SignInAdapter {
     @Override
     public String signIn(String userId, Connection<?> connection, NativeWebRequest request) {
         try {
+            log.info("Custom Adapter!!!!!!!!!");
             UserDetails user = userDetailsService.loadUserByUsername(userId);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 user,
                 null,
                 user.getAuthorities());
-
+            log.info("Authentication token: {}", authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             String jwt = tokenProvider.createToken(authenticationToken, false);
+            log.info("JWT: {}", jwt);
             ServletWebRequest servletWebRequest = (ServletWebRequest) request;
             servletWebRequest.getResponse().addCookie(getSocialAuthenticationCookie(jwt));
         } catch (AuthenticationException ae) {
             log.error("Social authentication error");
             log.trace("Authentication exception trace: {}", ae);
         }
-        return jHipsterProperties.getSocial().getRedirectAfterSignIn();
+        return "//";
     }
 
     private Cookie getSocialAuthenticationCookie(String token) {

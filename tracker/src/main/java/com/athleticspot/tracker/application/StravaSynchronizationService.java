@@ -19,7 +19,7 @@ public class StravaSynchronizationService extends SpringRouteBuilder {
 
     @Override
     public void configure() {
-        from("quartz2://simpleTimer?cron=0/30+*+*+*+*+?&autoStartScheduler=true")
+        from("quartz2://simpleTimer?cron=0/50+*+*+*+*+?&autoStartScheduler=false")
             .log("Strava synchronization start")
             .bean(stravaApplicationService, "retrieveStravaUsers")
             .split(body()).parallelProcessing()
