@@ -1,5 +1,7 @@
 package com.athleticspot.security.jwt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -18,6 +20,8 @@ import java.io.IOException;
  */
 public class JWTFilter extends GenericFilterBean {
 
+    private final Logger log = LoggerFactory.getLogger(JWTFilter.class);
+
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private TokenProvider tokenProvider;
@@ -31,6 +35,7 @@ public class JWTFilter extends GenericFilterBean {
         throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String jwt = resolveToken(httpServletRequest);
+        log.info("JWT VALUE: {}", jwt);
         if (StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
             Authentication authentication = this.tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);

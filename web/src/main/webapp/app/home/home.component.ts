@@ -2,7 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {JhiEventManager} from "ng-jhipster";
 
-import {Account, LoginModalService, Principal} from "../shared";
+import {Account, LoginModalService, LoginService, Principal} from "../shared";
+import {CookieService} from "ngx-cookie";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'jhi-home',
@@ -18,10 +20,22 @@ export class HomeComponent implements OnInit {
 
     constructor(private principal: Principal,
                 private loginModalService: LoginModalService,
+                private loginService: LoginService,
+                private router: Router,
+                private cookieService: CookieService,
                 private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
+        const token = this.cookieService.get('social-authentication');
+        if (token) {
+            this.loginService.loginWithToken(token, false).then(() => {
+                this.cookieService.remove('social-authentication');
+                this.router.navigate(['']);
+            }, () => {
+                this.router.navigate(['social-register'], {queryParams: {'success': 'false'}});
+            });
+        }
         this.principal.identity().then((account) => {
             this.account = account;
         });

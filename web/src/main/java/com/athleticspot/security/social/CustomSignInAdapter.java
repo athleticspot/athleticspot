@@ -54,7 +54,7 @@ public class CustomSignInAdapter implements SignInAdapter {
             log.error("Social authentication error");
             log.trace("Authentication exception trace: {}", ae);
         }
-        return "//";
+        return "/#/";
     }
 
     private Cookie getSocialAuthenticationCookie(String token) {
