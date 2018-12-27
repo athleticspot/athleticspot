@@ -38,7 +38,10 @@ public class CustomSignInAdapter implements SignInAdapter {
     @Override
     public String signIn(String userId, Connection<?> connection, NativeWebRequest request) {
         try {
-            log.info("Custom Adapter!!!!!!!!!");
+            log.debug("User id: {}", userId);
+            log.debug("Connection: {}", connection);
+            log.debug("request: {}", request);
+
             UserDetails user = userDetailsService.loadUserByUsername(userId);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 user,
@@ -51,7 +54,7 @@ public class CustomSignInAdapter implements SignInAdapter {
             ServletWebRequest servletWebRequest = (ServletWebRequest) request;
             servletWebRequest.getResponse().addCookie(getSocialAuthenticationCookie(jwt));
         } catch (AuthenticationException ae) {
-            log.error("Social authentication error");
+            log.error("Social authentication error", ae);
             log.trace("Authentication exception trace: {}", ae);
         }
         return "/#/";

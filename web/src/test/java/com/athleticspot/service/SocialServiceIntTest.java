@@ -5,6 +5,7 @@ import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
 import com.athleticspot.repository.AuthorityRepository;
 import com.athleticspot.repository.UserRepository;
+import com.athleticspot.training.domain.AthleteRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,6 +48,9 @@ public class SocialServiceIntTest {
     @Mock
     private ConnectionRepository mockConnectionRepository;
 
+    @Mock
+    private AthleteRepository athleteRepository;
+
     private SocialService socialService;
 
     @Before
@@ -57,7 +61,7 @@ public class SocialServiceIntTest {
         when(mockUsersConnectionRepository.createConnectionRepository(anyString())).thenReturn(mockConnectionRepository);
 
         socialService = new SocialService(mockUsersConnectionRepository, authorityRepository,
-            passwordEncoder, userRepository, mockMailService);
+            passwordEncoder, userRepository, mockMailService, athleteRepository);
     }
 
     @Test

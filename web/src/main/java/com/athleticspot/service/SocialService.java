@@ -4,6 +4,8 @@ import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
 import com.athleticspot.repository.AuthorityRepository;
 import com.athleticspot.repository.UserRepository;
+import com.athleticspot.training.domain.Athlete;
+import com.athleticspot.training.domain.AthleteRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -38,15 +40,18 @@ public class SocialService {
 
     private final MailService mailService;
 
+    private final AthleteRepository athleteRepository;
+
     public SocialService(UsersConnectionRepository usersConnectionRepository, AuthorityRepository authorityRepository,
                          PasswordEncoder passwordEncoder, UserRepository userRepository,
-                         MailService mailService) {
+                         MailService mailService, AthleteRepository athleteRepository) {
 
         this.usersConnectionRepository = usersConnectionRepository;
         this.authorityRepository = authorityRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.mailService = mailService;
+        this.athleteRepository = athleteRepository;
     }
 
     public void deleteUserSocialConnection(String login) {
@@ -58,7 +63,7 @@ public class SocialService {
             });
     }
 
-    public void createSocialUser(Connection<?> connection, String langKey) {
+    public User createSocialUser(Connection<?> connection, String langKey) {
         if (connection == null) {
             log.error("Cannot create social user because connection is null");
             throw new IllegalArgumentException("Connection cannot be null");
@@ -93,6 +98,7 @@ public class SocialService {
         createSocialConnection(user.getLogin(), connection);
 
         mailService.sendSocialRegistrationValidationEmail(user, providerId);
+        return user;
     }
 
     private User createUserIfNotExist(UserProfile userProfile, String langKey, String providerId, String imageUrl) {
@@ -133,7 +139,11 @@ public class SocialService {
         newUser.setLangKey(langKey);
         newUser.setImageUrl(imageUrl);
 
-        return userRepository.save(newUser);
+        userRepository.saveAndFlush(newUser);
+        athleteRepository.save(new Athlete()
+            .setName(newUser.getLogin())
+            .setUser(newUser));
+        return newUser;
     }
 
     /**
