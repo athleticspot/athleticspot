@@ -10,16 +10,6 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-eureka:
-    instance:
-        hostname: athleticspot.herokuapp.com
-        non-secure-port: 80
-        prefer-ip-address: false
-    client:
-        enabled: false
-        service-url:
-            defaultZone: ${JHIPSTER_REGISTRY_URL}/eureka/
-
 spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
@@ -28,3 +18,8 @@ spring:
         password: ${JDBC_DATABASE_PASSWORD}
         hikari:
             maximumPoolSize: 8
+    data:
+        neo4j:
+            uri: ${GRAPHENEDB_BOLT_URL}
+            username: ${GRAPHENEDB_BOLT_USER}
+            password: ${GRAPHENEDB_BOLT_PASSWORD}
