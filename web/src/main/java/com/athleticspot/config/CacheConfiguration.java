@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableCaching
 @AutoConfigureAfter(value = {MetricsConfiguration.class})
-@AutoConfigureBefore(value = {WebConfigurer.class, DatabaseConfiguration.class})
+@AutoConfigureBefore(value = {WebConfigurer.class, LiquibaseConfiguration.class})
 public class CacheConfiguration {
 
     private final javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration;

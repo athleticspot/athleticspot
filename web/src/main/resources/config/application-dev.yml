@@ -14,6 +14,11 @@
 # ===================================================================
 
 spring:
+    data:
+        neo4j:
+            username: neo4j
+            password: secret
+            uri: bolt://localhost:7687
     profiles:
         active: dev
         include: swagger

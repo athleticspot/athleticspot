@@ -13,24 +13,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
-@EnableJpaRepositories({"com.athleticspot.repository", "com.athleticspot.training.domain"})
-@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
-@EnableTransactionManagement
-public class DatabaseConfiguration {
 
-    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
+public class LiquibaseConfiguration {
+
+    private final Logger log = LoggerFactory.getLogger(LiquibaseConfiguration.class);
 
     private final Environment env;
 
-    public DatabaseConfiguration(Environment env) {
+    public LiquibaseConfiguration(Environment env) {
         this.env = env;
     }
 
