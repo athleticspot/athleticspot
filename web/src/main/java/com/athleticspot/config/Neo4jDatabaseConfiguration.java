@@ -15,17 +15,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("com.company.project.domain.graph")
+@ComponentScan("com.athleticspot.tracker.domain.graph")
 @EnableNeo4jRepositories(
     sessionFactoryRef = "neo4jSessionFactory",
     transactionManagerRef = "graphTransactionManager",
-    basePackages = "com.company.project.repository.graph")
+    basePackages = "com.athleticspot.tracker.domain.graph")
 public class Neo4jDatabaseConfiguration {
 
     @Bean(name = "neo4jSessionFactory")
     public SessionFactory graphSessionFactory(org.neo4j.ogm.config.Configuration configuration) {
         return new SessionFactory(configuration,
-            "com.company.project.domain.graph");
+            "com.athleticspot.tracker.domain.graph");
     }
 
     @Bean
@@ -33,7 +33,7 @@ public class Neo4jDatabaseConfiguration {
         return properties.createConfiguration();
     }
 
-    @Bean
+    @Bean(name = "graphTransactionManager")
     public Neo4jTransactionManager transactionManager(SessionFactory sessionFactory,
                                                       ObjectProvider<TransactionManagerCustomizers> transactionManagerCustomizers) {
         return customize(new Neo4jTransactionManager(sessionFactory),
