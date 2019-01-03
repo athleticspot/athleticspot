@@ -5,10 +5,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -20,6 +17,8 @@ public class Athlete {
     @Id
     @GeneratedValue
     private Long id;
+
+    private UUID athleteUUID;
 
     private String name;
 
@@ -97,5 +96,9 @@ public class Athlete {
 
     public Long getId() {
         return id;
+    }
+
+    public UUID getAthleteUUID() {
+        return athleteUUID;
     }
 }
