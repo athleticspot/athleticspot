@@ -1,5 +1,6 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
@@ -9,10 +10,17 @@ import java.util.Objects;
 @Embeddable
 public class NutritionInformation {
 
-    boolean meatAcceptance;
-    boolean dairyedAcceptance;
-    boolean allergies;
-    boolean foodIntolerance;
+    @Column(name = "meat_acceptance")
+    private boolean meatAcceptance;
+
+    @Column(name = "dairyed_acceptance")
+    private boolean dairyedAcceptance;
+
+    @Column(name = "allergies")
+    private boolean allergies;
+
+    @Column(name = "food_intolerance")
+    private boolean foodIntolerance;
 
     protected NutritionInformation() {
         super();

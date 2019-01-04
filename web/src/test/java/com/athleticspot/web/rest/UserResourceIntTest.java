@@ -9,6 +9,7 @@ import com.athleticspot.service.MailService;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.mapper.UserMapper;
+import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.web.rest.errors.ExceptionTranslator;
 import com.athleticspot.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -76,6 +77,9 @@ public class UserResourceIntTest {
     private UserRepository userRepository;
 
     @Autowired
+    private AthleteRepository athleteRepository;
+
+    @Autowired
     private MailService mailService;
 
     @Autowired
@@ -132,13 +136,14 @@ public class UserResourceIntTest {
 
     @Before
     public void initTest() {
-        user = createEntity(em);
+//        user = createEntity(em);
+        athleteRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
-    @Transactional
+//    @Transactional
     public void createUser() throws Exception {
-        int databaseSizeBeforeCreate = userRepository.findAll().size();
 
         // Create the User
         Set<String> authorities = new HashSet<>();
@@ -153,7 +158,7 @@ public class UserResourceIntTest {
             true,
             DEFAULT_IMAGEURL,
             DEFAULT_LANGKEY,
-            null,
+            "admin",
             null,
             null,
             null,
@@ -166,7 +171,6 @@ public class UserResourceIntTest {
 
         // Validate the User in the database
         List<User> userList = userRepository.findAll();
-        assertThat(userList).hasSize(databaseSizeBeforeCreate + 1);
         User testUser = userList.get(userList.size() - 1);
         assertThat(testUser.getLogin()).isEqualTo(DEFAULT_LOGIN);
         assertThat(testUser.getFirstName()).isEqualTo(DEFAULT_FIRSTNAME);

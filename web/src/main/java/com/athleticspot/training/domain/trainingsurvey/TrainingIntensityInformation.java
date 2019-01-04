@@ -20,15 +20,15 @@ public class TrainingIntensityInformation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(name = "day_of_week")
     @Enumerated
     private DayOfWeek dayOfWeek;
 
-    @Column
+    @Column(name = "training_intensity")
     @Enumerated
     private TrainingIntensity trainingIntensity;
 
-    @Column
+    @Column(name = "training_survey_id")
     private Long trainingSurveyId;
 
     public TrainingIntensityInformation(

@@ -18,10 +18,10 @@ public class TrainingHistory extends IdentifiedDomainObject {
     @Column
     private Distance distance;
 
-    @Column
+    @Column(name = "personal_record")
     private Duration personalRecord;
 
-    @Column
+    @Column(name = "last_time")
     private Duration lastTime;
 
     @Embedded

@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.application.impl;
 
 import com.athleticspot.tracker.application.ApplicationEvents;
+import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import com.athleticspot.tracker.domain.model.Timeline;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
@@ -15,9 +16,13 @@ public class ApplicationEventsImpl implements ApplicationEvents {
 
     private final GenericSportActivityRepository genericSportActivityRepository;
 
+    private final GraphAthleteRepository graphAthleteRepository;
+
     @Autowired
-    public ApplicationEventsImpl(GenericSportActivityRepository genericSportActivityRepository) {
+    public ApplicationEventsImpl(GenericSportActivityRepository genericSportActivityRepository,
+                                 GraphAthleteRepository graphAthleteRepository) {
         this.genericSportActivityRepository = genericSportActivityRepository;
+        this.graphAthleteRepository = graphAthleteRepository;
     }
 
     @Override

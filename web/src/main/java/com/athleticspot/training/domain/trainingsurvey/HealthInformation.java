@@ -10,16 +10,16 @@ import java.util.Objects;
 @Embeddable
 public class HealthInformation {
 
-    @Column(nullable = false)
+    @Column(name = "health_contraindications", nullable = false)
     private boolean healthContraindications;
 
-    @Column(nullable = false)
+    @Column(name = "stress_test", nullable = false)
     private boolean stressTest;
 
-    @Column(nullable = false)
+    @Column(name = "blood_test", nullable = false)
     private boolean bloodTest;
 
-    @Column(nullable = false)
+    @Column(name = "hours_of_sleep", nullable = false)
     private Double hoursOfSleep;
 
     protected HealthInformation() {

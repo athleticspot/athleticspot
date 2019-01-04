@@ -1,5 +1,6 @@
 package com.athleticspot.service;
 
+import com.athleticspot.common.domain.event.AthleteCreatedEvent;
 import com.athleticspot.config.Constants;
 import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
@@ -13,6 +14,7 @@ import com.athleticspot.training.domain.Athlete;
 import com.athleticspot.training.domain.AthleteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -47,16 +49,20 @@ public class UserService {
 
     private final AthleteRepository athleteRepository;
 
+    private final ApplicationEventPublisher applicationEventPublisher;
+
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
                        SocialService socialService,
                        AuthorityRepository authorityRepository,
-                       AthleteRepository athleteRepository) {
+                       AthleteRepository athleteRepository,
+                       ApplicationEventPublisher applicationEventPublisher) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.socialService = socialService;
         this.authorityRepository = authorityRepository;
         this.athleteRepository = athleteRepository;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -131,6 +137,7 @@ public class UserService {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setImageUrl(userDTO.getImageUrl());
+        user.setCreatedBy(userDTO.getCreatedBy());
         if (userDTO.getLangKey() == null) {
             user.setLangKey("en"); // default language
         } else {
@@ -148,14 +155,16 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
         user.setActivated(true);
-        userRepository.saveAndFlush(user);
-        athleteRepository.save(new Athlete()
+        userRepository.save(user);
+        final Athlete savedAthlete = athleteRepository.save(new Athlete()
             .setName(user.getLogin())
             .setUser(user)
         );
         log.debug("Created Information for User: {}", user);
+        applicationEventPublisher.publishEvent(new AthleteCreatedEvent(savedAthlete));
         return user;
     }
+
 
     /**
      * Update basic information (first name, last name, email, language) for the current user.

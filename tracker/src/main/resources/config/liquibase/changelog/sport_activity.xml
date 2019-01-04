@@ -27,7 +27,7 @@
             <column name="type" type="varchar(200)">
                 <constraints nullable="false"/>
             </column>
-            <column name="duration" type="numeric">
+            <column name="duration" type="int">
                 <constraints nullable="false"/>
             </column>
             <column name="distance" type="varchar(200)"/>
