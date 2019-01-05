@@ -137,7 +137,6 @@ public class UserService {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setImageUrl(userDTO.getImageUrl());
-        user.setCreatedBy(userDTO.getCreatedBy());
         if (userDTO.getLangKey() == null) {
             user.setLangKey("en"); // default language
         } else {

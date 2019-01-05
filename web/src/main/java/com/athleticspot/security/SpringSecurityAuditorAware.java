@@ -1,5 +1,6 @@
 package com.athleticspot.security;
 
+import com.athleticspot.config.Constants;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +14,8 @@ public class SpringSecurityAuditorAware implements AuditorAware<String> {
     @Override
     public Optional<String> getCurrentAuditor() {
         String userName = SecurityUtils.getCurrentUserLogin();
-//        return userName != null ? userName : Constants.SYSTEM_ACCOUNT;
-        return Optional.ofNullable(userName);
+        userName = userName != null ? userName : Constants.SYSTEM_ACCOUNT;
+        return Optional.of(userName);
     }
 
-//    @Override
-//    public String getCurrentAuditor() {
-//    }
 }

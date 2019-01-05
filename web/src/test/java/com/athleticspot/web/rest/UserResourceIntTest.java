@@ -136,13 +136,13 @@ public class UserResourceIntTest {
 
     @Before
     public void initTest() {
-//        user = createEntity(em);
+        user = createEntity(em);
         athleteRepository.deleteAll();
         userRepository.deleteAll();
     }
 
     @Test
-//    @Transactional
+    @Transactional
     public void createUser() throws Exception {
 
         // Create the User
@@ -158,7 +158,7 @@ public class UserResourceIntTest {
             true,
             DEFAULT_IMAGEURL,
             DEFAULT_LANGKEY,
-            "admin",
+            null,
             null,
             null,
             null,
