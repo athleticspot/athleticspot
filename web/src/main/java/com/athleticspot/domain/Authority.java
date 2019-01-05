@@ -1,8 +1,5 @@
 package com.athleticspot.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,8 +27,9 @@ public class Authority implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public Authority setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override

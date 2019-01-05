@@ -9,6 +9,7 @@ import com.athleticspot.security.AuthoritiesConstants;
 import com.athleticspot.service.MailService;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
+import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.web.rest.vm.KeyAndPasswordVM;
 import com.athleticspot.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -58,6 +59,9 @@ public class AccountResourceIntTest {
     private UserRepository userRepository;
 
     @Autowired
+    private AthleteRepository athleteRepository;
+
+    @Autowired
     private AuthorityRepository authorityRepository;
 
     @Autowired
@@ -92,6 +96,9 @@ public class AccountResourceIntTest {
             .setMessageConverters(httpMessageConverters)
             .build();
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountUserMockResource).build();
+
+        athleteRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -410,7 +417,7 @@ public class AccountResourceIntTest {
         Optional<User> userDup = userRepository.findOneByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
         assertThat(userDup.get().getAuthorities()).hasSize(1)
-            .containsExactly(authorityRepository.getOne(AuthoritiesConstants.USER));
+            .containsOnly(new Authority().setName(AuthoritiesConstants.USER));
     }
 
     @Test
