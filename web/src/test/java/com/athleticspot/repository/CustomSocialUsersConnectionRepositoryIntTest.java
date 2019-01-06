@@ -239,7 +239,7 @@ public class CustomSocialUsersConnectionRepositoryIntTest {
         insertFacebookConnection2();
         assertThat(socialUserConnectionRepository.getOne(facebookConnection.getId())).isNotNull();
         connectionRepository.removeConnections("facebook");
-        assertThat(socialUserConnectionRepository.getOne(facebookConnection.getId())).isNull();
+        assertThat(socialUserConnectionRepository.findById(facebookConnection.getId())).isEmpty();
     }
 
     @Test
@@ -252,7 +252,7 @@ public class CustomSocialUsersConnectionRepositoryIntTest {
         SocialUserConnection facebookConnection = insertFacebookConnection();
         assertThat(socialUserConnectionRepository.getOne(facebookConnection.getId())).isNotNull();
         connectionRepository.removeConnection(new ConnectionKey("facebook", "9"));
-        assertThat(socialUserConnectionRepository.getOne(facebookConnection.getId())).isNull();
+        assertThat(socialUserConnectionRepository.findById(facebookConnection.getId())).isEmpty();
     }
 
     @Test
