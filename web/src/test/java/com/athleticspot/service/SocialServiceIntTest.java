@@ -39,6 +39,9 @@ public class SocialServiceIntTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AthleteRepository athleteRepository;
+
     @Mock
     private MailService mockMailService;
 
@@ -48,8 +51,8 @@ public class SocialServiceIntTest {
     @Mock
     private ConnectionRepository mockConnectionRepository;
 
-    @Mock
-    private AthleteRepository athleteRepository;
+//    @Mock
+//    private AthleteRepository athleteRepository;
 
     private SocialService socialService;
 
@@ -62,6 +65,9 @@ public class SocialServiceIntTest {
 
         socialService = new SocialService(mockUsersConnectionRepository, authorityRepository,
             passwordEncoder, userRepository, mockMailService, athleteRepository);
+
+        athleteRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -191,8 +197,7 @@ public class SocialServiceIntTest {
         User user = userRepository.findOneByEmail("mail@mail.com").get();
         assertThat(user.getActivated()).isEqualTo(true);
         assertThat(user.getPassword()).isNotEmpty();
-        Authority userAuthority = authorityRepository.getOne("ROLE_USER");
-        assertThat(user.getAuthorities().toArray()).containsExactly(userAuthority);
+        assertThat(user.getAuthorities()).containsOnly(new Authority().setName("ROLE_USER"));
 
         // Teardown
         userRepository.delete(user);
