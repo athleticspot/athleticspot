@@ -6,6 +6,7 @@ import com.athleticspot.domain.User;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.util.RandomUtil;
+import com.athleticspot.training.domain.AthleteRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
 @Transactional
-public class TrackerUserServiceIntTest {
+public class UserServiceInTest {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
+    private AthleteRepository athleteRepository;
+
+    @Autowired
     private UserService userService;
+
 
     @Test
     public void assertThatUserMustExistToResetPassword() {

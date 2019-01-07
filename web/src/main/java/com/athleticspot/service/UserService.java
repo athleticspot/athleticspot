@@ -260,6 +260,7 @@ public class UserService {
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.DAYS));
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
+            athleteRepository.deleteByUserId(user.getId());
             userRepository.delete(user);
         }
     }

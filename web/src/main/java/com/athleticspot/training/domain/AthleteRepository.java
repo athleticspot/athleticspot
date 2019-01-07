@@ -11,4 +11,6 @@ public interface AthleteRepository extends JpaRepository<Athlete, Long> {
 
     Optional<Athlete> findByUserId(Long userId);
 
+    void deleteByUserId(Long id);
+
 }
