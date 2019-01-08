@@ -36,7 +36,8 @@ public class TrainingSurveyApplicationService {
     public TrainingSurveyApplicationService(TrainingSurveyRepository trainingSurveyRepository,
                                             UserService userService,
                                             AthleteRepository athleteRepository,
-                                            TrainingHistoryRepository trainingHistoryRepository, TrainingSurveyProvider trainingSurveyProvider) {
+                                            TrainingHistoryRepository trainingHistoryRepository,
+                                            TrainingSurveyProvider trainingSurveyProvider) {
         this.trainingSurveyRepository = trainingSurveyRepository;
         this.userService = userService;
         this.athleteRepository = athleteRepository;
@@ -164,7 +165,8 @@ public class TrainingSurveyApplicationService {
         final User userWithAuthorities = userService.getUserWithAuthorities();
         Optional.ofNullable(userWithAuthorities)
             .orElseThrow(() -> new IllegalArgumentException("User cannot be empty"));
-        final Optional<Athlete> athlete = athleteRepository.findByUserId(userWithAuthorities.getId());
-        return athlete.get();
+        final Long userId = userWithAuthorities.getId();
+        final Optional<Athlete> athlete = athleteRepository.findByUserId(userId);
+        return athlete.orElseThrow(() -> new IllegalStateException("There is not athlete saved for user id: " + userId));
     }
 }
