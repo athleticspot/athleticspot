@@ -137,10 +137,4 @@ public class AuditResourceIntTest {
             .andExpect(header().string("X-Total-Count", "0"));
     }
 
-    @Test
-    public void getNonExistingAudit() throws Exception {
-        // Get the audit
-        restAuditMockMvc.perform(get("/management/audits/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
-    }
 }

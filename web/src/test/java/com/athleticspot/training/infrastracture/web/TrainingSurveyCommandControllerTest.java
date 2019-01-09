@@ -22,6 +22,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -85,6 +86,7 @@ public class TrainingSurveyCommandControllerTest {
 
     @Test
     @WithMockUser("user")
+    @Transactional
     public void testCreatingAndAssigningTrainingSurveyToAthlete() throws Exception {
 
         this.mockMvc.perform(

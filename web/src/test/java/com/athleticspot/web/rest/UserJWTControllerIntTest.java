@@ -4,6 +4,8 @@ import com.athleticspot.AthleticspotApp;
 import com.athleticspot.domain.User;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.jwt.TokenProvider;
+import com.athleticspot.training.domain.AthleteRepository;
+import com.athleticspot.web.rest.errors.ExceptionTranslator;
 import com.athleticspot.web.rest.vm.LoginVM;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Test class for the UserJWTController REST controller.
@@ -40,7 +42,13 @@ public class UserJWTControllerIntTest {
     private UserRepository userRepository;
 
     @Autowired
+    private AthleteRepository athleteRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ExceptionTranslator exceptionTranslator;
 
     private MockMvc mockMvc;
 
@@ -48,7 +56,10 @@ public class UserJWTControllerIntTest {
     public void setup() {
         UserJWTController userJWTController = new UserJWTController(tokenProvider, authenticationManager);
         this.mockMvc = MockMvcBuilders.standaloneSetup(userJWTController)
+            .setControllerAdvice(exceptionTranslator)
             .build();
+        athleteRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -70,7 +81,9 @@ public class UserJWTControllerIntTest {
             .content(TestUtil.convertObjectToJsonBytes(login)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id_token").isString())
-            .andExpect(jsonPath("$.id_token").isNotEmpty());
+            .andExpect(jsonPath("$.id_token").isNotEmpty())
+            .andExpect(header().string("Authorization", not(nullValue())))
+            .andExpect(header().string("Authorization", not(isEmptyString())));
     }
 
     @Test
@@ -93,7 +106,9 @@ public class UserJWTControllerIntTest {
             .content(TestUtil.convertObjectToJsonBytes(login)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id_token").isString())
-            .andExpect(jsonPath("$.id_token").isNotEmpty());
+            .andExpect(jsonPath("$.id_token").isNotEmpty())
+            .andExpect(header().string("Authorization", not(nullValue())))
+            .andExpect(header().string("Authorization", not(isEmptyString())));
     }
 
     @Test
@@ -106,6 +121,7 @@ public class UserJWTControllerIntTest {
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(login)))
             .andExpect(status().isUnauthorized())
-            .andExpect(jsonPath("$.id_token").doesNotExist());
+            .andExpect(jsonPath("$.id_token").doesNotExist())
+            .andExpect(header().doesNotExist("Authorization"));
     }
 }
