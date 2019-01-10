@@ -43,7 +43,8 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleAthleteCreatedEvent(AthleteCreatedEvent athleteCreatedEvent){
-        System.out.println(athleteCreatedEvent);
+        System.out.println(athleteCreatedEvent.getSource());
+
     }
 
 

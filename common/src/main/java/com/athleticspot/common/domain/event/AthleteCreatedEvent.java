@@ -1,5 +1,6 @@
 package com.athleticspot.common.domain.event;
 
+import com.athleticspot.common.infrastracture.dto.AthleteCreatedEventDto;
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -7,7 +8,7 @@ import org.springframework.context.ApplicationEvent;
  */
 public class AthleteCreatedEvent extends ApplicationEvent {
 
-    public AthleteCreatedEvent(Object source) {
+    public AthleteCreatedEvent(AthleteCreatedEventDto source) {
         super(source);
     }
 }
