@@ -4,8 +4,12 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.springframework.util.Assert;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -18,12 +22,19 @@ public class Athlete {
     @GeneratedValue
     private Long id;
 
-    private UUID athleteUUID;
+    private String athleteUUID;
 
     private String name;
 
-    private Athlete() {
+    private Athlete(){
         // Empty constructor required as of Neo4j API 2.0.5
+    }
+
+    public Athlete(String name, String athleteUuid) {
+        Assert.notNull(name, "Athlete name cannot be null");
+        Assert.notNull(athleteUuid, "Athlete UUID cannot be null");
+        this.name = name;
+        this.athleteUUID = athleteUuid;
     }
 
     public Athlete(String name) {
@@ -98,7 +109,7 @@ public class Athlete {
         return id;
     }
 
-    public UUID getAthleteUUID() {
+    public String getAthleteUUID() {
         return athleteUUID;
     }
 }

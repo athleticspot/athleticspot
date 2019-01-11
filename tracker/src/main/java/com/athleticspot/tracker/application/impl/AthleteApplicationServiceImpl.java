@@ -6,6 +6,7 @@ import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Tomasz Kasprzycki
  */
 @Service
+@Transactional
 public class AthleteApplicationServiceImpl implements AthleteApplicationService {
 
     private final GraphAthleteRepository graphAthleteRepository;
@@ -37,15 +39,21 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
         );
     }
 
-    public List<Athlete> findAllFallowedAthletes(String athleteUuid){
+    public List<Athlete> findAllFallowedAthletes(String athleteUuid) {
         return graphAthleteRepository.findAllFallowedAthletes(athleteUuid);
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void handleAthleteCreatedEvent(AthleteCreatedEvent athleteCreatedEvent){
-        System.out.println(athleteCreatedEvent.getSource());
-
+    public void handleAthleteCreatedEvent(AthleteCreatedEvent athleteCreatedEvent) {
+        createAthlete(
+            athleteCreatedEvent.getContent().getName(),
+            athleteCreatedEvent.getContent().getUuid()
+        );
     }
 
+    public void createAthlete(String username, String uuid) {
+        Athlete athlete = new Athlete(username, uuid);
+        graphAthleteRepository.save(athlete);
+    }
 
 }

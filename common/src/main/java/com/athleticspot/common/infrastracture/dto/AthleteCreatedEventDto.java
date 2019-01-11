@@ -14,6 +14,13 @@ public class AthleteCreatedEventDto {
         this.uuid = uuid;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
 
     @Override
     public String toString() {
