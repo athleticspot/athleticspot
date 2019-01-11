@@ -1,6 +1,7 @@
 package com.athleticspot.service;
 
 import com.athleticspot.common.domain.event.AthleteCreatedEvent;
+import com.athleticspot.common.infrastracture.dto.AthleteCreatedEventDto;
 import com.athleticspot.config.Constants;
 import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
@@ -160,7 +161,10 @@ public class UserService {
             .setUser(user)
         );
         log.debug("Created Information for User: {}", user);
-        applicationEventPublisher.publishEvent(new AthleteCreatedEvent(savedAthlete));
+        applicationEventPublisher.publishEvent(new AthleteCreatedEvent(new AthleteCreatedEventDto(
+            savedAthlete.getName(),
+            savedAthlete.athleteId().uuid()
+        )));
         return user;
     }
 
