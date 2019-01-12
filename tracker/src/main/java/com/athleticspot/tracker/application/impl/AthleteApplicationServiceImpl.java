@@ -43,6 +43,12 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
         return graphAthleteRepository.findAllFallowedAthletes(athleteUuid);
     }
 
+
+    public void createAthlete(String username, String uuid) {
+        Athlete athlete = new Athlete(username, uuid);
+        graphAthleteRepository.save(athlete);
+    }
+
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleAthleteCreatedEvent(AthleteCreatedEvent athleteCreatedEvent) {
         createAthlete(
@@ -50,10 +56,4 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
             athleteCreatedEvent.getContent().getUuid()
         );
     }
-
-    public void createAthlete(String username, String uuid) {
-        Athlete athlete = new Athlete(username, uuid);
-        graphAthleteRepository.save(athlete);
-    }
-
 }

@@ -29,7 +29,7 @@ import java.util.UUID;
  * @author Tomasz Kasprzycki
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = TrackerApplication.class)
+@SpringBootTest(classes = TrackerApplication.class, properties="spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.data.neo4j.Neo4jDataAutoConfiguration")
 @Transactional
 public class TimelineIT {
 

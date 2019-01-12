@@ -46,7 +46,7 @@ public class Athlete {
      * to ignore the direction of the relationship.
      * https://dzone.com/articles/modelling-data-neo4j
      */
-    @Relationship(type = "FALLOW", direction = Relationship.UNDIRECTED)
+    @Relationship(type = "FALLOW", direction = Relationship.OUTGOING)
     public Set<Athlete> friends;
 
     @Relationship(type = "PERFORM", direction = Relationship.UNDIRECTED)

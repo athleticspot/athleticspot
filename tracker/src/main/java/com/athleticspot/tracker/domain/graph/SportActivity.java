@@ -22,6 +22,10 @@ public class SportActivity {
 
     private String type;
 
+    private SportActivity() {
+        //neo4j purpose
+    }
+
     private SportActivity(Date date, String type) {
         this.date = date;
         this.type = type;

@@ -42,13 +42,17 @@ public class TimelineServiceTest {
         stravaApplicationService = Mockito.mock(StravaApplicationServiceImpl.class);
         applicationEvents = Mockito.mock(ApplicationEvents.class);
         manualSportActivityRepository = Mockito.mock(ManualSportActivityRepository.class);
-        timelineService = new TimelineServiceImpl(timelineRepository, trackerUserService, manualSportActivityRepository, applicationEvents, stravaApplicationService);
+        timelineService = new TimelineServiceImpl(timelineRepository,
+            trackerUserService,
+            manualSportActivityRepository,
+            applicationEvents,
+            stravaApplicationService);
 
         timeline = TestTimelineFactory.testTimeline(expectedTimelineId);
     }
 
     @Test
-    public void polilineTest(){
+    public void polilineTest() {
         final EncodedPolyline encodedPolyline = new EncodedPolyline("qsnpH__{xBsBj@k@b\\~@`N|Hh[fOd]yNk\\wIq_@i@sSbAuS");
         encodedPolyline.decodePath();
 
