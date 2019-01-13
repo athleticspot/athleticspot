@@ -17,5 +17,5 @@ public interface GraphAthleteRepository extends CrudRepository<Athlete, Long> {
     @Query("Match (a:Athlete)-[:FALLOW]->(b:Athlete) return b")
     List<Athlete> findAllFallowedAthletes(String athleteUuid);
 
-    Page<Athlete> findByName(String name, PageRequest pageRequest);
+    Page<Athlete> findByNameIgnoreCase(String name, PageRequest pageRequest);
 }
