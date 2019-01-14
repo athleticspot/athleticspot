@@ -1,4 +1,4 @@
-Spring boot migration
+Spring boot maven
 
 # athleticspot
 Pipeline
