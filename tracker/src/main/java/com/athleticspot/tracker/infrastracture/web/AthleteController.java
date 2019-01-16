@@ -39,7 +39,7 @@ public class AthleteController {
                                                  @RequestParam int pageSize) {
 
         final Page<Athlete> athletesPaged =
-            graphAthleteRepository.findByName(
+            graphAthleteRepository.findAthletes(
                 name,
                 PageRequest.of(page, pageSize)
             );
