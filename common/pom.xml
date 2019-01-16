@@ -20,28 +20,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <jhipster.server.version>1.1.7</jhipster.server.version>
-
-        <!-- Dependency versions -->
-        <jhipster-dependencies.version>2.0.28</jhipster-dependencies.version>
-        <!-- The spring-boot version should match the one managed by
-        https://mvnrepository.com/artifact/io.github.jhipster/jhipster-dependencies/${jhipster-dependencies.version} -->
-        <spring-boot.version>2.0.6.RELEASE</spring-boot.version>
-
     </properties>
-
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.github.jhipster</groupId>
-                <artifactId>jhipster-dependencies</artifactId>
-                <version>${jhipster-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- jhipster-needle-maven-add-dependency-management -->
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
