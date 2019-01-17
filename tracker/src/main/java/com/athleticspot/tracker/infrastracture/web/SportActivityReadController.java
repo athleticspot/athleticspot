@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.infrastracture.web;
 
 import com.athleticspot.common.SecurityUtils;
+import com.athleticspot.tracker.domain.graph.SportActivityRepository;
 import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.infrastracture.assembler.SportActivityAssemblerImpl;
@@ -31,11 +32,15 @@ public class SportActivityReadController {
 
     private final SportActivityAssemblerImpl sportActivityAssemblerImpl;
 
+    private final SportActivityRepository sportActivityRepository;
+
     @Autowired
     public SportActivityReadController(GenericSportActivityRepository genericSportActivityRepository,
-                                       SportActivityAssemblerImpl sportActivityAssemblerImpl) {
+                                       SportActivityAssemblerImpl sportActivityAssemblerImpl,
+                                       SportActivityRepository sportActivityRepository) {
         this.genericSportActivityRepository = genericSportActivityRepository;
         this.sportActivityAssemblerImpl = sportActivityAssemblerImpl;
+        this.sportActivityRepository = sportActivityRepository;
     }
 
     @GetMapping
@@ -53,5 +58,10 @@ public class SportActivityReadController {
         return sportActivityAssemblerImpl
             .pageAssemble(genericSportActivityRepository
                 .findByUsername(SecurityUtils.getCurrentUserLogin(), new PageRequest(page, pageSize, Sort.Direction.DESC, "startDate")));
+    }
+
+    public Page<com.athleticspot.tracker.domain.graph.SportActivity> getTimelineSportActivities(@RequestParam int page,
+                                                                                                @RequestParam int pageSize){
+        return sportActivityRepository.findActivitiesByUserId(PageRequest.of(page,pageSize));
     }
 }

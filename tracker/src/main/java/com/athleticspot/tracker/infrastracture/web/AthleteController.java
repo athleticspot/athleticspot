@@ -37,7 +37,6 @@ public class AthleteController {
     public Page<AthleteOutDto> searchForAthletes(@RequestParam String name,
                                                  @RequestParam int page,
                                                  @RequestParam int pageSize) {
-
         final Page<Athlete> athletesPaged =
             graphAthleteRepository.findAthletes(
                 name,
