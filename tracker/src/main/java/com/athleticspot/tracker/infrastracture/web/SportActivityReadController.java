@@ -51,7 +51,7 @@ public class SportActivityReadController {
             .collect(Collectors.toList());
     }
 
-    @GetMapping(value = "/paged")
+//    @GetMapping(value = "/paged")
     public Page<SportActivity> getUserSportActivities(
         @RequestParam(name = "page") int page,
         @RequestParam(name = "pageSize") int pageSize) {
@@ -60,8 +60,11 @@ public class SportActivityReadController {
                 .findByUsername(SecurityUtils.getCurrentUserLogin(), new PageRequest(page, pageSize, Sort.Direction.DESC, "startDate")));
     }
 
-    public Page<com.athleticspot.tracker.domain.graph.SportActivity> getTimelineSportActivities(@RequestParam int page,
+    @GetMapping(value = "/paged")
+    public Page<com.athleticspot.tracker.domain.graph.SportActivity> getTimelineSportActivities(@RequestParam String name,
+                                                                                                @RequestParam int page,
                                                                                                 @RequestParam int pageSize){
-        return sportActivityRepository.findActivitiesByUserId(PageRequest.of(page,pageSize));
+
+        return sportActivityRepository.findActivitiesByUserId(name, PageRequest.of(page,pageSize));
     }
 }
