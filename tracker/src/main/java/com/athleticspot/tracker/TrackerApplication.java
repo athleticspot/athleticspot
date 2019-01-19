@@ -13,8 +13,8 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 public class TrackerApplication {
 
-    @Autowired
-    GenericSportActivityRepository genericSportActivityRepository;
+//    @Autowired
+//    GenericSportActivityRepository genericSportActivityRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(TrackerApplication.class, args);
