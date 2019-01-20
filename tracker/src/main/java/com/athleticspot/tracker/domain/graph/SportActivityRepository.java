@@ -6,6 +6,8 @@ import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 /**
  * @author Tomasz Kasprzycki
  */
@@ -27,5 +29,6 @@ public interface SportActivityRepository extends CrudRepository<SportActivity, L
             "UNWIND allRows as row " +
             "return count(row)")
     Page<SportActivity> findActivitiesByUserId(@Param("name") String name, Pageable pageable);
+
 
 }

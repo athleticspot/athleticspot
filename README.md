@@ -1,7 +1,7 @@
 Spring boot maven
 
 # athleticspot
-Pipeline
+Pipelineins
 This application was generated using JHipster 4.5.6, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.5.6](https://jhipster.github.io/documentation-archive/v4.5.6).
 
 ## Development
