@@ -123,6 +123,45 @@ public class SportActivity {
         return new SportActivity(trackerSource, sportActivityType, trackingSystemId, externalId, distance, startDate, startLatlng);
     }
 
+    private SportActivity(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, List<LatLng> coordinates) {
+        this.userUuid = userUuid;
+        this.firstAndLastName = firstAndLastName;
+        this.trackerSource = trackerSource;
+        this.sportActivityType = sportActivityType;
+        this.trackingSystemId = trackingSystemId;
+        this.externalId = externalId;
+        this.title = title;
+        this.description = description;
+        this.distance = distance;
+        this.movingTime = movingTime;
+        this.elapsedTime = elapsedTime;
+        this.totalElevationGain = totalElevationGain;
+        this.startDate = startDate;
+        this.timezone = timezone;
+        this.privateActivity = privateActivity;
+        this.gearId = gearId;
+        this.averageSpeed = averageSpeed;
+        this.maxSpeed = maxSpeed;
+        this.averageCadence = averageCadence;
+        this.averageTemp = averageTemp;
+        this.averageWatts = averageWatts;
+        this.weightedAverageWatts = weightedAverageWatts;
+        this.kilojoules = kilojoules;
+        this.deviceWatts = deviceWatts;
+        this.hasHeartrate = hasHeartrate;
+        this.averageHeartrate = averageHeartrate;
+        this.maxHeartrate = maxHeartrate;
+        this.calories = calories;
+        this.startLatitude = startLatitude;
+        this.startLongitude = startLongitude;
+        this.deviceName = deviceName;
+        this.coordinates = coordinates;
+    }
+
+    public static SportActivity create(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, List<LatLng> coordinates) {
+        return new SportActivity(userUuid, firstAndLastName, trackerSource, sportActivityType, trackingSystemId, externalId, title, description, distance, movingTime, elapsedTime, totalElevationGain, startDate, timezone, privateActivity, gearId, averageSpeed, maxSpeed, averageCadence, averageTemp, averageWatts, weightedAverageWatts, kilojoules, deviceWatts, hasHeartrate, averageHeartrate, maxHeartrate, calories, startLatitude, startLongitude, deviceName, coordinates);
+    }
+
     public Long getId() {
         return id;
     }
