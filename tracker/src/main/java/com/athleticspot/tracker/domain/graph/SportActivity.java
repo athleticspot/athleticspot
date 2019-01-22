@@ -3,14 +3,11 @@ package com.athleticspot.tracker.domain.graph;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.google.maps.model.LatLng;
-import javastrava.api.v3.model.*;
-import javastrava.api.v3.model.reference.StravaWorkoutType;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -104,26 +101,8 @@ public class SportActivity {
         //neo4j purpose
     }
 
-    private SportActivity(TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, Float distance, LocalDateTime startDate, StravaMapPoint startLatlng) {
-        this.trackerSource = trackerSource;
-        this.sportActivityType = sportActivityType;
-        this.trackingSystemId = trackingSystemId;
-        this.externalId = externalId;
-        this.distance = distance;
-        this.startDate = startDate;
-    }
 
-    public static SportActivity create(TrackerSource trackerSource,
-                                       SportActivityType sportActivityType,
-                                       Integer trackingSystemId,
-                                       String externalId,
-                                       Float distance,
-                                       LocalDateTime startDate,
-                                       StravaMapPoint startLatlng) {
-        return new SportActivity(trackerSource, sportActivityType, trackingSystemId, externalId, distance, startDate, startLatlng);
-    }
-
-    private SportActivity(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, List<LatLng> coordinates) {
+    SportActivity(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, List<LatLng> coordinates) {
         this.userUuid = userUuid;
         this.firstAndLastName = firstAndLastName;
         this.trackerSource = trackerSource;
@@ -158,12 +137,16 @@ public class SportActivity {
         this.coordinates = coordinates;
     }
 
-    public static SportActivity create(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, List<LatLng> coordinates) {
-        return new SportActivity(userUuid, firstAndLastName, trackerSource, sportActivityType, trackingSystemId, externalId, title, description, distance, movingTime, elapsedTime, totalElevationGain, startDate, timezone, privateActivity, gearId, averageSpeed, maxSpeed, averageCadence, averageTemp, averageWatts, weightedAverageWatts, kilojoules, deviceWatts, hasHeartrate, averageHeartrate, maxHeartrate, calories, startLatitude, startLongitude, deviceName, coordinates);
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public String getUserUuid() {
+        return userUuid;
+    }
+
+    public String getFirstAndLastName() {
+        return firstAndLastName;
     }
 
     public TrackerSource getTrackerSource() {
@@ -182,13 +165,107 @@ public class SportActivity {
         return externalId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public Float getDistance() {
         return distance;
+    }
+
+    public Integer getMovingTime() {
+        return movingTime;
+    }
+
+    public Integer getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public Float getTotalElevationGain() {
+        return totalElevationGain;
     }
 
     public LocalDateTime getStartDate() {
         return startDate;
     }
 
+    public String getTimezone() {
+        return timezone;
+    }
 
+    public Boolean getPrivateActivity() {
+        return privateActivity;
+    }
+
+    public String getGearId() {
+        return gearId;
+    }
+
+    public Float getAverageSpeed() {
+        return averageSpeed;
+    }
+
+    public Float getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public Float getAverageCadence() {
+        return averageCadence;
+    }
+
+    public Float getAverageTemp() {
+        return averageTemp;
+    }
+
+    public Float getAverageWatts() {
+        return averageWatts;
+    }
+
+    public Float getWeightedAverageWatts() {
+        return weightedAverageWatts;
+    }
+
+    public Float getKilojoules() {
+        return kilojoules;
+    }
+
+    public Boolean getDeviceWatts() {
+        return deviceWatts;
+    }
+
+    public Boolean getHasHeartrate() {
+        return hasHeartrate;
+    }
+
+    public Float getAverageHeartrate() {
+        return averageHeartrate;
+    }
+
+    public Integer getMaxHeartrate() {
+        return maxHeartrate;
+    }
+
+    public Float getCalories() {
+        return calories;
+    }
+
+    public Float getStartLatitude() {
+        return startLatitude;
+    }
+
+    public Float getStartLongitude() {
+        return startLongitude;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public List<LatLng> getCoordinates() {
+        return coordinates;
+    }
 }
