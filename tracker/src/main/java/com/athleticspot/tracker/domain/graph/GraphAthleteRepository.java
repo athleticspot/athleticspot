@@ -15,10 +15,10 @@ import java.util.List;
 @Repository
 public interface GraphAthleteRepository extends Neo4jRepository<Athlete, Long> {
 
-    @Query("Match (a:Athlete)-[:FALLOW]->(b:Athlete) return b")
-    List<Athlete> findAllFallowedAthletes(String athleteUuid);
+    @Query("Match (a:Athlete{athleteUUID:{athleteUuid}})-[:FALLOW]->(b:Athlete) return b")
+    List<Athlete> findAllFallowedAthletes(@Param("athleteUuid") String athleteUuid);
 
     @Query(value = "Match (n:Athlete) where toLower(n.name) contains toLower({name}) return n",
-    countQuery = "Match (n:Athlete) where toLower(n.name) contains toLower({name}) return count(*)")
+        countQuery = "Match (n:Athlete) where toLower(n.name) contains toLower({name}) return count(*)")
     Page<Athlete> findAthletes(@Param("name") String name, Pageable pageRequest);
 }

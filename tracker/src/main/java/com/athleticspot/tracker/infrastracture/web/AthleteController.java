@@ -1,9 +1,11 @@
 package com.athleticspot.tracker.infrastracture.web;
 
+import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.impl.AthleteApplicationServiceImpl;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import com.athleticspot.tracker.infrastracture.assembler.AthleteAssembler;
+import com.athleticspot.tracker.infrastracture.web.dto.in.AthleteInDto;
 import com.athleticspot.tracker.infrastracture.web.dto.in.FallowInDto;
 import com.athleticspot.tracker.infrastracture.web.dto.out.AthleteOutDto;
 import org.springframework.data.domain.Page;
@@ -33,6 +35,11 @@ public class AthleteController {
         this.athleteAssembler = athleteAssembler;
     }
 
+    @PostMapping
+    public void createAthlete(@RequestBody AthleteInDto athleteInDto){
+        graphAthleteRepository.save(new Athlete(athleteInDto.getName(), athleteInDto.getAthleteUuid()));
+    }
+
     @GetMapping
     public Page<AthleteOutDto> searchForAthletes(@RequestParam String name,
                                                  @RequestParam int page,
@@ -46,8 +53,8 @@ public class AthleteController {
     }
 
     @GetMapping("/fallowed")
-    public List<Athlete> findAllFallowedAthletes() {
-        return athleteApplicationServiceImpl.findAllFallowedAthletes("");
+    public List<Athlete> findAllFallowedAthletes(@RequestParam String athleteUuid) {
+        return athleteApplicationServiceImpl.findAllFallowedAthletes(athleteUuid);
     }
 
     @PutMapping(value = "/fallow")

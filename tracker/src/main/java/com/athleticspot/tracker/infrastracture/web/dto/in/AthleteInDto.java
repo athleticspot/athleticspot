@@ -13,7 +13,13 @@ public class AthleteInDto {
 
     private String name;
 
+    private String athleteUuid;
+
     public String getName() {
         return this.name;
+    }
+
+    public String getAthleteUuid() {
+        return athleteUuid;
     }
 }

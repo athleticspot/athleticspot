@@ -1,8 +1,6 @@
 package com.athleticspot.tracker.acceptance;
 
-import com.athleticspot.tracker.domain.graph.SportActivity;
-import com.athleticspot.tracker.domain.graph.SportActivityBuilder;
-import com.athleticspot.tracker.domain.graph.SportActivityRepository;
+import com.athleticspot.tracker.domain.graph.*;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.google.common.collect.Lists;
@@ -27,6 +25,9 @@ public class SportActivityAcceptanceTest {
 
     @Autowired
     SportActivityRepository sportActivityRepository;
+
+    @Autowired
+    GraphAthleteRepository graphAthleteRepository;
 
     @Test
     public void sportActivitySanityTest() {
@@ -126,5 +127,26 @@ public class SportActivityAcceptanceTest {
         Assertions.assertThat(savedSportActivity.getStartLongitude()).isEqualTo(startLongitude);
         Assertions.assertThat(savedSportActivity.getDeviceName()).isEqualTo(deviceName);
         Assertions.assertThat(savedSportActivity.getCoordinates()).isEqualTo(coordinates);
+    }
+
+    @Test
+    public void fetchingSportActivitiesAssignedToTheUser(){
+        Athlete athlete = new Athlete("Olek", UUID.randomUUID().toString());
+
+        athlete.perform(new SportActivityBuilder(
+            TrackerSource.STRAVA,
+            SportActivityType.RUN,
+            123,
+            "externalId",
+            12.1F,
+            LocalDateTime.now(),
+            "title",
+            "123",
+            "Tomasz Kasprzycki"
+        ).createSportActivity());
+
+        graphAthleteRepository.save(athlete);
+
+        Assertions.assertThat(sportActivityRepository.findAll()).hasSize(1);
     }
 }

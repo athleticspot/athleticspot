@@ -27,4 +27,20 @@ public class AthleteRepositoryTest {
         graphAthleteRepository.save(athlete);
         Assertions.assertThat(graphAthleteRepository.findAll()).hasSize(1);
     }
+
+    @Test
+    public void fallowAthleteTest(){
+        final String tomekAthleteUuid = UUID.randomUUID().toString();
+        Athlete tomek = new Athlete("Tomek", tomekAthleteUuid);
+        final String olekAthleteUuid = UUID.randomUUID().toString();
+        Athlete olek = new Athlete("Olek", olekAthleteUuid);
+        tomek.fallow(olek);
+
+        graphAthleteRepository.save(tomek);
+        graphAthleteRepository.save(olek);
+
+        Assertions.assertThat(graphAthleteRepository.findAll()).hasSize(2);
+        Assertions.assertThat(graphAthleteRepository.findAllFallowedAthletes(tomekAthleteUuid)).hasSize(1);
+
+    }
 }
