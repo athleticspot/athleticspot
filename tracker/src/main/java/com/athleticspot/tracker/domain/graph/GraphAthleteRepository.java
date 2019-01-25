@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Tomasz Kasprzycki
@@ -21,4 +22,6 @@ public interface GraphAthleteRepository extends Neo4jRepository<Athlete, Long> {
     @Query(value = "Match (n:Athlete) where toLower(n.name) contains toLower({name}) return n",
         countQuery = "Match (n:Athlete) where toLower(n.name) contains toLower({name}) return count(*)")
     Page<Athlete> findAthletes(@Param("name") String name, Pageable pageRequest);
+
+    Optional<Athlete> findByName(String name);
 }

@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Tomasz Kasprzycki
@@ -36,8 +37,8 @@ public class AthleteController {
     }
 
     @PostMapping
-    public void createAthlete(@RequestBody AthleteInDto athleteInDto){
-        graphAthleteRepository.save(new Athlete(athleteInDto.getName(), athleteInDto.getAthleteUuid()));
+    public void createAthlete(@RequestBody AthleteInDto athleteInDto) {
+        graphAthleteRepository.save(new Athlete(athleteInDto.getName(), athleteInDto.getAthleteUuid(), athleteInDto.getFirstAndLastName()));
     }
 
     @GetMapping
@@ -53,8 +54,13 @@ public class AthleteController {
     }
 
     @GetMapping("/fallowed")
-    public List<Athlete> findAllFallowedAthletes(@RequestParam String athleteUuid) {
-        return athleteApplicationServiceImpl.findAllFallowedAthletes(athleteUuid);
+    public List<Athlete> findAllFallowedAthletes() {
+        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
+        final Optional<Athlete> athleteOptional = graphAthleteRepository.findByName(currentUserLogin);
+
+        return athleteApplicationServiceImpl.findAllFallowedAthletes(
+            athleteOptional.orElseThrow(() -> new IllegalStateException("Athlete doesn't exist with name: " + currentUserLogin))
+                .getAthleteUUID());
     }
 
     @PutMapping(value = "/fallow")

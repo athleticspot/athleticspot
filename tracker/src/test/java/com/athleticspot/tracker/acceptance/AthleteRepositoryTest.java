@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -23,7 +24,7 @@ public class AthleteRepositoryTest {
 
     @Test
     public void neo4jSanityTest(){
-        Athlete athlete = new Athlete("Aleksander", UUID.randomUUID().toString());
+        Athlete athlete = new Athlete("Aleksander", UUID.randomUUID().toString(), "");
         graphAthleteRepository.save(athlete);
         Assertions.assertThat(graphAthleteRepository.findAll()).hasSize(1);
     }
@@ -31,9 +32,9 @@ public class AthleteRepositoryTest {
     @Test
     public void fallowAthleteTest(){
         final String tomekAthleteUuid = UUID.randomUUID().toString();
-        Athlete tomek = new Athlete("Tomek", tomekAthleteUuid);
+        Athlete tomek = new Athlete("Tomek", tomekAthleteUuid, "Tom Kasp");
         final String olekAthleteUuid = UUID.randomUUID().toString();
-        Athlete olek = new Athlete("Olek", olekAthleteUuid);
+        Athlete olek = new Athlete("Olek", olekAthleteUuid, "Olek Kasp");
         tomek.fallow(olek);
 
         graphAthleteRepository.save(tomek);
@@ -41,6 +42,16 @@ public class AthleteRepositoryTest {
 
         Assertions.assertThat(graphAthleteRepository.findAll()).hasSize(2);
         Assertions.assertThat(graphAthleteRepository.findAllFallowedAthletes(tomekAthleteUuid)).hasSize(1);
+
+    }
+
+    @Test
+    public void findAthleteByNameTest(){
+        Athlete tomek = new Athlete("Tomek", UUID.randomUUID().toString(), "Tom Kasp");
+        graphAthleteRepository.save(tomek);
+
+        final Optional<Athlete> byName = graphAthleteRepository.findByName(tomek.getName());
+        Assertions.assertThat(byName.get()).isEqualTo(tomek);
 
     }
 }

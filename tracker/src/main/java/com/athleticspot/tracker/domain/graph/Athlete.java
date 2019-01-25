@@ -6,10 +6,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.springframework.util.Assert;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -26,15 +23,18 @@ public class Athlete {
 
     private String name;
 
+    private String firstAndLastName;
+
     private Athlete(){
         // Empty constructor required as of Neo4j API 2.0.5
     }
 
-    public Athlete(String name, String athleteUuid) {
+    public Athlete(String name, String athleteUuid, String firstAndLastName) {
         Assert.notNull(name, "Athlete name cannot be null");
         Assert.notNull(athleteUuid, "Athlete UUID cannot be null");
         this.name = name;
         this.athleteUUID = athleteUuid;
+        this.firstAndLastName = firstAndLastName;
     }
 
     public Athlete(String name) {
@@ -101,6 +101,19 @@ public class Athlete {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Athlete)) return false;
+        Athlete athlete = (Athlete) o;
+        return athleteUUID.equals(athlete.athleteUUID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(athleteUUID);
+    }
+
     public String getName() {
         return name;
     }
@@ -111,5 +124,9 @@ public class Athlete {
 
     public String getAthleteUUID() {
         return athleteUUID;
+    }
+
+    public String getFirstAndLastName() {
+        return firstAndLastName;
     }
 }

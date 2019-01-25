@@ -45,7 +45,7 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
 
 
     public void createAthlete(String username, String uuid) {
-        Athlete athlete = new Athlete(username, uuid);
+        Athlete athlete = new Athlete(username, uuid, "");
         graphAthleteRepository.save(athlete);
     }
 

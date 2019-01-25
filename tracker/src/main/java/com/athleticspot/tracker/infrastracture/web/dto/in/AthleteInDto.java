@@ -15,11 +15,17 @@ public class AthleteInDto {
 
     private String athleteUuid;
 
+    private String firstAndLastName;
+
     public String getName() {
         return this.name;
     }
 
     public String getAthleteUuid() {
         return athleteUuid;
+    }
+
+    public String getFirstAndLastName() {
+        return firstAndLastName;
     }
 }

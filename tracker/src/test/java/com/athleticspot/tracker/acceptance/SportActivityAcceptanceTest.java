@@ -131,7 +131,7 @@ public class SportActivityAcceptanceTest {
 
     @Test
     public void fetchingSportActivitiesAssignedToTheUser(){
-        Athlete athlete = new Athlete("Olek", UUID.randomUUID().toString());
+        Athlete athlete = new Athlete("Olek", UUID.randomUUID().toString(), "");
 
         athlete.perform(new SportActivityBuilder(
             TrackerSource.STRAVA,
