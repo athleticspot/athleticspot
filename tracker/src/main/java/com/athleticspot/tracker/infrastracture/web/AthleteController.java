@@ -57,16 +57,16 @@ public class AthleteController {
     public List<Athlete> findAllFallowedAthletes() {
         final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
         final Optional<Athlete> athleteOptional = graphAthleteRepository.findByName(currentUserLogin);
-
         return athleteApplicationServiceImpl.findAllFallowedAthletes(
-            athleteOptional.orElseThrow(() -> new IllegalStateException("Athlete doesn't exist with name: " + currentUserLogin))
-                .getAthleteUUID());
+            athleteOptional
+                .orElseThrow(() -> new IllegalStateException("Athlete doesn't exist with name: " + currentUserLogin))
+                .getAthleteUUID()
+        );
     }
 
     @PutMapping(value = "/fallow")
     public void fallow(@RequestBody FallowInDto fallowInDto) {
         athleteApplicationServiceImpl.fallow(
-            Long.parseLong(fallowInDto.getAthleteId()),
             Long.parseLong(fallowInDto.getAthleteIdToFallow())
         );
     }

@@ -5,6 +5,6 @@ package com.athleticspot.tracker.application;
  */
 public interface AthleteApplicationService {
 
-    void fallow(Long athleteId, Long athleteIdToFallow);
+    void fallow(Long athleteIdToFallow);
 
 }

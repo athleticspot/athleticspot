@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.springframework.util.Assert;
 
+import javax.persistence.Column;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,8 +20,13 @@ public class Athlete {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String athleteUUID;
 
+    /**
+     * User login
+     */
+    @Column(unique = true)
     private String name;
 
     private String firstAndLastName;
