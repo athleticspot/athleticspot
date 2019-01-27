@@ -6,6 +6,8 @@ import com.athleticspot.tracker.application.AthleteApplicationService;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
@@ -36,9 +38,29 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
                 .findById(athleteIdToFallow)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("Athlete with give athleteId: %s doesn't exists", athleteIdToFallow)));
         final Optional<Athlete> athleteOptional = graphAthleteRepository.findByName(currentUserLogin);
-        athleteOptional.orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)))
-            .fallow(athleteToFallow);
+        final Athlete athlete = athleteOptional.orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
+        athlete.fallow(athleteToFallow);
+        graphAthleteRepository.save(athlete);
 
+    }
+
+    @Override
+    public void unfallow(Long athleteIdToUnfallow) {
+        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
+        final Athlete athleteToUnfallow =
+            graphAthleteRepository
+                .findById(athleteIdToUnfallow)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Athlete with give athleteId: %s doesn't exists", athleteIdToUnfallow)));
+        final Optional<Athlete> athleteOptional = graphAthleteRepository.findByName(currentUserLogin);
+        final Athlete athlete = athleteOptional.orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
+        athlete.unfallow(athleteToUnfallow);
+        graphAthleteRepository.save(athlete);
+
+    }
+
+    @Override
+    public Page<Athlete> findAllFallowedAthletesPaged(String athleteUUID, PageRequest pageRequest) {
+        return graphAthleteRepository.findAllFallowedAthletesPaged(athleteUUID, pageRequest);
     }
 
     public List<Athlete> findAllFallowedAthletes(String athleteUuid) {

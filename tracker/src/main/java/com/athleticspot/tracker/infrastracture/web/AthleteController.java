@@ -64,16 +64,27 @@ public class AthleteController {
         );
     }
 
-    @PutMapping(value = "/fallow")
-    public void fallow(@RequestBody FallowInDto fallowInDto) {
-        athleteApplicationServiceImpl.fallow(
-            Long.parseLong(fallowInDto.getAthleteIdToFallow())
+    @GetMapping("/fallowed/paged")
+    public Page<Athlete> findAllFallowedAthletesPaged(@RequestParam int page,
+                                                      @RequestParam int pageSize) {
+        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
+        final Optional<Athlete> athleteOptional = graphAthleteRepository.findByName(currentUserLogin);
+        return athleteApplicationServiceImpl.findAllFallowedAthletesPaged(
+            athleteOptional
+                .orElseThrow(() -> new IllegalStateException("Athlete doesn't exist with name: " + currentUserLogin))
+                .getAthleteUUID(),
+            PageRequest.of(page, pageSize)
         );
     }
 
-    @DeleteMapping(value = "/fallow")
-    public void unfallow() {
+    @PutMapping(value = "/fallow")
+    public void fallow(@RequestBody FallowInDto fallowInDto) {
+        athleteApplicationServiceImpl.fallow(fallowInDto.getAthleteId());
+    }
 
+    @DeleteMapping(value = "/fallow")
+    public void unfallow(FallowInDto unfallowInDto) {
+        athleteApplicationServiceImpl.unfallow(unfallowInDto.getAthleteId());
     }
 
 

@@ -9,16 +9,16 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
         fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class FallowInDto {
 
-    private String athleteIdToFallow;
+    private Long athleteId;
 
-    public String getAthleteIdToFallow() {
-        return athleteIdToFallow;
+    public Long getAthleteId() {
+        return athleteId;
     }
 
     @Override
     public String toString() {
         return "FallowInDto{" +
-                ", athleteIdToFallow='" + athleteIdToFallow + '\'' +
+                ", athleteId='" + athleteId + '\'' +
                 '}';
     }
 }

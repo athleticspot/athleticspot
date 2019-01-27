@@ -31,12 +31,12 @@ public class SportActivityAssemblerImpl {
         this.userRepository = userRepository;
     }
 
-    public Page<SportActivity> pageAssemble(Page<SportActivityGenericType> sportActivityPage) {
-
-        return sportActivityPage.map(sportActivityGenericType ->
-            assembleSportActivity(sportActivityGenericType)
-        );
-    }
+//    public Page<SportActivity> pageAssemble(Page<SportActivityGenericType> sportActivityPage) {
+//
+//        return sportActivityPage.map(sportActivityGenericType ->
+//            assembleSportActivity(sportActivityGenericType)
+//        );
+//    }
 
     public SportActivity assembleSportActivity(SportActivityGenericType sportActivityGenericType) {
         SportActivity sportActivity;
@@ -59,4 +59,28 @@ public class SportActivityAssemblerImpl {
         return username;
     }
 
+    public Page<SportActivity> pageAssemble(Page<com.athleticspot.tracker.domain.graph.SportActivity> graphSportActivity) {
+        return graphSportActivity.map(this::assembleSportActivity);
+    }
+
+    private SportActivity assembleSportActivity(com.athleticspot.tracker.domain.graph.SportActivity graphSportActivity) {
+
+        return new SportActivity()
+            .setId(graphSportActivity.getId().toString())
+            .setUsername(graphSportActivity.getFirstAndLastName())
+            .setUserUuid(graphSportActivity.getUserUuid())
+            .setTrackerSource(graphSportActivity.getTrackerSource())
+            .setSportActivityType(graphSportActivity.getSportActivityType())
+            .setTitle(graphSportActivity.getTitle())
+            .setDescription(graphSportActivity.getDescription())
+            .setDistance(graphSportActivity.getDistance())
+            .setMovingTime(graphSportActivity.getMovingTime())
+            .setElapsedTime(graphSportActivity.getElapsedTime())
+            .setStartDate(graphSportActivity.getStartDate())
+            .setAverageSpeed(graphSportActivity.getAverageSpeed())
+            .setMaxSpeed(graphSportActivity.getMaxSpeed())
+            .setAverageTemp(graphSportActivity.getAverageTemp())
+            .setCalories(graphSportActivity.getCalories())
+            .setCoordinates(graphSportActivity.getCoordinates());
+    }
 }

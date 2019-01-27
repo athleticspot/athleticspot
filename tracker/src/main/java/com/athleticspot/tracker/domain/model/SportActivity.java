@@ -21,6 +21,8 @@ public class SportActivity extends SportActivityGenericType {
 
     private String firstAndLastName;
 
+    private String userUuid;
+
     private TrackerSource trackerSource;
 
     private SportActivityType sportActivityType;
@@ -135,6 +137,12 @@ public class SportActivity extends SportActivityGenericType {
         this.id = id;
         return this;
     }
+
+    public SportActivity setUserUuid(final String userUuid) {
+        this.userUuid = userUuid;
+        return this;
+    }
+
 
     public SportActivity setFirstAndLastName(final String firstAndLastName) {
         this.firstAndLastName = firstAndLastName;

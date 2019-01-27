@@ -52,19 +52,18 @@ public class SportActivityReadController {
     }
 
 //    @GetMapping(value = "/paged")
-    public Page<SportActivity> getUserSportActivities(
-        @RequestParam(name = "page") int page,
-        @RequestParam(name = "pageSize") int pageSize) {
-        return sportActivityAssemblerImpl
-            .pageAssemble(genericSportActivityRepository
-                .findByUsername(SecurityUtils.getCurrentUserLogin(), new PageRequest(page, pageSize, Sort.Direction.DESC, "startDate")));
-    }
+//    public Page<SportActivity> getUserSportActivities(
+//        @RequestParam(name = "page") int page,
+//        @RequestParam(name = "pageSize") int pageSize) {
+//        return sportActivityAssemblerImpl
+//            .pageAssemble(genericSportActivityRepository
+//                .findByUsername(SecurityUtils.getCurrentUserLogin(), new PageRequest(page, pageSize, Sort.Direction.DESC, "startDate")));
+//    }
 
     @GetMapping(value = "/paged")
-    public Page<com.athleticspot.tracker.domain.graph.SportActivity> getTimelineSportActivities(@RequestParam String name,
-                                                                                                @RequestParam int page,
-                                                                                                @RequestParam int pageSize){
-
-        return sportActivityRepository.findActivitiesByUserId(name, PageRequest.of(page,pageSize));
+    public Page<SportActivity> getTimelineSportActivities(@RequestParam String name,
+                                                          @RequestParam int page,
+                                                          @RequestParam int pageSize){
+        return sportActivityAssemblerImpl.pageAssemble(sportActivityRepository.findActivitiesByUserId(name, PageRequest.of(page,pageSize)));
     }
 }

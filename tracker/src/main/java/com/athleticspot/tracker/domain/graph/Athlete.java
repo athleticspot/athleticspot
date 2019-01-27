@@ -53,10 +53,10 @@ public class Athlete {
      * https://dzone.com/articles/modelling-data-neo4j
      */
     @Relationship(type = "FALLOW", direction = Relationship.OUTGOING)
-    public Set<Athlete> friends;
+    private Set<Athlete> friends;
 
     @Relationship(type = "PERFORM", direction = Relationship.UNDIRECTED)
-    public Set<SportActivity> sportActivities;
+    private Set<SportActivity> sportActivities;
 
 
     public void fallow(Athlete person) {
@@ -134,5 +134,13 @@ public class Athlete {
 
     public String getFirstAndLastName() {
         return firstAndLastName;
+    }
+
+    public Set<Athlete> getFriends() {
+        return friends;
+    }
+
+    public Set<SportActivity> getSportActivities() {
+        return sportActivities;
     }
 }

@@ -54,4 +54,5 @@ public class AthleteRepositoryTest {
         Assertions.assertThat(byName.get()).isEqualTo(tomek);
 
     }
+
 }

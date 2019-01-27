@@ -117,16 +117,21 @@ public class UserService {
         newUser.setImageUrl(imageUrl);
         newUser.setLangKey(langKey);
         // new user is not active
-        newUser.setActivated(false);
+        newUser.setActivated(true);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.saveAndFlush(newUser);
-        athleteRepository.save(new Athlete()
+        final Athlete savedAthlete = athleteRepository.save(new Athlete()
             .setName(newUser.getLogin())
             .setUser(newUser)
         );
+        applicationEventPublisher.publishEvent(new AthleteCreatedEvent(new AthleteCreatedEventDto(
+            savedAthlete.getName(),
+            savedAthlete.athleteId().uuid(),
+            savedAthlete.getUser().getFirstName() + " " + savedAthlete.getUser().getLastName()
+        )));
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -163,7 +168,8 @@ public class UserService {
         log.debug("Created Information for User: {}", user);
         applicationEventPublisher.publishEvent(new AthleteCreatedEvent(new AthleteCreatedEventDto(
             savedAthlete.getName(),
-            savedAthlete.athleteId().uuid()
+            savedAthlete.athleteId().uuid(),
+            savedAthlete.getUser().getFirstName() + " " + savedAthlete.getUser().getLastName()
         )));
         return user;
     }

@@ -63,4 +63,8 @@ public class Athlete extends IdentifiedDomainObject {
         this.user = user;
         return this;
     }
+
+    public User getUser() {
+        return user;
+    }
 }
