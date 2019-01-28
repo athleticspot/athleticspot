@@ -41,7 +41,6 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
         final Athlete athlete = athleteOptional.orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
         athlete.fallow(athleteToFallow);
         graphAthleteRepository.save(athlete);
-
     }
 
     @Override
@@ -55,7 +54,6 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
         final Athlete athlete = athleteOptional.orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
         athlete.unfallow(athleteToUnfallow);
         graphAthleteRepository.save(athlete);
-
     }
 
     @Override
@@ -66,7 +64,6 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
     public List<Athlete> findAllFallowedAthletes(String athleteUuid) {
         return graphAthleteRepository.findAllFallowedAthletes(athleteUuid);
     }
-
 
     public void createAthlete(String username, String uuid) {
         Athlete athlete = new Athlete(username, uuid, "");

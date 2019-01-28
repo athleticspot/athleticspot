@@ -1,6 +1,9 @@
 package com.athleticspot.tracker.infrastracture.web;
 
+import com.athleticspot.common.SecurityUtils;
+import com.athleticspot.tracker.application.SportActivityApplicationService;
 import com.athleticspot.tracker.application.TimelineService;
+import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.athleticspot.tracker.infrastracture.web.assembler.ManualSportActivityDetailsInDtoAssembler;
 import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
@@ -22,19 +25,24 @@ public class SportActivityWriteController {
 
     private final TimelineService timelineService;
 
+    private final SportActivityApplicationService sportActivityApplicationService;
+
     @Autowired
-    public SportActivityWriteController(TimelineService timelineService) {
+    public SportActivityWriteController(TimelineService timelineService, SportActivityApplicationService sportActivityApplicationService) {
         this.timelineService = timelineService;
+        this.sportActivityApplicationService = sportActivityApplicationService;
     }
 
     @PostMapping
     public void createSportActivity(@RequestBody @Valid SportActivityInDto sportActivityInDto) {
+
         LOG.info("Incoming request: {}", sportActivityInDto);
-        timelineService.addActivity(
-            ManualSportActivityDetailsInDtoAssembler.assemble(sportActivityInDto),
-            TrackerSource.MANUAL.getSource(),
-            sportActivityInDto.getStartDate()
-        );
+        sportActivityApplicationService.createSportActivity(sportActivityInDto);
+//        timelineService.addActivity(
+//            ManualSportActivityDetailsInDtoAssembler.assemble(sportActivityInDto),
+//            TrackerSource.MANUAL.getSource(),
+//            sportActivityInDto.getStartDate()
+//        );
     }
 
     @PutMapping
