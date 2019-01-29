@@ -8,4 +8,6 @@ import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 public interface SportActivityApplicationService {
 
     void createSportActivity(SportActivityInDto sportActivityInDto);
+
+    void deleteSportActivity(Long sportActivityId);
 }

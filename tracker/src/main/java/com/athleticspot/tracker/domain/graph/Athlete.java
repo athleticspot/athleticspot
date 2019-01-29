@@ -91,8 +91,14 @@ public class Athlete {
 
     }
 
-    public void fetchAllActivities() {
+    public Set<SportActivity> fetchAllActivities() {
+        return this.sportActivities;
+    }
 
+    public Optional<SportActivity> fetchActivity(Long sportActivityId) {
+        return this.sportActivities.stream()
+            .filter(sportActivity -> sportActivity.getId().equals(sportActivityId))
+            .findFirst();
     }
 
     public void fetchAllActivitiesPaged() {

@@ -14,28 +14,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class SportActivityApplicationServiceImpl implements SportActivityApplicationService {
 
-    private final SportActivityRepository sportActivityRepository;
-
     private final GraphAthleteRepository graphAthleteRepository;
 
+    private final SportActivityRepository sportActivityRepository;
+
     @Autowired
-    public SportActivityApplicationServiceImpl(SportActivityRepository sportActivityRepository,
-                                               GraphAthleteRepository graphAthleteRepository) {
-        this.sportActivityRepository = sportActivityRepository;
+    public SportActivityApplicationServiceImpl(GraphAthleteRepository graphAthleteRepository, SportActivityRepository sportActivityRepository) {
         this.graphAthleteRepository = graphAthleteRepository;
+        this.sportActivityRepository = sportActivityRepository;
     }
 
     @Override
     public void createSportActivity(SportActivityInDto sportActivityInDto) {
-        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
-        final Athlete athlete =
-            graphAthleteRepository.findByName(currentUserLogin)
-                .orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
+        Athlete athlete = getCurrentAthlete();
         SportActivity sportActivity =
             new SportActivityBuilder(
                 TrackerSource.valueOf(sportActivityInDto.getTrackerSource()),
                 sportActivityInDto.getSportActivityType(),
-                123,
+                0,
                 "0",
                 Float.parseFloat(sportActivityInDto.getDistance()),
                 sportActivityInDto.getStartDate(),
@@ -45,5 +41,20 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
             ).createSportActivity();
         athlete.perform(sportActivity);
         graphAthleteRepository.save(athlete);
+    }
+
+    @Override
+    public void deleteSportActivity(Long sportActivityId){
+            Athlete athlete = getCurrentAthlete();
+            athlete.fetchActivity(sportActivityId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("User with id: %s doesn't have sport activity with id: %s", athlete.getAthleteUUID(), sportActivityId)));
+
+
+    }
+
+    private Athlete getCurrentAthlete(){
+        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
+        return graphAthleteRepository.findByName(currentUserLogin)
+            .orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
     }
 }
