@@ -30,5 +30,8 @@ public interface SportActivityRepository extends CrudRepository<SportActivity, L
             "return count(row)")
     Page<SportActivity> findActivitiesByUserId(@Param("name") String name, Pageable pageable);
 
+    @Query(value = "MATCH (a:SportActivity) where id(a)={sportActivityId} DETACH DELETE a ")
+    void detachDeleteSportActivity(Long sportActivityId);
+
 
 }

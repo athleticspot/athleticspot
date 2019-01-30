@@ -44,15 +44,15 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
     }
 
     @Override
-    public void deleteSportActivity(Long sportActivityId){
-            Athlete athlete = getCurrentAthlete();
-            athlete.fetchActivity(sportActivityId)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("User with id: %s doesn't have sport activity with id: %s", athlete.getAthleteUUID(), sportActivityId)));
-
+    public void deleteSportActivity(Long sportActivityId) {
+        Athlete athlete = getCurrentAthlete();
+        athlete.fetchActivity(sportActivityId)
+            .orElseThrow(() -> new IllegalArgumentException(String.format("User with id: %s doesn't have sport activity with id: %s", athlete.getAthleteUUID(), sportActivityId)));
+        sportActivityRepository.detachDeleteSportActivity(sportActivityId);
 
     }
 
-    private Athlete getCurrentAthlete(){
+    private Athlete getCurrentAthlete() {
         final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
         return graphAthleteRepository.findByName(currentUserLogin)
             .orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
