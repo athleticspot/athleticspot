@@ -78,7 +78,7 @@ public class StravaAuthServiceTest {
         final StravaActivity[] stravaActivities = api.listAuthenticatedAthleteActivities(
             1537041488,
             0,
-            2,
+            1,
             50
         );
 
