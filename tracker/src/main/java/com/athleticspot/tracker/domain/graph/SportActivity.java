@@ -97,12 +97,15 @@ public class SportActivity {
 
     private List<LatLng> coordinates;
 
+    //Stores original value recived from sourced sport tracker.
+    private String originalActivity;
+
     private SportActivity() {
         //neo4j purpose
     }
 
 
-    SportActivity(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, List<LatLng> coordinates) {
+    SportActivity(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, List<LatLng> coordinates, String originalActivity) {
         this.userUuid = userUuid;
         this.firstAndLastName = firstAndLastName;
         this.trackerSource = trackerSource;
@@ -267,5 +270,9 @@ public class SportActivity {
 
     public List<LatLng> getCoordinates() {
         return coordinates;
+    }
+
+    public String getOriginalActivity() {
+        return originalActivity;
     }
 }

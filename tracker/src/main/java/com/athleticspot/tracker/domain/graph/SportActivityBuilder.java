@@ -3,6 +3,7 @@ package com.athleticspot.tracker.domain.graph;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.google.maps.model.LatLng;
+import javastrava.api.v3.model.StravaActivity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,6 +42,7 @@ public class SportActivityBuilder {
     private Float startLongitude;
     private String deviceName;
     private List<LatLng> coordinates;
+    private String originalActivity;
 
     public SportActivityBuilder(TrackerSource trackerSource,
                                 SportActivityType sportActivityType,
@@ -60,6 +62,23 @@ public class SportActivityBuilder {
         this.title = title;
         this.userUuid = userUuid;
         this.firstAndLastName = firstAndLastName;
+    }
+
+    public static SportActivityBuilder createFromStravaActivity(StravaActivity stravaActivity,
+                                                                String userUuid,
+                                                                String firstAndLastName) {
+        return new SportActivityBuilder(
+            TrackerSource.STRAVA,
+            SportActivityType.valueOf(stravaActivity.getType().name()),
+            1,
+            stravaActivity.getId().toString(),
+            stravaActivity.getDistance(),
+            stravaActivity.getStartDateLocal(),
+            stravaActivity.getName(),
+            userUuid,
+            firstAndLastName
+
+        );
     }
 
 
@@ -178,6 +197,12 @@ public class SportActivityBuilder {
         return this;
     }
 
+    public SportActivityBuilder setOriginalActivity(final String originalActivity) {
+        this.originalActivity = originalActivity;
+        return this;
+    }
+
+
     public SportActivity createSportActivity() {
         return new SportActivity(
             userUuid,
@@ -211,7 +236,8 @@ public class SportActivityBuilder {
             startLatitude,
             startLongitude,
             deviceName,
-            coordinates
+            coordinates,
+            originalActivity
         );
     }
 }
