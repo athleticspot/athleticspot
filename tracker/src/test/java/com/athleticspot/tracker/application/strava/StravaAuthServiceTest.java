@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
  * This test should be used only from local machine to test strava connection
  *
  * @author Tomasz Kasprzycki
- *
  */
 @Ignore()
 public class StravaAuthServiceTest {
@@ -37,7 +36,7 @@ public class StravaAuthServiceTest {
     TrackerUserService trackerUserService;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         trackerUserService = Mockito.mock(TrackerUserService.class);
         Mockito.when(trackerUserService.getStravaCode(Matchers.any())).thenReturn("0ad0891d82ad2aab88ec82cb59829bb4ebda78c6");
 
@@ -46,7 +45,7 @@ public class StravaAuthServiceTest {
     @Test
     public void getTokenTest() {
 
-        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null);
+        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null, null, null);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
@@ -64,7 +63,7 @@ public class StravaAuthServiceTest {
     @Test
     public void getActivitiesTest() {
 
-        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null);
+        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null, null, null);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
@@ -86,9 +85,11 @@ public class StravaAuthServiceTest {
     }
 
     @Test
-    public void pagingActivitiesTest(){
+    public void pagingActivitiesTest() {
         StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(
             trackerUserService,
+            null,
+            null,
             null,
             null);
 

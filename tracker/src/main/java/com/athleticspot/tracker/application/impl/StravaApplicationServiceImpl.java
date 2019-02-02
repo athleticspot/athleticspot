@@ -3,12 +3,17 @@ package com.athleticspot.tracker.application.impl;
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.StravaApplicationService;
 import com.athleticspot.tracker.application.TrackerUserService;
+import com.athleticspot.tracker.domain.graph.Athlete;
+import com.athleticspot.tracker.domain.graph.SportActivity;
+import com.athleticspot.tracker.domain.graph.SportActivityBuilder;
+import com.athleticspot.tracker.domain.graph.SportActivityRepository;
 import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import com.athleticspot.tracker.domain.model.SportActivityGenericType;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.strava.StravaSportActivity;
 import com.athleticspot.tracker.infrastracture.assembler.StravaActivityAssembler;
+import com.athleticspot.tracker.infrastracture.security.SecurityService;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;
 import javastrava.api.v3.model.StravaActivity;
@@ -42,6 +47,11 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     private final GenericSportActivityRepository genericSportActivityRepository;
 
+    private final SportActivityRepository sportActivityRepository;
+
+    private final SecurityService securityService;
+
+
     private final String clientSecret = "91ad80ea231505275883acc75d7c088c1cf07773";
 
     //This is application ID assign to athleticspot application
@@ -55,10 +65,12 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
     @Autowired
     public StravaApplicationServiceImpl(TrackerUserService trackerUserService,
                                         StravaActivityAssembler stravaActivityAssembler,
-                                        GenericSportActivityRepository genericSportActivityRepository) {
+                                        GenericSportActivityRepository genericSportActivityRepository, SportActivityRepository sportActivityRepository, SecurityService securityService) {
         this.trackerUserService = trackerUserService;
         this.stravaActivityAssembler = stravaActivityAssembler;
         this.genericSportActivityRepository = genericSportActivityRepository;
+        this.sportActivityRepository = sportActivityRepository;
+        this.securityService = securityService;
     }
 
     public String clientSecret() {
@@ -83,7 +95,6 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             1,
             200
         );
-
         return stravaActivityAssembler.buildFromStravaActivities(Arrays.asList(stravaActivities));
     }
 
@@ -112,10 +123,21 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             if (stravaActivities.length == 0) {
                 break;
             }
-            final List<SportActivityGenericType> ts = Arrays.stream(stravaActivities)
-                .map(stravaActivity -> StravaSportActivity.creteFromStravaActivity(stravaActivity, username))
+//            final List<SportActivityGenericType> ts =
+//                Arrays.stream(stravaActivities)
+//                    .map(stravaActivity -> StravaSportActivity.creteFromStravaActivity(stravaActivity, username))
+//                    .collect(Collectors.toList());
+
+            Athlete athlete =
+                securityService.getAthleteByName(username)
+                    .orElseThrow(() -> new IllegalStateException(String.format("There is no athlete with name %s", username)));
+            final List<SportActivity> sportActivities = Arrays.stream(stravaActivities)
+                .map(stravaActivity -> SportActivityBuilder.createFromStravaActivity(stravaActivity, athlete.getAthleteUUID(), athlete.getFirstAndLastName()).createSportActivity())
                 .collect(Collectors.toList());
-            genericSportActivityRepository.saveAll(ts);
+
+            sportActivityRepository.saveAll(sportActivities);
+
+//            genericSportActivityRepository.saveAll(ts);
         }
         trackerUserService.assignStravaLastSynchronizationDate(now, username);
     }
