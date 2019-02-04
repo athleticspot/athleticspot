@@ -73,6 +73,14 @@ public class Athlete {
         sportActivities.add(sportActivity);
     }
 
+
+    public void perform(List<SportActivity> sportActivities) {
+        if(this.sportActivities == null){
+            this.sportActivities = new HashSet<>();
+        }
+        this.sportActivities.addAll(sportActivities);
+    }
+
     public void unfallow(Athlete unfallowAthlete) {
         this.friends.removeIf(athlete ->
                 athlete.id.equals(unfallowAthlete.id)
@@ -104,6 +112,7 @@ public class Athlete {
     public void fetchAllActivitiesPaged() {
 
     }
+
 
     public String toString() {
         return this.name + "'s friends => "

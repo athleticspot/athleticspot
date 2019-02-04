@@ -3,15 +3,9 @@ package com.athleticspot.tracker.application.impl;
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.StravaApplicationService;
 import com.athleticspot.tracker.application.TrackerUserService;
-import com.athleticspot.tracker.domain.graph.Athlete;
-import com.athleticspot.tracker.domain.graph.SportActivity;
-import com.athleticspot.tracker.domain.graph.SportActivityBuilder;
-import com.athleticspot.tracker.domain.graph.SportActivityRepository;
-import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
-import com.athleticspot.tracker.domain.model.SportActivityGenericType;
+import com.athleticspot.tracker.domain.graph.*;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
-import com.athleticspot.tracker.domain.model.strava.StravaSportActivity;
 import com.athleticspot.tracker.infrastracture.assembler.StravaActivityAssembler;
 import com.athleticspot.tracker.infrastracture.security.SecurityService;
 import javastrava.api.v3.auth.model.Token;
@@ -45,12 +39,9 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     private final StravaActivityAssembler stravaActivityAssembler;
 
-    private final GenericSportActivityRepository genericSportActivityRepository;
-
-    private final SportActivityRepository sportActivityRepository;
+    private final GraphAthleteRepository graphAthleteRepository;
 
     private final SecurityService securityService;
-
 
     private final String clientSecret = "91ad80ea231505275883acc75d7c088c1cf07773";
 
@@ -65,11 +56,11 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
     @Autowired
     public StravaApplicationServiceImpl(TrackerUserService trackerUserService,
                                         StravaActivityAssembler stravaActivityAssembler,
-                                        GenericSportActivityRepository genericSportActivityRepository, SportActivityRepository sportActivityRepository, SecurityService securityService) {
+                                        GraphAthleteRepository graphAthleteRepository,
+                                        SecurityService securityService) {
         this.trackerUserService = trackerUserService;
         this.stravaActivityAssembler = stravaActivityAssembler;
-        this.genericSportActivityRepository = genericSportActivityRepository;
-        this.sportActivityRepository = sportActivityRepository;
+        this.graphAthleteRepository = graphAthleteRepository;
         this.securityService = securityService;
     }
 
@@ -123,10 +114,6 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             if (stravaActivities.length == 0) {
                 break;
             }
-//            final List<SportActivityGenericType> ts =
-//                Arrays.stream(stravaActivities)
-//                    .map(stravaActivity -> StravaSportActivity.creteFromStravaActivity(stravaActivity, username))
-//                    .collect(Collectors.toList());
 
             Athlete athlete =
                 securityService.getAthleteByName(username)
@@ -135,9 +122,9 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
                 .map(stravaActivity -> SportActivityBuilder.createFromStravaActivity(stravaActivity, athlete.getAthleteUUID(), athlete.getFirstAndLastName()).createSportActivity())
                 .collect(Collectors.toList());
 
-            sportActivityRepository.saveAll(sportActivities);
+            athlete.perform(sportActivities);
+            graphAthleteRepository.save(athlete);
 
-//            genericSportActivityRepository.saveAll(ts);
         }
         trackerUserService.assignStravaLastSynchronizationDate(now, username);
     }
