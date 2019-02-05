@@ -6,6 +6,8 @@ import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.domain.model.UserRepository;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.strava.StravaSportActivity;
+import com.google.maps.internal.PolylineEncoding;
+import com.google.maps.model.EncodedPolyline;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -81,6 +83,6 @@ public class SportActivityAssemblerImpl {
             .setMaxSpeed(graphSportActivity.getMaxSpeed())
             .setAverageTemp(graphSportActivity.getAverageTemp())
             .setCalories(graphSportActivity.getCalories())
-            .setCoordinates(graphSportActivity.getCoordinates());
+            .setCoordinates(PolylineEncoding.decode(graphSportActivity.getSummaryPolyline()));
     }
 }

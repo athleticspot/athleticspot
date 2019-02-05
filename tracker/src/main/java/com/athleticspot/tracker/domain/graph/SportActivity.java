@@ -2,13 +2,11 @@ package com.athleticspot.tracker.domain.graph;
 
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
-import com.google.maps.model.LatLng;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author Tomasz Kasprzycki
@@ -95,7 +93,9 @@ public class SportActivity {
 
     private String deviceName;
 
-    private List<LatLng> coordinates;
+    private String summaryPolyline;
+
+    private String detailedPolyline;
 
     //Stores original value recived from sourced sport tracker.
     private String originalActivity;
@@ -105,7 +105,7 @@ public class SportActivity {
     }
 
 
-    SportActivity(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, List<LatLng> coordinates, String originalActivity) {
+    SportActivity(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, String originalActivity, String summaryPolyline, String detailedPolyline) {
         this.userUuid = userUuid;
         this.firstAndLastName = firstAndLastName;
         this.trackerSource = trackerSource;
@@ -137,7 +137,9 @@ public class SportActivity {
         this.startLatitude = startLatitude;
         this.startLongitude = startLongitude;
         this.deviceName = deviceName;
-        this.coordinates = coordinates;
+        this.originalActivity = originalActivity;
+        this.summaryPolyline = summaryPolyline;
+        this.detailedPolyline = detailedPolyline;
     }
 
     public Long getId() {
@@ -268,11 +270,15 @@ public class SportActivity {
         return deviceName;
     }
 
-    public List<LatLng> getCoordinates() {
-        return coordinates;
-    }
-
     public String getOriginalActivity() {
         return originalActivity;
+    }
+
+    public String getSummaryPolyline() {
+        return summaryPolyline;
+    }
+
+    public String getDetailedPolyline() {
+        return detailedPolyline;
     }
 }

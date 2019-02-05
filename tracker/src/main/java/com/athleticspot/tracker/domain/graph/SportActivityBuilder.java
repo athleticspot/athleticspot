@@ -2,11 +2,10 @@ package com.athleticspot.tracker.domain.graph;
 
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
-import com.google.maps.model.LatLng;
 import javastrava.api.v3.model.StravaActivity;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Objects;
 
 public class SportActivityBuilder {
 
@@ -41,8 +40,10 @@ public class SportActivityBuilder {
     private Float startLatitude;
     private Float startLongitude;
     private String deviceName;
-    private List<LatLng> coordinates;
     private String originalActivity;
+    private String summaryPolyline;
+    private String detailedPolyline;
+
 
     public SportActivityBuilder(TrackerSource trackerSource,
                                 SportActivityType sportActivityType,
@@ -67,6 +68,13 @@ public class SportActivityBuilder {
     public static SportActivityBuilder createFromStravaActivity(StravaActivity stravaActivity,
                                                                 String userUuid,
                                                                 String firstAndLastName) {
+
+        String detailedPolyline = "";
+        String summaryPolyline = "";
+        if (Objects.nonNull(stravaActivity.getMap()) && Objects.nonNull(stravaActivity.getMap().getSummaryPolyline())) {
+            detailedPolyline = stravaActivity.getMap().getPolyline();
+            summaryPolyline = stravaActivity.getMap().getSummaryPolyline();
+        }
         return new SportActivityBuilder(
             TrackerSource.STRAVA,
             SportActivityType.valueOf(stravaActivity.getType().name()),
@@ -77,8 +85,9 @@ public class SportActivityBuilder {
             stravaActivity.getName(),
             userUuid,
             firstAndLastName
-
-        );
+        )
+            .setSummaryPolyline(summaryPolyline)
+            .setDetailedPolyline(detailedPolyline);
     }
 
 
@@ -192,13 +201,18 @@ public class SportActivityBuilder {
         return this;
     }
 
-    public SportActivityBuilder setCoordinates(List<LatLng> coordinates) {
-        this.coordinates = coordinates;
+    public SportActivityBuilder setOriginalActivity(String originalActivity) {
+        this.originalActivity = originalActivity;
         return this;
     }
 
-    public SportActivityBuilder setOriginalActivity(final String originalActivity) {
-        this.originalActivity = originalActivity;
+    public SportActivityBuilder setSummaryPolyline(String summaryPolyline) {
+        this.summaryPolyline = summaryPolyline;
+        return this;
+    }
+
+    public SportActivityBuilder setDetailedPolyline(String detailedPolyline) {
+        this.detailedPolyline = detailedPolyline;
         return this;
     }
 
@@ -236,8 +250,8 @@ public class SportActivityBuilder {
             startLatitude,
             startLongitude,
             deviceName,
-            coordinates,
-            originalActivity
-        );
+            originalActivity,
+            summaryPolyline,
+            detailedPolyline);
     }
 }

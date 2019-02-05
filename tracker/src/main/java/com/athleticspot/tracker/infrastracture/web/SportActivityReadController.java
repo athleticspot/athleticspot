@@ -5,6 +5,7 @@ import com.athleticspot.tracker.domain.graph.SportActivityRepository;
 import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.infrastracture.assembler.SportActivityAssemblerImpl;
+import com.athleticspot.tracker.infrastracture.security.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +35,17 @@ public class SportActivityReadController {
 
     private final SportActivityRepository sportActivityRepository;
 
+    private final SecurityService securityService;
+
     @Autowired
     public SportActivityReadController(GenericSportActivityRepository genericSportActivityRepository,
                                        SportActivityAssemblerImpl sportActivityAssemblerImpl,
-                                       SportActivityRepository sportActivityRepository) {
+                                       SportActivityRepository sportActivityRepository,
+                                       SecurityService securityService) {
         this.genericSportActivityRepository = genericSportActivityRepository;
         this.sportActivityAssemblerImpl = sportActivityAssemblerImpl;
         this.sportActivityRepository = sportActivityRepository;
+        this.securityService = securityService;
     }
 
     @GetMapping
@@ -61,9 +66,9 @@ public class SportActivityReadController {
 //    }
 
     @GetMapping(value = "/paged")
-    public Page<SportActivity> getTimelineSportActivities(@RequestParam String name,
-                                                          @RequestParam int page,
-                                                          @RequestParam int pageSize){
-        return sportActivityAssemblerImpl.pageAssemble(sportActivityRepository.findActivitiesByUserId(name, PageRequest.of(page,pageSize)));
+    public Page<SportActivity> getTimelineSportActivities(@RequestParam int page,
+                                                          @RequestParam int pageSize) {
+        return sportActivityAssemblerImpl
+            .pageAssemble(sportActivityRepository.findActivitiesByUserId(SecurityUtils.getCurrentUserLogin(), PageRequest.of(page, pageSize)));
     }
 }

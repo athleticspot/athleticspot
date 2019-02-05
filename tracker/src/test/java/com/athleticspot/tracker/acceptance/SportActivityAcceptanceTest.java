@@ -90,7 +90,6 @@ public class SportActivityAcceptanceTest {
             .setStartLatitude(startLatitude)
             .setStartLongitude(startLongitude)
             .setDeviceName(deviceName)
-            .setCoordinates(coordinates)
             .createSportActivity();
 
         sportActivityRepository.save(sportActivity);
@@ -126,7 +125,6 @@ public class SportActivityAcceptanceTest {
         Assertions.assertThat(savedSportActivity.getStartLatitude()).isEqualTo(startLatitude);
         Assertions.assertThat(savedSportActivity.getStartLongitude()).isEqualTo(startLongitude);
         Assertions.assertThat(savedSportActivity.getDeviceName()).isEqualTo(deviceName);
-        Assertions.assertThat(savedSportActivity.getCoordinates()).isEqualTo(coordinates);
     }
 
     @Test
