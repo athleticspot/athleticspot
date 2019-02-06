@@ -35,8 +35,6 @@ public class SportActivityReadController {
 
     private final SportActivityRepository sportActivityRepository;
 
-    private final SecurityService securityService;
-
     @Autowired
     public SportActivityReadController(GenericSportActivityRepository genericSportActivityRepository,
                                        SportActivityAssemblerImpl sportActivityAssemblerImpl,
@@ -45,7 +43,6 @@ public class SportActivityReadController {
         this.genericSportActivityRepository = genericSportActivityRepository;
         this.sportActivityAssemblerImpl = sportActivityAssemblerImpl;
         this.sportActivityRepository = sportActivityRepository;
-        this.securityService = securityService;
     }
 
     @GetMapping
@@ -56,19 +53,11 @@ public class SportActivityReadController {
             .collect(Collectors.toList());
     }
 
-//    @GetMapping(value = "/paged")
-//    public Page<SportActivity> getUserSportActivities(
-//        @RequestParam(name = "page") int page,
-//        @RequestParam(name = "pageSize") int pageSize) {
-//        return sportActivityAssemblerImpl
-//            .pageAssemble(genericSportActivityRepository
-//                .findByUsername(SecurityUtils.getCurrentUserLogin(), new PageRequest(page, pageSize, Sort.Direction.DESC, "startDate")));
-//    }
-
     @GetMapping(value = "/paged")
     public Page<SportActivity> getTimelineSportActivities(@RequestParam int page,
                                                           @RequestParam int pageSize) {
         return sportActivityAssemblerImpl
             .pageAssemble(sportActivityRepository.findActivitiesByUserId(SecurityUtils.getCurrentUserLogin(), PageRequest.of(page, pageSize)));
     }
+
 }
