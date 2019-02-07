@@ -6,11 +6,15 @@ import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.domain.model.UserRepository;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
 import com.athleticspot.tracker.domain.model.strava.StravaSportActivity;
+import com.google.common.collect.Lists;
 import com.google.maps.internal.PolylineEncoding;
-import com.google.maps.model.EncodedPolyline;
+import com.google.maps.model.LatLng;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Tomasz Kasprzycki
@@ -66,7 +70,10 @@ public class SportActivityAssemblerImpl {
     }
 
     private SportActivity assembleSportActivity(com.athleticspot.tracker.domain.graph.SportActivity graphSportActivity) {
-
+        List<LatLng> coordinates = Lists.newArrayList();
+        if (Objects.nonNull(graphSportActivity.getSummaryPolyline())) {
+            coordinates = PolylineEncoding.decode(graphSportActivity.getSummaryPolyline());
+        }
         return new SportActivity()
             .setId(graphSportActivity.getId().toString())
             .setUsername(graphSportActivity.getFirstAndLastName())
@@ -83,6 +90,6 @@ public class SportActivityAssemblerImpl {
             .setMaxSpeed(graphSportActivity.getMaxSpeed())
             .setAverageTemp(graphSportActivity.getAverageTemp())
             .setCalories(graphSportActivity.getCalories())
-            .setCoordinates(PolylineEncoding.decode(graphSportActivity.getSummaryPolyline()));
+            .setCoordinates(coordinates);
     }
 }
