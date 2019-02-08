@@ -57,7 +57,10 @@ public class SportActivityReadController {
     public Page<SportActivity> getTimelineSportActivities(@RequestParam int page,
                                                           @RequestParam int pageSize) {
         return sportActivityAssemblerImpl
-            .pageAssemble(sportActivityRepository.findActivitiesByUserId(SecurityUtils.getCurrentUserLogin(), PageRequest.of(page, pageSize)));
+            .pageAssemble(sportActivityRepository.findActivitiesByUserId(
+                SecurityUtils.getCurrentUserLogin(),
+                PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("row.startDate"))))
+            );
     }
 
 }
