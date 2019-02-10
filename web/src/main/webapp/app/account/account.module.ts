@@ -20,6 +20,7 @@ import {
     SocialAuthComponent,
     SocialRegisterComponent
 } from "./";
+import {FriendsComponent} from "./friends/friends.component";
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import {
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
         PasswordResetFinishComponent,
-        SettingsComponent
+        SettingsComponent,
+        FriendsComponent
     ],
     providers: [
         Register,

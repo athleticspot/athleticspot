@@ -10,6 +10,7 @@ import {
     socialAuthRoute,
     socialRegisterRoute
 } from "./";
+import {friendsRoute} from "./friends/friends.route";
 
 const ACCOUNT_ROUTES = [
     activateRoute,
@@ -19,7 +20,8 @@ const ACCOUNT_ROUTES = [
     registerRoute,
     socialAuthRoute,
     socialRegisterRoute,
-    settingsRoute
+    settingsRoute,
+    friendsRoute
 ];
 
 export const accountState: Routes = [{
