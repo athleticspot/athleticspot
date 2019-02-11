@@ -3,7 +3,7 @@
         "title": "Friends",
         "search": "Search friends",
         "form": {
-            "button": "Register"
+            "button": "Search"
         },
         "messages": {
             "validate": {

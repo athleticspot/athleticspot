@@ -2,6 +2,15 @@
 <div class="tech-background">
     <div class="container padder-v">
         <p class="m-n font-thin h1" jhiTranslate="friends.search">Search friends</p>
+        <form class="form-horizontal">
+            <div class="form-group row m-t-sm">
+                <div class="col-sm-3">
+                    <input type="text" class="form-control">
+                </div>
+                <button class="btn btn-primary" jhiTranslate="friends.form.button">Search</button>
+            </div>
+        </form>
+
         <div class="row">
             <article class="form-group col-sm-12 m-t-md">
                 <table class="table table-striped m-b-md">
@@ -13,13 +22,13 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><span>Tomek Kasprzycki<button class="m-l-xs btn btn-success">Fallow</button></span></td>
+                        <td><span>Tomek Kasprzycki<button class="m-l-xs btn btn-success">Follow</button></span></td>
                         <td><span>BBH - Fintech</span></td>
                     </tr>
                     <!--<tr *ngFor="let result of activities">-->
-                        <!--<td><span>{{result.distance}}</span></td>-->
-                        <!--<td><span>{{result.startDate}}</span></td>-->
-                        <!--<td><span>{{result.movingTime}}</span></td>-->
+                    <!--<td><span>{{result.distance}}</span></td>-->
+                    <!--<td><span>{{result.startDate}}</span></td>-->
+                    <!--<td><span>{{result.movingTime}}</span></td>-->
                     <!--</tr>-->
                     </tbody>
                 </table>

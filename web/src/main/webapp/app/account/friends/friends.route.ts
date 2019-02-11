@@ -7,7 +7,7 @@ export const friendsRoute: Route = {
     path: 'friends',
     component: FriendsComponent,
     data: {
-        authorities: [],
+        authorities: ['ROLE_USER'],
         pageTitle: 'friends.title'
     },
     canActivate: [UserRouteAccessService]
