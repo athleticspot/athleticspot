@@ -21,10 +21,13 @@ import {
     SocialRegisterComponent
 } from "./";
 import {FriendsComponent} from "./friends/friends.component";
+import {FriendsDataservice} from "./friends/friends.dataservice";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     imports: [
         AthleticspotSharedModule,
+        ReactiveFormsModule,
         RouterModule.forRoot(accountState, {useHash: true})
     ],
     declarations: [
@@ -44,7 +47,8 @@ import {FriendsComponent} from "./friends/friends.component";
         ActivateService,
         PasswordService,
         PasswordResetInitService,
-        PasswordResetFinishService
+        PasswordResetFinishService,
+        FriendsDataservice
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -2,10 +2,10 @@
 <div class="tech-background">
     <div class="container padder-v">
         <p class="m-n font-thin h1" jhiTranslate="friends.search">Search friends</p>
-        <form class="form-horizontal">
+        <form novalidate [formGroup]="searchFriendsForm" class="form-horizontal" (submit)="searchFriends()">
             <div class="form-group row m-t-sm">
                 <div class="col-sm-3">
-                    <input type="text" class="form-control">
+                    <input formControlName="name" type="text" class="form-control">
                 </div>
                 <button class="btn btn-primary" jhiTranslate="friends.form.button">Search</button>
             </div>
