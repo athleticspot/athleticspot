@@ -17,19 +17,18 @@
                     <thead>
                     <tr>
                         <th>Athlete</th>
-                        <th>Info</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><span>Tomek Kasprzycki<button class="m-l-xs btn btn-success">Follow</button></span></td>
-                        <td><span>BBH - Fintech</span></td>
-                    </tr>
-                    <!--<tr *ngFor="let result of activities">-->
-                    <!--<td><span>{{result.distance}}</span></td>-->
-                    <!--<td><span>{{result.startDate}}</span></td>-->
-                    <!--<td><span>{{result.movingTime}}</span></td>-->
+                    <!--<tr>-->
+                        <!--<td><span>Tomek Kasprzycki<button class="m-l-xs btn btn-success">Follow</button></span></td>-->
+                        <!--<td><span>BBH - Fintech</span></td>-->
                     <!--</tr>-->
+                    <tr *ngFor="let friend of friends">
+                        <td><span>{{friend.name}}</span></td>
+                        <td><span><button class="m-l-xs btn btn-success">Follow</button></span></td>
+                    </tr>
                     </tbody>
                 </table>
             </article>
