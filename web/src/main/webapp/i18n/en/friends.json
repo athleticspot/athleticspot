@@ -5,6 +5,10 @@
         "form": {
             "button": "Search"
         },
+        "table": {
+            "athlete": "Athlete",
+            "action": "Action"
+        },
         "messages": {
             "validate": {
                 "login": {

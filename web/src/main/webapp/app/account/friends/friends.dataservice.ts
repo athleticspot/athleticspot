@@ -9,13 +9,23 @@ export class FriendsDataservice {
     constructor(private http: Http) {
     }
 
-    public follow() {
-        console.log("test");
-    }
-
     public fetchFriendsPaged(page, name) {
         return this.http.get('/api/athletes/', {
             params: {
+                name: name,
+                page: page,
+                pageSize: "5"
+            }
+        }).map(
+            (response: Response) => {
+                return response.json();
+            }
+        );
+    }
+
+    public follow(friendId) {
+        return this.http.put('/api/athletes/', {
+            body: {
                 name: name,
                 page: page,
                 pageSize: "5"

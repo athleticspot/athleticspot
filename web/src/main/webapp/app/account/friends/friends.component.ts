@@ -34,4 +34,8 @@ export class FriendsComponent implements OnInit {
         );
     }
 
+    public follow(id: Number){
+        console.log(id);
+    }
+
 }
