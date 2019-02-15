@@ -83,7 +83,7 @@ public class AthleteController {
         );
     }
 
-    @PutMapping(value = "/fallow")
+    @PutMapping(value = "/follow")
     @Secured(AuthoritiesConstants.USER)
     public void fallow(@RequestBody FallowInDto fallowInDto) {
         athleteApplicationServiceImpl.fallow(fallowInDto.getAthleteId());

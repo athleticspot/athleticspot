@@ -1,6 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {FriendsDataservice} from "./friends.dataservice";
 import {FormControl, FormGroup} from "@angular/forms";
+import {FollowModel} from "./follow.model";
+import {Observable} from "rxjs";
 
 @Component({
     templateUrl: './friends.component.html'
@@ -29,13 +31,19 @@ export class FriendsComponent implements OnInit {
                     this.friends.push(friend)
                 });
             }, error => {
-
+                //TODO: add toastr
             }
         );
     }
 
     public follow(id: Number){
-        console.log(id);
+        this.friendsDataservice.follow(new FollowModel(id)).subscribe((response: any) => {
+                console.log(response);
+            }, error => {
+                //TODO: add toastr
+
+            }
+        );
     }
 
 }

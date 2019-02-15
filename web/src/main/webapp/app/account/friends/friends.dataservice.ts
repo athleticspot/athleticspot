@@ -1,13 +1,18 @@
 import {Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http";
-import {SportActivityModel} from "../../shared/activites/sport-activity.model";
-import {Observable} from "rxjs";
+import {Http, Headers, RequestOptions, Response} from "@angular/http";
+import {FollowModel} from "./follow.model";
+import 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class FriendsDataservice {
 
+
     constructor(private http: Http) {
     }
+
+    private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
+
 
     public fetchFriendsPaged(page, name) {
         return this.http.get('/api/athletes/', {
@@ -23,18 +28,8 @@ export class FriendsDataservice {
         );
     }
 
-    public follow(friendId) {
-        return this.http.put('/api/athletes/', {
-            body: {
-                name: name,
-                page: page,
-                pageSize: "5"
-            }
-        }).map(
-            (response: Response) => {
-                return response.json();
-            }
-        );
+    public follow(follow : FollowModel) : Observable<any>{
+        return this.http.put('/api/athletes/follow', JSON.stringify(follow));
     }
 
 
