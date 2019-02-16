@@ -29,7 +29,7 @@ export class FriendsDataservice {
     }
 
     public follow(follow : FollowModel) : Observable<any>{
-        return this.http.put('/api/athletes/follow', JSON.stringify(follow));
+        return this.http.put('/api/athletes/follow', JSON.stringify(follow), new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) }));
     }
 
 
