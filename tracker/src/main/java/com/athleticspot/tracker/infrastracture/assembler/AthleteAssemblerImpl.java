@@ -14,7 +14,8 @@ public class AthleteAssemblerImpl implements AthleteAssembler {
     public AthleteOutDto assembleAthlete(Athlete athlete) {
         return new AthleteOutDto(athlete.getName(),
             athlete.getAthleteUUID(),
-            athlete.getId());
+            athlete.getId(),
+            athlete.getFirstAndLastName());
 
     }
 }

@@ -158,4 +158,8 @@ public class Athlete {
     public Set<SportActivity> getSportActivities() {
         return sportActivities;
     }
+
+    public void updateFirstAndLastName(String firstName, String lastName) {
+        this.firstAndLastName = firstName + " " + lastName;
+    }
 }

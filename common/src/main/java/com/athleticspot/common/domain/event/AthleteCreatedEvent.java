@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationEvent;
 public class AthleteCreatedEvent extends ApplicationEvent {
 
     private AthleteCreatedEventDto content;
+
     public AthleteCreatedEvent(AthleteCreatedEventDto source) {
         super(source);
         this.content = source;

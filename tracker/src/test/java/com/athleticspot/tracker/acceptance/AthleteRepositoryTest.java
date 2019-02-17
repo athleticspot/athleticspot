@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
@@ -53,6 +55,29 @@ public class AthleteRepositoryTest {
         final Optional<Athlete> byName = graphAthleteRepository.findByName(tomek.getName());
         Assertions.assertThat(byName.get()).isEqualTo(tomek);
 
+    }
+
+    @Test
+    public void findAthleteByName(){
+        Athlete tomek = new Athlete("Tomek", UUID.randomUUID().toString(), "Tom Kasp");
+        Athlete olek = new Athlete("Olek", UUID.randomUUID().toString(), "Olek Kasp");
+        graphAthleteRepository.save(tomek);
+        graphAthleteRepository.save(olek);
+
+        final Page<Athlete> page = graphAthleteRepository.findAthletes("Kasp", PageRequest.of(0,10));
+        Assertions.assertThat(page.getContent()).hasSize(2);
+    }
+
+
+    @Test
+    public void findAthleteByNameWithoutMe(){
+        Athlete tomek = new Athlete("Tomek", UUID.randomUUID().toString(), "Tom Kasp");
+        Athlete olek = new Athlete("Olek", UUID.randomUUID().toString(), "Olek Kasp");
+        graphAthleteRepository.save(tomek);
+        graphAthleteRepository.save(olek);
+
+        final Page<Athlete> page = graphAthleteRepository.findAthletesWithoutMe("kasp", tomek.getName(), PageRequest.of(0,10));
+        Assertions.assertThat(page.getContent()).hasSize(1).contains(olek);
     }
 
 }

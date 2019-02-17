@@ -1,7 +1,9 @@
 package com.athleticspot.service;
 
 import com.athleticspot.common.domain.event.AthleteCreatedEvent;
+import com.athleticspot.common.domain.event.AthleteUpdatedEvent;
 import com.athleticspot.common.infrastracture.dto.AthleteCreatedEventDto;
+import com.athleticspot.common.infrastracture.dto.AthleteUpdatedEventDto;
 import com.athleticspot.config.Constants;
 import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
@@ -185,7 +187,9 @@ public class UserService {
      * @param imageUrl  image URL of user
      */
     public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
-        userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
+        final Optional<User> userOptional
+            = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+        userOptional.ifPresent(user -> {
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(email);
@@ -193,6 +197,21 @@ public class UserService {
             user.setImageUrl(imageUrl);
             log.debug("Changed Information for User: {}", user);
         });
+        userOptional.ifPresent(user -> {
+            final Athlete athlete = returnAthleteDetails(user);
+            applicationEventPublisher.publishEvent(
+                new AthleteUpdatedEvent(
+                    AthleteUpdatedEventDto.create(
+                        user.getLogin(),
+                        athlete.athleteId().uuid(),
+                        firstName,
+                        lastName,
+                        email,
+                        langKey, imageUrl)
+                )
+            );
+        });
+
     }
 
     /**
@@ -202,8 +221,9 @@ public class UserService {
      * @return updated user
      */
     public Optional<UserDTO> updateUser(UserDTO userDTO) {
-        return Optional.of(userRepository
-            .getOne(userDTO.getId()))
+        final User savedUser = userRepository
+            .getOne(userDTO.getId());
+        final Optional<UserDTO> userOptional = Optional.of(savedUser)
             .map(user -> {
                 user.setLogin(userDTO.getLogin());
                 user.setFirstName(userDTO.getFirstName());
@@ -221,6 +241,22 @@ public class UserService {
                 return user;
             })
             .map(UserDTO::new);
+
+        Optional.of(savedUser).ifPresent(user -> {
+            final Athlete athlete = returnAthleteDetails(user);
+            applicationEventPublisher.publishEvent(
+                new AthleteUpdatedEvent(
+                    AthleteUpdatedEventDto.create(user.getLogin(),
+                        athlete.athleteId().uuid(),
+                        userDTO.getFirstName(),
+                        userDTO.getLastName(),
+                        userDTO.getEmail(),
+                        userDTO.getLangKey(), userDTO.getImageUrl())
+                )
+            );
+
+        });
+        return userOptional;
     }
 
     public void deleteUser(String login) {
@@ -280,5 +316,14 @@ public class UserService {
      */
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+    }
+
+    public Athlete returnAthleteDetails(User user) {
+        return athleteRepository
+            .findByUserId(user.getId())
+            .orElseGet(() -> athleteRepository.save(new Athlete()
+                .setName(user.getLogin())
+                .setUser(user)
+            ));
     }
 }

@@ -22,7 +22,7 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let friend of friends">
-                        <td><span>{{friend.name}}</span></td>
+                        <td><span>{{friend.firstAndLastName}}</span></td>
                         <td><span><button class="m-l-xs btn btn-success" (click)="follow(friend.id)" >Follow</button></span></td>
                     </tr>
                     </tbody>

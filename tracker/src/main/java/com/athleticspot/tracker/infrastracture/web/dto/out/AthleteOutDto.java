@@ -16,11 +16,13 @@ public class AthleteOutDto implements Serializable {
     private final String name;
     private final String athleteUUID;
     private final Long id;
+    private final String firstAndLastName;
 
-    public AthleteOutDto(String name, String athleteUUID, Long id) {
+    public AthleteOutDto(String name, String athleteUUID, Long id, String firstAndLastName) {
         this.name = name;
         this.athleteUUID = athleteUUID;
         this.id = id;
+        this.firstAndLastName = firstAndLastName;
     }
 
     @Override
@@ -29,6 +31,7 @@ public class AthleteOutDto implements Serializable {
             "name='" + name + '\'' +
             ", athleteUUID='" + athleteUUID + '\'' +
             ", id=" + id +
+            ", firstAndLastName='" + firstAndLastName + '\'' +
             '}';
     }
 }

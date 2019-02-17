@@ -2,6 +2,8 @@ package com.athleticspot.tracker.application.impl;
 
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.common.domain.event.AthleteCreatedEvent;
+import com.athleticspot.common.domain.event.AthleteUpdatedEvent;
+import com.athleticspot.common.infrastracture.dto.AthleteUpdatedEventDto;
 import com.athleticspot.tracker.application.AthleteApplicationService;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
@@ -70,11 +72,31 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
         graphAthleteRepository.save(athlete);
     }
 
+    public void updateAthlete(AthleteUpdatedEventDto athleteUpdatedEventDto) {
+        final Athlete athlete = graphAthleteRepository.findByName(athleteUpdatedEventDto.getName())
+            .orElseGet(() ->
+                new Athlete(athleteUpdatedEventDto.getName(),
+                    athleteUpdatedEventDto.getUuid(),
+                    athleteUpdatedEventDto.getFirstName() + athleteUpdatedEventDto.getLastName())
+            );
+        athlete.updateFirstAndLastName(
+            athleteUpdatedEventDto.getFirstName(),
+            athleteUpdatedEventDto.getLastName()
+        );
+        graphAthleteRepository.save(athlete);
+    }
+
+
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleAthleteCreatedEvent(AthleteCreatedEvent athleteCreatedEvent) {
         createAthlete(
             athleteCreatedEvent.getContent().getName(),
             athleteCreatedEvent.getContent().getUuid()
         );
+    }
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void handleAthleteUpdatedEvent(AthleteUpdatedEvent athleteUpdatedEvent) {
+        updateAthlete(athleteUpdatedEvent.getContent());
     }
 }
