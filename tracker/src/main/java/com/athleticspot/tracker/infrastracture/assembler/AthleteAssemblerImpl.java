@@ -16,6 +16,5 @@ public class AthleteAssemblerImpl implements AthleteAssembler {
             athlete.getAthleteUUID(),
             athlete.getId(),
             athlete.getFirstAndLastName());
-
     }
 }

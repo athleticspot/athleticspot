@@ -1,17 +1,28 @@
 package com.athleticspot.tracker.application;
 
+import com.athleticspot.common.infrastracture.dto.AthleteUpdatedEventDto;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+import java.util.List;
 
 /**
  * @author Tomasz Kasprzycki
  */
 public interface AthleteApplicationService {
 
-    void fallow(Long athleteIdToFallow);
+    void follow(Long athleteIdToFallow);
 
-    void unfallow(Long athleteIdToUnfallow);
+    void unfollow(Long athleteIdToUnfallow);
 
     Page<Athlete> findAllFallowedAthletesPaged(String athleteUUID, PageRequest of);
+
+    List<Athlete> findAllFallowedAthletes(String athleteUuid);
+
+    void createAthlete(String username, String uuid);
+
+    void updateAthlete(AthleteUpdatedEventDto athleteUpdatedEventDto);
+
+    List<Long> checkIfFollow(List<Long> followedAthleteIdsToCheck, Long followingAthleteId);
 }

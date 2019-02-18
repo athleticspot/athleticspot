@@ -6,8 +6,10 @@ import com.athleticspot.tracker.application.impl.AthleteApplicationServiceImpl;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import com.athleticspot.tracker.infrastracture.assembler.AthleteAssembler;
+import com.athleticspot.tracker.infrastracture.security.SecurityService;
 import com.athleticspot.tracker.infrastracture.web.dto.in.AthleteInDto;
-import com.athleticspot.tracker.infrastracture.web.dto.in.FallowInDto;
+import com.athleticspot.tracker.infrastracture.web.dto.in.FollowAthleteInDto;
+import com.athleticspot.tracker.infrastracture.web.dto.in.FollowedInDto;
 import com.athleticspot.tracker.infrastracture.web.dto.out.AthleteOutDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,12 +32,15 @@ public class AthleteController {
 
     private final AthleteAssembler athleteAssembler;
 
+    private final SecurityService securityService;
+
     public AthleteController(AthleteApplicationServiceImpl athleteApplicationServiceImpl,
                              GraphAthleteRepository graphAthleteRepository,
-                             AthleteAssembler athleteAssembler) {
+                             AthleteAssembler athleteAssembler, SecurityService securityService) {
         this.athleteApplicationServiceImpl = athleteApplicationServiceImpl;
         this.graphAthleteRepository = graphAthleteRepository;
         this.athleteAssembler = athleteAssembler;
+        this.securityService = securityService;
     }
 
     @PostMapping
@@ -85,16 +90,20 @@ public class AthleteController {
 
     @PutMapping(value = "/follow")
     @Secured(AuthoritiesConstants.USER)
-    public void fallow(@RequestBody FallowInDto fallowInDto) {
-        athleteApplicationServiceImpl.fallow(fallowInDto.getAthleteId());
+    public void fallow(@RequestBody FollowAthleteInDto followAthleteInDto) {
+        athleteApplicationServiceImpl.follow(followAthleteInDto.getAthleteId());
     }
 
-    @DeleteMapping(value = "/fallow")
+    @DeleteMapping(value = "/follow")
     @Secured(AuthoritiesConstants.USER)
-    public void unfallow(FallowInDto unfallowInDto) {
-        athleteApplicationServiceImpl.unfallow(unfallowInDto.getAthleteId());
+    public void unfollow(FollowAthleteInDto unfallowInDto) {
+        athleteApplicationServiceImpl.unfollow(unfallowInDto.getAthleteId());
     }
 
+    @PutMapping(value = "/followed/verification")
+    public List<Long> retrieveFollowedIds(@RequestBody FollowedInDto fallowInDto){
+        return athleteApplicationServiceImpl.checkIfFollow(fallowInDto.getAthleteIds(), securityService.getCurrentAthlete().getId());
+    }
 
 }
 

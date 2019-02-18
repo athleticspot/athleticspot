@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize
 @JsonAutoDetect(
         fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class FallowInDto {
+public class FollowAthleteInDto {
 
     private Long athleteId;
 
@@ -19,7 +19,7 @@ public class FallowInDto {
 
     @Override
     public String toString() {
-        return "FallowInDto{" +
+        return "FollowAthleteInDto{" +
                 ", athleteId='" + athleteId + '\'' +
                 '}';
     }

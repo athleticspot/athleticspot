@@ -162,4 +162,10 @@ public class Athlete {
     public void updateFirstAndLastName(String firstName, String lastName) {
         this.firstAndLastName = firstName + " " + lastName;
     }
+
+    public List<Long> checkIfFollow(List<Long> followedAthleteId) {
+        return followedAthleteId.stream()
+            .filter(aLong -> this.friends.stream().anyMatch(athlete -> athlete.getId().equals(aLong)))
+            .collect(Collectors.toList());
+    }
 }
