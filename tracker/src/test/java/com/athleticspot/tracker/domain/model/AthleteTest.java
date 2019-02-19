@@ -49,4 +49,16 @@ public class AthleteTest {
     }
 
 
+    @Test
+    public void checkIfFollowUser() {
+        Athlete tomek = new Athlete("tomkasp", UUID.randomUUID().toString(), "Tom Kasp");
+        Athlete olek = new Athlete("olek", UUID.randomUUID().toString(), "Olo Kasp");
+        ReflectionTestUtils.setField(tomek, "id", 1L);
+        ReflectionTestUtils.setField(olek, "id", 2L);
+
+        tomek.fallow(olek);
+
+        Assertions.assertThat(tomek.checkIfFollowUser(2L))
+            .isTrue();
+    }
 }

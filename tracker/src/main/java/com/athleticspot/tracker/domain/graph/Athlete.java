@@ -168,4 +168,10 @@ public class Athlete {
             .filter(aLong -> this.friends.stream().anyMatch(athlete -> athlete.getId().equals(aLong)))
             .collect(Collectors.toList());
     }
+
+    public boolean checkIfFollowUser(Long followedUserId){
+        Assert.notNull(followedUserId, "followedUserId cannot be null");
+        return this.friends.stream()
+            .anyMatch(athlete -> followedUserId.equals(athlete.getId()));
+    }
 }
