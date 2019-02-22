@@ -46,4 +46,8 @@ export class FriendsComponent implements OnInit {
         );
     }
 
+    public  unfollow(id: Number): void{
+
+    }
+
 }
