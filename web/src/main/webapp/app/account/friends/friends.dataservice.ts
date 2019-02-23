@@ -19,7 +19,7 @@ export class FriendsDataservice {
             params: {
                 name: name,
                 page: page,
-                pageSize: "5"
+                pageSize: "2"
             }
         }).map(
             (response: Response) => {

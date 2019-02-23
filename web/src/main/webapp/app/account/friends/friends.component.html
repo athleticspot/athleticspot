@@ -1,4 +1,9 @@
 <!--Search friends-->
+<div infinite-scroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="1000"
+     (scrolled)="onScroll()">
+</div>
 <div class="tech-background">
     <div class="container padder-v">
         <p class="m-n font-thin h1" jhiTranslate="friends.search">Search friends</p>
@@ -12,8 +17,11 @@
         </form>
 
         <div class="row">
+            <div class="col" *ngIf="!showTable">
+                <athl-spinner></athl-spinner>
+            </div>
             <article class="form-group col-sm-12 m-t-md">
-                <table class="table table-striped m-b-md">
+                <table class="table table-striped m-b-md" *ngIf="showTable">
                     <thead>
                     <tr>
                         <th jhiTranslate="friends.table.athlete">Athlete</th>
@@ -28,6 +36,9 @@
                     </tbody>
                 </table>
             </article>
+            <div class="col" *ngIf="pageLoading">
+                <athl-spinner></athl-spinner>
+            </div>
         </div>
     </div>
 </div>
