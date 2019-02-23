@@ -27,7 +27,7 @@ public class AthleteTest {
         Assertions.assertThat(tomek.getFriends()).contains(olek);
 
         //when
-        tomek.unfallow(olek);
+        tomek.unfallow(olek.getId());
 
 
         //then

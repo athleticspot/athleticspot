@@ -11,7 +11,7 @@ export class FriendsDataservice {
     constructor(private http: Http) {
     }
 
-    private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
+    private options = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
 
 
     public fetchFriendsPaged(page, name) {
@@ -28,11 +28,17 @@ export class FriendsDataservice {
         );
     }
 
-    public follow(follow : FollowModel) : Observable<any>{
-        return this.http.put('/api/athletes/follow', JSON.stringify(follow), new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) }));
+    public follow(follow: FollowModel): Observable<any> {
+        return this.http.put('/api/athletes/follow', JSON.stringify(follow), new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})}));
     }
 
 
+    unfollow(follow: FollowModel) {
+        return this.http.put(
+            '/api/athletes/unfollow',
+            JSON.stringify(follow),
+            new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})})
+        );
 
-
+    }
 }

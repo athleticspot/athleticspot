@@ -94,9 +94,9 @@ public class AthleteController {
         athleteApplicationServiceImpl.follow(followAthleteInDto.getAthleteId());
     }
 
-    @DeleteMapping(value = "/follow")
+    @PutMapping(value = "/unfollow")
     @Secured(AuthoritiesConstants.USER)
-    public void unfollow(FollowAthleteInDto unfallowInDto) {
+    public void unfollow(@RequestBody FollowAthleteInDto unfallowInDto) {
         athleteApplicationServiceImpl.unfollow(unfallowInDto.getAthleteId());
     }
 

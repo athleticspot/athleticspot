@@ -10,10 +10,12 @@ import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -23,15 +25,18 @@ import java.util.Optional;
  * @author Tomasz Kasprzycki
  */
 @Service
-@Transactional
+@Transactional(transactionManager = "graphTransactionManager")
 public class AthleteApplicationServiceImpl implements AthleteApplicationService {
 
     private static final int DEPTH = 1;
     private final GraphAthleteRepository graphAthleteRepository;
+    private final TransactionTemplate transactionTemplate;
 
     @Autowired
-    public AthleteApplicationServiceImpl(GraphAthleteRepository graphAthleteRepository) {
+    public AthleteApplicationServiceImpl(GraphAthleteRepository graphAthleteRepository,
+                                         Neo4jTransactionManager transactionManager) {
         this.graphAthleteRepository = graphAthleteRepository;
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
     }
 
     @Override
@@ -49,15 +54,14 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
 
     @Override
     public void unfollow(Long athleteIdToUnfallow) {
-        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
-        final Athlete athleteToUnfallow =
-            graphAthleteRepository
-                .findById(athleteIdToUnfallow)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Athlete with give athleteId: %s doesn't exists", athleteIdToUnfallow)));
-        final Optional<Athlete> athleteOptional = graphAthleteRepository.findByName(currentUserLogin);
-        final Athlete athlete = athleteOptional.orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
-        athlete.unfallow(athleteToUnfallow);
+        Athlete athlete = findCurrentAthlete();
+        athlete.unfallow(athleteIdToUnfallow);
         graphAthleteRepository.save(athlete);
+    }
+
+    public Athlete findCurrentAthlete() {
+        final Optional<Athlete> athleteOptional = graphAthleteRepository.findByName(SecurityUtils.getCurrentUserLogin());
+        return athleteOptional.orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", SecurityUtils.getCurrentUserLogin())));
     }
 
     @Override

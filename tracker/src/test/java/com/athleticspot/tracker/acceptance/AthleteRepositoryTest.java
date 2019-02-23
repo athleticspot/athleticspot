@@ -48,6 +48,33 @@ public class AthleteRepositoryTest {
     }
 
     @Test
+    public void unfollowAthleteTest(){
+        final String tomekAthleteUuid = UUID.randomUUID().toString();
+        final String tomekAthlete = "Tomek";
+        Athlete tomek = new Athlete(tomekAthlete, tomekAthleteUuid, "Tom Kasp");
+        final String olekAthleteUuid = UUID.randomUUID().toString();
+        Athlete olek = new Athlete("Olek", olekAthleteUuid, "Olek Kasp");
+        tomek.fallow(olek);
+
+        graphAthleteRepository.save(tomek);
+        graphAthleteRepository.save(olek);
+
+
+        Assertions.assertThat(graphAthleteRepository.findByName(tomekAthlete).get().getFriends()).hasSize(1);
+
+        final Athlete savedTomek = graphAthleteRepository.findByName(tomekAthlete).get();
+        savedTomek.unfallow(olek.getId());
+
+        graphAthleteRepository.save(savedTomek);
+
+        Assertions.assertThat(graphAthleteRepository.findByName(tomekAthlete).get().getFriends()).isNull();
+//        Assertions.assertThat(graphAthleteRepository.findAllFallowedAthletes(tomekAthleteUuid)).hasSize(1);
+
+
+
+    }
+
+    @Test
     public void findAthleteByNameTest(){
         Athlete tomek = new Athlete("Tomek", UUID.randomUUID().toString(), "Tom Kasp");
         graphAthleteRepository.save(tomek);

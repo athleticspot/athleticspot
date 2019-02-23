@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.domain.graph;
 
+import org.assertj.core.util.Sets;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -81,9 +82,9 @@ public class Athlete {
         this.sportActivities.addAll(sportActivities);
     }
 
-    public void unfallow(Athlete unfallowAthlete) {
+    public void unfallow(Long unfallowAthleteId) {
         this.friends.removeIf(athlete ->
-                athlete.id.equals(unfallowAthlete.id)
+                athlete.id.equals(unfallowAthleteId)
         );
     }
 
@@ -171,6 +172,7 @@ public class Athlete {
 
     public boolean checkIfFollowUser(Long followedUserId){
         Assert.notNull(followedUserId, "followedUserId cannot be null");
+        if(Objects.isNull(this.friends)) return false;
         return this.friends.stream()
             .anyMatch(athlete -> followedUserId.equals(athlete.getId()));
     }

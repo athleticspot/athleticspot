@@ -36,18 +36,22 @@ export class FriendsComponent implements OnInit {
         );
     }
 
-    public follow(id: Number){
+    public follow(id: Number) {
         this.friendsDataservice.follow(new FollowModel(id)).subscribe((response: any) => {
                 console.log(response);
             }, error => {
                 //TODO: add toastr
-
             }
         );
     }
 
-    public  unfollow(id: Number): void{
+    public unfollow(id: Number): void {
+        this.friendsDataservice.unfollow(new FollowModel(id)).subscribe((response: any) => {
+            console.log(response);
+        }, error => {
+            //TODO: add toastr
 
+        });
     }
 
 }
