@@ -30,8 +30,10 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let friend of friends">
-                        <td><span>{{friend.firstAndLastName}}</span></td>
-                        <td><span><button *ngIf="!friend.followedByCurrent" class="m-l-xs btn btn-success" (click)="follow(friend.id)" >Follow</button><button *ngIf="friend.followedByCurrent" class="m-l-xs btn btn-rounded" (click)="unfollow(friend.id)" >Unfollow</button></span></td>
+                        <td><span class="font-thin h4 padder"><a href="" class="thumb-sm m-r-sm avatar">
+                                    <img src="b10.jpg" alt="...">
+                                </a>{{friend.firstAndLastName}}</span></td>
+                        <td><span><button *ngIf="!friend.followedByCurrent" class="m-l-xs btn btn-rounded btn-success" (click)="follow(friend.id)" >Follow</button><button *ngIf="friend.followedByCurrent" class="m-l-xs btn btn-info btn-rounded " (click)="unfollow(friend.id)" >Unfollow</button></span></td>
                     </tr>
                     </tbody>
                 </table>
