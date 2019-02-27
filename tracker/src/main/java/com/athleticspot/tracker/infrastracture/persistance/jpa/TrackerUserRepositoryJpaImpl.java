@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Tomasz Kasprzycki
@@ -60,6 +61,12 @@ public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUse
 
         Query query = em.createQuery(queryString, TrackerUser.class);
         return query.getResultList();
+    }
+
+    @Override
+    public Optional<TrackerUser> findByLogin(String login) {
+//        finish
+        return Optional.empty();
     }
 
     private TrackerUser getTrackerUser(String userLogin) {
