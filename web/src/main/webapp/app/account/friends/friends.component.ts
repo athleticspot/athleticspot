@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {FriendsDataservice} from "./friends.dataservice";
 import {FormControl, FormGroup} from "@angular/forms";
 import {FollowModel} from "./follow.model";
-import {Observable} from "rxjs";
 import {ToasterService} from "angular2-toaster";
 import {TranslateService} from "@ngx-translate/core";
 
@@ -70,6 +69,7 @@ export class FriendsComponent implements OnInit {
         let name = this.searchFriendsForm.controls.name.value;
         this.friendsDataservice.fetchFriendsPaged(page, name).subscribe(
             (friendsPage: any) => {
+                console.log(friendsPage);
                 this.pageCount = friendsPage.totalPages;
                 friendsPage.content.forEach(friend => {
                     this.friends.push(friend);

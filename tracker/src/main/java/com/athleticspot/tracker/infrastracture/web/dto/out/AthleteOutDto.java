@@ -19,13 +19,20 @@ public class AthleteOutDto implements Serializable {
     private final String firstAndLastName;
     //Indicates if current logged in user follows user represented by this DTO follows .
     private final boolean followedByCurrent;
+    private final String imageUrl;
 
-    public AthleteOutDto(String name, String athleteUUID, Long id, String firstAndLastName, boolean followedByCurrent) {
+    public AthleteOutDto(String name,
+                         String athleteUUID,
+                         Long id,
+                         String firstAndLastName,
+                         boolean followedByCurrent,
+                         String imageUrl) {
         this.name = name;
         this.athleteUUID = athleteUUID;
         this.id = id;
         this.firstAndLastName = firstAndLastName;
         this.followedByCurrent = followedByCurrent;
+        this.imageUrl = imageUrl;
     }
 
     @Override

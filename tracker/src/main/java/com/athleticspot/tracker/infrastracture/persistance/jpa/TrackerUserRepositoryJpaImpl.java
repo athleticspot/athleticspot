@@ -65,8 +65,7 @@ public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUse
 
     @Override
     public Optional<TrackerUser> findByLogin(String login) {
-//        finish
-        return Optional.empty();
+        return Optional.ofNullable(getTrackerUser(login));
     }
 
     private TrackerUser getTrackerUser(String userLogin) {

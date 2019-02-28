@@ -3,6 +3,7 @@ package com.athleticspot.tracker.domain.model;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**
@@ -33,6 +34,11 @@ public class TrackerUser {
 
     @Column(name = "strava_last_synchronization")
     private LocalDateTime stravaLastSynchronizationDate;
+
+    @Size(max = 256)
+    @Column(name = "image_url", length = 256)
+    private String imageUrl;
+
 
     public TrackerUser() {
     }
@@ -70,6 +76,10 @@ public class TrackerUser {
         this.stravaCode = stravaCode;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     public TrackerUser assignTimelineIdentifier(String timelineIdentifier) {
         this.timelineIdentifier = timelineIdentifier;
         return this;
@@ -79,6 +89,20 @@ public class TrackerUser {
         Assert.notNull(stravaLastSynchronizationDate, "Strava last synchronization date cannot be null");
         this.stravaLastSynchronizationDate = stravaLastSynchronizationDate;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "TrackerUser{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", login='" + login + '\'' +
+            ", timelineIdentifier='" + timelineIdentifier + '\'' +
+            ", stravaCode='" + stravaCode + '\'' +
+            ", stravaLastSynchronizationDate=" + stravaLastSynchronizationDate +
+            ", imageUrl='" + imageUrl + '\'' +
+            '}';
     }
 }
 
