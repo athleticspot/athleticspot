@@ -5,16 +5,16 @@ package com.athleticspot.tracker.domain.model;
  */
 public enum TrackerSource {
 
-    MANUAL("Manual"),
-    STRAVA("Strava");
+    MANUAL(0),
+    STRAVA(1);
 
-    private String source;
+    private Integer source;
 
-    TrackerSource(String source) {
+    TrackerSource(Integer source) {
         this.source = source;
     }
 
-    public String getSource() {
+    public Integer getSource() {
         return source;
     }
 }

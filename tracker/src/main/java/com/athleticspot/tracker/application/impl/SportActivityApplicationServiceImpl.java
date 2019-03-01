@@ -29,7 +29,7 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
         Athlete athlete = getCurrentAthlete();
         SportActivity sportActivity =
             new SportActivityBuilder(
-                TrackerSource.valueOf(sportActivityInDto.getTrackerSource()),
+                TrackerSource.values()[Integer.parseInt(sportActivityInDto.getTrackerSource())],
                 sportActivityInDto.getSportActivityType(),
                 0,
                 "0",
