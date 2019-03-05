@@ -73,10 +73,10 @@
 
 
                 <div class="form-group">
-                    <label class="form-control-label" for="surname" jhiTranslate="global.form.lastName">Last name</label>
-                    <input type="text" class="form-control" id="surname" name="surname" #surname="ngModel"
-                           placeholder="{{'global.form.surname.placeholder' | translate}}"
-                           [(ngModel)]="registerAccount.surname" minlength=3 maxlength=100 required>
+                    <label class="form-control-label" for="lastName" jhiTranslate="global.form.lastName">Last name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" #surname="ngModel"
+                           placeholder="{{'global.form.lastName.placeholder' | translate}}"
+                           [(ngModel)]="registerAccount.lastName" minlength=3 maxlength=100 required>
                     <div *ngIf="surname.dirty && surname.invalid">
                         <small class="form-text text-danger" *ngIf="name.errors.required"
                                jhiTranslate="global.messages.validate.surname.required">

@@ -49,8 +49,8 @@
             "email.placeholder": "Your email",
             "firstName": "First name",
             "firstName.placeholder": "Your first name",
-            "surname": "Surname",
-            "surname.placeholder": "Your surname"
+            "lastName": "Last name",
+            "lastName.placeholder": "Your last name"
         },
         "messages": {
             "info": {
@@ -90,7 +90,7 @@
                     "minlenght": "Your name is required to be at least 3 characters.",
                     "maxlenght": "Your name cannot be longer than 100 characters."
                 },
-                "surname": {
+                "lastName": {
                     "required": "Your surname is required",
                     "minlenght": "Your surname is required to be at least 3 characters.",
                     "maxlenght": "Your surname cannot be longer than 100 characters."
