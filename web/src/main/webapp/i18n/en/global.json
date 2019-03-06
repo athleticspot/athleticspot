@@ -87,13 +87,13 @@
                 },
                 "firstName": {
                     "required": "Your fist name is required",
-                    "minlenght": "Your name is required to be at least 3 characters.",
-                    "maxlenght": "Your name cannot be longer than 100 characters."
+                    "minlength": "Your name is required to be at least 3 characters.",
+                    "maxlength": "Your name cannot be longer than 100 characters."
                 },
                 "lastName": {
                     "required": "Your surname is required",
-                    "minlenght": "Your surname is required to be at least 3 characters.",
-                    "maxlenght": "Your surname cannot be longer than 100 characters."
+                    "minlength": "Your surname is required to be at least 3 characters.",
+                    "maxlength": "Your surname cannot be longer than 100 characters."
                 }
             }
         },

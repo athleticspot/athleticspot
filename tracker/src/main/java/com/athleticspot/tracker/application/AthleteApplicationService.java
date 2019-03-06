@@ -20,7 +20,7 @@ public interface AthleteApplicationService {
 
     List<Athlete> findAllFallowedAthletes(String athleteUuid);
 
-    void createAthlete(String username, String uuid);
+    void createAthlete(String username, String uuid, String firstAndLastName);
 
     void updateAthlete(AthleteUpdatedEventDto athleteUpdatedEventDto);
 

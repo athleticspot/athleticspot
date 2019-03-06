@@ -74,21 +74,21 @@
 
                 <div class="form-group">
                     <label class="form-control-label" for="lastName" jhiTranslate="global.form.lastName">Last name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" #surname="ngModel"
+                    <input type="text" class="form-control" id="lastName" name="lastName" #lastName="ngModel"
                            placeholder="{{'global.form.lastName.placeholder' | translate}}"
                            [(ngModel)]="registerAccount.lastName" minlength=3 maxlength=100 required>
-                    <div *ngIf="surname.dirty && surname.invalid">
-                        <small class="form-text text-danger" *ngIf="name.errors.required"
-                               jhiTranslate="global.messages.validate.surname.required">
-                            Your surname is required.
+                    <div *ngIf="lastName.dirty && lastName.invalid">
+                        <small class="form-text text-danger" *ngIf="lastName.errors.required"
+                               jhiTranslate="global.messages.validate.lastName.required">
+                            Your last name is required.
                         </small>
-                        <small class="form-text text-danger" *ngIf="name.errors.minlength"
-                               jhiTranslate="global.messages.validate.name.minlength">
-                            Your surname is required to be at least 3 characters.
+                        <small class="form-text text-danger" *ngIf="lastName.errors.minlength"
+                               jhiTranslate="global.messages.validate.lastName.minlength">
+                            Your last name is required to be at least 3 characters.
                         </small>
-                        <small class="form-text text-danger" *ngIf="name.errors.maxlength"
-                               jhiTranslate="global.messages.validate.name.maxlength">
-                            Your surname cannot be longer than 100 characters.
+                        <small class="form-text text-danger" *ngIf="lastName.errors.maxlength"
+                               jhiTranslate="global.messages.validate.lastName.maxlength">
+                            Your last name cannot be longer than 100 characters.
                         </small>
                     </div>
                 </div>

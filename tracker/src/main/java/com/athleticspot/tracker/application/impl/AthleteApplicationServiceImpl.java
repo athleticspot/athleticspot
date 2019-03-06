@@ -75,8 +75,8 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
     }
 
     @Override
-    public void createAthlete(String username, String uuid) {
-        Athlete athlete = new Athlete(username, uuid, "");
+    public void createAthlete(String username, String uuid, String firstAndLastName) {
+        Athlete athlete = new Athlete(username, uuid, firstAndLastName);
         graphAthleteRepository.save(athlete);
     }
 
@@ -111,7 +111,8 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
     public void handleAthleteCreatedEvent(AthleteCreatedEvent athleteCreatedEvent) {
         createAthlete(
             athleteCreatedEvent.getContent().getName(),
-            athleteCreatedEvent.getContent().getUuid()
+            athleteCreatedEvent.getContent().getUuid(),
+            athleteCreatedEvent.getContent().getFirstAndLastName()
         );
     }
 
