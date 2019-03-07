@@ -29,15 +29,18 @@
                         <label>Date & Time</label>
                         <div class="form-inline">
 
+                            <ngb-timepicker formControlName="time" [meridian]="ON"></ngb-timepicker>
+
                             <div class="">
                                 <ng-datepicker formControlName="startDate" class=""></ng-datepicker>
                             </div>
 
-                            <select class="form-control" formControlName="time">
-                                <option value="0">00:00AM</option>
-                                <option value="0.5">00:30AM</option>
-                                <option value="1">01:00AM</option>
-                            </select>
+                            <!--<select class="form-control" formControlName="time">-->
+                                <!--<option value="0">00:00AM</option>-->
+                                <!--<option value="0.5">00:30AM</option>-->
+                                <!--<option value="1">01:00AM</option>-->
+                            <!--</select>-->
+
 
                             <span class="m-b-none padder"
                                   *ngIf="addActivityForm.dirty && addActivityForm.controls.time.errors?.required">

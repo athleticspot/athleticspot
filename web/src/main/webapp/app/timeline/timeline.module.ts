@@ -12,6 +12,7 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {CommonModule} from "@angular/common";
 import {ActivitiesDataservice} from "../shared/activites/activities.dataservice";
 import {AgmCoreModule} from "@agm/core"
+import {NgbTimeStringAdapter} from "./activities/timeticker-string-adapter.service";
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {AgmCoreModule} from "@agm/core"
     entryComponents: [ActivitiesComponent],
     providers: [
         ActivitiesDataservice,
-        StravaDataservice
+        StravaDataservice,
+        NgbTimeStringAdapter
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

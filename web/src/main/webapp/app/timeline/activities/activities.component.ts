@@ -7,6 +7,7 @@ import {ActivitiesDataservice} from "../../shared/activites/activities.dataservi
 import {SportActivityModel} from "../../shared/activites/sport-activity.model";
 import {TrackerSource} from "../../shared/activites/tracker-source";
 import {MapsAPILoader} from "@agm/core";
+import {NgbTimeStringAdapter} from "./timeticker-string-adapter.service";
 
 
 @Component({
@@ -28,10 +29,14 @@ export class ActivitiesComponent implements OnInit {
     public maxSpeed: number;
     public zoom: number;
 
+    time = {hour: 13, minute: 30};
+
+
     constructor(private activityDataservice: ActivitiesDataservice,
                 private stravaDataservice: StravaDataservice,
                 private toasterService: ToasterService,
-                private mapsAPILoader: MapsAPILoader) {
+                private mapsAPILoader: MapsAPILoader,
+                private timePickerService: NgbTimeStringAdapter) {
     }
 
     ngOnInit(): void {
