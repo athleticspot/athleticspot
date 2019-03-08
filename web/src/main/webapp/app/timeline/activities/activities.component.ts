@@ -29,8 +29,9 @@ export class ActivitiesComponent implements OnInit {
     public maxSpeed: number;
     public zoom: number;
 
-    time = {hour: 13, minute: 30};
+    // time = {hour: 13, minute: 30};
 
+    time = {};
 
     constructor(private activityDataservice: ActivitiesDataservice,
                 private stravaDataservice: StravaDataservice,
@@ -40,6 +41,9 @@ export class ActivitiesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+        this.time = this.timePickerService.fromModel('13:35:00');
+
         //set google maps defaults
         this.zoom = 14;
         //load Places Autocomplete

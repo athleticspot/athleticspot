@@ -10,6 +10,8 @@
             <div class="wrapper b-b">
                 <h3 class="m-n font-thin" jhiTranslate="timeline.manual.title">Add Activity</h3>
             </div>
+            <ngb-timepicker [(ngModel)]="time" [meridian]="ON"></ngb-timepicker>
+
             <div class="wrapper">
                 <form novalidate [formGroup]="addActivityForm" (ngSubmit)="submitActivity()" class="form-validation">
                     <div class="form-group">
