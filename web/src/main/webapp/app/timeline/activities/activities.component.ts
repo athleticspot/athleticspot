@@ -29,7 +29,6 @@ export class ActivitiesComponent implements OnInit {
     public maxSpeed: number;
     public zoom: number;
 
-    // time = {hour: 13, minute: 30};
 
     time = {};
 
