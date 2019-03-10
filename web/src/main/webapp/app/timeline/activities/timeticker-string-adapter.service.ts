@@ -26,6 +26,13 @@ export class NgbTimeStringAdapter {
         return `${this.pad(time.hour)}:${this.pad(time.minute)}:${this.pad(time.second)}`;
     }
 
+    toMinuets(time: NgbTimeStruct): Number {
+        if (!time) {
+            return 0;
+        }
+        return time.hour * 60 + time.minute;
+    }
+
     private pad(i: number): string {
         return i < 10 ? `0${i}` : `${i}`;
     }

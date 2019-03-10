@@ -29,9 +29,6 @@ export class ActivitiesComponent implements OnInit {
     public maxSpeed: number;
     public zoom: number;
 
-
-    time = {};
-
     constructor(private activityDataservice: ActivitiesDataservice,
                 private stravaDataservice: StravaDataservice,
                 private toasterService: ToasterService,
@@ -40,8 +37,6 @@ export class ActivitiesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
-        this.time = this.timePickerService.fromModel('13:35:00');
 
         //set google maps defaults
         this.zoom = 14;
@@ -79,8 +74,8 @@ export class ActivitiesComponent implements OnInit {
             activity.trackerSource = TrackerSource.MANUAL;
             activity.startDate = moment(this.addActivityForm.get('startDate').value)
                 .startOf('day')
-                .add(this.addActivityForm.get('time').value,
-                    'hours')
+                .add(this.timePickerService.toMinuets(this.addActivityForm.get('time').value),
+                    'minutes')
                 .format("YYYY-MM-DDTHH:mm:ss");
 
             activity.duration =
