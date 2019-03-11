@@ -54,7 +54,7 @@ export class ActivitiesComponent implements OnInit {
                 "minutes": new FormControl(0),
                 "seconds": new FormControl(0)
             }),
-            'distance': new FormControl(),
+            'distance': new FormControl(null, [Validators.required]),
             'units': new FormControl("km"),
             'startDate': new FormControl(new Date()),
             'time': new FormControl("0", [Validators.required]),
@@ -92,7 +92,7 @@ export class ActivitiesComponent implements OnInit {
             this.refreshAddActivityForm();
         } else {
             this.addActivityForm.markAsDirty({onlySelf: true});
-            this.markFormGroupTouchedAndDirty(this.addActivityForm)
+            this.markFormGroupTouchedAndDirty(this.addActivityForm);
         }
     }
 
@@ -132,7 +132,7 @@ export class ActivitiesComponent implements OnInit {
         this.addActivityForm.reset();
         this.addActivityForm.patchValue({
             sportActivityType: "RUN",
-            unit: "km",
+            units: "km",
             time: "0",
             duration: {
                 hours: 0,
