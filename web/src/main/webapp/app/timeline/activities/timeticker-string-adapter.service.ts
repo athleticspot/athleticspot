@@ -33,6 +33,13 @@ export class NgbTimeStringAdapter {
         return time.hour * 60 + time.minute;
     }
 
+    toSeconds(time: NgbTimeStruct): Number {
+        if(!time){
+            return 0;
+        }
+        return time.hour * 3600 + time.minute * 60 + time.second;
+    }
+
     private pad(i: number): string {
         return i < 10 ? `0${i}` : `${i}`;
     }

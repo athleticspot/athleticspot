@@ -49,15 +49,11 @@ export class ActivitiesComponent implements OnInit {
             'title': new FormControl(null, [Validators.required]),
             'description': new FormControl(),
             'sportActivityType': new FormControl("RUN", [Validators.required]),
-            'duration': new FormGroup({
-                "hours": new FormControl(0),
-                "minutes": new FormControl(0),
-                "seconds": new FormControl(0)
-            }),
+            'duration': new FormControl({hour: 0, minute: 0, second: 0}, [Validators.required]),
             'distance': new FormControl(null, [Validators.required]),
             'units': new FormControl("km"),
             'startDate': new FormControl(new Date()),
-            'time': new FormControl("0", [Validators.required]),
+            'time': new FormControl({hour: 0, minute: 0, second: 0}, [Validators.required]),
             'maxSpeed': new FormControl(),
             'averageSpeed': new FormControl()
         });
@@ -78,10 +74,7 @@ export class ActivitiesComponent implements OnInit {
                     'minutes')
                 .format("YYYY-MM-DDTHH:mm:ss");
 
-            activity.duration =
-                this.addActivityForm.get("duration.hours").value * 36000 + +
-                this.addActivityForm.get("duration.minutes").value * 60 +
-                this.addActivityForm.get("duration.seconds").value;
+            activity.duration = this.timePickerService.toSeconds(this.addActivityForm.get('duration').value) + "";
             this.activityDataservice.createActivity(activity).subscribe(isSuccess => {
                 this.refreshActivities();
                 this.toasterService.pop('success', 'Activity', 'Activity created successfully');
@@ -133,12 +126,8 @@ export class ActivitiesComponent implements OnInit {
         this.addActivityForm.patchValue({
             sportActivityType: "RUN",
             units: "km",
-            time: "0",
-            duration: {
-                hours: 0,
-                minutes: 0,
-                seconds: 0
-            }
+            time: {hour: 0, minute: 0, second: 0},
+            duration: {hour: 0, minute: 0, second: 0}
         })
     }
 

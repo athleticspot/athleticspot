@@ -38,7 +38,9 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
                 sportActivityInDto.getTitle(),
                 athlete.getAthleteUUID(),
                 athlete.getFirstAndLastName()
-            ).createSportActivity();
+            )
+                .setElapsedTime(sportActivityInDto.getDuration())
+                .createSportActivity();
         athlete.perform(sportActivity);
         graphAthleteRepository.save(athlete);
     }
