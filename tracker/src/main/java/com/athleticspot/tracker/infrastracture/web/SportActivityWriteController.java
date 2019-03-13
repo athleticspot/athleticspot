@@ -1,11 +1,7 @@
 package com.athleticspot.tracker.infrastracture.web;
 
-import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.SportActivityApplicationService;
 import com.athleticspot.tracker.application.TimelineService;
-import com.athleticspot.tracker.domain.graph.Athlete;
-import com.athleticspot.tracker.domain.model.TrackerSource;
-import com.athleticspot.tracker.infrastracture.web.assembler.ManualSportActivityDetailsInDtoAssembler;
 import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +31,8 @@ public class SportActivityWriteController {
 
     @PostMapping
     public void createSportActivity(@RequestBody @Valid SportActivityInDto sportActivityInDto) {
-
         LOG.info("Incoming request: {}", sportActivityInDto);
         sportActivityApplicationService.createSportActivity(sportActivityInDto);
-//        timelineService.addActivity(
-//            ManualSportActivityDetailsInDtoAssembler.assemble(sportActivityInDto),
-//            TrackerSource.MANUAL.getSource(),
-//            sportActivityInDto.getStartDate()
-//        );
     }
 
     @PutMapping

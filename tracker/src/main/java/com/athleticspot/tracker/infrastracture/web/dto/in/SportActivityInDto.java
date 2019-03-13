@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author Tomasz Kasprzycki
@@ -42,7 +43,7 @@ public class SportActivityInDto implements Serializable {
 
     private String maxSpeed;
 
-    private String averageSpead;
+    private String averageSpeed;
 
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -81,11 +82,17 @@ public class SportActivityInDto implements Serializable {
     }
 
     public String getMaxSpeed() {
+        if(Objects.isNull(this.maxSpeed)){
+            return "";
+        }
         return maxSpeed;
     }
 
-    public String getAverageSpead() {
-        return averageSpead;
+    public String getAverageSpeed() {
+        if (Objects.isNull(this.averageSpeed)){
+            return "";
+        }
+        return averageSpeed;
     }
 
     public LocalDateTime getStartDate() {
@@ -104,7 +111,7 @@ public class SportActivityInDto implements Serializable {
             ", distance='" + distance + '\'' +
             ", units='" + units + '\'' +
             ", maxSpeed='" + maxSpeed + '\'' +
-            ", averageSpead='" + averageSpead + '\'' +
+            ", averageSpeed='" + averageSpeed + '\'' +
             ", startDate=" + startDate +
             '}';
     }

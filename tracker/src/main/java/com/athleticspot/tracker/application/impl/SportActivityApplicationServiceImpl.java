@@ -8,6 +8,8 @@ import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+
 /**
  * @author Tomasz Kasprzycki
  */
@@ -17,6 +19,8 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
     private final GraphAthleteRepository graphAthleteRepository;
 
     private final SportActivityRepository sportActivityRepository;
+
+    DecimalFormat decimalFormat= new DecimalFormat("#0.000");
 
     @Autowired
     public SportActivityApplicationServiceImpl(GraphAthleteRepository graphAthleteRepository, SportActivityRepository sportActivityRepository) {
@@ -40,6 +44,9 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
                 athlete.getFirstAndLastName()
             )
                 .setElapsedTime(sportActivityInDto.getDuration())
+                .setDescription(sportActivityInDto.getDescription())
+                .setMaxSpeed(Float.parseFloat(decimalFormat.format(sportActivityInDto.getMaxSpeed())))
+                .setAverageSpeed(Float.parseFloat(decimalFormat.format(sportActivityInDto.getAverageSpeed())))
                 .createSportActivity();
         athlete.perform(sportActivity);
         graphAthleteRepository.save(athlete);

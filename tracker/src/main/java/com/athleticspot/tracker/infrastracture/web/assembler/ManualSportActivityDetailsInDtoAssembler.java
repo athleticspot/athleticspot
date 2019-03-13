@@ -17,7 +17,7 @@ public class ManualSportActivityDetailsInDtoAssembler {
             sportActivityInDto.getDistance(),
             sportActivityInDto.getUnits(),
             sportActivityInDto.getMaxSpeed(),
-            sportActivityInDto.getAverageSpead()
+            sportActivityInDto.getAverageSpeed()
         );
     }
 

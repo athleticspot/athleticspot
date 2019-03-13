@@ -109,7 +109,9 @@
                     <div class="form-group">
                         <label>Max Speed</label>
                         <input
-                            type="text"
+                            type="number"
+                            min="0"
+                            step="0.1"
                             formControlName="maxSpeed"
                             placeholder="Add max speed..."
                             class="input-sm form-control">
@@ -117,7 +119,9 @@
                     <div class="form-group">
                         <label>Average Speed</label>
                         <input
-                            type="text"
+                            type="number"
+                            min="0"
+                            step="0.1"
                             formControlName="averageSpeed"
                             placeholder="Add mean speed..."
                             class="input-sm form-control">

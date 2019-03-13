@@ -125,6 +125,7 @@ export class ActivitiesComponent implements OnInit {
         this.addActivityForm.reset();
         this.addActivityForm.patchValue({
             sportActivityType: "RUN",
+            startDate: new Date(),
             units: "km",
             time: {hour: 0, minute: 0, second: 0},
             duration: {hour: 0, minute: 0, second: 0}
