@@ -20,7 +20,7 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
 
     private final SportActivityRepository sportActivityRepository;
 
-    DecimalFormat decimalFormat= new DecimalFormat("#0.000");
+    private DecimalFormat decimalFormat = new DecimalFormat("#0.000");
 
     @Autowired
     public SportActivityApplicationServiceImpl(GraphAthleteRepository graphAthleteRepository, SportActivityRepository sportActivityRepository) {
