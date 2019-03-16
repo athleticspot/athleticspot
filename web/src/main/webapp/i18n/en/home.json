@@ -3,6 +3,38 @@
         "motto": "Don’t let your dreams RUN away",
         "subtitle": "Wellness and educational platform for amateurs and professionals",
         "question": "What is Athletic ?",
+        "integration":{
+            "title": "Integration",
+            "details": "Connect your favourite sport apps on a single platform. It will help you to manage a tailored training plan, progres and all other activities in the most effective and while still using your favourite apps like Strava, MapMyfitness or Endomondo and many more. "
+        },
+        "features":{
+            "title": "Features",
+            "details": "Get access to a wide knowledge base for trainings, diet and  goals planning.  Keep track of your progress in an innovative way thanks to a real-time & self-learning monitoring module. Scheduling an appointment with a dietitian, physiotherapist or training coach has never been that easy !"
+        },
+        "fun":{
+            "title": "Fun",
+            "details": "Have all the fun activities, benefits, programs, tools and events your organization offers in one place. AthleticSpot(R)  is single and personalized user platform that makes it easy to market relevant programs, corporate challenges and benefits more efficiently, and allows your employees to be creative."
+        },
+        "benefits":{
+            "title": "Benefits",
+            "details": "Provide your employees with a transparent rewarding program that enables to plan their goals and benefits, making it all even more attractive and fun !"
+        },
+        "goals":{
+            "title": "Goals and challenges",
+            "details": "Submit for a race or any other wellness challenge, while our interactive coach will ensure you are well prepared, through a balanced training program and diet. "
+        },
+        "platform":{
+            "title": "All-in-one wellness platform",
+            "details": "AthleticSpot(R) integrate your data from various sport/wellness apps at one place, allowing you a better management of your training results, and goals planning."
+        },
+        "community":{
+            "title": "Community",
+            "details": "Build a wellness community inside your firm"
+        },
+        "planner":{
+            "title": "Meeting planner",
+            "details": "Schedule an appointment with a doctor, trainer, physiotherapist or dietist.  Online, or stationary."
+        },
         "title": "Athleticspot",
         "logged": {
             "message": "You are logged in as user \"{{username}}\"."
