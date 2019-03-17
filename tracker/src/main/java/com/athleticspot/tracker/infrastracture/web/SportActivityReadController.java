@@ -5,7 +5,6 @@ import com.athleticspot.tracker.domain.graph.SportActivityRepository;
 import com.athleticspot.tracker.domain.model.GenericSportActivityRepository;
 import com.athleticspot.tracker.domain.model.SportActivity;
 import com.athleticspot.tracker.infrastracture.assembler.SportActivityAssemblerImpl;
-import com.athleticspot.tracker.infrastracture.security.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * @author Tomasz Kasprzycki
  */
@@ -29,8 +25,6 @@ public class SportActivityReadController {
 
     private final Logger LOG = LoggerFactory.getLogger(SportActivityReadController.class);
 
-    private final GenericSportActivityRepository genericSportActivityRepository;
-
     private final SportActivityAssemblerImpl sportActivityAssemblerImpl;
 
     private final SportActivityRepository sportActivityRepository;
@@ -38,19 +32,9 @@ public class SportActivityReadController {
     @Autowired
     public SportActivityReadController(GenericSportActivityRepository genericSportActivityRepository,
                                        SportActivityAssemblerImpl sportActivityAssemblerImpl,
-                                       SportActivityRepository sportActivityRepository,
-                                       SecurityService securityService) {
-        this.genericSportActivityRepository = genericSportActivityRepository;
+                                       SportActivityRepository sportActivityRepository) {
         this.sportActivityAssemblerImpl = sportActivityAssemblerImpl;
         this.sportActivityRepository = sportActivityRepository;
-    }
-
-    @GetMapping
-    public List<SportActivity> getUserSportActivities() {
-        return genericSportActivityRepository.findByUsername(SecurityUtils.getCurrentUserLogin(), new Sort(Sort.Direction.DESC, "startDate"))
-            .stream()
-            .map(sportActivityAssemblerImpl::assembleSportActivity)
-            .collect(Collectors.toList());
     }
 
     @GetMapping(value = "/paged")
