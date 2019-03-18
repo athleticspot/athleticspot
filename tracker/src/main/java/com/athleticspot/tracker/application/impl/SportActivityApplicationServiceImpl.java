@@ -16,6 +16,9 @@ import java.text.DecimalFormat;
 @Service
 public class SportActivityApplicationServiceImpl implements SportActivityApplicationService {
 
+    private static final int TRACKING_SYSTEM_ID = 0;
+    private static final String EXTERNAL_ID = "0";
+
     private final GraphAthleteRepository graphAthleteRepository;
 
     private final SportActivityRepository sportActivityRepository;
@@ -35,8 +38,8 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
             new SportActivityBuilder(
                 TrackerSource.values()[Integer.parseInt(sportActivityInDto.getTrackerSource())],
                 sportActivityInDto.getSportActivityType(),
-                0,
-                "0",
+                TRACKING_SYSTEM_ID,
+                EXTERNAL_ID,
                 Float.parseFloat(sportActivityInDto.getDistance()),
                 sportActivityInDto.getStartDate(),
                 sportActivityInDto.getTitle(),
