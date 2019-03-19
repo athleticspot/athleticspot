@@ -109,13 +109,20 @@
         <dependency>
             <groupId>javax.measure</groupId>
             <artifactId>unit-api</artifactId>
-            <version>1.0</version>
+            <version>2.0-EDR</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/tech.units/indriya -->
+        <dependency>
+            <groupId>tech.units</groupId>
+            <artifactId>indriya</artifactId>
+            <version>2.0-EDR</version>
         </dependency>
         <dependency>
-            <groupId>tec.units</groupId>
-            <artifactId>unit-ri</artifactId>
-            <version>1.0.3</version>
+            <groupId>systems.uom</groupId>
+            <artifactId>systems-common</artifactId>
+            <version>0.9</version>
         </dependency>
+
     </dependencies>
 
     <profiles>

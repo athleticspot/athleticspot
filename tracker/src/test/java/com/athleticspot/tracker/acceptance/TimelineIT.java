@@ -3,10 +3,7 @@ package com.athleticspot.tracker.acceptance;
 import com.athleticspot.tracker.TrackerApplication;
 import com.athleticspot.tracker.application.TimelineService;
 import com.athleticspot.tracker.domain.model.*;
-import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
-import com.athleticspot.tracker.domain.model.manual.ManualSportActivityDetails;
 import com.athleticspot.tracker.domain.model.manual.ManualSportActivityRepository;
-import com.athleticspot.tracker.shared.TestSportActivityDetailsFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -77,22 +73,5 @@ public class TimelineIT {
         Assertions.assertThat(timelineUnderTest.timelineIdentifier()).isEqualTo(expectedTimelineIdentifier);
     }
 
-    @Test
-    public void whenSportEventIsAddedToTimelineThenItsStored() {
-        //given
-        String expectedSportActivityId;
 
-        //when
-        final ManualSportActivityDetails expectedManualSportActivityDetails = TestSportActivityDetailsFactory.create();
-        expectedSportActivityId = timelineService.addActivity(
-            expectedManualSportActivityDetails,
-            "Manual",
-            LocalDateTime.now());
-
-        //then
-        final Optional<ManualSportActivity> byTimelineId = manualSportActivityRepository.findBySportActivityId(expectedSportActivityId);
-        Assertions.assertThat(byTimelineId.isPresent()).isTrue();
-        Assertions.assertThat(byTimelineId.get().details()).isEqualTo(expectedManualSportActivityDetails);
-        Assertions.assertThat(byTimelineId.get().source()).isEqualTo("Manual");
-    }
 }

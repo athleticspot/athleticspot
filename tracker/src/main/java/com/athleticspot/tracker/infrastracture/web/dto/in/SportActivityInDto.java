@@ -37,7 +37,7 @@ public class SportActivityInDto implements Serializable {
     @NotNull
     private Integer duration;
 
-    private String distance;
+    private Float distance;
 
     private String units;
 
@@ -73,7 +73,7 @@ public class SportActivityInDto implements Serializable {
         return duration;
     }
 
-    public String getDistance() {
+    public Float getDistance() {
         return distance;
     }
 

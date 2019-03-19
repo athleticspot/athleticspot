@@ -7,8 +7,13 @@ import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import systems.uom.common.USCustomary;
+import tech.units.indriya.quantity.Quantities;
 
 import java.text.DecimalFormat;
+
+import static javax.measure.MetricPrefix.KILO;
+import static tech.units.indriya.unit.Units.METRE;
 
 /**
  * @author Tomasz Kasprzycki
@@ -40,7 +45,7 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
                 sportActivityInDto.getSportActivityType(),
                 TRACKING_SYSTEM_ID,
                 EXTERNAL_ID,
-                Float.parseFloat(sportActivityInDto.getDistance()),
+                convertDistanceToMeters(sportActivityInDto.getUnits(), sportActivityInDto.getDistance()),
                 sportActivityInDto.getStartDate(),
                 sportActivityInDto.getTitle(),
                 athlete.getAthleteUUID(),
@@ -68,5 +73,14 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
         final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
         return graphAthleteRepository.findByName(currentUserLogin)
             .orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
+    }
+
+    private Float convertDistanceToMeters(String units, Float distance){
+        if("km".equals(units)){
+            return (Float) Quantities.getQuantity(distance, KILO(METRE)).to(METRE).getValue();
+        }else if("mil".equals(units)){
+            return (Float) Quantities.getQuantity(distance, USCustomary.MILE).to(METRE).getValue();
+        }
+        return 0.00f;
     }
 }
