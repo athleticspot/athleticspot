@@ -81,16 +81,10 @@ public class SportActivityInDto implements Serializable {
     }
 
     public Float getMaxSpeed() {
-//        if(Objects.isNull(this.maxSpeed)){
-//            return "";
-//        }
         return maxSpeed;
     }
 
     public Float getAverageSpeed() {
-//        if (Objects.isNull(this.averageSpeed)){
-//            return "";
-//        }
         return averageSpeed;
     }
 
