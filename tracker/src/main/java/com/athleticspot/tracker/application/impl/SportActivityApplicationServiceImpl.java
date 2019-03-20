@@ -53,8 +53,8 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
             )
                 .setElapsedTime(sportActivityInDto.getDuration())
                 .setDescription(sportActivityInDto.getDescription())
-                .setMaxSpeed(Float.parseFloat(decimalFormat.format(sportActivityInDto.getMaxSpeed())))
-                .setAverageSpeed(Float.parseFloat(decimalFormat.format(sportActivityInDto.getAverageSpeed())))
+                .setMaxSpeed(sportActivityInDto.getMaxSpeed())
+                .setAverageSpeed(sportActivityInDto.getAverageSpeed())
                 .createSportActivity();
         athlete.perform(sportActivity);
         graphAthleteRepository.save(athlete);
@@ -77,10 +77,11 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
 
     private Float convertDistanceToMeters(String units, Float distance){
         if("km".equals(units)){
-            return (Float) Quantities.getQuantity(distance, KILO(METRE)).to(METRE).getValue();
+            return Quantities.getQuantity(distance, KILO(METRE)).to(METRE).getValue().floatValue();
         }else if("mil".equals(units)){
-            return (Float) Quantities.getQuantity(distance, USCustomary.MILE).to(METRE).getValue();
+            return Quantities.getQuantity(distance, USCustomary.MILE).to(METRE).getValue().floatValue();
         }
         return 0.00f;
     }
+
 }
