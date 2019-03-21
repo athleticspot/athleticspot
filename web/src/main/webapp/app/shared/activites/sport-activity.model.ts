@@ -15,8 +15,7 @@ export class SportActivityModel {
     description: String;
     distance: Number;
     units: String;
-    movingTime;
-    Number;
+    movingTime: Number;
     elapsedTime: Number;
     startDate: String;  //Sting type is set on pourpose in order to not use js Date
     averageSpeed: Number;

@@ -59,25 +59,7 @@
 
                     <div class="form-group">
                         <label>Duration</label>
-
                         <ngb-timepicker formControlName="duration" [seconds]=true></ngb-timepicker>
-
-
-                        <!--<div class="form-group ">-->
-                            <!--<div class=" input-group">-->
-                                <!--<input type="number" class="form-control col-sm-8" formControlName="hours">-->
-                                <!--<span class="input-group-addon col-sm-4">hours</span>-->
-
-                            <!--</div>-->
-                            <!--<div class="input-group">-->
-                                <!--<input type="number" class="form-control col-sm-8" formControlName="minutes">-->
-                                <!--<span class=" input-group-addon col-sm-4">min</span>-->
-                            <!--</div>-->
-                            <!--<div class=" input-group ">-->
-                                <!--<input type="number" class="form-control col-sm-8" formControlName="seconds">-->
-                                <!--<span class=" input-group-addon col-sm-4">sec</span>-->
-                            <!--</div>-->
-                        <!--</div>-->
                     </div>
 
                     <div class="form-group">
@@ -93,6 +75,10 @@
                                 <option value="km">kilometers</option>
                                 <option value="mi">miles</option>
                             </select>
+                            <span class="m-b-none padder"
+                                  *ngIf="addActivityForm.dirty && addActivityForm.controls.distance.errors?.required">
+                            This field is required
+                        </span>
                         </div>
                     </div>
 
@@ -195,7 +181,7 @@
                                                 <div class="col-sm-4 text-dark ">
                                                     <p class="m-xxs text-sm">Time:</p>
                                                     <p class="text-lg m-xxs">
-                                                        {{activity.movingTime}}
+                                                        {{activity.elapsedTime}}
                                                     </p>
                                                 </div>
                                                 <div class="col-sm-4 text-dark ">
