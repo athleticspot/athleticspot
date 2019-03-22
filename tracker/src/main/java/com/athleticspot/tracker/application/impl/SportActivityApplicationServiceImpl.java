@@ -7,13 +7,10 @@ import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import systems.uom.common.USCustomary;
-import tech.units.indriya.quantity.Quantities;
 
 import java.text.DecimalFormat;
 
-import static javax.measure.MetricPrefix.KILO;
-import static tech.units.indriya.unit.Units.METRE;
+import static com.athleticspot.tracker.shared.QuantitiesConverter.convertDistanceToMeters;
 
 /**
  * @author Tomasz Kasprzycki
@@ -74,14 +71,4 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
         return graphAthleteRepository.findByName(currentUserLogin)
             .orElseThrow(() -> new IllegalStateException(String.format("Athlete with name: %s doesn't exist", currentUserLogin)));
     }
-
-    private Float convertDistanceToMeters(String units, Float distance){
-        if("km".equals(units)){
-            return Quantities.getQuantity(distance, KILO(METRE)).to(METRE).getValue().floatValue();
-        }else if("mil".equals(units)){
-            return Quantities.getQuantity(distance, USCustomary.MILE).to(METRE).getValue().floatValue();
-        }
-        return 0.00f;
-    }
-
 }

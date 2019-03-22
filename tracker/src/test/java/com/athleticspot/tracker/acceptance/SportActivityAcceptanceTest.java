@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.acceptance;
 
+import com.athleticspot.tracker.domain.MeasureSystemProvider;
 import com.athleticspot.tracker.domain.graph.*;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
@@ -28,6 +29,9 @@ public class SportActivityAcceptanceTest {
 
     @Autowired
     GraphAthleteRepository graphAthleteRepository;
+
+    @Autowired
+    MeasureSystemProvider measureSystemProvider;
 
     @Test
     public void sportActivitySanityTest() {
@@ -102,7 +106,7 @@ public class SportActivityAcceptanceTest {
         Assertions.assertThat(savedSportActivity.getSportActivityType()).isEqualTo(sportActivityType);
         Assertions.assertThat(savedSportActivity.getTrackingSystemId()).isEqualTo(trackingSystemId);
         Assertions.assertThat(savedSportActivity.getExternalId()).isEqualTo(externalId);
-        Assertions.assertThat(savedSportActivity.getDistance()).isEqualTo(distance);
+        Assertions.assertThat(savedSportActivity.getDistance(measureSystemProvider.getDistanceUnit())).isEqualTo(distance);
         Assertions.assertThat(savedSportActivity.getStartDate()).isEqualTo(startDate);
         Assertions.assertThat(savedSportActivity.getTitle()).isEqualTo(title);
         Assertions.assertThat(savedSportActivity.getUserUuid()).isEqualTo(userUuid);

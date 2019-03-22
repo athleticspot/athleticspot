@@ -2,10 +2,13 @@ package com.athleticspot.tracker.domain.graph;
 
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
+import com.athleticspot.tracker.shared.QuantitiesConverter;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
+import javax.measure.Unit;
+import javax.measure.quantity.Length;
 import java.time.LocalDateTime;
 
 /**
@@ -178,8 +181,8 @@ public class SportActivity {
         return description;
     }
 
-    public Float getDistance() {
-        return distance;
+    public Float getDistance(Unit<Length> distanceUnit) {
+        return QuantitiesConverter.convertDistanceFromMeters(distanceUnit, distance);
     }
 
     public Integer getMovingTime() {
