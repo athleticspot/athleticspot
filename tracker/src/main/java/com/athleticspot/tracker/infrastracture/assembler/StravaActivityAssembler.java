@@ -66,7 +66,7 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
             .setDistance(stravaSportActivity.getDistance())
             .setUnits("m") //be default strava activities are stored as a meters
 //            .setMovingTime(stravaSportActivity.getMovingTime())
-            .setElapsedTime(stravaSportActivity.getElapsedTime())
+//            .setElapsedTime(stravaSportActivity.getElapsedTime())
             .setStartDate(stravaSportActivity.getStartDate())
             .setAverageSpeed(stravaSportActivity.getAverageSpeed())
             .setMaxSpeed(stravaSportActivity.getMaxSpeed())

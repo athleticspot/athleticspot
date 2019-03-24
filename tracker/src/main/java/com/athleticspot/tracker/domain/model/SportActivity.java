@@ -37,7 +37,7 @@ public class SportActivity extends SportActivityGenericType {
 
     private String movingTime;
 
-    private Integer elapsedTime;
+    private String elapsedTime;
 
     private LocalDateTime startDate;
 
@@ -107,7 +107,7 @@ public class SportActivity extends SportActivityGenericType {
         return movingTime;
     }
 
-    public Integer getElapsedTime() {
+    public String getElapsedTime() {
         return elapsedTime;
     }
 
@@ -186,7 +186,7 @@ public class SportActivity extends SportActivityGenericType {
         return this;
     }
 
-    public SportActivity setElapsedTime(final Integer elapsedTime) {
+    public SportActivity setElapsedTime(final String elapsedTime) {
         this.elapsedTime = elapsedTime;
         return this;
     }

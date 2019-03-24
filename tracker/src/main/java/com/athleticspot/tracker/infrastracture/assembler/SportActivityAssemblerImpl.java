@@ -45,7 +45,7 @@ public class SportActivityAssemblerImpl {
             .setDescription(graphSportActivity.getDescription())
             .setDistance(graphSportActivity.getDistance(measureSystemProvider.getDistanceUnit()))
             .setMovingTime(QuantitiesConverter.convertSecondsToTime(graphSportActivity.getMovingTime()))
-            .setElapsedTime(graphSportActivity.getElapsedTime())
+            .setElapsedTime(QuantitiesConverter.convertSecondsToTime(graphSportActivity.getElapsedTime()))
             .setStartDate(graphSportActivity.getStartDate())
             .setAverageSpeed(graphSportActivity.getAverageSpeed())
             .setMaxSpeed(graphSportActivity.getMaxSpeed())
