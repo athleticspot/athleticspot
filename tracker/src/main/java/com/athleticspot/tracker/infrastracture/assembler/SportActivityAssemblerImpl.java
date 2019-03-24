@@ -2,6 +2,7 @@ package com.athleticspot.tracker.infrastracture.assembler;
 
 import com.athleticspot.tracker.domain.MeasureSystemProvider;
 import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.shared.QuantitiesConverter;
 import com.google.common.collect.Lists;
 import com.google.maps.internal.PolylineEncoding;
 import com.google.maps.model.LatLng;
@@ -43,7 +44,7 @@ public class SportActivityAssemblerImpl {
             .setTitle(graphSportActivity.getTitle())
             .setDescription(graphSportActivity.getDescription())
             .setDistance(graphSportActivity.getDistance(measureSystemProvider.getDistanceUnit()))
-            .setMovingTime(graphSportActivity.getMovingTime())
+            .setMovingTime(QuantitiesConverter.convertSecondsToTime(graphSportActivity.getMovingTime()))
             .setElapsedTime(graphSportActivity.getElapsedTime())
             .setStartDate(graphSportActivity.getStartDate())
             .setAverageSpeed(graphSportActivity.getAverageSpeed())
@@ -52,4 +53,5 @@ public class SportActivityAssemblerImpl {
             .setCalories(graphSportActivity.getCalories())
             .setCoordinates(coordinates);
     }
+
 }

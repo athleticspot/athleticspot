@@ -65,7 +65,7 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
             .setDescription(stravaSportActivity.getDescription())
             .setDistance(stravaSportActivity.getDistance())
             .setUnits("m") //be default strava activities are stored as a meters
-            .setMovingTime(stravaSportActivity.getMovingTime())
+//            .setMovingTime(stravaSportActivity.getMovingTime())
             .setElapsedTime(stravaSportActivity.getElapsedTime())
             .setStartDate(stravaSportActivity.getStartDate())
             .setAverageSpeed(stravaSportActivity.getAverageSpeed())
@@ -75,6 +75,5 @@ public class StravaActivityAssembler implements SportActivityAssembler<StravaSpo
             .setCoordinates(PolylineEncoding.decode(
                 Optional.ofNullable(stravaSportActivity.getMap().getSummaryPolyline()).orElseGet(() -> ""))
             );
-
     }
 }

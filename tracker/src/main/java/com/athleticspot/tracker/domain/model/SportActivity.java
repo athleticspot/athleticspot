@@ -35,7 +35,7 @@ public class SportActivity extends SportActivityGenericType {
 
     private String units;
 
-    private Integer movingTime;
+    private String movingTime;
 
     private Integer elapsedTime;
 
@@ -103,7 +103,7 @@ public class SportActivity extends SportActivityGenericType {
         return units;
     }
 
-    public Integer getMovingTime() {
+    public String getMovingTime() {
         return movingTime;
     }
 
@@ -181,7 +181,7 @@ public class SportActivity extends SportActivityGenericType {
     }
 
 
-    public SportActivity setMovingTime(final Integer movingTime) {
+    public SportActivity setMovingTime(final String movingTime) {
         this.movingTime = movingTime;
         return this;
     }

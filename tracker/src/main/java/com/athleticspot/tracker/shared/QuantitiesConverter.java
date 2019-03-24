@@ -5,6 +5,7 @@ import tech.units.indriya.quantity.Quantities;
 
 import javax.measure.Unit;
 import javax.measure.quantity.Length;
+import java.util.Objects;
 
 import static javax.measure.MetricPrefix.KILO;
 import static tech.units.indriya.unit.Units.METRE;
@@ -25,6 +26,16 @@ public class QuantitiesConverter {
 
     public static Float convertDistanceFromMeters(Unit<Length> units, Float meters) {
         return Quantities.getQuantity(meters, METRE).to(units).getValue().floatValue();
+    }
+
+    public static String convertSecondsToTime(Integer input) {
+        if(Objects.isNull(input)){
+            return null;
+        }
+        long hours = (input - input % 3600) / 3600;
+        long minutes = (input % 3600 - input % 3600 % 60) / 60;
+        long seconds = input % 3600 % 60;
+        return hours + "h " + minutes + "m " + seconds + "s";
     }
 
 }
