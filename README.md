@@ -1,4 +1,4 @@
-Spring boot maven
+Spring boot maven app
 
 # athleticspot
 Pipelineins
