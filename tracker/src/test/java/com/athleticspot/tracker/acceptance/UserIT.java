@@ -10,9 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,42 +29,24 @@ public class UserIT {
     @Autowired
     TrackerUserService trackerUserService;
 
-    private final String timelineId = "timelineId";
 
     @Before
     public void setUp() {
-        TrackerUser trackerUser = new TrackerUser("admin", timelineId);
+        TrackerUser trackerUser = new TrackerUser("admin");
         userRepository.saveTrackerUser(trackerUser);
     }
 
     @Test
     public void whenThereIsNoUserThenEmpyUserListIsReturned() {
+
         //when
         List<TrackerUser> allUsers = userRepository.findAllUsers();
         //then
         Assertions.assertThat(allUsers).isNotNull();
         Assertions.assertThat(allUsers).hasSize(1);
-        final TrackerUser trackerUser = allUsers.get(0);
-        final String newTimeId = "newTimeId";
-        trackerUser.assignTimelineIdentifier(newTimeId);
-        userRepository.saveTrackerUser(trackerUser);
+        final TrackerUser savedUser = allUsers.get(0);
 
-        allUsers = userRepository.findAllUsers();
         Assertions.assertThat(allUsers).hasSize(1);
-        Assertions.assertThat(allUsers.get(0).getTimelineIdentifier()).isEqualTo(newTimeId);
     }
 
-    @Test
-    public void whenThereAreNoUserSetUu() {
-        //given
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("admin", "admin"));
-        SecurityContextHolder.setContext(securityContext);
-
-        //when
-        final String timelineIdentifier = trackerUserService.getTimelineIdentifier();
-
-        //then
-        Assertions.assertThat(timelineIdentifier).isEqualTo(timelineId);
-    }
 }

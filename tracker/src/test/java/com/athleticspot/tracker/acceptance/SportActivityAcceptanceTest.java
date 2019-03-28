@@ -7,12 +7,15 @@ import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.google.common.collect.Lists;
 import com.google.maps.model.LatLng;
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import tech.units.indriya.unit.Units;
 
+import javax.measure.MetricPrefix;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -25,13 +28,17 @@ import java.util.UUID;
 public class SportActivityAcceptanceTest {
 
     @Autowired
-    SportActivityRepository sportActivityRepository;
+    private SportActivityRepository sportActivityRepository;
 
     @Autowired
-    GraphAthleteRepository graphAthleteRepository;
+    private GraphAthleteRepository graphAthleteRepository;
 
-    @Autowired
-    MeasureSystemProvider measureSystemProvider;
+    private MeasureSystemProvider measureSystemProvider;
+
+    @Before
+    public void init() {
+        measureSystemProvider = () -> MetricPrefix.KILO(Units.METRE);
+    }
 
     @Test
     public void sportActivitySanityTest() {
@@ -106,7 +113,7 @@ public class SportActivityAcceptanceTest {
         Assertions.assertThat(savedSportActivity.getSportActivityType()).isEqualTo(sportActivityType);
         Assertions.assertThat(savedSportActivity.getTrackingSystemId()).isEqualTo(trackingSystemId);
         Assertions.assertThat(savedSportActivity.getExternalId()).isEqualTo(externalId);
-        Assertions.assertThat(savedSportActivity.getDistance(measureSystemProvider.getDistanceUnit())).isEqualTo(distance);
+        Assertions.assertThat(savedSportActivity.getDistance(measureSystemProvider.getDistanceUnit())).isEqualTo(distance/1000);
         Assertions.assertThat(savedSportActivity.getStartDate()).isEqualTo(startDate);
         Assertions.assertThat(savedSportActivity.getTitle()).isEqualTo(title);
         Assertions.assertThat(savedSportActivity.getUserUuid()).isEqualTo(userUuid);
@@ -132,7 +139,7 @@ public class SportActivityAcceptanceTest {
     }
 
     @Test
-    public void fetchingSportActivitiesAssignedToTheUser(){
+    public void fetchingSportActivitiesAssignedToTheUser() {
         Athlete athlete = new Athlete("Olek", UUID.randomUUID().toString(), "");
 
         athlete.perform(new SportActivityBuilder(

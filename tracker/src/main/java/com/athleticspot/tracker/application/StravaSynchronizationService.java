@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author Tomasz Kasprzycki
  */
-//@Component
+@Component
 public class StravaSynchronizationService extends SpringRouteBuilder {
 
     private final StravaApplicationService stravaApplicationService;

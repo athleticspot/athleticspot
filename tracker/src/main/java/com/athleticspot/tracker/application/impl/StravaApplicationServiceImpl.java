@@ -1,12 +1,12 @@
 package com.athleticspot.tracker.application.impl;
 
-import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.StravaApplicationService;
 import com.athleticspot.tracker.application.TrackerUserService;
-import com.athleticspot.tracker.domain.graph.*;
+import com.athleticspot.tracker.domain.graph.Athlete;
+import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
+import com.athleticspot.tracker.domain.graph.SportActivity;
+import com.athleticspot.tracker.domain.graph.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.TrackerUser;
-import com.athleticspot.tracker.domain.model.manual.ManualSportActivity;
-import com.athleticspot.tracker.infrastracture.assembler.StravaActivityAssembler;
 import com.athleticspot.tracker.infrastracture.security.SecurityService;
 import javastrava.api.v3.auth.model.Token;
 import javastrava.api.v3.auth.model.TokenResponse;
@@ -37,8 +37,6 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     private final TrackerUserService trackerUserService;
 
-    private final StravaActivityAssembler stravaActivityAssembler;
-
     private final GraphAthleteRepository graphAthleteRepository;
 
     private final SecurityService securityService;
@@ -55,11 +53,9 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     @Autowired
     public StravaApplicationServiceImpl(TrackerUserService trackerUserService,
-                                        StravaActivityAssembler stravaActivityAssembler,
                                         GraphAthleteRepository graphAthleteRepository,
                                         SecurityService securityService) {
         this.trackerUserService = trackerUserService;
-        this.stravaActivityAssembler = stravaActivityAssembler;
         this.graphAthleteRepository = graphAthleteRepository;
         this.securityService = securityService;
     }
@@ -74,19 +70,6 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     private String getCode(String username) {
         return trackerUserService.getStravaCode(username);
-    }
-
-    public List<ManualSportActivity> getStravaActivities() {
-        Token token = getUserToken(SecurityUtils.getCurrentUserLogin());
-
-        final ActivityAPI api = API.instance(ActivityAPI.class, token);
-        final StravaActivity[] stravaActivities = api.listAuthenticatedAthleteActivities(
-            (int) LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond(),
-            0,
-            1,
-            200
-        );
-        return stravaActivityAssembler.buildFromStravaActivities(Arrays.asList(stravaActivities));
     }
 
     @Override

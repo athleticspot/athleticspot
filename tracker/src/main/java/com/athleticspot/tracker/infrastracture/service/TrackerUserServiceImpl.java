@@ -24,18 +24,11 @@ public class TrackerUserServiceImpl implements TrackerUserService {
     }
 
     @Override
-    public String getTimelineIdentifier() {
-        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
-        return userRepository.getTimelineIdentifier(currentUserLogin);
-    }
-
-    @Override
     public void addTimelineIdentifier(String timelineIdentifier) {
         Assert.notNull(timelineIdentifier, "timeline identifier cannot be null");
         final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
         final TrackerUser trackerUser = userRepository.getUser(currentUserLogin);
         Assert.notNull(trackerUser, "Tracker User cannot be null");
-        trackerUser.assignTimelineIdentifier(timelineIdentifier);
         userRepository.saveTrackerUser(trackerUser);
     }
 

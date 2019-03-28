@@ -79,9 +79,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
-    @Column(name = "timeline_id")
-    private String timelineIdentifier;
-
     @Column(name = "strava_code", length = 100)
     @JsonIgnore
     private String stravaCode;

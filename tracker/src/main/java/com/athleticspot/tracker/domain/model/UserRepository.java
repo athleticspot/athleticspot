@@ -8,13 +8,6 @@ import java.util.Optional;
  */
 public interface UserRepository {
 
-    /**
-     * Gets timeline identifier which is assigned to the user.
-     * To fetch this we use user login.
-     * @param userLogin
-     * @return
-     */
-    String getTimelineIdentifier(String userLogin);
 
     /**
      * Finds all users stored within system

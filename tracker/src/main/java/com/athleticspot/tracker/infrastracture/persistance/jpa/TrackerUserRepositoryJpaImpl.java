@@ -27,14 +27,6 @@ public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUse
     }
 
     @Override
-    public String getTimelineIdentifier(String userLogin) {
-
-        final TrackerUser trackerUser = getTrackerUser(userLogin);
-        if (trackerUser == null) return null;
-        return trackerUser.getTimelineIdentifier();
-    }
-
-    @Override
     public List<TrackerUser> findAllUsers() {
         return this.findAll();
     }

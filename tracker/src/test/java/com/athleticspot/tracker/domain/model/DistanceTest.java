@@ -39,7 +39,7 @@ public class DistanceTest {
     public void testKilometersToMilesConversion(){
         final Quantity<Length> lengthQuantity = convertToMile(10000.00);
         Assertions.assertThat(lengthQuantity.getUnit()).isEqualTo(USCustomary.MILE);
-        Assertions.assertThat(lengthQuantity.getValue()).isEqualTo(6.21371);
+        Assertions.assertThat(lengthQuantity.getValue()).isEqualTo(6.2137119223733395);
     }
 
     private Quantity<Length> createDistance(Double distanceInMetres){

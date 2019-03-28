@@ -26,9 +26,6 @@ public class TrackerUser {
     @Column(name = "login")
     private String login;
 
-    @Column(name = "timeline_id")
-    private String timelineIdentifier;
-
     @Column(name = "strava_code")
     private String stravaCode;
 
@@ -43,9 +40,8 @@ public class TrackerUser {
     public TrackerUser() {
     }
 
-    public TrackerUser(String login, String timelineIdentifier) {
+    public TrackerUser(String login) {
         this.login = login;
-        this.timelineIdentifier = timelineIdentifier;
     }
 
     public String getFirstName() {
@@ -58,10 +54,6 @@ public class TrackerUser {
 
     public String getLogin() {
         return login;
-    }
-
-    public String getTimelineIdentifier() {
-        return timelineIdentifier;
     }
 
     public String getStravaCode() {
@@ -80,11 +72,6 @@ public class TrackerUser {
         return imageUrl;
     }
 
-    public TrackerUser assignTimelineIdentifier(String timelineIdentifier) {
-        this.timelineIdentifier = timelineIdentifier;
-        return this;
-    }
-
     public TrackerUser assignStravaLastSynchronizationDate(LocalDateTime stravaLastSynchronizationDate){
         Assert.notNull(stravaLastSynchronizationDate, "Strava last synchronization date cannot be null");
         this.stravaLastSynchronizationDate = stravaLastSynchronizationDate;
@@ -98,7 +85,6 @@ public class TrackerUser {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", login='" + login + '\'' +
-            ", timelineIdentifier='" + timelineIdentifier + '\'' +
             ", stravaCode='" + stravaCode + '\'' +
             ", stravaLastSynchronizationDate=" + stravaLastSynchronizationDate +
             ", imageUrl='" + imageUrl + '\'' +
