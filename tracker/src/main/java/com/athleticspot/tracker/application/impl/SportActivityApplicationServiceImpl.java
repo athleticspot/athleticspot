@@ -2,7 +2,11 @@ package com.athleticspot.tracker.application.impl;
 
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.SportActivityApplicationService;
-import com.athleticspot.tracker.domain.graph.*;
+import com.athleticspot.tracker.domain.graph.Athlete;
+import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
+import com.athleticspot.tracker.domain.graph.SportActivity;
+import com.athleticspot.tracker.domain.graph.SportActivityRepository;
+import com.athleticspot.tracker.domain.model.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 import org.springframework.beans.factory.annotation.Autowired;

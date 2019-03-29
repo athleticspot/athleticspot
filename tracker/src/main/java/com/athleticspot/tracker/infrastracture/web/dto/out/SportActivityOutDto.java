@@ -1,5 +1,7 @@
-package com.athleticspot.tracker.domain.model;
+package com.athleticspot.tracker.infrastracture.web.dto.out;
 
+import com.athleticspot.tracker.domain.model.SportActivityType;
+import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.maps.model.LatLng;
@@ -15,11 +17,13 @@ import java.util.List;
     fieldVisibility = JsonAutoDetect.Visibility.ANY,
     getterVisibility = JsonAutoDetect.Visibility.NONE,
     setterVisibility = JsonAutoDetect.Visibility.NONE)
-public class SportActivity extends SportActivityGenericType {
+public class SportActivityOutDto {
 
     private String id;
 
     private String firstAndLastName;
+
+    protected String username;
 
     private String userUuid;
 
@@ -52,15 +56,7 @@ public class SportActivity extends SportActivityGenericType {
     private List<LatLng> coordinates;
 
 
-    private SportActivity(String id, String username, String title, TrackerSource trackerSource, LocalDateTime startDate) {
-        this.username = username;
-        this.title = title;
-        this.trackerSource = trackerSource;
-        this.id = id;
-        this.startDate = startDate;
-    }
-
-    public SportActivity() {
+    public SportActivityOutDto() {
 
     }
 
@@ -127,101 +123,100 @@ public class SportActivity extends SportActivityGenericType {
         return calories;
     }
 
-    @Override
     public String getUsername() {
         return username;
     }
 
     //Fluent interfaces
-    public SportActivity setId(final String id) {
+    public SportActivityOutDto setId(final String id) {
         this.id = id;
         return this;
     }
 
-    public SportActivity setUserUuid(final String userUuid) {
+    public SportActivityOutDto setUserUuid(final String userUuid) {
         this.userUuid = userUuid;
         return this;
     }
 
 
-    public SportActivity setFirstAndLastName(final String firstAndLastName) {
+    public SportActivityOutDto setFirstAndLastName(final String firstAndLastName) {
         this.firstAndLastName = firstAndLastName;
         return this;
     }
 
 
-    public SportActivity setTrackerSource(final TrackerSource trackerSource) {
+    public SportActivityOutDto setTrackerSource(final TrackerSource trackerSource) {
         this.trackerSource = trackerSource;
         return this;
     }
 
-    public SportActivity setSportActivityType(final SportActivityType sportActivityType) {
+    public SportActivityOutDto setSportActivityType(final SportActivityType sportActivityType) {
         this.sportActivityType = sportActivityType;
         return this;
     }
 
-    public SportActivity setTitle(final String title) {
+    public SportActivityOutDto setTitle(final String title) {
         this.title = title;
         return this;
     }
 
-    public SportActivity setDescription(final String description) {
+    public SportActivityOutDto setDescription(final String description) {
         this.description = description;
         return this;
     }
 
-    public SportActivity setDistance(final Float distance) {
+    public SportActivityOutDto setDistance(final Float distance) {
         this.distance = distance;
         return this;
     }
 
-    public SportActivity setUnits(final String units) {
+    public SportActivityOutDto setUnits(final String units) {
         this.units = units;
         return this;
     }
 
 
-    public SportActivity setMovingTime(final String movingTime) {
+    public SportActivityOutDto setMovingTime(final String movingTime) {
         this.movingTime = movingTime;
         return this;
     }
 
-    public SportActivity setElapsedTime(final String elapsedTime) {
+    public SportActivityOutDto setElapsedTime(final String elapsedTime) {
         this.elapsedTime = elapsedTime;
         return this;
     }
 
-    public SportActivity setStartDate(final LocalDateTime startDate) {
+    public SportActivityOutDto setStartDate(final LocalDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
 
-    public SportActivity setAverageSpeed(final Float averageSpeed) {
+    public SportActivityOutDto setAverageSpeed(final Float averageSpeed) {
         this.averageSpeed = averageSpeed;
         return this;
     }
 
-    public SportActivity setMaxSpeed(final Float maxSpeed) {
+    public SportActivityOutDto setMaxSpeed(final Float maxSpeed) {
         this.maxSpeed = maxSpeed;
         return this;
     }
 
-    public SportActivity setAverageTemp(final Float averageTemp) {
+    public SportActivityOutDto setAverageTemp(final Float averageTemp) {
         this.averageTemp = averageTemp;
         return this;
     }
 
-    public SportActivity setCalories(final Float calories) {
+    public SportActivityOutDto setCalories(final Float calories) {
         this.calories = calories;
         return this;
     }
 
-    public SportActivity setUsername(final String username) {
+    public SportActivityOutDto setUsername(final String username) {
         this.username = username;
         return this;
     }
 
-    public SportActivity setCoordinates(List<LatLng> coordinates) {
+    public SportActivityOutDto setCoordinates(List<LatLng> coordinates) {
         this.coordinates = coordinates;
         return this;
     }

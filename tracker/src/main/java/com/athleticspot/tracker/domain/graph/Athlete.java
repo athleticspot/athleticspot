@@ -1,6 +1,5 @@
 package com.athleticspot.tracker.domain.graph;
 
-import org.assertj.core.util.Sets;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;

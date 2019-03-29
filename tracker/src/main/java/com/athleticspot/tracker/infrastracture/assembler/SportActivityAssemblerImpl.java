@@ -1,7 +1,8 @@
 package com.athleticspot.tracker.infrastracture.assembler;
 
-import com.athleticspot.tracker.domain.MeasureSystemProvider;
-import com.athleticspot.tracker.domain.model.SportActivity;
+import com.athleticspot.tracker.domain.graph.SportActivity;
+import com.athleticspot.tracker.domain.model.MeasureSystemProvider;
+import com.athleticspot.tracker.infrastracture.web.dto.out.SportActivityOutDto;
 import com.athleticspot.tracker.shared.QuantitiesConverter;
 import com.google.common.collect.Lists;
 import com.google.maps.internal.PolylineEncoding;
@@ -26,16 +27,16 @@ public class SportActivityAssemblerImpl {
         this.measureSystemProvider = measureSystemProvider;
     }
 
-    public Page<SportActivity> pageAssemble(Page<com.athleticspot.tracker.domain.graph.SportActivity> graphSportActivity) {
+    public Page<SportActivityOutDto> pageAssemble(Page<SportActivity> graphSportActivity) {
         return graphSportActivity.map(this::assembleSportActivity);
     }
 
-    private SportActivity assembleSportActivity(com.athleticspot.tracker.domain.graph.SportActivity graphSportActivity) {
+    private SportActivityOutDto assembleSportActivity(SportActivity graphSportActivity) {
         List<LatLng> coordinates = Lists.newArrayList();
         if (Objects.nonNull(graphSportActivity.getSummaryPolyline())) {
             coordinates = PolylineEncoding.decode(graphSportActivity.getSummaryPolyline());
         }
-        return new SportActivity()
+        return new SportActivityOutDto()
             .setId(graphSportActivity.getId().toString())
             .setUsername(graphSportActivity.getFirstAndLastName())
             .setUserUuid(graphSportActivity.getUserUuid())

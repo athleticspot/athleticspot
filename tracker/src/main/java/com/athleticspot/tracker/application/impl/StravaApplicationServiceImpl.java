@@ -5,7 +5,7 @@ import com.athleticspot.tracker.application.TrackerUserService;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import com.athleticspot.tracker.domain.graph.SportActivity;
-import com.athleticspot.tracker.domain.graph.SportActivityBuilder;
+import com.athleticspot.tracker.domain.model.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.infrastracture.security.SecurityService;
 import javastrava.api.v3.auth.model.Token;

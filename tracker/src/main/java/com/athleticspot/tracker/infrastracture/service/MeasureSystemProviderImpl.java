@@ -1,6 +1,6 @@
 package com.athleticspot.tracker.infrastracture.service;
 
-import com.athleticspot.tracker.domain.MeasureSystemProvider;
+import com.athleticspot.tracker.domain.model.MeasureSystemProvider;
 import org.springframework.stereotype.Service;
 import tech.units.indriya.unit.Units;
 

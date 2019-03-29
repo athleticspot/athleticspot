@@ -4,7 +4,6 @@ import com.athleticspot.tracker.domain.graph.Athlete;
 import com.google.common.collect.Lists;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.springframework.data.util.ReflectionUtils;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.UUID;

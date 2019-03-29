@@ -1,7 +1,11 @@
 package com.athleticspot.tracker.acceptance;
 
-import com.athleticspot.tracker.domain.MeasureSystemProvider;
-import com.athleticspot.tracker.domain.graph.*;
+import com.athleticspot.tracker.domain.graph.Athlete;
+import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
+import com.athleticspot.tracker.domain.graph.SportActivity;
+import com.athleticspot.tracker.domain.graph.SportActivityRepository;
+import com.athleticspot.tracker.domain.model.MeasureSystemProvider;
+import com.athleticspot.tracker.domain.model.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.google.common.collect.Lists;
@@ -25,7 +29,7 @@ import java.util.UUID;
  */
 @RunWith(SpringRunner.class)
 @DataNeo4jTest
-public class SportActivityAcceptanceTest {
+public class SportActivityOutDtoAcceptanceTest {
 
     @Autowired
     private SportActivityRepository sportActivityRepository;

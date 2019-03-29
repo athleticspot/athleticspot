@@ -1,7 +1,6 @@
-package com.athleticspot.tracker.domain.graph;
+package com.athleticspot.tracker.domain.model;
 
-import com.athleticspot.tracker.domain.model.SportActivityType;
-import com.athleticspot.tracker.domain.model.TrackerSource;
+import com.athleticspot.tracker.domain.graph.SportActivity;
 import javastrava.api.v3.model.StravaActivity;
 
 import java.time.LocalDateTime;
