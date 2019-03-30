@@ -1,10 +1,10 @@
 package com.athleticspot.training.infrastracture.web;
 
 import com.athleticspot.AthleticspotApp;
+import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.service.UserService;
 import com.athleticspot.training.application.TrainingSurveyApplicationService;
 import com.athleticspot.training.domain.AthleteRepository;
-import com.athleticspot.training.domain.MetricSystemType;
 import com.athleticspot.training.domain.trainingsurvey.*;
 import com.athleticspot.training.infrastracture.dto.in.AssignTrainingSurveyInDto;
 import com.athleticspot.web.rest.TestUtil;

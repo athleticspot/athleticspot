@@ -1,6 +1,6 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
-import com.athleticspot.training.domain.MetricSystemType;
+import com.athleticspot.common.domain.model.MetricSystemType;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

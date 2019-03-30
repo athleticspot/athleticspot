@@ -1,4 +1,4 @@
-package com.athleticspot.training.domain;
+package com.athleticspot.common.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

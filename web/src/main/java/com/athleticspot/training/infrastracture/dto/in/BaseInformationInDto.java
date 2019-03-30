@@ -1,6 +1,6 @@
 package com.athleticspot.training.infrastracture.dto.in;
 
-import com.athleticspot.training.domain.MetricSystemType;
+import com.athleticspot.common.domain.model.MetricSystemType;
 
 import java.time.LocalDate;
 
