@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableJpaRepositories(
-    basePackages = {"com.athleticspot.repository", "com.athleticspot.training.domain"},
+    basePackages = {"com.athleticspot.repository", "com.athleticspot.training.domain", "com.athleticspot.tracker.domain.model"},
     transactionManagerRef = "relationalTransactionManager",
     entityManagerFactoryRef = "relationalEntityManagerFactory")
 @EnableTransactionManagement

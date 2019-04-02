@@ -35,14 +35,25 @@ public class MeasureSystemProviderImpl implements MeasureSystemProvider {
     }
 
     @Override
-    public Unit<Length> getDistanceUnit() {
-        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
-        final Athlete athlete = graphAthleteRepository.findByName(currentUserLogin).orElseThrow(() -> new IllegalStateException());
-        final SurveyInfo surveyInfo = surveyInfoRepository.findByAthleteId(athlete.getAthleteUUID()).orElseThrow(() -> new IllegalStateException());
+    public MetricSystemType getUserMetricSystemType(){
+        return getMetricSystemType();
+    }
 
-        if(MetricSystemType.METRIC.equals(surveyInfo.getMetricSystemType())) {
+    @Override
+    public Unit<Length> getUserDistanceUnit() {
+        final MetricSystemType metricSystemType = getMetricSystemType();
+
+        if(MetricSystemType.METRIC.equals(metricSystemType)) {
             return KILO(Units.METRE);
         }
         return USCustomary.MILE;
     }
+
+    private MetricSystemType getMetricSystemType() {
+        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
+        final Athlete athlete = graphAthleteRepository.findByName(currentUserLogin).orElseThrow(() -> new IllegalStateException("There are no athlete withlogin: " + currentUserLogin));
+        final SurveyInfo surveyInfo = surveyInfoRepository.findByAthleteId(athlete.getAthleteUUID()).orElseThrow(() -> new IllegalStateException("There are no survey info for user uuid: " + athlete.getAthleteUUID()));
+        return surveyInfo.getMetricSystemType();
+    }
+
 }

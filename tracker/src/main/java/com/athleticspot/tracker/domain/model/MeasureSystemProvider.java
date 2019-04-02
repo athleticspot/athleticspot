@@ -1,5 +1,7 @@
 package com.athleticspot.tracker.domain.model;
 
+import com.athleticspot.common.domain.model.MetricSystemType;
+
 import javax.measure.Unit;
 import javax.measure.quantity.Length;
 
@@ -8,5 +10,7 @@ import javax.measure.quantity.Length;
  */
 public interface MeasureSystemProvider {
 
-    Unit<Length> getDistanceUnit();
+    MetricSystemType getUserMetricSystemType();
+
+    Unit<Length> getUserDistanceUnit();
 }

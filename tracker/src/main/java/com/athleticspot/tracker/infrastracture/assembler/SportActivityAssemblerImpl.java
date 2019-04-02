@@ -44,7 +44,7 @@ public class SportActivityAssemblerImpl {
             .setSportActivityType(graphSportActivity.getSportActivityType())
             .setTitle(graphSportActivity.getTitle())
             .setDescription(graphSportActivity.getDescription())
-            .setDistance(graphSportActivity.getDistance(measureSystemProvider.getDistanceUnit()))
+            .setDistance(graphSportActivity.getDistance(measureSystemProvider.getUserDistanceUnit()))
             .setMovingTime(QuantitiesConverter.convertSecondsToTime(graphSportActivity.getMovingTime()))
             .setElapsedTime(QuantitiesConverter.convertSecondsToTime(graphSportActivity.getElapsedTime()))
             .setStartDate(graphSportActivity.getStartDate())

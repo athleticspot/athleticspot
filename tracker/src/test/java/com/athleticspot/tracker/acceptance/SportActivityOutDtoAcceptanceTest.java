@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.acceptance;
 
+import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import com.athleticspot.tracker.domain.graph.SportActivity;
@@ -20,6 +21,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import tech.units.indriya.unit.Units;
 
 import javax.measure.MetricPrefix;
+import javax.measure.Unit;
+import javax.measure.quantity.Length;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -41,7 +44,17 @@ public class SportActivityOutDtoAcceptanceTest {
 
     @Before
     public void init() {
-        measureSystemProvider = () -> MetricPrefix.KILO(Units.METRE);
+        measureSystemProvider = new MeasureSystemProvider() {
+            @Override
+            public MetricSystemType getUserMetricSystemType() {
+                return null;
+            }
+
+            @Override
+            public Unit<Length> getUserDistanceUnit() {
+                return MetricPrefix.KILO(Units.METRE);
+            }
+        };
     }
 
     @Test
@@ -117,7 +130,7 @@ public class SportActivityOutDtoAcceptanceTest {
         Assertions.assertThat(savedSportActivity.getSportActivityType()).isEqualTo(sportActivityType);
         Assertions.assertThat(savedSportActivity.getTrackingSystemId()).isEqualTo(trackingSystemId);
         Assertions.assertThat(savedSportActivity.getExternalId()).isEqualTo(externalId);
-        Assertions.assertThat(savedSportActivity.getDistance(measureSystemProvider.getDistanceUnit())).isEqualTo(distance/1000);
+        Assertions.assertThat(savedSportActivity.getDistance(measureSystemProvider.getUserDistanceUnit())).isEqualTo(distance/1000);
         Assertions.assertThat(savedSportActivity.getStartDate()).isEqualTo(startDate);
         Assertions.assertThat(savedSportActivity.getTitle()).isEqualTo(title);
         Assertions.assertThat(savedSportActivity.getUserUuid()).isEqualTo(userUuid);
