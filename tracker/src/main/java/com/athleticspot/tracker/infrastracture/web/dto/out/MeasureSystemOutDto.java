@@ -13,7 +13,10 @@ public class MeasureSystemOutDto {
 
     private String measureSystemType;
 
-    public MeasureSystemOutDto(String measureSystemType) {
+    private String distanceUnit;
+
+    public MeasureSystemOutDto(String measureSystemType, String distanceUnit) {
         this.measureSystemType = measureSystemType;
+        this.distanceUnit = distanceUnit;
     }
 }

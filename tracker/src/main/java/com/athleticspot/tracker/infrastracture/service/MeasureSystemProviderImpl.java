@@ -12,18 +12,16 @@ import org.springframework.stereotype.Service;
 import systems.uom.common.USCustomary;
 import tech.units.indriya.unit.Units;
 
+import javax.measure.MetricPrefix;
 import javax.measure.Unit;
 import javax.measure.quantity.Length;
-
-import static tec.units.indriya.unit.MetricPrefix.KILO;
 
 /**
  * @author Tomasz Kasprzycki
  */
 @Service
 public class MeasureSystemProviderImpl implements MeasureSystemProvider {
-
-    private final SurveyInfoRepository surveyInfoRepository;
+        private final SurveyInfoRepository surveyInfoRepository;
 
     private final GraphAthleteRepository graphAthleteRepository;
 
@@ -44,7 +42,7 @@ public class MeasureSystemProviderImpl implements MeasureSystemProvider {
         final MetricSystemType metricSystemType = getMetricSystemType();
 
         if(MetricSystemType.METRIC.equals(metricSystemType)) {
-            return KILO(Units.METRE);
+            return MetricPrefix.KILO(Units.METRE);
         }
         return USCustomary.MILE;
     }

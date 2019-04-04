@@ -49,11 +49,11 @@ export class ActivitiesComponent implements OnInit {
             'title': new FormControl(null, [Validators.required]),
             'description': new FormControl(),
             'sportActivityType': new FormControl("RUN", [Validators.required]),
-            'duration': new FormControl({hour: 0, minute: 0, second: 0}, [Validators.required]),
+            'duration': new FormControl({hour: 12, minute: 0, second: 0}, [Validators.required]),
             'distance': new FormControl(null, [Validators.required]),
             'units': new FormControl("km"),
             'startDate': new FormControl(new Date()),
-            'time': new FormControl({hour: 0, minute: 0, second: 0}, [Validators.required]),
+            'time': new FormControl({hour: 12, minute: 0, second: 0}, [Validators.required]),
             'maxSpeed': new FormControl(),
             'averageSpeed': new FormControl()
         });

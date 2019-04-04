@@ -19,7 +19,7 @@ public class QuantitiesConverter {
         if (KILO(METRE).toString().equals(units)) {
             return Quantities.getQuantity(distance, KILO(METRE)).to(METRE).getValue().floatValue();
         } else if (USCustomary.MILE.toString().equals(units)) {
-            return Quantities.getQuantity(distance, USCustomary.MILE).to(METRE).getValue().floatValue();
+            return Quantities.getQuantity(distance, USCustomary.MILE).to(USCustomary.METER).getValue().floatValue();
         }
         return 0.00f;
     }

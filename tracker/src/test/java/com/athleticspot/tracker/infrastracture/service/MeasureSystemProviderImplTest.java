@@ -18,6 +18,11 @@ public class MeasureSystemProviderImplTest {
     }
 
     @Test
+    public void metreNameTest(){
+        Assertions.assertThat(Units.METRE.toString()).isEqualTo("m");
+    }
+
+    @Test
     public void verifyMilesUnitSymbol(){
         Assertions.assertThat(USCustomary.MILE.toString()).isEqualTo("mi");
     }

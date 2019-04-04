@@ -170,7 +170,7 @@ public class SportActivityOutDto {
         return this;
     }
 
-    public SportActivityOutDto setUnits(final String units) {
+    public SportActivityOutDto setDistanceUnits(final String units) {
         this.units = units;
         return this;
     }

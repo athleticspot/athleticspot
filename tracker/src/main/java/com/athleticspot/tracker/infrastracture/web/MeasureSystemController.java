@@ -23,6 +23,8 @@ public class MeasureSystemController {
 
     @GetMapping
     public MeasureSystemOutDto retrieveMeasureSystemType() {
-        return new MeasureSystemOutDto(measureSystemProvider.getUserMetricSystemType().toString());
+        return new MeasureSystemOutDto(
+            measureSystemProvider.getUserMetricSystemType().toString(),
+            measureSystemProvider.getUserDistanceUnit().toString());
     }
 }

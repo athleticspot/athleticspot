@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.domain.model;
 
+import com.athleticspot.tracker.shared.QuantitiesConverter;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import si.uom.SI;
@@ -40,6 +41,12 @@ public class DistanceTest {
         final Quantity<Length> lengthQuantity = convertToMile(10000.00);
         Assertions.assertThat(lengthQuantity.getUnit()).isEqualTo(USCustomary.MILE);
         Assertions.assertThat(lengthQuantity.getValue()).isEqualTo(6.2137119223733395);
+    }
+
+    @Test
+    public void testMilesToMetersConversion(){
+        final Float oneMile = QuantitiesConverter.convertDistanceToMeters("mi", 1.0F);
+        Assertions.assertThat(oneMile).isEqualTo(1609.344F);
     }
 
     private Quantity<Length> createDistance(Double distanceInMetres){
