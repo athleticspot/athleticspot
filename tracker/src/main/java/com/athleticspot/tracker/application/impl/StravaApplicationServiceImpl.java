@@ -17,6 +17,7 @@ import javastrava.api.v3.rest.AuthorisationAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -44,7 +45,8 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
     private final String clientSecret = "91ad80ea231505275883acc75d7c088c1cf07773";
 
     //This is application ID assign to athleticspot application
-    private final int clientCode = 14842;
+    @Value(value = "${strava.client_id}")
+    private int clientCode;
 
     //returned during user registration
     private final String code = "0ad0891d82ad2aab88ec82cb59829bb4ebda78c6";
