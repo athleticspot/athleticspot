@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import * as moment from 'moment';
 import {ToasterService} from "angular2-toaster";
-import {StravaDataservice} from "./strava.dataservice";
+import {TrackerDataservice} from "./tracker-dataservice.service";
 import {ActivitiesDataservice} from "../../shared/activites/activities.dataservice";
 import {SportActivityModel} from "../../shared/activites/sport-activity.model";
 import {TrackerSource} from "../../shared/activites/tracker-source";
@@ -30,7 +30,7 @@ export class ActivitiesComponent implements OnInit {
     public zoom: number;
 
     constructor(private activityDataservice: ActivitiesDataservice,
-                private stravaDataservice: StravaDataservice,
+                private stravaDataservice: TrackerDataservice,
                 private toasterService: ToasterService,
                 private mapsAPILoader: MapsAPILoader,
                 private timePickerService: NgbTimeStringAdapter) {

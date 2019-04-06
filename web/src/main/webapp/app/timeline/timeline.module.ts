@@ -7,7 +7,7 @@ import {Ng2DropdownModule} from 'ng2-material-dropdown';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ActivitiesComponent} from "./activities/activities.component";
 import {timelineState} from "./timeline.route";
-import {StravaDataservice} from "./activities/strava.dataservice";
+import {TrackerDataservice} from "./activities/tracker-dataservice.service";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {CommonModule} from "@angular/common";
 import {ActivitiesDataservice} from "../shared/activites/activities.dataservice";
@@ -37,7 +37,7 @@ import {NgbTimeStringAdapter} from "./activities/timeticker-string-adapter.servi
     entryComponents: [ActivitiesComponent],
     providers: [
         ActivitiesDataservice,
-        StravaDataservice,
+        TrackerDataservice,
         NgbTimeStringAdapter
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
