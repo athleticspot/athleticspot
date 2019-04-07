@@ -3,7 +3,7 @@ package com.athleticspot.tracker.acceptance;
 import com.athleticspot.tracker.TrackerApplication;
 import com.athleticspot.tracker.application.TrackerUserService;
 import com.athleticspot.tracker.domain.model.TrackerUser;
-import com.athleticspot.tracker.domain.model.UserRepository;
+import com.athleticspot.tracker.domain.model.TrackerUserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import java.util.List;
 public class UserIT {
 
     @Autowired
-    UserRepository userRepository;
+    TrackerUserRepository trackerUserRepository;
 
     @Autowired
     TrackerUserService trackerUserService;
@@ -33,14 +33,14 @@ public class UserIT {
     @Before
     public void setUp() {
         TrackerUser trackerUser = new TrackerUser("admin");
-        userRepository.saveTrackerUser(trackerUser);
+        trackerUserRepository.saveTrackerUser(trackerUser);
     }
 
     @Test
     public void whenThereIsNoUserThenEmpyUserListIsReturned() {
 
         //when
-        List<TrackerUser> allUsers = userRepository.findAllUsers();
+        List<TrackerUser> allUsers = trackerUserRepository.findAllUsers();
         //then
         Assertions.assertThat(allUsers).isNotNull();
         Assertions.assertThat(allUsers).hasSize(1);

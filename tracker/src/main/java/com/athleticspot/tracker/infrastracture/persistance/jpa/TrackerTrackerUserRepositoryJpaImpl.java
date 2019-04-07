@@ -1,7 +1,7 @@
 package com.athleticspot.tracker.infrastracture.persistance.jpa;
 
 import com.athleticspot.tracker.domain.model.TrackerUser;
-import com.athleticspot.tracker.domain.model.UserRepository;
+import com.athleticspot.tracker.domain.model.TrackerUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,13 +15,13 @@ import java.util.Optional;
  * @author Tomasz Kasprzycki
  */
 @Repository
-public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUser, Long>
-    implements UserRepository {
+public class TrackerTrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUser, Long>
+    implements TrackerUserRepository {
 
     private final EntityManager em;
 
     @Autowired
-    public TrackerUserRepositoryJpaImpl(EntityManager em) {
+    public TrackerTrackerUserRepositoryJpaImpl(EntityManager em) {
         super(TrackerUser.class, em);
         this.em = em;
     }
@@ -65,8 +65,8 @@ public class TrackerUserRepositoryJpaImpl extends SimpleJpaRepository<TrackerUse
             " WHERE e.login = :userLogin";
 
         Query query = em.createQuery(queryString, TrackerUser.class);
-
         query.setParameter("userLogin", userLogin);
+
         final List<TrackerUser> resultList = query.getResultList();
 
         if (resultList.isEmpty()) {

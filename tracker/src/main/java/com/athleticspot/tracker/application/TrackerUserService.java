@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.application;
 
+import com.athleticspot.tracker.domain.model.TrackerInfo;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 
 import java.time.LocalDateTime;
@@ -10,8 +11,6 @@ import java.util.List;
  */
 public interface TrackerUserService {
 
-    void addTimelineIdentifier(String availableTimelineId);
-
     void addStravaCode(String stravaCode, String username);
 
     String getStravaCode(String username);
@@ -21,4 +20,6 @@ public interface TrackerUserService {
     LocalDateTime getStravaLastSynchronizationDate(String username);
 
     List<TrackerUser> getStravaUsers();
+
+    TrackerInfo getTrackerInfo();
 }

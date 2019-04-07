@@ -11,9 +11,6 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 public class TrackerApplication {
 
-//    @Autowired
-//    GenericSportActivityRepository genericSportActivityRepository;
-
     public static void main(String[] args) {
         SpringApplication.run(TrackerApplication.class, args);
 
@@ -24,35 +21,4 @@ public class TrackerApplication {
 //        genericSportActivityRepository.deleteAll();
     }
 
-//
-//    @Bean
-//    TimelineService timelineService(){
-//        return new TimelineServiceImpl(
-//            timelineRepository(),
-//            userRepository(),
-//            sportActivityRepository(),
-//            applicationEvents()
-//
-//        );
-//    }
-//
-//    @Bean
-//    TimelineRepository timelineRepository(){
-//        return new TimelineRepositoryJpaImpl();
-//    }
-//
-////    @Bean
-//    UserRepository userRepository(){
-//        return new UserRepositoryJpaImpl();
-//    }
-//
-//    @Bean
-//    ManualSportActivityRepository sportActivityRepository(){
-//        return new ManualSportActivityJpaRepositoryImpl();
-//    }
-//
-//    @Bean
-//    ApplicationEvents applicationEvents(){
-//        return new ApplicationEventsImpl();
-//    }
 }

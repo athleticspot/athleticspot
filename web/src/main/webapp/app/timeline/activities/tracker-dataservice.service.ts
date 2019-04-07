@@ -17,7 +17,11 @@ export class TrackerDataservice {
     }
 
     public fetchTrackersInfo(){
-
+        return this.http.get('/api/tracker/info').map(
+            (response: Response) => {
+                return response.json();
+            }
+        );
     }
 
 

@@ -2,7 +2,7 @@ package com.athleticspot.tracker.infrastracture.assembler;
 
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.model.TrackerUser;
-import com.athleticspot.tracker.domain.model.UserRepository;
+import com.athleticspot.tracker.domain.model.TrackerUserRepository;
 import com.athleticspot.tracker.infrastracture.security.SecurityService;
 import com.athleticspot.tracker.infrastracture.web.dto.out.AthleteOutDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +18,19 @@ public class AthleteAssemblerImpl implements AthleteAssembler {
 
     private final SecurityService securityService;
 
-    private final UserRepository userRepository;
+    private final TrackerUserRepository trackerUserRepository;
 
     @Autowired
-    public AthleteAssemblerImpl(SecurityService securityService, UserRepository userRepository) {
+    public AthleteAssemblerImpl(SecurityService securityService, TrackerUserRepository trackerUserRepository) {
         this.securityService = securityService;
-        this.userRepository = userRepository;
+        this.trackerUserRepository = trackerUserRepository;
     }
 
     @Override
     public AthleteOutDto assembleAthlete(Athlete athlete) {
         final String login = athlete.getName();
         String imageUrl = null;
-        final Optional<TrackerUser> trackerUserOptional = userRepository.findByLogin(login);
+        final Optional<TrackerUser> trackerUserOptional = trackerUserRepository.findByLogin(login);
         if (trackerUserOptional.isPresent()) {
             imageUrl = trackerUserOptional.get().getImageUrl();
         }

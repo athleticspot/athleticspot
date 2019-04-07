@@ -1,15 +1,17 @@
-package com.athleticspot.tracker.infrastracture.service;
+package com.athleticspot.tracker.application.impl;
 
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.tracker.application.TrackerUserService;
+import com.athleticspot.tracker.domain.model.TrackerInfo;
 import com.athleticspot.tracker.domain.model.TrackerUser;
-import com.athleticspot.tracker.domain.model.UserRepository;
+import com.athleticspot.tracker.domain.model.TrackerUserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Tomasz Kasprzycki
@@ -17,19 +19,10 @@ import java.util.List;
 @Service
 public class TrackerUserServiceImpl implements TrackerUserService {
 
-    private final UserRepository userRepository;
+    private final TrackerUserRepository trackerUserRepository;
 
-    public TrackerUserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Override
-    public void addTimelineIdentifier(String timelineIdentifier) {
-        Assert.notNull(timelineIdentifier, "timeline identifier cannot be null");
-        final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
-        final TrackerUser trackerUser = userRepository.getUser(currentUserLogin);
-        Assert.notNull(trackerUser, "Tracker User cannot be null");
-        userRepository.saveTrackerUser(trackerUser);
+    public TrackerUserServiceImpl(TrackerUserRepository trackerUserRepository) {
+        this.trackerUserRepository = trackerUserRepository;
     }
 
     @Override
@@ -38,34 +31,40 @@ public class TrackerUserServiceImpl implements TrackerUserService {
         Assert.notNull(stravaCode, "strava code cannot be null");
         Assert.notNull(username, "username cannot be null");
 
-        final TrackerUser user = userRepository.getUser(username);
+        final TrackerUser user = trackerUserRepository.getUser(username);
         user.assignStravaCode(stravaCode);
-        userRepository.saveTrackerUser(user);
+        trackerUserRepository.saveTrackerUser(user);
     }
 
     @Override
     public String getStravaCode(String username) {
-        return userRepository.getUser(username).getStravaCode();
+        return trackerUserRepository.getUser(username).getStravaCode();
     }
 
     @Override
     @Transactional
     public void assignStravaLastSynchronizationDate(LocalDateTime stravaLastSynchronizationDate, String username) {
-        userRepository.save(userRepository
+        trackerUserRepository.save(trackerUserRepository
             .getUser(username)
             .assignStravaLastSynchronizationDate(stravaLastSynchronizationDate));
     }
 
     @Override
     public LocalDateTime getStravaLastSynchronizationDate(String username) {
-        return userRepository.getUser(username).getStravaLastSynchronizationDate();
+        return trackerUserRepository.getUser(username).getStravaLastSynchronizationDate();
     }
 
     @Override
     public List<TrackerUser> getStravaUsers(){
-        return userRepository.getStravaUsers();
+        return trackerUserRepository.getStravaUsers();
     }
 
+    @Override
+    public TrackerInfo getTrackerInfo(){
+        final TrackerUser user = trackerUserRepository.getUser(SecurityUtils.getCurrentUserLogin());
+        boolean connectedToStrava = Objects.nonNull(user.getStravaCode());
+        return new TrackerInfo(connectedToStrava);
+    }
 
 
 

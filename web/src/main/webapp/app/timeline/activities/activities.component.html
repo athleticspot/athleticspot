@@ -116,7 +116,8 @@
                     </div>
                 </form>
                 <div class=""><h4 class=" font-thin">Connect with:</h4>
-                    <a href="{{stravaActivationUrl}}" class="btn btn-sm btn-success"
+                    <a href="{{stravaActivationUrl}}" *ngIf="!trackerInfo.connectedToStrava"
+                       class="btn btn-sm btn-success"
                        ui-toggle-class="timeline-center" target=".timeline">
                         Strava
                     </a>

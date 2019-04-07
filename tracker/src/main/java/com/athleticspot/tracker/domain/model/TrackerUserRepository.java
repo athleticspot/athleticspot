@@ -6,7 +6,7 @@ import java.util.Optional;
 /**
  * @author Tomasz Kasprzycki
  */
-public interface UserRepository {
+public interface TrackerUserRepository {
 
 
     /**

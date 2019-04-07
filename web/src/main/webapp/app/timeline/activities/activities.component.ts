@@ -8,6 +8,7 @@ import {SportActivityModel} from "../../shared/activites/sport-activity.model";
 import {TrackerSource} from "../../shared/activites/tracker-source";
 import {MapsAPILoader} from "@agm/core";
 import {NgbTimeStringAdapter} from "./timeticker-string-adapter.service";
+import {TrackerInfo} from "./model/tracker-info.model";
 
 
 @Component({
@@ -25,6 +26,7 @@ export class ActivitiesComponent implements OnInit {
     private pageCount: 0;
     private currentPage = 0;
     private trackerSource: TrackerSource;
+    private trackerInfo: TrackerInfo;
 
     public maxSpeed: number;
     public zoom: number;
@@ -61,7 +63,11 @@ export class ActivitiesComponent implements OnInit {
         this.stravaDataservice.fetchStravaActivationLink()
             .subscribe(value => {
                 this.stravaActivationUrl = value;
-            })
+            });
+        this.stravaDataservice.fetchTrackersInfo()
+            .subscribe(value => {
+                this.trackerInfo = value as TrackerInfo;
+            });
     }
 
     submitActivity() {
