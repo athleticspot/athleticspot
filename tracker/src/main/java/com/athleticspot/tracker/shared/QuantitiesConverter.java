@@ -25,6 +25,9 @@ public class QuantitiesConverter {
     }
 
     public static Float convertDistanceFromMeters(Unit<Length> units, Float meters) {
+        if(USCustomary.MILE.equals(units)){
+            return Quantities.getQuantity(meters, USCustomary.METER).to(USCustomary.MILE).getValue().floatValue();
+        }
         return Quantities.getQuantity(meters, METRE).to(units).getValue().floatValue();
     }
 

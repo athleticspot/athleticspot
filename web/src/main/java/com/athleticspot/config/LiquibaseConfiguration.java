@@ -18,7 +18,6 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
-
 public class LiquibaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(LiquibaseConfiguration.class);
