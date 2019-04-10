@@ -1,6 +1,6 @@
 
 export class TrackerInfo {
 
-    public connectedToStrava: Boolean;
+    public connectedToStrava = false;
 
 }

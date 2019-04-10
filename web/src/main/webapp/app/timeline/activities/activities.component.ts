@@ -26,7 +26,7 @@ export class ActivitiesComponent implements OnInit {
     private pageCount: 0;
     private currentPage = 0;
     private trackerSource: TrackerSource;
-    private trackerInfo: TrackerInfo;
+    private trackerInfo = new TrackerInfo();
 
     public maxSpeed: number;
     public zoom: number;
@@ -164,7 +164,6 @@ export class ActivitiesComponent implements OnInit {
     }
 
     onScroll() {
-        console.log("scrolled!!!!");
         if (this.currentPage < this.pageCount - 1) {
             this.currentPage++;
             console.log("Page count: " + this.pageCount);
