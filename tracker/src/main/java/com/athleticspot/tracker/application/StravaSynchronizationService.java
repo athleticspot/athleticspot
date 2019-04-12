@@ -22,7 +22,7 @@ public class StravaSynchronizationService extends SpringRouteBuilder {
         from("quartz2://simpleTimer?cron=0/30+*+*+*+*+?&autoStartScheduler=true")
             .log("Strava synchronization start")
             .bean(stravaApplicationService, "retrieveStravaUsers")
-            .split(body()).parallelProcessing()
+            .split(body())
             .bean(stravaApplicationService, "synchronizedStravaActivities")
             .to("mock:end");
     }
