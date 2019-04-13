@@ -27,6 +27,7 @@ export class ActivitiesComponent implements OnInit {
     private currentPage = 0;
     private trackerSource: TrackerSource;
     private trackerInfo = new TrackerInfo();
+    private test : TrackerInfo;
 
     public maxSpeed: number;
     public zoom: number;
@@ -67,6 +68,8 @@ export class ActivitiesComponent implements OnInit {
         this.stravaDataservice.fetchTrackersInfo()
             .subscribe(value => {
                 this.trackerInfo = value as TrackerInfo;
+                console.log("Recived value: " + value);
+                console.log("Tracker info: " + this.trackerInfo);
             });
     }
 
