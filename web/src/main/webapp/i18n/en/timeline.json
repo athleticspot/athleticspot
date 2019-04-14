@@ -3,6 +3,7 @@
         "title" :  "Activities",
         "manual": {
             "title": "Add activity",
+            "comment": "Put a comment",
             "messages": {
                 "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
                 "error": {
