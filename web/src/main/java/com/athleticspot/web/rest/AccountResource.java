@@ -4,6 +4,7 @@ import com.athleticspot.domain.User;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.SecurityUtils;
 import com.athleticspot.service.MailService;
+import com.athleticspot.service.MailServiceImpl;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.web.rest.util.HeaderUtil;
@@ -13,6 +14,7 @@ import com.codahale.metrics.annotation.Timed;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,16 +38,18 @@ public class AccountResource {
 
     private final UserService userService;
 
-    private final MailService mailService;
+    private final MailService mailServiceImpl;
 
     private static final String CHECK_ERROR_MESSAGE = "Incorrect password";
 
-    public AccountResource(UserRepository userRepository, UserService userService,
-                           MailService mailService) {
+    @Autowired
+    public AccountResource(UserRepository userRepository,
+                           UserService userService,
+                           MailServiceImpl mailServiceImpl) {
 
         this.userRepository = userRepository;
         this.userService = userService;
-        this.mailService = mailService;
+        this.mailServiceImpl = mailServiceImpl;
     }
 
     /**
@@ -174,7 +178,7 @@ public class AccountResource {
     public ResponseEntity requestPasswordReset(@RequestBody String mail) {
         return userService.requestPasswordReset(mail)
             .map(user -> {
-                mailService.sendPasswordResetMail(user);
+                mailServiceImpl.sendPasswordResetMail(user);
                 return new ResponseEntity<>("email was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("email address not registered", HttpStatus.BAD_REQUEST));
     }

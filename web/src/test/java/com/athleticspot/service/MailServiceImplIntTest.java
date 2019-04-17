@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
-public class MailServiceIntTest {
+public class MailServiceImplIntTest {
 
     @Autowired
     private JHipsterProperties jHipsterProperties;
@@ -47,18 +47,18 @@ public class MailServiceIntTest {
     @Captor
     private ArgumentCaptor messageCaptor;
 
-    private MailService mailService;
+    private MailServiceImpl mailServiceImpl;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         doNothing().when(javaMailSender).send(any(MimeMessage.class));
-        mailService = new MailService(jHipsterProperties, javaMailSender, messageSource, templateEngine);
+        mailServiceImpl = new MailServiceImpl(jHipsterProperties, javaMailSender, messageSource, templateEngine);
     }
 
     @Test
     public void testSendEmail() throws Exception {
-        mailService.sendEmail("john.doe@example.com", "testSubject", "testContent", false, false);
+        mailServiceImpl.sendEmail("john.doe@example.com", "testSubject", "testContent", false, false);
         verify(javaMailSender).send((MimeMessage) messageCaptor.capture());
         MimeMessage message = (MimeMessage) messageCaptor.getValue();
         assertThat(message.getSubject()).isEqualTo("testSubject");
@@ -71,7 +71,7 @@ public class MailServiceIntTest {
 
     @Test
     public void testSendHtmlEmail() throws Exception {
-        mailService.sendEmail("john.doe@example.com", "testSubject", "testContent", false, true);
+        mailServiceImpl.sendEmail("john.doe@example.com", "testSubject", "testContent", false, true);
         verify(javaMailSender).send((MimeMessage) messageCaptor.capture());
         MimeMessage message = (MimeMessage) messageCaptor.getValue();
         assertThat(message.getSubject()).isEqualTo("testSubject");
@@ -84,7 +84,7 @@ public class MailServiceIntTest {
 
     @Test
     public void testSendMultipartEmail() throws Exception {
-        mailService.sendEmail("john.doe@example.com", "testSubject", "testContent", true, false);
+        mailServiceImpl.sendEmail("john.doe@example.com", "testSubject", "testContent", true, false);
         verify(javaMailSender).send((MimeMessage) messageCaptor.capture());
         MimeMessage message = (MimeMessage) messageCaptor.getValue();
         MimeMultipart mp = (MimeMultipart) message.getContent();
@@ -101,7 +101,7 @@ public class MailServiceIntTest {
 
     @Test
     public void testSendMultipartHtmlEmail() throws Exception {
-        mailService.sendEmail("john.doe@example.com", "testSubject", "testContent", true, true);
+        mailServiceImpl.sendEmail("john.doe@example.com", "testSubject", "testContent", true, true);
         verify(javaMailSender).send((MimeMessage) messageCaptor.capture());
         MimeMessage message = (MimeMessage) messageCaptor.getValue();
         MimeMultipart mp = (MimeMultipart) message.getContent();
@@ -122,7 +122,7 @@ public class MailServiceIntTest {
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
         user.setLangKey("en");
-        mailService.sendEmailFromTemplate(user, "testEmail", "email.test.title");
+        mailServiceImpl.sendEmailFromTemplate(user, "testEmail", "email.test.title");
         verify(javaMailSender).send((MimeMessage) messageCaptor.capture());
         MimeMessage message = (MimeMessage) messageCaptor.getValue();
         assertThat(message.getSubject()).isEqualTo("test title");
@@ -138,7 +138,7 @@ public class MailServiceIntTest {
         user.setLangKey("en");
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
-        mailService.sendActivationEmail(user);
+        mailServiceImpl.sendActivationEmail(user);
         verify(javaMailSender).send((MimeMessage) messageCaptor.capture());
         MimeMessage message = (MimeMessage) messageCaptor.getValue();
         assertThat(message.getAllRecipients()[0].toString()).isEqualTo(user.getEmail());
@@ -153,7 +153,7 @@ public class MailServiceIntTest {
         user.setLangKey("en");
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
-        mailService.sendCreationEmail(user);
+        mailServiceImpl.sendCreationEmail(user);
         verify(javaMailSender).send((MimeMessage) messageCaptor.capture());
         MimeMessage message = (MimeMessage) messageCaptor.getValue();
         assertThat(message.getAllRecipients()[0].toString()).isEqualTo(user.getEmail());
@@ -168,7 +168,7 @@ public class MailServiceIntTest {
         user.setLangKey("en");
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
-        mailService.sendPasswordResetMail(user);
+        mailServiceImpl.sendPasswordResetMail(user);
         verify(javaMailSender).send((MimeMessage) messageCaptor.capture());
         MimeMessage message = (MimeMessage) messageCaptor.getValue();
         assertThat(message.getAllRecipients()[0].toString()).isEqualTo(user.getEmail());
@@ -180,7 +180,7 @@ public class MailServiceIntTest {
     @Test
     public void testSendEmailWithException() throws Exception {
         doThrow(MailSendException.class).when(javaMailSender).send(any(MimeMessage.class));
-        mailService.sendEmail("john.doe@example.com", "testSubject", "testContent", false, false);
+        mailServiceImpl.sendEmail("john.doe@example.com", "testSubject", "testContent", false, false);
     }
 
 }

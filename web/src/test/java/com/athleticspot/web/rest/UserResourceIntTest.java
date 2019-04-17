@@ -5,7 +5,7 @@ import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.AuthoritiesConstants;
-import com.athleticspot.service.MailService;
+import com.athleticspot.service.MailServiceImpl;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.mapper.UserMapper;
@@ -80,7 +80,7 @@ public class UserResourceIntTest {
     private AthleteRepository athleteRepository;
 
     @Autowired
-    private MailService mailService;
+    private MailServiceImpl mailServiceImpl;
 
     @Autowired
     private UserService userService;
@@ -107,7 +107,7 @@ public class UserResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        UserResource userResource = new UserResource(userRepository, mailService, userService);
+        UserResource userResource = new UserResource(userRepository, mailServiceImpl, userService);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -6,7 +6,7 @@ import com.athleticspot.domain.User;
 import com.athleticspot.repository.AuthorityRepository;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.AuthoritiesConstants;
-import com.athleticspot.service.MailService;
+import com.athleticspot.service.MailServiceImpl;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.training.domain.AthleteRepository;
@@ -75,7 +75,7 @@ public class AccountResourceIntTest {
 
 
     @Mock
-    private MailService mockMailService;
+    private MailServiceImpl mockMailServiceImpl;
 
     private MockMvc restUserMockMvc;
 
@@ -84,13 +84,13 @@ public class AccountResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        doNothing().when(mockMailService).sendActivationEmail(anyObject());
+        doNothing().when(mockMailServiceImpl).sendActivationEmail(anyObject());
 
         AccountResource accountResource =
-            new AccountResource(userRepository, userService, mockMailService);
+            new AccountResource(userRepository, userService, mockMailServiceImpl);
 
         AccountResource accountUserMockResource =
-            new AccountResource(userRepository, mockUserService, mockMailService);
+            new AccountResource(userRepository, mockUserService, mockMailServiceImpl);
 
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource)
             .setMessageConverters(httpMessageConverters)

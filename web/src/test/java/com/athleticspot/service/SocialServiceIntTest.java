@@ -43,7 +43,7 @@ public class SocialServiceIntTest {
     private AthleteRepository athleteRepository;
 
     @Mock
-    private MailService mockMailService;
+    private MailServiceImpl mockMailServiceImpl;
 
     @Mock
     private UsersConnectionRepository mockUsersConnectionRepository;
@@ -59,12 +59,12 @@ public class SocialServiceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        doNothing().when(mockMailService).sendSocialRegistrationValidationEmail(anyObject(), anyString());
+        doNothing().when(mockMailServiceImpl).sendSocialRegistrationValidationEmail(anyObject(), anyString());
         doNothing().when(mockConnectionRepository).addConnection(anyObject());
         when(mockUsersConnectionRepository.createConnectionRepository(anyString())).thenReturn(mockConnectionRepository);
 
         socialService = new SocialService(mockUsersConnectionRepository, authorityRepository,
-            passwordEncoder, userRepository, mockMailService, athleteRepository);
+            passwordEncoder, userRepository, mockMailServiceImpl, athleteRepository);
 
         athleteRepository.deleteAll();
         userRepository.deleteAll();
@@ -356,7 +356,7 @@ public class SocialServiceIntTest {
         socialService.createSocialUser(connection, "fr");
 
         //Verify
-        verify(mockMailService, times(1)).sendSocialRegistrationValidationEmail(anyObject(), anyString());
+        verify(mockMailServiceImpl, times(1)).sendSocialRegistrationValidationEmail(anyObject(), anyString());
 
         // Teardown
         User userToDelete = userRepository.findOneByEmail("mail@mail.com").get();

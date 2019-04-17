@@ -23,3 +23,5 @@ spring:
             uri: ${GRAPHENEDB_BOLT_URL}
             username: ${GRAPHENEDB_BOLT_USER}
             password: ${GRAPHENEDB_BOLT_PASSWORD}
+    sendgrid:
+        api-key: ${SENDGRID_API_KEY}
