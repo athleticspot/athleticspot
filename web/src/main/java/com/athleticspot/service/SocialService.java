@@ -38,13 +38,16 @@ public class SocialService {
 
     private final UserRepository userRepository;
 
-    private final MailServiceImpl mailServiceImpl;
+    private final MailService mailServiceImpl;
 
     private final AthleteRepository athleteRepository;
 
-    public SocialService(UsersConnectionRepository usersConnectionRepository, AuthorityRepository authorityRepository,
-                         PasswordEncoder passwordEncoder, UserRepository userRepository,
-                         MailServiceImpl mailServiceImpl, AthleteRepository athleteRepository) {
+    public SocialService(UsersConnectionRepository usersConnectionRepository,
+                         AuthorityRepository authorityRepository,
+                         PasswordEncoder passwordEncoder,
+                         UserRepository userRepository,
+                         MailService mailServiceImpl,
+                         AthleteRepository athleteRepository) {
 
         this.usersConnectionRepository = usersConnectionRepository;
         this.authorityRepository = authorityRepository;

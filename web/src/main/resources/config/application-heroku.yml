@@ -25,3 +25,4 @@ spring:
             password: ${GRAPHENEDB_BOLT_PASSWORD}
     sendgrid:
         api-key: ${SENDGRID_API_KEY}
+

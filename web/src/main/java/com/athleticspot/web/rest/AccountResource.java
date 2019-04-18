@@ -4,7 +4,6 @@ import com.athleticspot.domain.User;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.SecurityUtils;
 import com.athleticspot.service.MailService;
-import com.athleticspot.service.MailServiceImpl;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.web.rest.util.HeaderUtil;
@@ -45,7 +44,7 @@ public class AccountResource {
     @Autowired
     public AccountResource(UserRepository userRepository,
                            UserService userService,
-                           MailServiceImpl mailServiceImpl) {
+                           MailService mailServiceImpl) {
 
         this.userRepository = userRepository;
         this.userService = userService;

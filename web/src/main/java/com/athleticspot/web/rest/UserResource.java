@@ -4,7 +4,6 @@ import com.athleticspot.config.Constants;
 import com.athleticspot.domain.User;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.AuthoritiesConstants;
-import com.athleticspot.service.MailServiceImpl;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.web.rest.util.HeaderUtil;
@@ -63,15 +62,12 @@ public class UserResource {
 
     private final UserRepository userRepository;
 
-    private final MailServiceImpl mailServiceImpl;
-
     private final UserService userService;
 
-    public UserResource(UserRepository userRepository, MailServiceImpl mailServiceImpl,
+    public UserResource(UserRepository userRepository,
                         UserService userService) {
 
         this.userRepository = userRepository;
-        this.mailServiceImpl = mailServiceImpl;
         this.userService = userService;
     }
 
