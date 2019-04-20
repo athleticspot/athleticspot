@@ -1,19 +1,16 @@
 package com.athleticspot.service;
 
 import com.athleticspot.domain.User;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import io.github.jhipster.config.JHipsterConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-
-import javax.ws.rs.core.MediaType;
 
 /**
  * @author Tomasz Kasprzycki
@@ -26,10 +23,10 @@ public class ProdMailService implements MailService {
 
 
     @Value("${mailgun.api-key}")
-    private String mailgunApiKey;
+    private String mailgunApiKey = "efe1647801f005bbc02aa7387e6b169e-3fb021d1-a5031040";
 
     @Value("${mailgun.domain}")
-    private String domain;
+    private String domain = "sandboxda0af86ffc8f475d88e5d66716051833.mailgun.org";
 
     @Override
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
@@ -68,23 +65,65 @@ public class ProdMailService implements MailService {
     }
 
     @Override
-    public void sendPasswordResetMail(User user) {
+    public void sendPasswordResetMail(User user) throws UnirestException {
 
-        Client client = Client.create();
-        client.addFilter(new HTTPBasicAuthFilter("api", mailgunApiKey));
-        WebResource webResource = client.resource("https://api.mailgun.net/v3/" + domain
-            + "/messages");
-        MultivaluedMapImpl formData = new MultivaluedMapImpl();
-        formData.add("from", "Mailgun User <mailgun@" + domain + ">");
-        formData.add("to", "tomkasp@gmail.com");
-        formData.add("subject", "Simple Mailgun Example");
-        formData.add("text", "Plaintext content");
-        webResource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class,
-            formData);
+        final HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + domain + "/messages")
+            .basicAuth("api", mailgunApiKey)
+            .queryString("from", "Excited User <USER@YOURDOMAIN.COM>")
+            .queryString("to", "artemis@example.com")
+            .queryString("subject", "hello")
+            .queryString("text", "testing")
+            .asJson();
+        request.getBody();
+
     }
 
     @Override
     public void sendSocialRegistrationValidationEmail(User user, String provider) {
 
     }
+
+//
+//    public static ClientConfig configureClient() {
+//        TrustManager[] certs = new TrustManager[]{
+//            new X509TrustManager() {
+//                @Override
+//                public X509Certificate[] getAcceptedIssuers() {
+//                    return null;
+//                }
+//
+//                @Override
+//                public void checkServerTrusted(X509Certificate[] chain, String authType)
+//                    throws CertificateException {
+//                }
+//
+//                @Override
+//                public void checkClientTrusted(X509Certificate[] chain, String authType)
+//                    throws CertificateException {
+//                }
+//            }
+//        };
+//        SSLContext ctx = null;
+//        try {
+//            ctx = SSLContext.getInstance("TLS");
+//            ctx.init(null, certs, new SecureRandom());
+//        } catch (java.security.GeneralSecurityException ex) {
+//        }
+//        HttpsURLConnection.setDefaultSSLSocketFactory(ctx.getSocketFactory());
+//
+//        ClientConfig config = new DefaultClientConfig();
+//        try {
+//            config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES, new HTTPSProperties(
+//                new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String hostname, SSLSession session) {
+//                        return true;
+//                    }
+//                },
+//                ctx
+//            ));
+//        } catch (Exception e) {
+//        }
+//        return config;
+//    }
 }

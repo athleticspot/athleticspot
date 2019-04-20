@@ -1,6 +1,7 @@
 package com.athleticspot.service;
 
 import com.athleticspot.domain.User;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 /**
  * @author Tomasz Kasprzycki
@@ -17,7 +18,7 @@ public interface MailService {
 
     void sendCreationEmail(User user);
 
-    void sendPasswordResetMail(User user);
+    void sendPasswordResetMail(User user) throws UnirestException;
 
     void sendSocialRegistrationValidationEmail(User user, String provider);
 

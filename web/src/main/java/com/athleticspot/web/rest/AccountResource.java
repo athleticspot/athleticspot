@@ -10,6 +10,7 @@ import com.athleticspot.web.rest.util.HeaderUtil;
 import com.athleticspot.web.rest.vm.KeyAndPasswordVM;
 import com.athleticspot.web.rest.vm.ManagedUserVM;
 import com.codahale.metrics.annotation.Timed;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -177,7 +178,11 @@ public class AccountResource {
     public ResponseEntity requestPasswordReset(@RequestBody String mail) {
         return userService.requestPasswordReset(mail)
             .map(user -> {
-                mailServiceImpl.sendPasswordResetMail(user);
+                try {
+                    mailServiceImpl.sendPasswordResetMail(user);
+                } catch (UnirestException e) {
+                    e.printStackTrace();
+                }
                 return new ResponseEntity<>("email was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("email address not registered", HttpStatus.BAD_REQUEST));
     }
