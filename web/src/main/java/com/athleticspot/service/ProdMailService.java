@@ -6,11 +6,25 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import io.github.jhipster.config.JHipsterConstants;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 
 /**
  * @author Tomasz Kasprzycki
@@ -23,7 +37,6 @@ public class ProdMailService implements MailService {
 
 
     @Value("${mailgun.api-key}")
-    private String mailgunApiKey = "efe1647801f005bbc02aa7387e6b169e-3fb021d1-a5031040";
 
     @Value("${mailgun.domain}")
     private String domain = "sandboxda0af86ffc8f475d88e5d66716051833.mailgun.org";
@@ -67,6 +80,24 @@ public class ProdMailService implements MailService {
     @Override
     public void sendPasswordResetMail(User user) throws UnirestException {
 
+        SSLContext sslcontext = null;
+        try {
+            sslcontext = SSLContexts.custom()
+                .loadTrustMaterial(null, new TrustSelfSignedStrategy())
+                .build();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        }
+
+        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext,SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+        CloseableHttpClient httpclient = HttpClients.custom()
+            .setSSLSocketFactory(sslsf)
+            .build();
+
         final HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + domain + "/messages")
             .basicAuth("api", mailgunApiKey)
             .queryString("from", "Excited User <USER@YOURDOMAIN.COM>")
@@ -76,6 +107,35 @@ public class ProdMailService implements MailService {
             .asJson();
         request.getBody();
 
+    }
+
+    static {
+        try {
+
+            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+
+            }};
+
+
+            SSLContext sslcontext = SSLContext.getInstance("SSL");
+            sslcontext.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslcontext.getSocketFactory());
+            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext);
+            CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
+            Unirest.setHttpClient(httpclient);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

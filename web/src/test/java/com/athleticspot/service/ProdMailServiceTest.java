@@ -1,5 +1,6 @@
 package com.athleticspot.service;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ import org.junit.Test;
 public class ProdMailServiceTest {
 
     @Test
-    public void sendPasswordResetMail() {
+    public void sendPasswordResetMail() throws UnirestException {
 
         ProdMailService prodMailService = new ProdMailService();
 
