@@ -75,22 +75,6 @@ public class ProdMailService implements MailService {
 
     @Override
     public void sendPasswordResetMail(User user) throws UnirestException {
-
-//        SSLContext sslcontext = null;
-//        try {
-//            sslcontext = SSLContexts.custom()
-//                .loadTrustMaterial(null, new TrustSelfSignedStrategy())
-//                .build();
-//        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
-//            e.printStackTrace();
-//        }
-//
-//        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext, SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-//        CloseableHttpClient httpclient = HttpClients.custom()
-//            .setSSLSocketFactory(sslsf)
-//            .build();
-//
-//        Unirest.setHttpClient(httpclient);
         final HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + domain + "/messages")
             .basicAuth("api", mailgunApiKey)
             .queryString("from", "Excited User <USER@YOURDOMAIN.COM>")
@@ -99,7 +83,6 @@ public class ProdMailService implements MailService {
             .queryString("text", "testing")
             .asJson();
         request.getBody();
-
     }
 
     static {
