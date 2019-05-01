@@ -82,12 +82,11 @@ public class ProdMailService implements MailService {
             .queryString("subject", "hello")
             .queryString("text", "testing")
             .asJson();
-        request.getBody();
+        log.info("Reset email body {}", request.getBody());
     }
 
     static {
         try {
-
             TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
                 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                     return null;
@@ -100,8 +99,6 @@ public class ProdMailService implements MailService {
                 }
 
             }};
-
-
             SSLContext sslcontext = SSLContext.getInstance("SSL");
             sslcontext.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sslcontext.getSocketFactory());
