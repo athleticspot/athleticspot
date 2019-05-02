@@ -110,7 +110,7 @@ jhipster:
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: athleticspot@localhost
-        base-url: http://my-server-url-to-change # Modify according to your server's URL
+        base-url: http://athleticspot.com
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         logs: # Reports Dropwizard metrics in the logs
