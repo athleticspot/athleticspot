@@ -1,35 +1,36 @@
 package com.athleticspot.service;
 
 import com.athleticspot.domain.User;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import io.github.jhipster.config.JHipsterConstants;
+import io.github.jhipster.config.JHipsterProperties;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.MessageSource;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.security.cert.X509Certificate;
+import java.util.Locale;
 
 /**
  * @author Tomasz Kasprzycki
  */
 @Service
-@Profile({JHipsterConstants.SPRING_PROFILE_PRODUCTION})
 public class ProdMailService implements MailService {
 
     private final Logger log = LoggerFactory.getLogger(ProdMailService.class);
-
 
     @Value("${mailgun.api-key}")
     String mailgunApiKey;
@@ -37,30 +38,53 @@ public class ProdMailService implements MailService {
     @Value("${mailgun.domain}")
     private String domain;
 
+    private final SpringTemplateEngine templateEngine;
+
+    private final MessageSource messageSource;
+
+    private final JHipsterProperties jHipsterProperties;
+
+
+    @Autowired
+    public ProdMailService(SpringTemplateEngine templateEngine,
+                           MessageSource messageSource,
+                           JHipsterProperties jHipsterProperties) {
+        this.templateEngine = templateEngine;
+        this.messageSource = messageSource;
+        this.jHipsterProperties = jHipsterProperties;
+    }
+
+
     @Override
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
-
+        String type = isHtml ? "html" : "text";
+        try {
+            Unirest.post("https://api.mailgun.net/v3/" + domain + "/messages")
+                .basicAuth("api", mailgunApiKey)
+                .queryString("from", "Athleticspot <athleticspot@mail.athleticspot.com>")
+                .queryString("to", to)
+                .queryString("subject", subject)
+                .queryString(type, content)
+                .asJson();
+        } catch (UnirestException e) {
+            log.error("Error during email send", e);
+        }
     }
 
     @Override
     public void sendEmail(String toString, String subject, String contentString) {
-//
-//        Configuration configuration = new Configuration()
-//            .domain(domain)
-//            .apiKey(mailgunApiKey)
-//            .from("Test account", "postmaster@somedomain.com");
-//
-//        Mail.using(configuration)
-//            .to("marty@mcfly.com")
-//            .subject("This is the subject")
-//            .text("Hello world!")
-//            .build()
-//            .send();
+
     }
 
     @Override
     public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
-
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
     }
 
     @Override
@@ -73,16 +97,11 @@ public class ProdMailService implements MailService {
 
     }
 
+    @Async
     @Override
     public void sendPasswordResetMail(User user) throws UnirestException {
-        final HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + domain + "/messages")
-            .basicAuth("api", mailgunApiKey)
-            .queryString("from", "Excited User <USER@YOURDOMAIN.COM>")
-            .queryString("to", "tomkasp@gmail.com")
-            .queryString("subject", "hello")
-            .queryString("text", "testing")
-            .asJson();
-        log.info("Reset email body {}", request.getBody());
+        log.debug("Sending password reset email to '{}'", user.getEmail());
+        sendEmailFromTemplate(user, "passwordResetEmail", "email.reset.title");
     }
 
     static {

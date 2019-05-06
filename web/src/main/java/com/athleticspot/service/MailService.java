@@ -8,6 +8,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
  */
 public interface MailService {
 
+    String USER = "user";
+
+    String BASE_URL = "baseUrl";
+
     void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml);
 
     void sendEmail(String toString, String subject, String contentString);

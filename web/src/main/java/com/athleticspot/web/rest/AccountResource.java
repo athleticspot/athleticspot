@@ -71,17 +71,17 @@ public class AccountResource {
         return userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase())
             .map(user -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
             .orElseGet(() -> userRepository.findOneByEmail(managedUserVM.getEmail())
-                .map(user -> new ResponseEntity<>("email address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-                .orElseGet(() -> {
-                    User user = userService
-                        .createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
-                            managedUserVM.getFirstName(), managedUserVM.getLastName(),
-                            managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl(),
-                            managedUserVM.getLangKey());
+                    .map(user -> new ResponseEntity<>("email address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
+                    .orElseGet(() -> {
+                        User user = userService
+                            .createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
+                                managedUserVM.getFirstName(), managedUserVM.getLastName(),
+                                managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl(),
+                                managedUserVM.getLangKey());
 
 //                    mailService.sendActivationEmail(user);
-                    return new ResponseEntity<>(HttpStatus.CREATED);
-                })
+                        return new ResponseEntity<>(HttpStatus.CREATED);
+                    })
             );
     }
 
@@ -181,7 +181,8 @@ public class AccountResource {
                 try {
                     mailServiceImpl.sendPasswordResetMail(user);
                 } catch (UnirestException e) {
-                    e.printStackTrace();
+                    log.error("Error during message sent for mail: " + mail, e);
+                    return  new ResponseEntity<>("Email could not be sent", HttpStatus.INTERNAL_SERVER_ERROR);
                 }
                 return new ResponseEntity<>("email was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("email address not registered", HttpStatus.BAD_REQUEST));
