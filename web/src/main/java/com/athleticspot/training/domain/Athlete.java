@@ -27,7 +27,7 @@ public class Athlete extends IdentifiedDomainObject {
     @AttributeOverride(name = "uuid", column = @Column(name = "athlete_id", nullable = false))
     private AthleteId athleteId = new AthleteId();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USER_ID", unique = true, nullable = false, updatable = false)
     private User user;
 

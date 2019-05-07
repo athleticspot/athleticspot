@@ -1,6 +1,7 @@
 package com.athleticspot.domain;
 
 import com.athleticspot.config.Constants;
+import com.athleticspot.training.domain.Athlete;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Email;
@@ -91,6 +92,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
         inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Athlete athlete;
 
     public Long getId() {
         return id;
