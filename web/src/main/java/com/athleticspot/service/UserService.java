@@ -1,8 +1,10 @@
 package com.athleticspot.service;
 
 import com.athleticspot.common.domain.event.AthleteCreatedEvent;
+import com.athleticspot.common.domain.event.AthleteDeletedEvent;
 import com.athleticspot.common.domain.event.AthleteUpdatedEvent;
 import com.athleticspot.common.infrastracture.dto.AthleteCreatedEventDto;
+import com.athleticspot.common.infrastracture.dto.AthleteDeletedEventDto;
 import com.athleticspot.common.infrastracture.dto.AthleteUpdatedEventDto;
 import com.athleticspot.config.Constants;
 import com.athleticspot.domain.Authority;
@@ -264,6 +266,9 @@ public class UserService {
             socialService.deleteUserSocialConnection(user.getLogin());
             userRepository.delete(user);
             log.debug("Deleted User: {}", user);
+            applicationEventPublisher.publishEvent(new AthleteDeletedEvent(
+                new AthleteDeletedEventDto(user.getLogin())
+            ));
         });
     }
 

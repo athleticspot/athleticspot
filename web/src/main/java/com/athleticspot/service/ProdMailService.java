@@ -3,6 +3,7 @@ package com.athleticspot.service;
 import com.athleticspot.domain.User;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import io.github.jhipster.config.JHipsterConstants;
 import io.github.jhipster.config.JHipsterProperties;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
@@ -28,6 +30,7 @@ import java.util.Locale;
  * @author Tomasz Kasprzycki
  */
 @Service
+@Profile(JHipsterConstants.SPRING_PROFILE_PRODUCTION)
 public class ProdMailService implements MailService {
 
     private final Logger log = LoggerFactory.getLogger(ProdMailService.class);

@@ -157,6 +157,14 @@ public class SportActivityOutDtoAcceptanceTest {
 
     @Test
     public void fetchingSportActivitiesAssignedToTheUser() {
+        Athlete athlete = createAthlete();
+
+        graphAthleteRepository.save(athlete);
+
+        Assertions.assertThat(sportActivityRepository.findAll()).hasSize(1);
+    }
+
+    private Athlete createAthlete() {
         Athlete athlete = new Athlete("Olek", UUID.randomUUID().toString(), "");
 
         athlete.perform(new SportActivityBuilder(
@@ -170,9 +178,22 @@ public class SportActivityOutDtoAcceptanceTest {
             "123",
             "Tomasz Kasprzycki"
         ).createSportActivity());
+        return athlete;
+    }
+
+    @Test
+    public void deleteAthleteWithSportActivities(){
+        Athlete athlete = createAthlete();
 
         graphAthleteRepository.save(athlete);
 
         Assertions.assertThat(sportActivityRepository.findAll()).hasSize(1);
+        Assertions.assertThat(graphAthleteRepository.findAll()).hasSize(1);
+
+        graphAthleteRepository.deleteAthlete("Olek");
+
+        Assertions.assertThat(sportActivityRepository.findAll()).hasSize(0);
+        Assertions.assertThat(graphAthleteRepository.findAll()).hasSize(0);
+
     }
 }
