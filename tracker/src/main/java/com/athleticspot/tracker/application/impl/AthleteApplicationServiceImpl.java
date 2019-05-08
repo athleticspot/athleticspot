@@ -2,7 +2,9 @@ package com.athleticspot.tracker.application.impl;
 
 import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.common.domain.event.AthleteCreatedEvent;
+import com.athleticspot.common.domain.event.AthleteDeletedEvent;
 import com.athleticspot.common.domain.event.AthleteUpdatedEvent;
+import com.athleticspot.common.infrastracture.dto.AthleteDeletedEventDto;
 import com.athleticspot.common.infrastracture.dto.AthleteUpdatedEventDto;
 import com.athleticspot.tracker.application.AthleteApplicationService;
 import com.athleticspot.tracker.domain.graph.Athlete;
@@ -107,6 +109,10 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
 
     }
 
+    private void deleteAthlete(AthleteDeletedEventDto content) {
+        graphAthleteRepository.deleteAthlete(content.getLogin());
+    }
+
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleAthleteCreatedEvent(AthleteCreatedEvent athleteCreatedEvent) {
         createAthlete(
@@ -120,4 +126,11 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
     public void handleAthleteUpdatedEvent(AthleteUpdatedEvent athleteUpdatedEvent) {
         updateAthlete(athleteUpdatedEvent.getContent());
     }
+
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void handleAthleteDeletedEvent(AthleteDeletedEvent athleteDeletedEvent) {
+        deleteAthlete(athleteDeletedEvent.getContent());
+    }
+
 }

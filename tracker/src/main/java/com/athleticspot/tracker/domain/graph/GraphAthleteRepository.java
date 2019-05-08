@@ -32,5 +32,8 @@ public interface GraphAthleteRepository extends Neo4jRepository<Athlete, Long> {
     Page<Athlete> findAthletesWithoutMe(@Param("firstAndLastName") String firstAndLastName, @Param("me") String me, Pageable pageRequest);
 
 
+    @Query("Match (a:Athlete{name:{name}}) Detach Delete a ")
+    void deleteAthlete(@Param("name") String name);
+
     Optional<Athlete> findByName(String name);
 }
