@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
                 this.cookieService.remove('social-authentication');
                 // this.router.navigate(['']);
 
-                this.loginService.checkAfterLoginActions().then(() =>{
+                this.loginService.checkAfterLoginActions().then(() => {
                     // // previousState was set in the authExpiredInterceptor before being redirected to login modal.
                     // // since login is succesful, go to stored previousState and clear previousState
                     const redirect = this.stateStorageService.getUrl();
@@ -55,6 +55,9 @@ export class HomeComponent implements OnInit {
             this.account = account;
         });
         this.registerAuthenticationSuccess();
+        if (this.isAuthenticated()) {
+            this.router.navigate(['activities']);
+        }
     }
 
     registerAuthenticationSuccess() {
