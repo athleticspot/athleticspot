@@ -15,6 +15,7 @@ import tech.units.indriya.unit.Units;
 import javax.measure.MetricPrefix;
 import javax.measure.Unit;
 import javax.measure.quantity.Length;
+import java.util.Optional;
 
 /**
  * @author Tomasz Kasprzycki
@@ -50,8 +51,10 @@ public class MeasureSystemProviderImpl implements MeasureSystemProvider {
     private MetricSystemType getMetricSystemType() {
         final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
         final Athlete athlete = graphAthleteRepository.findByName(currentUserLogin).orElseThrow(() -> new IllegalStateException("There are no athlete withlogin: " + currentUserLogin));
-        final SurveyInfo surveyInfo = surveyInfoRepository.findByAthleteId(athlete.getAthleteUUID()).orElseThrow(() -> new IllegalStateException("There are no survey info for user uuid: " + athlete.getAthleteUUID()));
-        return surveyInfo.getMetricSystemType();
+        final Optional<MetricSystemType> metricSystemTypeOptional = surveyInfoRepository.findByAthleteId(athlete.getAthleteUUID()).map(SurveyInfo::getMetricSystemType);
+        return metricSystemTypeOptional.orElseGet(() ->
+           MetricSystemType.METRIC
+        );
     }
 
 }
