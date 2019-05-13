@@ -2,6 +2,7 @@ package com.athleticspot.tracker.shared;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import systems.uom.common.USCustomary;
 import tech.units.indriya.unit.Units;
 
 import javax.measure.MetricPrefix;
@@ -15,6 +16,12 @@ public class QuantitiesConverterTest {
     public void convertDistanceFromMetersTest(){
         Assertions.assertThat(QuantitiesConverter.convertDistanceFromMeters(MetricPrefix.KILO(Units.METRE), 1000f))
             .isEqualTo(1f);
+    }
+
+    @Test
+    public void convertDistanceFromMetersToMiles(){
+        final Float distanceInMiles = QuantitiesConverter.convertDistanceFromMeters(USCustomary.MILE, 1000f);
+        Assertions.assertThat(distanceInMiles).isEqualTo(0.62f);
     }
 
     @Test
