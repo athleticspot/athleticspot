@@ -20,16 +20,19 @@ public class QuantitiesConverter {
 
     public static Float convertDistanceToMeters(String units, Float distance) {
         if (KILO(METRE).toString().equals(units)) {
-            return Quantities.getQuantity(distance, KILO(METRE)).to(METRE).getValue().floatValue();
+            return Float.parseFloat(new DecimalFormat(DECIMAL_FORMAT)
+                .format(Quantities.getQuantity(distance, KILO(METRE)).to(METRE).getValue().floatValue()));
         } else if (USCustomary.MILE.toString().equals(units)) {
-            return Quantities.getQuantity(distance, USCustomary.MILE).to(USCustomary.METER).getValue().floatValue();
+            return Float.parseFloat(new DecimalFormat(DECIMAL_FORMAT)
+                .format(Quantities.getQuantity(distance, USCustomary.MILE).to(USCustomary.METER).getValue().floatValue()));
         }
         return 0.00f;
     }
 
     public static Float convertDistanceFromMeters(Unit<Length> units, Float meters) {
         if (USCustomary.MILE.equals(units)) {
-            final float convertedValue = Quantities.getQuantity(meters, USCustomary.METER).to(USCustomary.MILE).getValue().floatValue();
+            final float convertedValue =
+                Quantities.getQuantity(meters, USCustomary.METER).to(USCustomary.MILE).getValue().floatValue();
             return Float.parseFloat(new DecimalFormat(DECIMAL_FORMAT).format(convertedValue));
         }
         return Float.parseFloat(new DecimalFormat(DECIMAL_FORMAT)

@@ -19,9 +19,16 @@ public class QuantitiesConverterTest {
     }
 
     @Test
-    public void convertDistanceFromMetersToMiles(){
+    public void convertDistanceFromMetersToMilesFormatterTest(){
         final Float distanceInMiles = QuantitiesConverter.convertDistanceFromMeters(USCustomary.MILE, 1000f);
         Assertions.assertThat(distanceInMiles).isEqualTo(0.62f);
+    }
+
+    @Test
+    public void convertDistanceMilesToMetersFormattingTest(){
+        final Float distanceInMeters = QuantitiesConverter.convertDistanceToMeters("mi", 1f);
+        Assertions.assertThat(distanceInMeters).isEqualTo(1609.34f);
+
     }
 
     @Test
