@@ -27,7 +27,7 @@ export class ActivitiesComponent implements OnInit {
     private currentPage = 0;
     private trackerSource: TrackerSource;
     private trackerInfo = new TrackerInfo();
-    private test : TrackerInfo;
+    private isMetricSystem = true;
 
     public maxSpeed: number;
     public zoom: number;
@@ -59,6 +59,14 @@ export class ActivitiesComponent implements OnInit {
             'time': new FormControl({hour: 12, minute: 0, second: 0}, [Validators.required]),
             'maxSpeed': new FormControl(),
             'averageSpeed': new FormControl()
+        });
+
+        this.addActivityForm.get("units").valueChanges.subscribe(val => {
+            if(val === "km"){
+                this.isMetricSystem = true;
+            }else {
+                this.isMetricSystem = false;
+            }
         });
         this.refreshActivities();
         this.stravaDataservice.fetchStravaActivationLink()
@@ -185,5 +193,9 @@ export class ActivitiesComponent implements OnInit {
                 this.pageLoading = false;
             }
         );
+    }
+
+    isMetric(){
+        return this.isMetricSystem;
     }
 }
