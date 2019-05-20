@@ -55,6 +55,8 @@ public class SportActivityOutDto {
 
     private List<LatLng> coordinates;
 
+    private Float pace;
+
 
     public SportActivityOutDto() {
 
@@ -125,6 +127,10 @@ public class SportActivityOutDto {
 
     public String getUsername() {
         return username;
+    }
+
+    public Float getPace() {
+        return pace;
     }
 
     //Fluent interfaces
@@ -220,4 +226,20 @@ public class SportActivityOutDto {
         this.coordinates = coordinates;
         return this;
     }
+
+    public SportActivityOutDto setPace(final String unit) {
+        Float convertedDistance = 0f;
+        switch (unit){
+            case "m":
+
+                break;
+            case "km":
+                break;
+            case "mi":
+        }
+        this.pace = convertedDistance;
+        return this;
+    }
+
+
 }

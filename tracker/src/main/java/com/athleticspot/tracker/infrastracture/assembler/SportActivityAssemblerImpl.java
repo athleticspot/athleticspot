@@ -53,7 +53,8 @@ public class SportActivityAssemblerImpl {
             .setMaxSpeed(graphSportActivity.getMaxSpeed())
             .setAverageTemp(graphSportActivity.getAverageTemp())
             .setCalories(graphSportActivity.getCalories())
-            .setCoordinates(coordinates);
+            .setCoordinates(coordinates)
+            .setPace(measureSystemProvider.getUserDistanceUnit().toString());
     }
 
 }
