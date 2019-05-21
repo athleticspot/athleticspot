@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.maps.model.LatLng;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -238,7 +239,7 @@ public class SportActivityOutDto {
                 break;
             case "mi":
         }
-        this.pace = convertedDistance;
+        this.pace = Float.parseFloat(new DecimalFormat("#0.00").format(convertedDistance));
         return this;
     }
 
