@@ -54,7 +54,7 @@ public class SportActivityAssemblerImpl {
             .setAverageTemp(graphSportActivity.getAverageTemp())
             .setCalories(graphSportActivity.getCalories())
             .setCoordinates(coordinates)
-            .setPace(measureSystemProvider.getUserDistanceUnit().toString());
+            .setPace();
     }
 
 }

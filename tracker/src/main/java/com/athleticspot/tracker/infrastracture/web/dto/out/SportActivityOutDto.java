@@ -227,13 +227,14 @@ public class SportActivityOutDto {
         return this;
     }
 
-    public SportActivityOutDto setPace(final String unit) {
+    public SportActivityOutDto setPace() {
         Float convertedDistance = 0f;
-        switch (unit){
+        switch (this.units){
             case "m":
 
                 break;
             case "km":
+                convertedDistance = Integer.parseInt(this.elapsedTime)/this.distance/60;
                 break;
             case "mi":
         }
