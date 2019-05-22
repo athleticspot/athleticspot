@@ -228,18 +228,18 @@ public class SportActivityOutDto {
         return this;
     }
 
+    /**
+     * pace is calculated in miles or kilometers per minute
+     * @return
+     */
     public SportActivityOutDto setPace() {
-        Float convertedDistance = 0f;
-        switch (this.units){
-            case "m":
-
-                break;
-            case "km":
-                convertedDistance = Integer.parseInt(this.elapsedTime)/this.distance/60;
-                break;
-            case "mi":
+        float calculatedPace;
+        if ("m".equals(this.units)) {
+            calculatedPace = Integer.parseInt(this.elapsedTime) / (this.distance / 1000) / 60;
+        } else  {
+            calculatedPace = Integer.parseInt(this.elapsedTime) / this.distance / 60;
         }
-        this.pace = Float.parseFloat(new DecimalFormat("#0.00").format(convertedDistance));
+        this.pace = Float.parseFloat(new DecimalFormat("#0.00").format(calculatedPace));
         return this;
     }
 
