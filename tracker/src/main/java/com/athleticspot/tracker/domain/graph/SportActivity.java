@@ -10,6 +10,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import javax.measure.Unit;
 import javax.measure.quantity.Length;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * @author Tomasz Kasprzycki
@@ -190,7 +191,7 @@ public class SportActivity {
     }
 
     public Integer getElapsedTime() {
-        return elapsedTime;
+        return Optional.ofNullable(elapsedTime).orElseGet(() -> 0);
     }
 
     public Float getTotalElevationGain() {

@@ -17,7 +17,7 @@ public class SportActivityOutDtoTest {
     public void paceCreationForKmTest(){
         SportActivityOutDto sportActivityOutDto = new SportActivityOutDto();
         ReflectionTestUtils.setField(sportActivityOutDto, "distance", 12f);
-        ReflectionTestUtils.setField(sportActivityOutDto, "elapsedTime", "3600");
+        ReflectionTestUtils.setField(sportActivityOutDto, "elapsedTimeInSeconds", 3600);
         ReflectionTestUtils.setField(sportActivityOutDto, "units", MetricPrefix.KILO(Units.METRE).toString());
         sportActivityOutDto.setPace();
         Assertions.assertThat(sportActivityOutDto.getPace()).isEqualTo(5.00f);
@@ -27,17 +27,18 @@ public class SportActivityOutDtoTest {
     public void paceCreationHandlingFloatingPointTest(){
         SportActivityOutDto sportActivityOutDto = new SportActivityOutDto();
         ReflectionTestUtils.setField(sportActivityOutDto, "distance", 4.5f);
-        ReflectionTestUtils.setField(sportActivityOutDto, "elapsedTime", "3600");
+        ReflectionTestUtils.setField(sportActivityOutDto, "elapsedTimeInSeconds", 3600);
         ReflectionTestUtils.setField(sportActivityOutDto, "units", MetricPrefix.KILO(Units.METRE).toString());
         sportActivityOutDto.setPace();
         Assertions.assertThat(sportActivityOutDto.getPace()).isEqualTo(13.33f);
+        Assertions.assertThat(sportActivityOutDto.getFormattedPace()).isEqualTo("13:20");
     }
 
     @Test
     public void paceConversionFromMetersToMiles(){
         SportActivityOutDto sportActivityOutDto = new SportActivityOutDto();
         ReflectionTestUtils.setField(sportActivityOutDto, "distance", 1.0f);
-        ReflectionTestUtils.setField(sportActivityOutDto, "elapsedTime", "3600");
+        ReflectionTestUtils.setField(sportActivityOutDto, "elapsedTimeInSeconds", 3600);
         ReflectionTestUtils.setField(sportActivityOutDto, "units", USCustomary.MILE.toString());
         sportActivityOutDto.setPace();
         Assertions.assertThat(sportActivityOutDto.getPace()).isEqualTo(60.00f);
@@ -47,7 +48,7 @@ public class SportActivityOutDtoTest {
     public void paceCreationForMetersTest(){
         SportActivityOutDto sportActivityOutDto = new SportActivityOutDto();
         ReflectionTestUtils.setField(sportActivityOutDto, "distance", 3020f);
-        ReflectionTestUtils.setField(sportActivityOutDto, "elapsedTime", "3600");
+        ReflectionTestUtils.setField(sportActivityOutDto, "elapsedTimeInSeconds", 3600);
         ReflectionTestUtils.setField(sportActivityOutDto, "units", (Units.METRE).toString());
         sportActivityOutDto.setPace();
         Assertions.assertThat(sportActivityOutDto.getPace()).isEqualTo(19.87f);
