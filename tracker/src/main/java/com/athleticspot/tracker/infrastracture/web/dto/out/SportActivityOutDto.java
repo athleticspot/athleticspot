@@ -249,6 +249,11 @@ public class SportActivityOutDto {
      * @return
      */
     public SportActivityOutDto setPace() {
+        if(0f == this.distance){
+            this.pace = 0f;
+            this.formattedPace = "00:00";
+            return this;
+        }
         float calculatedPace;
         if (Units.METRE.toString().equals(this.units)) {
             calculatedPace = (this.elapsedTimeInSeconds) / (this.distance / 1000) / 60;
@@ -259,6 +264,8 @@ public class SportActivityOutDto {
         calculateFormattedPace();
         return this;
     }
+
+
 
     private void calculateFormattedPace() {
         Assert.notNull(pace, "Pace cannot be null in order to format it");

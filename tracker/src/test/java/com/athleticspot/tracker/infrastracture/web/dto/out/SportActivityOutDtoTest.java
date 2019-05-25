@@ -54,4 +54,15 @@ public class SportActivityOutDtoTest {
         Assertions.assertThat(sportActivityOutDto.getPace()).isEqualTo(19.87f);
     }
 
+    @Test
+    public void handleDistanceEquals0Test(){
+        SportActivityOutDto sportActivityOutDto = new SportActivityOutDto();
+        ReflectionTestUtils.setField(sportActivityOutDto, "distance", 0.0f);
+        ReflectionTestUtils.setField(sportActivityOutDto, "elapsedTimeInSeconds", 3600);
+        ReflectionTestUtils.setField(sportActivityOutDto, "units", USCustomary.MILE.toString());
+        sportActivityOutDto.setPace();
+        Assertions.assertThat(sportActivityOutDto.getPace()).isEqualTo(0f);
+        Assertions.assertThat(sportActivityOutDto.getFormattedPace()).isEqualTo("00:00");
+    }
+
 }
