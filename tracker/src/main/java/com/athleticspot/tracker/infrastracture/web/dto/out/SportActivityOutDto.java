@@ -271,9 +271,9 @@ public class SportActivityOutDto {
         Assert.notNull(pace, "Pace cannot be null in order to format it");
         final float paceDecimalPart = this.pace % 1;
 
-        this.formattedPace = new DecimalFormat("#0").format(Math.floor(this.pace))
+        this.formattedPace = new DecimalFormat("#00").format(Math.floor(this.pace))
             + ":"
-            + new DecimalFormat("#0").format(paceDecimalPart * 60);
+            + new DecimalFormat("#00").format(paceDecimalPart * 60);
     }
 
 

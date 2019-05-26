@@ -23,7 +23,7 @@ public class StravaSynchronizationService extends SpringRouteBuilder {
             .log("Strava synchronization start")
             .bean(stravaApplicationService, "retrieveStravaUsers")
             .split(body())
-            .bean(stravaApplicationService, "synchronizedStravaActivities")
+//            .bean(stravaApplicationService, "synchronizedStravaActivities")
             .to("mock:end");
     }
 }

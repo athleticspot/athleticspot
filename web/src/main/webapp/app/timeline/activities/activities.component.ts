@@ -149,9 +149,6 @@ export class ActivitiesComponent implements OnInit {
         })
     }
 
-    // google api component:
-
-
     private assambleSportActivity(sportActivity: any) {
         let sportActivityModel = new SportActivityModel();
         sportActivityModel.id = sportActivity.id;
@@ -170,8 +167,8 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.averageTemp = sportActivity.averageTemp;
         sportActivityModel.calories = sportActivity.calories;
         sportActivityModel.coordinates = sportActivity.coordinates;
+        sportActivityModel.formattedPace = sportActivity.formattedPace;
         return sportActivityModel;
-
     }
 
     onScroll() {

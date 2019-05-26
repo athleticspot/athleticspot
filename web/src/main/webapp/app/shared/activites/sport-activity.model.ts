@@ -23,4 +23,5 @@ export class SportActivityModel {
     averageTemp: Number;
     calories: Number;
     coordinates: any;
+    formattedPace: String;
 }
