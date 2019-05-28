@@ -50,20 +50,11 @@ public class StravaAuthService implements TrackerAuth {
      * @param username athleticspot username
      */
     @Override
-    public void fetchToken(String code, String username) {
-        final String clientSecret = stravaDataProvider.clientSecret();
-        final int clientCode = stravaDataProvider.clientCode();
-
+    public void storeStravaToken(String code, String username) {
         log.info("Exchanging strava token");
         log.info("Strava code value: {}", code);
         AuthorisationAPI auth = API.authorisationInstance();
 
-//        TokenResponse response = auth.tokenExchange(clientCode, clientSecret, code);
-//        Token token = new Token(response);
-//        TokenManager.instance().storeToken(token);
-
         trackerUserService.addStravaCode(code, username);
-//        TokenManager.instance().retrieveTokenWithExactScope("tomkasp@gmail.com");
-
     }
 }

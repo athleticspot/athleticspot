@@ -8,9 +8,11 @@ import javastrava.api.API;
 import javastrava.api.AuthorisationAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -30,24 +32,29 @@ public class StravaController {
 
     AuthorisationAPI auth = API.authorisationInstance();
 
+    @Value("${application.url}")
+    String stravaRedirectUrl;
+
     public StravaController(TrackerAuth stravaTrackerAuth) {
         this.stravaTrackerAuth = stravaTrackerAuth;
     }
 
-    //disable secuirty here
     @GetMapping(value = "/register/{username}")
     public void registerCode(@RequestParam String code,
-                             @RequestParam String state,
-                             @PathVariable String username) {
+                                     @RequestParam String state,
+                                     @PathVariable String username,
+                                     HttpServletResponse httpServletResponse) throws IOException {
         log.debug("Registering username: {}", username);
-        log.debug("code value: {}, state value: ", code, state);
-        stravaTrackerAuth.fetchToken(code, username);
+        log.debug("code value: {}, state value: {}", code, state);
+        stravaTrackerAuth.storeStravaToken(code, username);
+        httpServletResponse.sendRedirect(stravaRedirectUrl);
+
     }
 
     @GetMapping(value = "/activate")
     public String activateStravaUser(HttpServletRequest httpServletRequest) throws IOException {
         final Gson gson = new Gson();
-        return gson.toJson(stravaTrackerAuth.authenticateTracker()) ;
+        return gson.toJson(stravaTrackerAuth.authenticateTracker());
     }
 
 }

@@ -7,5 +7,5 @@ public interface TrackerAuth {
 
     String authenticateTracker();
 
-    void fetchToken(String code, String username);
+    void storeStravaToken(String code, String username);
 }
