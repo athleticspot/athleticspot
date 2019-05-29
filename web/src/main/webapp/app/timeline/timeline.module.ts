@@ -13,6 +13,7 @@ import {CommonModule} from "@angular/common";
 import {ActivitiesDataservice} from "../shared/activites/activities.dataservice";
 import {AgmCoreModule} from "@agm/core"
 import {NgbTimeStringAdapter} from "./activities/timeticker-string-adapter.service";
+import {StravaComponent} from "./strava/strava.component";
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {NgbTimeStringAdapter} from "./activities/timeticker-string-adapter.servi
     ],
     declarations: [
         ActivitiesComponent,
+        StravaComponent
     ],
     entryComponents: [ActivitiesComponent],
     providers: [

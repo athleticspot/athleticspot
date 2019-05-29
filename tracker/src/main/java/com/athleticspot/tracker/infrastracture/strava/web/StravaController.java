@@ -47,7 +47,7 @@ public class StravaController {
         log.debug("Registering username: {}", username);
         log.debug("code value: {}, state value: {}", code, state);
         stravaTrackerAuth.storeStravaToken(code, username);
-        httpServletResponse.sendRedirect(stravaRedirectUrl);
+        httpServletResponse.sendRedirect(stravaRedirectUrl + "/strava");
 
     }
 
