@@ -29,3 +29,7 @@ spring:
 mailgun:
     api-key: ${MAILGUN_API_KEY}
     domain: ${MAILGUN_DOMAIN}
+
+application:
+    url: ${APPLICATION_URL}
+
