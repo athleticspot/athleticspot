@@ -44,7 +44,7 @@ public class StravaController {
                                      @RequestParam String state,
                                      @PathVariable String username,
                                      HttpServletResponse httpServletResponse) throws IOException {
-        log.debug("Registering username: {}", username);
+        log.debug("Registering username for strava: {}", username);
         log.debug("code value: {}, state value: {}", code, state);
         stravaTrackerAuth.storeStravaToken(code, username);
         httpServletResponse.sendRedirect(stravaRedirectUrl + "/#/strava");
