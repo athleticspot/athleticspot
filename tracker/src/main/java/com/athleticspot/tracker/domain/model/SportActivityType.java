@@ -24,111 +24,108 @@ public enum SportActivityType {
     /**
      * Walk
      */
-    WALK("WALK");
+    WALK("WALK"),
 
 
-//    /**
-//     * Alpine skiing
-//     */
-//    ALPINE_SKI(),
-//    /**
-//     * Back-country skiing (off piste)
-//     */
-//    BACKCOUNTRY_SKI(),
-//    /**
-//     * Canoeing
-//     */
-//    CANOEING(),
-//    /**
-//     * Crossfit
-//     */
-//    CROSSFIT(),
-//    /**
-//     * E-Bike Ride
-//     */
-//    EBIKE_RIDE(),
-//    /**
-//     * Elliptical Trainer
-//     */
-//    ELLIPTICAL(),
-//    /**
-//     * Ice skating
-//     */
-//    ICE_SKATE(),
-//    /**
-//     * Inline skating (rollerblading)
-//     */
-//    INLINE_SKATE(),
-//    /**
-//     * Kayaking
-//     */
-//    KAYAKING(),
-//    /**
-//     * Kite surfing
-//     */
-//    KITESURF(),
-//    /**
-//     * Nordic skiing (telemark)
-//     */
-//    NORDIC_SKI(),
-//    /**
-//     * Rock climbing
-//     */
-//    ROCK_CLIMBING(),
-//    /**
-//     * Rollerskiing
-//     */
-//    ROLLERSKI(),
-//    /**
-//     * Rowing
-//     */
-//    ROWING(),
-//    /**
-//     * Snowboarding
-//     */
-//    SNOWBOARD(),
-//    /**
-//     * Snowshoeing
-//     */
-//    SNOWSHOE(),
-//    /**
-//     * Stair stepper
-//     */
-//    STAIR_STEPPER(),
-//    /**
-//     * Stand-up Paddling
-//     */
-//    STAND_UP_PADDLING(),
-//    /**
-//     * Surfing
-//     */
-//    SURFING(),
-//    /**
-//     * Virtual ride
-//     */
-//    VIRTUAL_RIDE(),
-//    /**
-//     * Weight training
-//     */
-//    WEIGHT_TRAINING(),
-//    /**
-//     * Windsurfing
-//     */
-//    WINDSURF(),
-//    /**
-//     * Workout
-//     */
-//    WORKOUT(),
-//    /**
-//     * Yoga
-//     */
-//    YOGA(),
-//    /**
-//     * <p>
-//     * Should never occur but may if Strava API behaviour has changed
-//     * </p>
-//     */
-//    UNKNOWN();
+    /**
+     * Alpine skiing
+     */
+    ALPINE_SKI("ALPINE_SKI"),
+    /**
+     * Back-country skiing (off piste)
+     */
+    BACKCOUNTRY_SKI("BACKCOUNTRY_SKI"),
+    /**
+     * Canoeing
+     */
+    CANOEING("CANOEING"),
+    /**
+     * Crossfit
+     */
+    CROSSFIT("CROSSFIT"),
+    /**
+     * E-Bike Ride
+     */
+    EBIKE_RIDE("EBIKE_RIDE"),
+    /**
+     * Elliptical Trainer
+     */
+    ELLIPTICAL("ELLIPTICAL"),
+    /**
+     * Ice skating
+     */
+    ICE_SKATE("ICE_SKATE"),
+    /**
+     * Inline skating (rollerblading)
+     */
+    INLINE_SKATE("INLINE_SKATE"),
+    /**
+     * Kayaking
+     */
+    KAYAKING("KAYAKING"),
+    /**
+     * Kite surfing
+     */
+    KITESURF("KITESURF"),
+    /**
+     * Nordic skiing (telemark)
+     */
+    NORDIC_SKI("NORDIC_SKI"),
+    /**
+     * Rock climbing
+     */
+    ROCK_CLIMBING("ROCK_CLIMBING"),
+    /**
+     * Rollerskiing
+     */
+    ROLLERSKI("ROLLERSKI"),
+    /**
+     * Rowing
+     */
+    ROWING("ROWING"),
+    /**
+     * Snowboarding
+     */
+    SNOWBOARD("SNOWBOARD"),
+    /**
+     * Snowshoeing
+     */
+    SNOWSHOE("SNOWSHOE"),
+    /**
+     * Stair stepper
+     */
+    STAIR_STEPPER("STAIR_STEPPER"),
+    /**
+     * Stand-up Paddling
+     */
+    STAND_UP_PADDLING("STAND_UP_PADDLING"),
+    /**
+     * Surfing
+     */
+    SURFING("SURFING"),
+    /**
+     * Virtual ride
+     */
+    VIRTUAL_RIDE("VIRTUAL_RIDE"),
+    /**
+     * Weight training
+     */
+    WEIGHT_TRAINING("WEIGHT_TRAINING"),
+    /**
+     * Windsurfing
+     */
+    WINDSURF("WINDSURF"),
+    /**
+     * Workout
+     */
+    WORKOUT("WORKOUT"),
+    /**
+     * Yoga
+     */
+    YOGA("YOGA"),
+    /**
+     */
+    UNKNOWN("UNKNOWN");
 
 
     private final String type;
