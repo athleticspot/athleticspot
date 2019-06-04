@@ -1,4 +1,5 @@
 import {TrackerSource} from "./tracker-source";
+import {ActivityDetailsModel} from "../../timeline/activities/activity-details.model";
 
 export class SportActivityModel {
 
@@ -24,4 +25,10 @@ export class SportActivityModel {
     calories: Number;
     coordinates: any;
     formattedPace: String;
+
+    //TODO: przeniesc to do serwisu robiacego translacje
+    public resolveSportActivityTypeDescription(sportActivityType: String) {
+        let a = new ActivityDetailsModel();
+        return a.activityTypes.get(sportActivityType);
+    }
 }

@@ -9,6 +9,7 @@ import {TrackerSource} from "../../shared/activites/tracker-source";
 import {MapsAPILoader} from "@agm/core";
 import {NgbTimeStringAdapter} from "./timeticker-string-adapter.service";
 import {TrackerInfo} from "./model/tracker-info.model";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -36,10 +37,13 @@ export class ActivitiesComponent implements OnInit {
                 private stravaDataservice: TrackerDataservice,
                 private toasterService: ToasterService,
                 private mapsAPILoader: MapsAPILoader,
-                private timePickerService: NgbTimeStringAdapter) {
+                private timePickerService: NgbTimeStringAdapter,
+                private translateService: TranslateService) {
     }
 
     ngOnInit(): void {
+
+        console.log(this.translateService.instant("timeline"));
 
         //set google maps defaults
         this.zoom = 14;
@@ -154,7 +158,7 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.id = sportActivity.id;
         sportActivityModel.firstAndLastName = sportActivity.firstAndLastName;
         sportActivityModel.trackerSource = sportActivity.trackerSource;
-        sportActivityModel.sportActivityType = sportActivity.sportActivityType;
+        sportActivityModel.sportActivityType = sportActivityModel.resolveSportActivityTypeDescription(sportActivity.sportActivityType);
         sportActivityModel.title = sportActivity.title;
         sportActivityModel.description = sportActivity.description;
         sportActivityModel.distance = sportActivity.distance;

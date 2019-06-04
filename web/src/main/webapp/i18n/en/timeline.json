@@ -4,6 +4,9 @@
         "manual": {
             "title": "Add activity",
             "comment": "Put a comment",
+            "type" : {
+                "running" : "to jest bieganie"
+            },
             "messages": {
                 "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
                 "error": {
