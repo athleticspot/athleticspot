@@ -158,7 +158,10 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.id = sportActivity.id;
         sportActivityModel.firstAndLastName = sportActivity.firstAndLastName;
         sportActivityModel.trackerSource = sportActivity.trackerSource;
-        sportActivityModel.sportActivityType = sportActivityModel.resolveSportActivityTypeDescription(sportActivity.sportActivityType);
+        sportActivityModel.sportActivityType =  SportActivityModel
+            .resolveSportActivityTypeDescription(
+                sportActivity.sportActivityType,
+                this.translateService.instant("timeline"));
         sportActivityModel.title = sportActivity.title;
         sportActivityModel.description = sportActivity.description;
         sportActivityModel.distance = sportActivity.distance;
