@@ -62,6 +62,7 @@ public class SportActivityBuilder {
         this.title = title;
         this.userUuid = userUuid;
         this.firstAndLastName = firstAndLastName;
+
     }
 
     public static SportActivityBuilder createFromStravaActivity(StravaActivity stravaActivity,
@@ -85,10 +86,11 @@ public class SportActivityBuilder {
             userUuid,
             firstAndLastName
         )
+            .setElapsedTime(stravaActivity.getElapsedTime())
+            .setMovingTime(stravaActivity.getMovingTime())
             .setSummaryPolyline(summaryPolyline)
             .setDetailedPolyline(detailedPolyline);
     }
-
 
     public SportActivityBuilder setDescription(String description) {
         this.description = description;

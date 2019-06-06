@@ -45,7 +45,7 @@ public class DistanceTest {
     @Test
     public void convertMilesToMetersTest(){
         final Float oneMile = QuantitiesConverter.convertDistanceToMeters("mi", 1.0F);
-        Assertions.assertThat(oneMile).isEqualTo(1609.344F);
+        Assertions.assertThat(oneMile).isEqualTo(1609.34F);
     }
 
     private Quantity<Length> createDistance(Double distanceInMetres){
