@@ -9,6 +9,7 @@ import com.athleticspot.tracker.domain.model.MeasureSystemProvider;
 import com.athleticspot.tracker.domain.model.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
+import com.athleticspot.tracker.shared.QuantitiesConverter;
 import com.google.common.collect.Lists;
 import com.google.maps.model.LatLng;
 import org.assertj.core.api.Assertions;
@@ -42,6 +43,8 @@ public class SportActivityOutDtoAcceptanceTest {
 
     private MeasureSystemProvider measureSystemProvider;
 
+    private static final String DECIMAL_FORMAT = "#.##";
+
     @Before
     public void init() {
         measureSystemProvider = new MeasureSystemProvider() {
@@ -64,7 +67,7 @@ public class SportActivityOutDtoAcceptanceTest {
         final SportActivityType sportActivityType = SportActivityType.RUN;
         final int trackingSystemId = 111;
         final String externalId = "9999";
-        final float distance = 12F;
+        final float distanceInMeters = 12F;
         final LocalDateTime startDate = LocalDateTime.now();
         final String firstAndLastName = "First and Last name";
         final String title = "title";
@@ -94,7 +97,7 @@ public class SportActivityOutDtoAcceptanceTest {
             sportActivityType,
             trackingSystemId,
             externalId,
-            distance,
+            distanceInMeters,
             startDate,
             title,
             userUuid,
@@ -130,7 +133,9 @@ public class SportActivityOutDtoAcceptanceTest {
         Assertions.assertThat(savedSportActivity.getSportActivityType()).isEqualTo(sportActivityType);
         Assertions.assertThat(savedSportActivity.getTrackingSystemId()).isEqualTo(trackingSystemId);
         Assertions.assertThat(savedSportActivity.getExternalId()).isEqualTo(externalId);
-        Assertions.assertThat(savedSportActivity.getDistance(measureSystemProvider.getUserDistanceUnit())).isEqualTo(distance/1000);
+        Assertions.assertThat(savedSportActivity.getDistance(measureSystemProvider.getUserDistanceUnit())).isEqualTo(
+            QuantitiesConverter.convertDistanceFromMeters(MetricPrefix.KILO(Units.METRE), distanceInMeters)
+        );
         Assertions.assertThat(savedSportActivity.getStartDate()).isEqualTo(startDate);
         Assertions.assertThat(savedSportActivity.getTitle()).isEqualTo(title);
         Assertions.assertThat(savedSportActivity.getUserUuid()).isEqualTo(userUuid);
