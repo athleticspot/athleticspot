@@ -19,7 +19,8 @@
                     </a>
                 </li>
                 <li *ngSwitchCase="false" class="nav-item pointer">
-                    <a class="nav-link btn btn-sm btn-success btn-rounded m-l" routerLink="register" routerLinkActive="active"
+                    <a class="nav-link btn btn-sm btn-success btn-rounded m-l" routerLink="register"
+                       routerLinkActive="active"
                        (click)="collapseNavbar()">
                         <span jhiTranslate="global.menu.account.register">Register</span>
                     </a>
@@ -33,7 +34,8 @@
                 <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
                 <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">
-                    <a *ngIf="false" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
+                    <a *ngIf="false" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);"
+                       id="entity-menu">
                     <span>
                         <i class="fa fa-th-list" aria-hidden="true"></i>
                         <span jhiTranslate="global.menu.entities.main">
@@ -72,7 +74,27 @@
                             </a>
                         </li>
                     </ul>
-                    </li>
+                </li>
+
+                <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer"
+                    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="settings-menu">
+                    <span>
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        <span jhiTranslate="global.menu.community.main">Settings</span>
+                        <b class="caret"></b>
+                    </span>
+                    </a>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li>
+                            <a class="dropdown-item" routerLink="friends" routerLinkActive="active"
+                               (click)="collapseNavbar()">
+                                <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
+                                <span jhiTranslate="global.menu.community.search">Profile</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer"
                     routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
