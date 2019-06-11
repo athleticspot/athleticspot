@@ -76,26 +76,6 @@
                     </ul>
                 </li>
 
-                <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer"
-                    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                    <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="settings-menu">
-                    <span>
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        <span jhiTranslate="global.menu.community.main">Settings</span>
-                        <b class="caret"></b>
-                    </span>
-                    </a>
-                    <ul class="dropdown-menu" ngbDropdownMenu>
-                        <li>
-                            <a class="dropdown-item" routerLink="friends" routerLinkActive="active"
-                               (click)="collapseNavbar()">
-                                <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
-                                <span jhiTranslate="global.menu.community.search">Profile</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
                 <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer"
                     routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                     <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
@@ -181,7 +161,7 @@
                         </li>
                     </ul>
                 </li>
-                <li ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" *ngIf="false"
+                <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">
                     <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                   <span *ngIf="!getImageUrl()">
