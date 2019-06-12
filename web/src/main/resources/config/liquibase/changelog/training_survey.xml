@@ -62,4 +62,11 @@
     <changeSet author="tomkasp (generated)" id="1501323723659-16">
         <addPrimaryKey columnNames="id" constraintName="training_surveyPK" tableName="training_survey"/>
     </changeSet>
+    <changeSet id="aad227b9-bd19-48da-ab3e-accd867173d3" author="Tomasz Kasprzycki">
+        <dropColumn tableName="training_survey">
+            <column name="distance"/>
+            <column name="duration"/>
+            <column name="run_category"/>
+        </dropColumn>
+    </changeSet>
 </databaseChangeLog>

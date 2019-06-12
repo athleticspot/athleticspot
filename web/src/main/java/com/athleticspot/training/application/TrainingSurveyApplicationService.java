@@ -54,12 +54,9 @@ public class TrainingSurveyApplicationService {
             athlete.assignSurvey(
                 assignTrainingSurveyToAthleteCommand.getBaseInformation(),
                 assignTrainingSurveyToAthleteCommand.getHealthInformation(),
-                assignTrainingSurveyToAthleteCommand.getNutritionInformation(),
-                null);
+                assignTrainingSurveyToAthleteCommand.getNutritionInformation()
+            );
         trainingSurveyRepository.save(trainingSurvey);
-        if (trainingSurvey == null) {
-            throw new IllegalArgumentException("survey not assigned");
-        }
         assignTrainingSurveyToAthleteCommand.setResponse(trainingSurvey.trainingSurveyId());
         return trainingSurvey;
     }
@@ -93,74 +90,6 @@ public class TrainingSurveyApplicationService {
         addTrainingHistoryCommand.setResponse(trainingHistory.getId());
     }
 
-    //
-//    @Transactional
-//    public void updateSurveysTrainingHistory(UpdateTrainingHistoryCommand updateTrainingHistoryCommand) {
-//        final TrainingHistory trainingHistory = trainingHistoryRepository
-//            .findOne(updateTrainingHistoryCommand.getTrainingHistoryId());
-//        Assert.notNull(trainingHistory);
-//        trainingHistory.updateTrainingHistory(
-//            updateTrainingHistoryCommand.getDistance(),
-//            updateTrainingHistoryCommand.getPersonalRecord(),
-//            updateTrainingHistoryCommand.getLastTime()
-//        );
-//        trainingHistoryRepository.save(trainingHistory);
-//    }
-//
-//
-//    @Transactional
-//    public void removeTrainingHistoryFromSurvey(RemoveTrainingHistoryCommandFromSurvey removeTrainingHistoryCommandFromSurvey) {
-//        final TrainingSurvey trainingSurvey =
-//            trainingSurveyRepository.getOne(
-//                removeTrainingHistoryCommandFromSurvey.getSurveyId());
-//
-//        final TrainingHistory trainingHistory =
-//            trainingHistoryRepository.
-//                findOne(
-//                    removeTrainingHistoryCommandFromSurvey.getTrainingHistoryId()
-//                );
-//
-//        trainingSurvey
-//            .removeTrainingHistoryFromSurvey(
-//                removeTrainingHistoryCommandFromSurvey.getTrainingHistoryId());
-//        trainingHistoryRepository.delete(removeTrainingHistoryCommandFromSurvey.getTrainingHistoryId());
-//    }
-//
-//    @Transactional
-//    public void addTrainingIntensityPlanToSurvey(AddTrainingIntensityPlanCommand addTrainingIntensityPlanCommand) {
-//        final TrainingSurvey trainingSurvey =
-//            trainingSurveyRepository.getOne(
-//                addTrainingIntensityPlanCommand.getTrainingSurveyId().getTrainingSurveyId());
-//
-//        final TrainingIntensityPlan trainingIntensityPlan = trainingSurvey.addTrainingIntensityPlanToSurvey(
-//            addTrainingIntensityPlanCommand.getDayOfWeek(),
-//            addTrainingIntensityPlanCommand.getTrainingIntensity()
-//        );
-//
-//        trainingIntensityPlanRepository.save(trainingIntensityPlan);
-//        addTrainingIntensityPlanCommand.setResponse(trainingIntensityPlan.getId());
-//    }
-//
-//    @Transactional
-//    public void updateSurveysTrainingIntensityPlan(UpdateTrainingIntensityPlanCommand updateTrainingIntensityPlanCommand) {
-//        final TrainingIntensityPlan trainingIntensityPlan = trainingIntensityPlanRepository
-//            .findOne(updateTrainingIntensityPlanCommand.getTrainingIntensityPlanId());
-//        trainingIntensityPlan.updateTrainingIntensityPlan(
-//            updateTrainingIntensityPlanCommand.getDayOfWeek(),
-//            updateTrainingIntensityPlanCommand.getTrainingIntensity()
-//        );
-//        trainingIntensityPlanRepository.save(trainingIntensityPlan);
-//    }
-//
-//    @Transactional
-//    public void removeTrainingIntensityPlanFromSurvey(RemoveTrainingIntensityPlanCommand removeTrainingIntensityPlanCommand) {
-//        final TrainingIntensityPlan trainingIntensityPlan =
-//            trainingIntensityPlanRepository
-//                .findOne(removeTrainingIntensityPlanCommand.getTrainingDayId());
-//        trainingIntensityPlan.delete();
-//        trainingIntensityPlanRepository.delete(removeTrainingIntensityPlanCommand.getTrainingDayId());
-//    }
-//
     private Athlete athleteData() {
         final User userWithAuthorities = userService.getUserWithAuthorities();
         Optional.ofNullable(userWithAuthorities)

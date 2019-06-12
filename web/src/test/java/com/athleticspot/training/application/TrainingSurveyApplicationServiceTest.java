@@ -73,7 +73,6 @@ public class TrainingSurveyApplicationServiceTest {
         Assertions.assertThat(savedTrainingSurvey.baseInformation()).isEqualToComparingFieldByField(assignTrainingSurveyToAthleteCommand.getBaseInformation());
         Assertions.assertThat(savedTrainingSurvey.healthInformation()).isEqualToComparingFieldByField(assignTrainingSurveyToAthleteCommand.getHealthInformation());
         Assertions.assertThat(savedTrainingSurvey.nutritionInformation()).isEqualToComparingFieldByField(assignTrainingSurveyToAthleteCommand.getNutritionInformation());
-        Assertions.assertThat(savedTrainingSurvey.trainingGoal()).isNull();
     }
 
     @Test(expected = SurveyAlreadyAssignException.class)

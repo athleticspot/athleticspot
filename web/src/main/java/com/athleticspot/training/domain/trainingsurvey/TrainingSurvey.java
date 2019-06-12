@@ -2,13 +2,9 @@ package com.athleticspot.training.domain.trainingsurvey;
 
 import com.athleticspot.common.domain.model.IdentifiedDomainObject;
 import com.athleticspot.training.domain.AthleteId;
-import com.athleticspot.training.domain.TrainingIntensity;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.geo.Distance;
 
 import javax.persistence.*;
-import java.time.DayOfWeek;
 import java.time.Duration;
 
 /**
@@ -38,32 +34,26 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     @Embedded
     private NutritionInformation nutritionInformation;
 
-    @Embedded
-    private TrainingGoal runningTrainingGoal;
-
     private TrainingSurvey(AthleteId athleteId,
                            BaseInformation baseInformation,
                            HealthInformation healthInformation,
-                           NutritionInformation nutritionInformation,
-                           TrainingGoal trainingGoals) {
+                           NutritionInformation nutritionInformation) {
         this.athleteId = athleteId;
         this.baseInformation = baseInformation;
         this.healthInformation = healthInformation;
         this.nutritionInformation = nutritionInformation;
-        this.runningTrainingGoal = trainingGoals;
     }
 
     public static TrainingSurvey of(AthleteId athleteId,
                                     BaseInformation baseInformation,
                                     HealthInformation healthInformation,
-                                    NutritionInformation nutritionInformation,
-                                    TrainingGoal trainingGoals) {
+                                    NutritionInformation nutritionInformation) {
         return new TrainingSurvey(
             athleteId,
             baseInformation,
             healthInformation,
-            nutritionInformation,
-            trainingGoals);
+            nutritionInformation
+        );
     }
 
 
@@ -82,19 +72,6 @@ public class TrainingSurvey extends IdentifiedDomainObject {
         super();
     }
 
-    public void removeTrainingHistoryFromSurvey(Long trainingHistoryId) {
-    }
-
-    public TrainingIntensityInformation addTrainingIntensityPlanToSurvey(
-        DayOfWeek dayOfWeek,
-        TrainingIntensity trainingIntensity) {
-        return new TrainingIntensityInformation(
-            dayOfWeek,
-            trainingIntensity,
-            this.id()
-        );
-    }
-
 
     public BaseInformation baseInformation() {
         return this.baseInformation;
@@ -106,10 +83,6 @@ public class TrainingSurvey extends IdentifiedDomainObject {
 
     public NutritionInformation nutritionInformation() {
         return this.nutritionInformation;
-    }
-
-    public TrainingGoal trainingGoal() {
-        return this.runningTrainingGoal;
     }
 
     public String trainingSurveyId() {

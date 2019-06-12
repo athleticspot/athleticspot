@@ -1,8 +1,13 @@
 package com.athleticspot.training.domain;
 
 import com.athleticspot.common.domain.model.IdentifiedDomainObject;
+import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.domain.User;
-import com.athleticspot.training.domain.trainingsurvey.*;
+import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
+import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
+import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
+import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,20 +36,24 @@ public class Athlete extends IdentifiedDomainObject {
     @JoinColumn(name = "USER_ID", unique = true, nullable = false, updatable = false)
     private User user;
 
+    private MetricSystemType metricSystemType;
+
+
     public TrainingSurvey assignSurvey(BaseInformation baseInformation,
                                        HealthInformation healthInformation,
-                                       NutritionInformation nutritionInformation,
-                                       TrainingGoal trainingGoals) {
-        TrainingSurvey trainingSurvey = TrainingSurvey.of(
+                                       NutritionInformation nutritionInformation) {
+
+        Assert.notNull(baseInformation, "Base information cannot be null");
+        Assert.notNull(baseInformation.getMetricSystemType(), "Metric system cannot be null");
+
+        this.metricSystemType = baseInformation.getMetricSystemType();
+        return TrainingSurvey.of(
             this.athleteId(),
             baseInformation,
             healthInformation,
-            nutritionInformation,
-            trainingGoals);
-
-        return trainingSurvey;
+            nutritionInformation
+        );
     }
-
 
     public String getName() {
         return name;
