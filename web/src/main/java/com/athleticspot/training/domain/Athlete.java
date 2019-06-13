@@ -36,6 +36,8 @@ public class Athlete extends IdentifiedDomainObject {
     @JoinColumn(name = "USER_ID", unique = true, nullable = false, updatable = false)
     private User user;
 
+    @Column(name ="metric_system_type")
+    @Enumerated(EnumType.STRING)
     private MetricSystemType metricSystemType;
 
 
