@@ -62,11 +62,13 @@ public class TrainingSurveyApplicationService {
     }
 
     public void updateTrainingSurvey(UpdateTrainingSurveyCommand updateTrainingSurveyCommand) {
+        Athlete athlete = this.athleteData();
         final TrainingSurvey athleteSurvey =
             trainingSurveyProvider
                 .getAthleteSurvey()
                 .orElseThrow(() -> new IllegalArgumentException("Survey not assigned to user"));
-        athleteSurvey.update(
+        athlete.updateSurvey(
+            athleteSurvey,
             updateTrainingSurveyCommand.getBaseInformation(),
             updateTrainingSurveyCommand.getHealthInformation(),
             updateTrainingSurveyCommand.getNutritionInformation()

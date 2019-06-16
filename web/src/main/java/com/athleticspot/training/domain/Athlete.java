@@ -57,6 +57,18 @@ public class Athlete extends IdentifiedDomainObject {
         );
     }
 
+    public void updateSurvey(TrainingSurvey athleteSurvey,
+                             BaseInformation baseInformation,
+                             HealthInformation healthInformation,
+                             NutritionInformation nutritionInformation) {
+        athleteSurvey.update(
+            baseInformation,
+            healthInformation,
+            nutritionInformation
+        );
+        this.metricSystemType = baseInformation.getMetricSystemType();
+    }
+
     public String getName() {
         return name;
     }
