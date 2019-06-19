@@ -1,5 +1,6 @@
 package com.athleticspot.domain;
 
+import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.config.Constants;
 import com.athleticspot.training.domain.Athlete;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -83,6 +84,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "strava_code", length = 100)
     @JsonIgnore
     private String stravaCode;
+
+    @Column(name ="metric_system_type")
+    @Enumerated(EnumType.STRING)
+    private MetricSystemType metricSystemType;
 
     @JsonIgnore
     @ManyToMany

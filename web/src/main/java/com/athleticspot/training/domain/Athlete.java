@@ -1,7 +1,6 @@
 package com.athleticspot.training.domain;
 
 import com.athleticspot.common.domain.model.IdentifiedDomainObject;
-import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.domain.User;
 import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
 import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
@@ -36,9 +35,6 @@ public class Athlete extends IdentifiedDomainObject {
     @JoinColumn(name = "USER_ID", unique = true, nullable = false, updatable = false)
     private User user;
 
-    @Column(name ="metric_system_type")
-    @Enumerated(EnumType.STRING)
-    private MetricSystemType metricSystemType;
 
 
     public TrainingSurvey assignSurvey(BaseInformation baseInformation,

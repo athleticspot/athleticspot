@@ -31,4 +31,7 @@
             <column name="metric_system_type" type="varchar(36)"/>
         </addColumn>
     </changeSet>
+    <changeSet id="5ff67a50-1377-4aac-872c-8374754fbec6" author="Tomasz Kasprzycki">
+        <addDefaultValue tableName="athlete" columnName="metric_system_type" defaultValue="METRIC"/>
+    </changeSet>
 </databaseChangeLog>

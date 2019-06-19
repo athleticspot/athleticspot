@@ -22,6 +22,8 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/clean_up.xml"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/user.xml"
+             relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="772c42b1-8139-4bf5-9173-86ec1c7825a4" author="Tomasz Kasprzycki">
+        <addColumn tableName="athlete">
+            <column name="metric_system_type" type="varchar(36)" defaultValue="METRIC"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
