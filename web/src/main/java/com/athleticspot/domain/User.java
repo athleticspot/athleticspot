@@ -3,9 +3,14 @@ package com.athleticspot.domain;
 import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.config.Constants;
 import com.athleticspot.training.domain.Athlete;
+import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
+import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
+import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
+import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -85,6 +90,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private String stravaCode;
 
+
+    @Embedded
+    @AttributeOverride(name = "uuid", column = @Column(name = "user_id", nullable = false))
+    private UserId athleteId = new UserId();
+
     @Column(name ="metric_system_type")
     @Enumerated(EnumType.STRING)
     private MetricSystemType metricSystemType;
@@ -100,6 +110,26 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Athlete athlete;
+
+
+
+
+
+    public TrainingSurvey assignSurvey(BaseInformation baseInformation,
+                                       HealthInformation healthInformation,
+                                       NutritionInformation nutritionInformation) {
+
+        Assert.notNull(baseInformation, "Base information cannot be null");
+        Assert.notNull(baseInformation.getMetricSystemType(), "Metric system cannot be null");
+
+        return TrainingSurvey.of(
+            this.athleteId(),
+            baseInformation,
+            healthInformation,
+            nutritionInformation
+        );
+    }
+
 
     public Long getId() {
         return id;
@@ -204,6 +234,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public MetricSystemType getMetricSystemType() {
+        return metricSystemType;
     }
 
     @Override

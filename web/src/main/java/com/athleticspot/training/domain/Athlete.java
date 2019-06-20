@@ -6,7 +6,6 @@ import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
 import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
 import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
-import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -36,22 +35,21 @@ public class Athlete extends IdentifiedDomainObject {
     private User user;
 
 
-
-    public TrainingSurvey assignSurvey(BaseInformation baseInformation,
-                                       HealthInformation healthInformation,
-                                       NutritionInformation nutritionInformation) {
-
-        Assert.notNull(baseInformation, "Base information cannot be null");
-        Assert.notNull(baseInformation.getMetricSystemType(), "Metric system cannot be null");
-
-        this.metricSystemType = baseInformation.getMetricSystemType();
-        return TrainingSurvey.of(
-            this.athleteId(),
-            baseInformation,
-            healthInformation,
-            nutritionInformation
-        );
-    }
+//
+//    public TrainingSurvey assignSurvey(BaseInformation baseInformation,
+//                                       HealthInformation healthInformation,
+//                                       NutritionInformation nutritionInformation) {
+//
+//        Assert.notNull(baseInformation, "Base information cannot be null");
+//        Assert.notNull(baseInformation.getMetricSystemType(), "Metric system cannot be null");
+//
+//        return TrainingSurvey.of(
+//            this.athleteId(),
+//            baseInformation,
+//            healthInformation,
+//            nutritionInformation
+//        );
+//    }
 
     public void updateSurvey(TrainingSurvey athleteSurvey,
                              BaseInformation baseInformation,
@@ -62,7 +60,7 @@ public class Athlete extends IdentifiedDomainObject {
             healthInformation,
             nutritionInformation
         );
-        this.metricSystemType = baseInformation.getMetricSystemType();
+//        this.metricSystemType = baseInformation.getMetricSystemType();
     }
 
     public String getName() {
