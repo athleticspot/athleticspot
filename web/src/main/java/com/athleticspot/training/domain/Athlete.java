@@ -2,10 +2,6 @@ package com.athleticspot.training.domain;
 
 import com.athleticspot.common.domain.model.IdentifiedDomainObject;
 import com.athleticspot.domain.User;
-import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
-import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
-import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
-import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -51,17 +47,17 @@ public class Athlete extends IdentifiedDomainObject {
 //        );
 //    }
 
-    public void updateSurvey(TrainingSurvey athleteSurvey,
-                             BaseInformation baseInformation,
-                             HealthInformation healthInformation,
-                             NutritionInformation nutritionInformation) {
-        athleteSurvey.update(
-            baseInformation,
-            healthInformation,
-            nutritionInformation
-        );
-//        this.metricSystemType = baseInformation.getMetricSystemType();
-    }
+//    public void updateSurvey(TrainingSurvey athleteSurvey,
+//                             BaseInformation baseInformation,
+//                             HealthInformation healthInformation,
+//                             NutritionInformation nutritionInformation) {
+//        athleteSurvey.update(
+//            baseInformation,
+//            healthInformation,
+//            nutritionInformation
+//        );
+////        this.metricSystemType = baseInformation.getMetricSystemType();
+//    }
 
     public String getName() {
         return name;

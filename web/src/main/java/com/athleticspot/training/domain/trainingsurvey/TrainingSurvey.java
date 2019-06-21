@@ -1,7 +1,7 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
 import com.athleticspot.common.domain.model.IdentifiedDomainObject;
-import com.athleticspot.training.domain.AthleteId;
+import com.athleticspot.domain.UserId;
 import org.springframework.data.geo.Distance;
 
 import javax.persistence.*;
@@ -22,8 +22,8 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     private TrainingSurveyId trainingSurveyId = new TrainingSurveyId();
 
     @Embedded
-    @AttributeOverride(name = "uuid", column = @Column(name = "athlete_uuid", nullable = false))
-    private AthleteId athleteId;
+    @AttributeOverride(name = "uuid", column = @Column(name = "user_uuid", nullable = false))
+    private UserId userId;
 
     @Embedded
     private BaseInformation baseInformation;
@@ -34,17 +34,17 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     @Embedded
     private NutritionInformation nutritionInformation;
 
-    private TrainingSurvey(AthleteId athleteId,
+    private TrainingSurvey(UserId userId,
                            BaseInformation baseInformation,
                            HealthInformation healthInformation,
                            NutritionInformation nutritionInformation) {
-        this.athleteId = athleteId;
+        this.userId = userId;
         this.baseInformation = baseInformation;
         this.healthInformation = healthInformation;
         this.nutritionInformation = nutritionInformation;
     }
 
-    public static TrainingSurvey of(AthleteId athleteId,
+    public static TrainingSurvey of(UserId athleteId,
                                     BaseInformation baseInformation,
                                     HealthInformation healthInformation,
                                     NutritionInformation nutritionInformation) {
@@ -55,7 +55,6 @@ public class TrainingSurvey extends IdentifiedDomainObject {
             nutritionInformation
         );
     }
-
 
     public TrainingHistory addTrainingHistoryToSurvey(Distance distance,
                                                       Duration personalRecord,
@@ -71,7 +70,6 @@ public class TrainingSurvey extends IdentifiedDomainObject {
     protected TrainingSurvey() {
         super();
     }
-
 
     public BaseInformation baseInformation() {
         return this.baseInformation;

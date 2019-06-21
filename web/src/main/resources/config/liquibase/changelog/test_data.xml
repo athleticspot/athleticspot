@@ -4,6 +4,26 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
+    <changeSet id="4194ac1c-3a00-438b-b17b-a723520226f9" author="Tomasz Kasprzycki">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/users.csv"
+                  separator=";"
+                  tableName="jhi_user">
+            <column name="id" type="NUMERIC"/>
+            <column name="activated" type="boolean"/>
+            <column name="created_date" type="timestamp"/>
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/authorities.csv"
+                  separator=";"
+                  tableName="jhi_authority"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/users_authorities.csv"
+                  separator=";"
+                  tableName="jhi_user_authority"/>
+
+    </changeSet>
     <changeSet id="1211212" author="tomkasp">
         <loadData encoding="UTF-8"
                   file="config/liquibase/athlete.csv"

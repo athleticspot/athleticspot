@@ -6,7 +6,6 @@ import com.athleticspot.training.application.command.AddTrainingHistoryCommand;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
 import com.athleticspot.training.application.command.UpdateTrainingSurveyCommand;
 import com.athleticspot.training.application.exception.SurveyAlreadyAssignException;
-import com.athleticspot.training.domain.Athlete;
 import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.training.domain.trainingsurvey.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,6 @@ public class TrainingSurveyApplicationService {
 
     private final UserService userService;
 
-    private final AthleteRepository athleteRepository;
-
     private final TrainingHistoryRepository trainingHistoryRepository;
 
     private final TrainingSurveyProvider trainingSurveyProvider;
@@ -40,13 +37,12 @@ public class TrainingSurveyApplicationService {
                                             TrainingSurveyProvider trainingSurveyProvider) {
         this.trainingSurveyRepository = trainingSurveyRepository;
         this.userService = userService;
-        this.athleteRepository = athleteRepository;
         this.trainingHistoryRepository = trainingHistoryRepository;
         this.trainingSurveyProvider = trainingSurveyProvider;
     }
 
     public TrainingSurvey assignTrainingSurveyToAthlete(AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand) {
-        Athlete athlete = this.athleteData();
+        User athlete = this.athleteData();
         if (trainingSurveyProvider.getAthleteSurvey().isPresent()) {
             throw new SurveyAlreadyAssignException("Survey allready assigned");
         }
@@ -62,12 +58,12 @@ public class TrainingSurveyApplicationService {
     }
 
     public void updateTrainingSurvey(UpdateTrainingSurveyCommand updateTrainingSurveyCommand) {
-        Athlete athlete = this.athleteData();
+        User user = this.athleteData();
         final TrainingSurvey athleteSurvey =
             trainingSurveyProvider
                 .getAthleteSurvey()
                 .orElseThrow(() -> new IllegalArgumentException("Survey not assigned to user"));
-        athlete.updateSurvey(
+        user.updateSurvey(
             athleteSurvey,
             updateTrainingSurveyCommand.getBaseInformation(),
             updateTrainingSurveyCommand.getHealthInformation(),
@@ -92,12 +88,13 @@ public class TrainingSurveyApplicationService {
         addTrainingHistoryCommand.setResponse(trainingHistory.getId());
     }
 
-    private Athlete athleteData() {
+    private User athleteData() {
         final User userWithAuthorities = userService.getUserWithAuthorities();
         Optional.ofNullable(userWithAuthorities)
             .orElseThrow(() -> new IllegalArgumentException("User cannot be empty"));
-        final Long userId = userWithAuthorities.getId();
-        final Optional<Athlete> athlete = athleteRepository.findByUserId(userId);
-        return athlete.orElseThrow(() -> new IllegalStateException("There is not athlete saved for user id: " + userId));
+        return userWithAuthorities;
+//        final Long userId = userWithAuthorities.getId();
+//        final Optional<Athlete> athlete = athleteRepository.findByUserId(userId);
+//        return athlete.orElseThrow(() -> new IllegalStateException("There is not athlete saved for user id: " + userId));
     }
 }

@@ -69,4 +69,7 @@
             <column name="run_category"/>
         </dropColumn>
     </changeSet>
+    <changeSet id="e880f476-0a42-40f8-9f98-df8f69e326b9" author="Tomasz Kasprzycki">
+        <renameColumn tableName="training_survey" oldColumnName="athlete_uuid" newColumnName="user_uuid"/>
+    </changeSet>
 </databaseChangeLog>
