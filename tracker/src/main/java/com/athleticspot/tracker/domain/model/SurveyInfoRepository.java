@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface SurveyInfoRepository extends JpaRepository<SurveyInfo, Long> {
 
-    Optional<SurveyInfo> findByAthleteId(String athleteId);
+    Optional<SurveyInfo> findByUserId(String userId);
 
 }

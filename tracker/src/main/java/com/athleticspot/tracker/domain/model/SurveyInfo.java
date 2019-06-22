@@ -17,8 +17,8 @@ public class SurveyInfo {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "athlete_uuid", nullable = false)
-    private String athleteId;
+    @Column(name = "user_uuid", nullable = false)
+    private String userId;
 
     @Column(name = "metric_system_type")
     @Enumerated(EnumType.STRING)

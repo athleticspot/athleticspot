@@ -30,35 +30,6 @@ public class Athlete extends IdentifiedDomainObject {
     @JoinColumn(name = "USER_ID", unique = true, nullable = false, updatable = false)
     private User user;
 
-
-//
-//    public TrainingSurvey assignSurvey(BaseInformation baseInformation,
-//                                       HealthInformation healthInformation,
-//                                       NutritionInformation nutritionInformation) {
-//
-//        Assert.notNull(baseInformation, "Base information cannot be null");
-//        Assert.notNull(baseInformation.getMetricSystemType(), "Metric system cannot be null");
-//
-//        return TrainingSurvey.of(
-//            this.athleteId(),
-//            baseInformation,
-//            healthInformation,
-//            nutritionInformation
-//        );
-//    }
-
-//    public void updateSurvey(TrainingSurvey athleteSurvey,
-//                             BaseInformation baseInformation,
-//                             HealthInformation healthInformation,
-//                             NutritionInformation nutritionInformation) {
-//        athleteSurvey.update(
-//            baseInformation,
-//            healthInformation,
-//            nutritionInformation
-//        );
-////        this.metricSystemType = baseInformation.getMetricSystemType();
-//    }
-
     public String getName() {
         return name;
     }

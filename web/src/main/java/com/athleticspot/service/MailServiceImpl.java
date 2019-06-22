@@ -25,7 +25,7 @@ import java.util.Locale;
  * We use the @Async annotation to send emails asynchronously.
  */
 @Service
-@Profile(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT)
+@Profile({JHipsterConstants.SPRING_PROFILE_DEVELOPMENT, JHipsterConstants.SPRING_PROFILE_TEST})
 public class MailServiceImpl implements MailService{
 
     private final Logger log = LoggerFactory.getLogger(MailServiceImpl.class);
