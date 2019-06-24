@@ -42,7 +42,7 @@ public class TrainingSurveyApplicationService {
     }
 
     public TrainingSurvey assignTrainingSurveyToAthlete(AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand) {
-        User athlete = this.athleteData();
+        User athlete = this.userData();
         if (trainingSurveyProvider.getAthleteSurvey().isPresent()) {
             throw new SurveyAlreadyAssignException("Survey allready assigned");
         }
@@ -58,7 +58,7 @@ public class TrainingSurveyApplicationService {
     }
 
     public void updateTrainingSurvey(UpdateTrainingSurveyCommand updateTrainingSurveyCommand) {
-        User user = this.athleteData();
+        User user = this.userData();
         final TrainingSurvey athleteSurvey =
             trainingSurveyProvider
                 .getAthleteSurvey()
@@ -88,13 +88,10 @@ public class TrainingSurveyApplicationService {
         addTrainingHistoryCommand.setResponse(trainingHistory.getId());
     }
 
-    private User athleteData() {
+    private User userData() {
         final User userWithAuthorities = userService.getUserWithAuthorities();
         Optional.ofNullable(userWithAuthorities)
-            .orElseThrow(() -> new IllegalArgumentException("User cannot be empty"));
+            .orElseThrow(() -> new IllegalArgumentException("Logged user cannot be null"));
         return userWithAuthorities;
-//        final Long userId = userWithAuthorities.getId();
-//        final Optional<Athlete> athlete = athleteRepository.findByUserId(userId);
-//        return athlete.orElseThrow(() -> new IllegalStateException("There is not athlete saved for user id: " + userId));
     }
 }

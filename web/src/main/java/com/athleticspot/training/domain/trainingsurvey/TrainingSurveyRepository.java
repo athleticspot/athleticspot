@@ -1,5 +1,6 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
+import com.athleticspot.domain.UserId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +14,5 @@ public interface TrainingSurveyRepository extends JpaRepository<TrainingSurvey, 
 
     Optional<TrainingSurvey> findByTrainingSurveyIdUuid(String trainingSurveyId);
 
-    Optional<TrainingSurvey> findByUserId(String userId);
+    Optional<TrainingSurvey> findByUserId(UserId userId);
 }

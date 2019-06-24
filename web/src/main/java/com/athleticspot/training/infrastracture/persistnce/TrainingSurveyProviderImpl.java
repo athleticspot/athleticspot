@@ -28,6 +28,6 @@ public class TrainingSurveyProviderImpl implements TrainingSurveyProvider {
     @Override
     public Optional<TrainingSurvey> getAthleteSurvey() {
         return trainingSurveyRepository
-            .findByUserId(userService.getUserWithAuthorities().getUserId().uuid());
+            .findByUserId(userService.getUserWithAuthorities().getUserId());
     }
 }

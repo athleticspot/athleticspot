@@ -38,7 +38,7 @@ public class SocialService {
 
     private final UserRepository userRepository;
 
-    private final MailService mailServiceImpl;
+    private final MailService mailService;
 
     private final AthleteRepository athleteRepository;
 
@@ -46,14 +46,14 @@ public class SocialService {
                          AuthorityRepository authorityRepository,
                          PasswordEncoder passwordEncoder,
                          UserRepository userRepository,
-                         MailService mailServiceImpl,
+                         MailService mailService,
                          AthleteRepository athleteRepository) {
 
         this.usersConnectionRepository = usersConnectionRepository;
         this.authorityRepository = authorityRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.mailServiceImpl = mailServiceImpl;
+        this.mailService = mailService;
         this.athleteRepository = athleteRepository;
     }
 
@@ -100,7 +100,7 @@ public class SocialService {
         User user = createUserIfNotExist(userProfile, langKey, providerId, imageUrl);
         createSocialConnection(user.getLogin(), connection);
 
-        mailServiceImpl.sendSocialRegistrationValidationEmail(user, providerId);
+        mailService.sendSocialRegistrationValidationEmail(user, providerId);
         return user;
     }
 

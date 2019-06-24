@@ -9,6 +9,7 @@ import com.athleticspot.training.domain.trainingsurvey.*;
 import com.athleticspot.training.infrastracture.dto.in.AssignTrainingSurveyInDto;
 import com.athleticspot.web.rest.TestUtil;
 import com.athleticspot.web.rest.errors.ExceptionTranslator;
+import io.github.jhipster.config.JHipsterConstants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,7 @@ import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -35,15 +37,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
+@ActiveProfiles(value = {JHipsterConstants.SPRING_PROFILE_TEST})
 public class TrainingSurveyCommandControllerTest {
 
     private MockMvc mockMvc;
 
-
     @Autowired
     private HttpMessageConverter[] httpMessageConverters;
 
-    TrainingSurveyApplicationService trainingSurveyApplicationService;
+    private TrainingSurveyApplicationService trainingSurveyApplicationService;
 
     @Autowired
     TrainingSurveyRepository trainingSurveyRepository;
@@ -75,8 +77,10 @@ public class TrainingSurveyCommandControllerTest {
             athleteRepository,
             trainingHistoryRepository,
             trainingSurveyProvider);
+
         TrainingSurveyCommandController trainingSurveyCommandController =
             new TrainingSurveyCommandController(trainingSurveyApplicationService);
+
         this.mockMvc = MockMvcBuilders.standaloneSetup(trainingSurveyCommandController)
             .setMessageConverters(httpMessageConverters)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -89,10 +93,9 @@ public class TrainingSurveyCommandControllerTest {
     @Transactional
     public void testCreatingAndAssigningTrainingSurveyToAthlete() throws Exception {
 
-        this.mockMvc.perform(
-            post(ApiUrl.SURVEY_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.convertObjectToJsonBytes(createAssignTrainingSurveyDto())))
+        this.mockMvc.perform(post(ApiUrl.SURVEY_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(createAssignTrainingSurveyDto())))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -104,8 +107,8 @@ public class TrainingSurveyCommandControllerTest {
             .setBaseInformation(new BaseInformation(
                 LocalDate.now(),
                 70d,
-                173d
-            ))
+                173d,
+                MetricSystemType.METRIC))
             .setHealthInformation(new HealthInformation(
                 true,
                 true,

@@ -33,21 +33,19 @@ public class TrainingSurveyCommandController {
 
         log.info("Received assign survey dto: {}", assignTrainingSurveyInDto);
 
-        AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand
-            = AssignTrainingSurveyToAthleteCommand.of(
-            assignTrainingSurveyInDto.getBaseInformation().getBirthDay(),
-            assignTrainingSurveyInDto.getBaseInformation().getBodyMass(),
-            assignTrainingSurveyInDto.getBaseInformation().getHeight(),
-            assignTrainingSurveyInDto.getHealthInformation().getHealthContraindications(),
-            assignTrainingSurveyInDto.getHealthInformation().getStressTest(),
-            assignTrainingSurveyInDto.getHealthInformation().getBloodTest(),
-            assignTrainingSurveyInDto.getHealthInformation().getHoursOfSleep(),
-            assignTrainingSurveyInDto.getNutritionInformation().isMeatAcceptance(),
-            assignTrainingSurveyInDto.getNutritionInformation().isDairyedAcceptance(),
-            assignTrainingSurveyInDto.getNutritionInformation().isAllergies(),
-            assignTrainingSurveyInDto.getNutritionInformation().isFoodIntolerance()
+        AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand =
+            AssignTrainingSurveyToAthleteCommand.of(assignTrainingSurveyInDto.getBaseInformation().getBirthDay(),
+                assignTrainingSurveyInDto.getBaseInformation().getBodyMass(),
+                assignTrainingSurveyInDto.getBaseInformation().getHeight(),
+                assignTrainingSurveyInDto.getHealthInformation().getHealthContraindications(),
+                assignTrainingSurveyInDto.getHealthInformation().getStressTest(),
+                assignTrainingSurveyInDto.getHealthInformation().getBloodTest(),
+                assignTrainingSurveyInDto.getHealthInformation().getHoursOfSleep(),
+                assignTrainingSurveyInDto.getNutritionInformation().isMeatAcceptance(),
+                assignTrainingSurveyInDto.getNutritionInformation().isDairyedAcceptance(),
+                assignTrainingSurveyInDto.getNutritionInformation().isAllergies(),
+                assignTrainingSurveyInDto.getNutritionInformation().isFoodIntolerance());
 
-        );
         trainingSurveyApplicationService.assignTrainingSurveyToAthlete(assignTrainingSurveyToAthleteCommand);
     }
 

@@ -58,9 +58,6 @@ public class AssignTrainingSurveyInDto implements Serializable {
         private BaseInformation baseInformation;
         private HealthInformation healthInformation;
         private NutritionInformation nutritionInformation;
-        private TrainingGoal trainingGoal;
-        private MetricSystemType metricSystemType;
-
 
         public AssignTrainingSurveyInDtoBuilder setBaseInformation(final BaseInformation baseInformation) {
             this.baseInformation = baseInformation;
@@ -78,12 +75,10 @@ public class AssignTrainingSurveyInDto implements Serializable {
         }
 
         public AssignTrainingSurveyInDtoBuilder setTrainingGoal(final TrainingGoal trainingGoal) {
-            this.trainingGoal = trainingGoal;
             return this;
         }
 
         public AssignTrainingSurveyInDtoBuilder setMetricSystemType(final MetricSystemType metricSystemType) {
-            this.metricSystemType = metricSystemType;
             return this;
         }
 

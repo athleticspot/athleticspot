@@ -1,6 +1,7 @@
 package com.athleticspot.common.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
@@ -10,8 +11,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum MetricSystemType {
 
-    METRIC("metric"), //kg, km, cm ...
-    IMPERIAL("imperial"); //miles, yards, pounds ...
+    @JsonProperty("METRIC")
+    METRIC("METRIC"), //kg, km, cm ...
+
+    @JsonProperty("IMPERIAL")
+    IMPERIAL("IMPERIAL"); //miles, yards, pounds ...
 
     private String value;
 

@@ -1,6 +1,7 @@
 package com.athleticspot.training.application.command;
 
 import com.athleticspot.common.command.ResponseAwareDomainCommand;
+import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
 import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
 import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
@@ -21,6 +22,7 @@ public class AssignTrainingSurveyToAthleteCommand
     private AssignTrainingSurveyToAthleteCommand(LocalDate birthday,
                                                  Double weight,
                                                  Double height,
+                                                 MetricSystemType metricSystemType,
                                                  boolean healthContraindications,
                                                  boolean stressTest,
                                                  boolean bloodTest,
@@ -34,10 +36,13 @@ public class AssignTrainingSurveyToAthleteCommand
             stressTest,
             bloodTest,
             hoursOfSleep);
+
         this.baseInformation = new BaseInformation(
             birthday,
             weight,
-            height);
+            height,
+            MetricSystemType.METRIC);
+
         nutritionInformation = new NutritionInformation(meatAcceptance,
             dairiesAcceptance,
             allergies,
@@ -58,15 +63,14 @@ public class AssignTrainingSurveyToAthleteCommand
         return new AssignTrainingSurveyToAthleteCommand(
             birthday,
             weight,
-            height,
+            height, null,
             healthContraindications,
             stressTest,
             bloodTest,
             hoursOfSleep,
             meatAcceptance,
             dairiesAcceptance,
-            allergies,
-            foodIntolerance);
+            allergies, foodIntolerance);
     }
 
     public BaseInformation getBaseInformation() {

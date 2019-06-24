@@ -1,6 +1,7 @@
 package com.athleticspot.training.application;
 
 import com.athleticspot.AthleticspotApp;
+import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.training.application.command.AddTrainingHistoryCommand;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
 import com.athleticspot.training.application.command.UpdateTrainingSurveyCommand;
@@ -156,8 +157,8 @@ public class TrainingSurveyApplicationServiceTest {
         BaseInformation baseInformation = new BaseInformation(
             LocalDate.parse("2017-02-01"),
             25d,
-            180d
-        );
+            180d,
+            MetricSystemType.METRIC);
         HealthInformation healthInformation = new HealthInformation(
             false,
             true,
@@ -218,7 +219,8 @@ public class TrainingSurveyApplicationServiceTest {
         BaseInformation baseInformation = new BaseInformation(
             LocalDate.now(),
             60d,
-            172d);
+            172d,
+            MetricSystemType.METRIC);
         return baseInformation;
     }
 

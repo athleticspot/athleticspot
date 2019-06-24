@@ -24,7 +24,7 @@ public class BaseInformation {
     @Column(nullable = false)
     private Double height;
 
-    @Column(name ="metric_system_type")
+    @Column(name = "metric_system_type")
     @Enumerated(EnumType.STRING)
     private MetricSystemType metricSystemType;
 
@@ -32,13 +32,14 @@ public class BaseInformation {
         super();
     }
 
-    public BaseInformation(
-        LocalDate birthDay,
-        Double bodyMass,
-        Double height) {
+    public BaseInformation(LocalDate birthDay,
+                           Double bodyMass,
+                           Double height,
+                           MetricSystemType metricSystemType) {
         this.birthDay = birthDay;
         this.bodyMass = bodyMass;
         this.height = height;
+        this.metricSystemType = metricSystemType;
     }
 
     public LocalDate getBirthDay() {
