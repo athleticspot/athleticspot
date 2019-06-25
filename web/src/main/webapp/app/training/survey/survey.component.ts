@@ -62,7 +62,7 @@ export class SurveyComponent implements OnInit, AfterViewChecked {
             .subscribe(value => {
                     let survey = value.json() as SurveyModel;
                     this.surveyForm.setValue(survey);
-                    if (survey.baseInformation.metricSystemType == "imperial") {
+                    if (survey.baseInformation.metricSystemType == "IMPERIAL") {
                         this.surveyForm.get("baseInformation").get('metricSystemType').setValue(false);
                     } else {
                         this.surveyForm.get("baseInformation").get('metricSystemType').setValue(true);

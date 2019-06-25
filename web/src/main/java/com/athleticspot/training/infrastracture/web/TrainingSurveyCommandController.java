@@ -65,5 +65,4 @@ public class TrainingSurveyCommandController {
     public void deleteTrainingSurvey() {
 
     }
-
 }
