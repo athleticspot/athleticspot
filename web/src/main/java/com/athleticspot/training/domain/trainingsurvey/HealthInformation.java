@@ -64,4 +64,14 @@ public class HealthInformation {
     public int hashCode() {
         return Objects.hash(healthContraindications, stressTest, bloodTest, hoursOfSleep);
     }
+
+    @Override
+    public String toString() {
+        return "HealthInformation{" +
+            "healthContraindications=" + healthContraindications +
+            ", stressTest=" + stressTest +
+            ", bloodTest=" + bloodTest +
+            ", hoursOfSleep=" + hoursOfSleep +
+            '}';
+    }
 }

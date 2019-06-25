@@ -72,4 +72,14 @@ public class BaseInformation {
     public int hashCode() {
         return Objects.hash(birthDay, bodyMass, height);
     }
+
+    @Override
+    public String toString() {
+        return "BaseInformation{" +
+            "birthDay=" + birthDay +
+            ", bodyMass=" + bodyMass +
+            ", height=" + height +
+            ", metricSystemType=" + metricSystemType +
+            '}';
+    }
 }

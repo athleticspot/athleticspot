@@ -65,5 +65,13 @@ public class NutritionInformation {
         return Objects.hash(meatAcceptance, dairyedAcceptance, allergies, foodIntolerance);
     }
 
-
+    @Override
+    public String toString() {
+        return "NutritionInformation{" +
+            "meatAcceptance=" + meatAcceptance +
+            ", dairyedAcceptance=" + dairyedAcceptance +
+            ", allergies=" + allergies +
+            ", foodIntolerance=" + foodIntolerance +
+            '}';
+    }
 }

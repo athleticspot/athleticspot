@@ -52,6 +52,15 @@ public class AssignTrainingSurveyInDto implements Serializable {
         return nutritionInformation;
     }
 
+    @Override
+    public String toString() {
+        return "AssignTrainingSurveyInDto{" +
+            "baseInformation=" + baseInformation +
+            ", healthInformation=" + healthInformation +
+            ", nutritionInformation=" + nutritionInformation +
+            '}';
+    }
+
     @JsonPOJOBuilder(withPrefix = "set")
     public static class AssignTrainingSurveyInDtoBuilder {
 
@@ -90,7 +99,5 @@ public class AssignTrainingSurveyInDto implements Serializable {
                 this.nutritionInformation
             );
         }
-
-
     }
 }
