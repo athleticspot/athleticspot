@@ -35,11 +35,7 @@ public class TrainingSurveyQueryController {
     public ResponseEntity<TrainingSurveyOutDto> getTrainingSurvey() {
         final Optional<TrainingSurvey> athleteSurvey = trainingSurveyProvider.getAthleteSurvey();
         return athleteSurvey
-            .map(
-                trainingSurvey ->
-                    new ResponseEntity<>(
-                        trainingSurveyOutDtoAssembler.assemble(trainingSurvey),
-                        HttpStatus.OK))
+            .map(trainingSurvey -> new ResponseEntity<>(trainingSurveyOutDtoAssembler.assemble(trainingSurvey), HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

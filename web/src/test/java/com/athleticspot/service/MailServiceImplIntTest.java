@@ -2,6 +2,7 @@ package com.athleticspot.service;
 
 import com.athleticspot.AthleticspotApp;
 import com.athleticspot.domain.User;
+import io.github.jhipster.config.JHipsterConstants;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -30,6 +32,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
+@ActiveProfiles(value = {JHipsterConstants.SPRING_PROFILE_TEST})
 public class MailServiceImplIntTest {
 
     @Autowired

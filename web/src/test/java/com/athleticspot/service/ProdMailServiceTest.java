@@ -10,6 +10,7 @@ import org.junit.Test;
 public class ProdMailServiceTest {
 
     @Test
+    @Ignore
     public void sendPasswordResetMail() throws UnirestException {
 
         ProdMailService prodMailService = new ProdMailService();

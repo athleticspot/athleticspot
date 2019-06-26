@@ -5,13 +5,13 @@ import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.AuthoritiesConstants;
-import com.athleticspot.service.MailServiceImpl;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.mapper.UserMapper;
 import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.web.rest.errors.ExceptionTranslator;
 import com.athleticspot.web.rest.vm.ManagedUserVM;
+import io.github.jhipster.config.JHipsterConstants;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -48,6 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
+@ActiveProfiles(value = {JHipsterConstants.SPRING_PROFILE_TEST})
 public class UserResourceIntTest {
 
     private static final Long DEFAULT_ID = 1L;
@@ -78,9 +80,6 @@ public class UserResourceIntTest {
 
     @Autowired
     private AthleteRepository athleteRepository;
-
-    @Autowired
-    private MailServiceImpl mailServiceImpl;
 
     @Autowired
     private UserService userService;

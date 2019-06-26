@@ -7,6 +7,7 @@ import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyProvider;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyRepository;
 import com.athleticspot.training.infrastracture.dto.out.TrainingSurveyOutDtoAssembler;
 import com.athleticspot.training.infrastracture.persistnce.TrainingSurveyProviderImpl;
+import io.github.jhipster.config.JHipsterConstants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -30,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
+@ActiveProfiles(value = {JHipsterConstants.SPRING_PROFILE_TEST})
 public class TrainingSurveyQueryControllerTest {
 
     @Mock

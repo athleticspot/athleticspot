@@ -12,6 +12,7 @@ import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.web.rest.vm.KeyAndPasswordVM;
 import com.athleticspot.web.rest.vm.ManagedUserVM;
+import io.github.jhipster.config.JHipsterConstants;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -50,6 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
+@ActiveProfiles(value = {JHipsterConstants.SPRING_PROFILE_TEST})
 public class AccountResourceIntTest {
 
     @Mock

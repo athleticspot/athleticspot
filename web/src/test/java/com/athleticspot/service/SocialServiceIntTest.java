@@ -6,6 +6,7 @@ import com.athleticspot.domain.User;
 import com.athleticspot.repository.AuthorityRepository;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.training.domain.AthleteRepository;
+import io.github.jhipster.config.JHipsterConstants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.connect.*;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -28,6 +30,7 @@ import static org.mockito.Mockito.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
 @Transactional
+@ActiveProfiles(value = {JHipsterConstants.SPRING_PROFILE_TEST})
 public class SocialServiceIntTest {
 
     @Autowired

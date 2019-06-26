@@ -2,6 +2,7 @@ package com.athleticspot.repository;
 
 import com.athleticspot.AthleticspotApp;
 import com.athleticspot.domain.SocialUserConnection;
+import io.github.jhipster.config.JHipsterConstants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.oauth1.OAuth1Operations;
 import org.springframework.social.oauth1.OAuth1ServiceProvider;
 import org.springframework.social.oauth2.*;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -30,6 +32,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AthleticspotApp.class)
+@ActiveProfiles(value = {JHipsterConstants.SPRING_PROFILE_TEST})
 @Transactional
 public class CustomSocialUsersConnectionRepositoryIntTest {
 
