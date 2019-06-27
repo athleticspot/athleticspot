@@ -44,9 +44,6 @@ public class UserJWTControllerIntTest {
     private UserRepository userRepository;
 
     @Autowired
-    private AthleteRepository athleteRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -60,7 +57,6 @@ public class UserJWTControllerIntTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(userJWTController)
             .setControllerAdvice(exceptionTranslator)
             .build();
-        athleteRepository.deleteAll();
         userRepository.deleteAll();
     }
 

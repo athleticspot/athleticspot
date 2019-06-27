@@ -31,7 +31,6 @@ public class TrainingSurveyApplicationService {
     @Autowired
     public TrainingSurveyApplicationService(TrainingSurveyRepository trainingSurveyRepository,
                                             UserService userService,
-                                            AthleteRepository athleteRepository,
                                             TrainingHistoryRepository trainingHistoryRepository,
                                             TrainingSurveyProvider trainingSurveyProvider) {
         this.trainingSurveyRepository = trainingSurveyRepository;

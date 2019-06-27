@@ -19,7 +19,8 @@ public class TrainingSurveyProviderImpl implements TrainingSurveyProvider {
     private final TrainingSurveyRepository trainingSurveyRepository;
 
     @Autowired
-    public TrainingSurveyProviderImpl(UserService userService, AthleteRepository athleteRepository, TrainingSurveyRepository trainingSurveyRepository) {
+    public TrainingSurveyProviderImpl(UserService userService,
+                                      TrainingSurveyRepository trainingSurveyRepository) {
         this.userService = userService;
         this.trainingSurveyRepository = trainingSurveyRepository;
     }

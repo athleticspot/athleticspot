@@ -78,9 +78,6 @@ public class UserResourceIntTest {
     private UserRepository userRepository;
 
     @Autowired
-    private AthleteRepository athleteRepository;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
@@ -135,7 +132,6 @@ public class UserResourceIntTest {
     @Before
     public void initTest() {
         user = createEntity(em);
-        athleteRepository.deleteAll();
         userRepository.deleteAll();
     }
 

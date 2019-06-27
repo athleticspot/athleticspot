@@ -60,8 +60,6 @@ public class AccountResourceIntTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private AthleteRepository athleteRepository;
 
     @Autowired
     private AuthorityRepository authorityRepository;
@@ -99,7 +97,6 @@ public class AccountResourceIntTest {
             .build();
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountUserMockResource).build();
 
-        athleteRepository.deleteAll();
         userRepository.deleteAll();
     }
 

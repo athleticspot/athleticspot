@@ -49,9 +49,6 @@ public class TrainingSurveyQueryControllerTest {
     @Autowired
     TrainingSurveyOutDtoAssembler trainingSurveyOutDtoAssembler;
 
-    @Autowired
-    AthleteRepository athleteRepository;
-
     private MockMvc restMvc;
 
     @Before
@@ -59,7 +56,6 @@ public class TrainingSurveyQueryControllerTest {
         MockitoAnnotations.initMocks(this);
         trainingSurveyProvider = new TrainingSurveyProviderImpl(
             mockUserService,
-            athleteRepository,
             trainingSurveyRepository
         );
         TrainingSurveyQueryController trainingSurveyQueryController =

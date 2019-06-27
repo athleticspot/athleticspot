@@ -38,21 +38,18 @@ public class SocialService {
 
     private final MailService mailService;
 
-    private final AthleteRepository athleteRepository;
 
     public SocialService(UsersConnectionRepository usersConnectionRepository,
                          AuthorityRepository authorityRepository,
                          PasswordEncoder passwordEncoder,
                          UserRepository userRepository,
-                         MailService mailService,
-                         AthleteRepository athleteRepository) {
+                         MailService mailService) {
 
         this.usersConnectionRepository = usersConnectionRepository;
         this.authorityRepository = authorityRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.mailService = mailService;
-        this.athleteRepository = athleteRepository;
     }
 
     public void deleteUserSocialConnection(String login) {
@@ -141,9 +138,6 @@ public class SocialService {
         newUser.setImageUrl(imageUrl);
 
         userRepository.saveAndFlush(newUser);
-        athleteRepository.save(new Athlete()
-            .setName(newUser.getLogin())
-            .setUser(newUser));
         return newUser;
     }
 

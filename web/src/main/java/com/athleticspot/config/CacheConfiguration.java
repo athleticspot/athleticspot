@@ -40,7 +40,6 @@ public class CacheConfiguration {
         return cm -> {
             cm.createCache(User.class.getName(), jcacheConfiguration);
             cm.createCache(com.athleticspot.training.domain.trainingsurvey.TrainingSurvey.class.getName(), jcacheConfiguration);
-            cm.createCache(com.athleticspot.training.domain.Athlete.class.getName(), jcacheConfiguration);
             cm.createCache(com.athleticspot.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(com.athleticspot.domain.SocialUserConnection.class.getName(), jcacheConfiguration);

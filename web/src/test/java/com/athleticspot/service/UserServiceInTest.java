@@ -39,9 +39,6 @@ public class UserServiceInTest {
     private UserRepository userRepository;
 
     @Autowired
-    private AthleteRepository athleteRepository;
-
-    @Autowired
     private UserService userService;
 
 

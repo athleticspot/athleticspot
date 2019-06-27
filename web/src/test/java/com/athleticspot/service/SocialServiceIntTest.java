@@ -41,9 +41,6 @@ public class SocialServiceIntTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private AthleteRepository athleteRepository;
-
     @Mock
     private MailServiceImpl mockMailServiceImpl;
 
@@ -66,9 +63,8 @@ public class SocialServiceIntTest {
         when(mockUsersConnectionRepository.createConnectionRepository(anyString())).thenReturn(mockConnectionRepository);
 
         socialService = new SocialService(mockUsersConnectionRepository, authorityRepository,
-            passwordEncoder, userRepository, mockMailServiceImpl, athleteRepository);
+            passwordEncoder, userRepository, mockMailServiceImpl);
 
-        athleteRepository.deleteAll();
         userRepository.deleteAll();
     }
 

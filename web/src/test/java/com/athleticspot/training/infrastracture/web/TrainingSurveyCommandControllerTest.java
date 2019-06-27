@@ -53,9 +53,6 @@ public class TrainingSurveyCommandControllerTest {
     UserService userService;
 
     @Autowired
-    AthleteRepository athleteRepository;
-
-    @Autowired
     TrainingHistoryRepository trainingHistoryRepository;
 
     @Autowired
@@ -73,7 +70,6 @@ public class TrainingSurveyCommandControllerTest {
         this.trainingSurveyApplicationService = new TrainingSurveyApplicationService(
             trainingSurveyRepository,
             userService,
-            athleteRepository,
             trainingHistoryRepository,
             trainingSurveyProvider);
 
