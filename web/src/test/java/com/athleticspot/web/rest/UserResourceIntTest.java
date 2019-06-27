@@ -8,7 +8,6 @@ import com.athleticspot.security.AuthoritiesConstants;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.mapper.UserMapper;
-import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.web.rest.errors.ExceptionTranslator;
 import com.athleticspot.web.rest.vm.ManagedUserVM;
 import io.github.jhipster.config.JHipsterConstants;

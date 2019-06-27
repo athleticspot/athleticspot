@@ -6,7 +6,6 @@ import com.athleticspot.training.application.command.AddTrainingHistoryCommand;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
 import com.athleticspot.training.application.command.UpdateTrainingSurveyCommand;
 import com.athleticspot.training.application.exception.SurveyAlreadyAssignException;
-import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.training.domain.trainingsurvey.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

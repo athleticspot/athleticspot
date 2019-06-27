@@ -9,7 +9,6 @@ import com.athleticspot.security.AuthoritiesConstants;
 import com.athleticspot.service.MailServiceImpl;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
-import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.web.rest.vm.KeyAndPasswordVM;
 import com.athleticspot.web.rest.vm.ManagedUserVM;
 import io.github.jhipster.config.JHipsterConstants;

@@ -1,11 +1,11 @@
 package com.athleticspot.service;
 
-import com.athleticspot.common.domain.event.AthleteCreatedEvent;
 import com.athleticspot.common.domain.event.AthleteDeletedEvent;
-import com.athleticspot.common.domain.event.AthleteUpdatedEvent;
-import com.athleticspot.common.infrastracture.dto.AthleteCreatedEventDto;
+import com.athleticspot.common.domain.event.UserCreatedEvent;
+import com.athleticspot.common.domain.event.UserUpdatedEvent;
 import com.athleticspot.common.infrastracture.dto.AthleteDeletedEventDto;
-import com.athleticspot.common.infrastracture.dto.AthleteUpdatedEventDto;
+import com.athleticspot.common.infrastracture.dto.UserCreatedEventDto;
+import com.athleticspot.common.infrastracture.dto.UserUpdatedEventDto;
 import com.athleticspot.config.Constants;
 import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
@@ -15,8 +15,6 @@ import com.athleticspot.security.AuthoritiesConstants;
 import com.athleticspot.security.SecurityUtils;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.util.RandomUtil;
-import com.athleticspot.training.domain.Athlete;
-import com.athleticspot.training.domain.AthleteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -52,7 +50,6 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    private final AthleteRepository athleteRepository;
 
     private final ApplicationEventPublisher applicationEventPublisher;
 
@@ -60,13 +57,11 @@ public class UserService {
                        PasswordEncoder passwordEncoder,
                        SocialService socialService,
                        AuthorityRepository authorityRepository,
-                       AthleteRepository athleteRepository,
                        ApplicationEventPublisher applicationEventPublisher) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.socialService = socialService;
         this.authorityRepository = authorityRepository;
-        this.athleteRepository = athleteRepository;
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
@@ -127,14 +122,10 @@ public class UserService {
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.saveAndFlush(newUser);
-        final Athlete savedAthlete = athleteRepository.save(new Athlete()
-            .setName(newUser.getLogin())
-            .setUser(newUser)
-        );
-        applicationEventPublisher.publishEvent(new AthleteCreatedEvent(new AthleteCreatedEventDto(
-            savedAthlete.getName(),
-            savedAthlete.athleteId().uuid(),
-            savedAthlete.getUser().getFirstName() + " " + savedAthlete.getUser().getLastName()
+        applicationEventPublisher.publishEvent(new UserCreatedEvent(new UserCreatedEventDto(
+            newUser.getLogin(),
+            newUser.getUserId().uuid(),
+            newUser.getFirstName() + " " + newUser.getLastName()
         )));
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -165,15 +156,11 @@ public class UserService {
         user.setResetDate(Instant.now());
         user.setActivated(true);
         userRepository.save(user);
-        final Athlete savedAthlete = athleteRepository.save(new Athlete()
-            .setName(user.getLogin())
-            .setUser(user)
-        );
         log.debug("Created Information for User: {}", user);
-        applicationEventPublisher.publishEvent(new AthleteCreatedEvent(new AthleteCreatedEventDto(
-            savedAthlete.getName(),
-            savedAthlete.athleteId().uuid(),
-            savedAthlete.getUser().getFirstName() + " " + savedAthlete.getUser().getLastName()
+        applicationEventPublisher.publishEvent(new UserCreatedEvent(new UserCreatedEventDto(
+            user.getLogin(),
+            user.getUserId().uuid(),
+            user.getFirstName() + " " + user.getLastName()
         )));
         return user;
     }
@@ -200,16 +187,16 @@ public class UserService {
             log.debug("Changed Information for User: {}", user);
         });
         userOptional.ifPresent(user -> {
-            final Athlete athlete = returnAthleteDetails(user);
             applicationEventPublisher.publishEvent(
-                new AthleteUpdatedEvent(
-                    AthleteUpdatedEventDto.create(
+                new UserUpdatedEvent(
+                    UserUpdatedEventDto.create(
                         user.getLogin(),
-                        athlete.athleteId().uuid(),
-                        firstName,
-                        lastName,
-                        email,
-                        langKey, imageUrl)
+                        user.getUserId().uuid(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getEmail(),
+                        user.getLangKey(),
+                        user.getImageUrl())
                 )
             );
         });
@@ -245,15 +232,15 @@ public class UserService {
             .map(UserDTO::new);
 
         Optional.of(savedUser).ifPresent(user -> {
-            final Athlete athlete = returnAthleteDetails(user);
             applicationEventPublisher.publishEvent(
-                new AthleteUpdatedEvent(
-                    AthleteUpdatedEventDto.create(user.getLogin(),
-                        athlete.athleteId().uuid(),
-                        userDTO.getFirstName(),
-                        userDTO.getLastName(),
-                        userDTO.getEmail(),
-                        userDTO.getLangKey(), userDTO.getImageUrl())
+                new UserUpdatedEvent(
+                    UserUpdatedEventDto.create(
+                        user.getLogin(),
+                        user.getUserId().uuid(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getEmail(),
+                        user.getLangKey(), user.getImageUrl())
                 )
             );
 
@@ -311,7 +298,6 @@ public class UserService {
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.DAYS));
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
-            athleteRepository.deleteByUserId(user.getId());
             userRepository.delete(user);
         }
     }
@@ -323,12 +309,4 @@ public class UserService {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
 
-    public Athlete returnAthleteDetails(User user) {
-        return athleteRepository
-            .findByUserId(user.getId())
-            .orElseGet(() -> athleteRepository.save(new Athlete()
-                .setName(user.getLogin())
-                .setUser(user)
-            ));
-    }
 }

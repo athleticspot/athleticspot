@@ -34,4 +34,7 @@
     <changeSet id="5ff67a50-1377-4aac-872c-8374754fbec6" author="Tomasz Kasprzycki">
         <addDefaultValue tableName="athlete" columnName="metric_system_type" defaultValue="METRIC"/>
     </changeSet>
+    <changeSet id="f5b8be9d-4bea-4420-acf6-ad5bac73ea1b" author="Tomasz Kasprzycki">
+        <dropTable tableName="athlete"/>
+    </changeSet>
 </databaseChangeLog>

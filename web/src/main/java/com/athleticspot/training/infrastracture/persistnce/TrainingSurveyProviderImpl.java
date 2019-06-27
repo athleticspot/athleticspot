@@ -1,7 +1,6 @@
 package com.athleticspot.training.infrastracture.persistnce;
 
 import com.athleticspot.service.UserService;
-import com.athleticspot.training.domain.AthleteRepository;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurvey;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyProvider;
 import com.athleticspot.training.domain.trainingsurvey.TrainingSurveyRepository;

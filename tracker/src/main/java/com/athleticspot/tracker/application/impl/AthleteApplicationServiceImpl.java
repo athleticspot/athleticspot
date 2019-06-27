@@ -1,11 +1,11 @@
 package com.athleticspot.tracker.application.impl;
 
 import com.athleticspot.common.SecurityUtils;
-import com.athleticspot.common.domain.event.AthleteCreatedEvent;
 import com.athleticspot.common.domain.event.AthleteDeletedEvent;
-import com.athleticspot.common.domain.event.AthleteUpdatedEvent;
+import com.athleticspot.common.domain.event.UserCreatedEvent;
+import com.athleticspot.common.domain.event.UserUpdatedEvent;
 import com.athleticspot.common.infrastracture.dto.AthleteDeletedEventDto;
-import com.athleticspot.common.infrastracture.dto.AthleteUpdatedEventDto;
+import com.athleticspot.common.infrastracture.dto.UserUpdatedEventDto;
 import com.athleticspot.tracker.application.AthleteApplicationService;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
@@ -83,16 +83,16 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
     }
 
     @Override
-    public void updateAthlete(AthleteUpdatedEventDto athleteUpdatedEventDto) {
-        final Athlete athlete = graphAthleteRepository.findByName(athleteUpdatedEventDto.getName())
+    public void updateAthlete(UserUpdatedEventDto userUpdatedEventDto) {
+        final Athlete athlete = graphAthleteRepository.findByName(userUpdatedEventDto.getName())
             .orElseGet(() ->
-                new Athlete(athleteUpdatedEventDto.getName(),
-                    athleteUpdatedEventDto.getUuid(),
-                    athleteUpdatedEventDto.getFirstName() + athleteUpdatedEventDto.getLastName())
+                new Athlete(userUpdatedEventDto.getName(),
+                    userUpdatedEventDto.getUuid(),
+                    userUpdatedEventDto.getFirstName() + userUpdatedEventDto.getLastName())
             );
         athlete.updateFirstAndLastName(
-            athleteUpdatedEventDto.getFirstName(),
-            athleteUpdatedEventDto.getLastName()
+            userUpdatedEventDto.getFirstName(),
+            userUpdatedEventDto.getLastName()
         );
         graphAthleteRepository.save(athlete);
     }
@@ -114,17 +114,17 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void handleAthleteCreatedEvent(AthleteCreatedEvent athleteCreatedEvent) {
+    public void handleAthleteCreatedEvent(UserCreatedEvent userCreatedEvent) {
         createAthlete(
-            athleteCreatedEvent.getContent().getName(),
-            athleteCreatedEvent.getContent().getUuid(),
-            athleteCreatedEvent.getContent().getFirstAndLastName()
+            userCreatedEvent.getContent().getName(),
+            userCreatedEvent.getContent().getUuid(),
+            userCreatedEvent.getContent().getFirstAndLastName()
         );
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void handleAthleteUpdatedEvent(AthleteUpdatedEvent athleteUpdatedEvent) {
-        updateAthlete(athleteUpdatedEvent.getContent());
+    public void handleAthleteUpdatedEvent(UserUpdatedEvent userUpdatedEvent) {
+        updateAthlete(userUpdatedEvent.getContent());
     }
 
 

@@ -2,7 +2,6 @@ package com.athleticspot.domain;
 
 import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.config.Constants;
-import com.athleticspot.training.domain.Athlete;
 import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
 import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
 import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
@@ -107,9 +106,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
         inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Athlete athlete;
 
 
     public TrainingSurvey assignSurvey(BaseInformation baseInformation,

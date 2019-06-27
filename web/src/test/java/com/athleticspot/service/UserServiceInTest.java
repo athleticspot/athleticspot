@@ -6,7 +6,6 @@ import com.athleticspot.domain.User;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.util.RandomUtil;
-import com.athleticspot.training.domain.AthleteRepository;
 import io.github.jhipster.config.JHipsterConstants;
 import org.junit.Test;
 import org.junit.runner.RunWith;

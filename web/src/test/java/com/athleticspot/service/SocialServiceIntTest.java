@@ -5,7 +5,6 @@ import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
 import com.athleticspot.repository.AuthorityRepository;
 import com.athleticspot.repository.UserRepository;
-import com.athleticspot.training.domain.AthleteRepository;
 import io.github.jhipster.config.JHipsterConstants;
 import org.junit.Before;
 import org.junit.Test;

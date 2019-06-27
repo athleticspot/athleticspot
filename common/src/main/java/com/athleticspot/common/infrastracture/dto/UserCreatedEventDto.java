@@ -3,7 +3,7 @@ package com.athleticspot.common.infrastracture.dto;
 /**
  * @author Tomasz Kasprzycki
  */
-public class AthleteCreatedEventDto {
+public class UserCreatedEventDto {
 
     private String name;
 
@@ -11,7 +11,7 @@ public class AthleteCreatedEventDto {
 
     private final String firstAndLastName;
 
-    public AthleteCreatedEventDto(String name, String uuid, String firstAndLastName) {
+    public UserCreatedEventDto(String name, String uuid, String firstAndLastName) {
         this.name = name;
         this.uuid = uuid;
         this.firstAndLastName = firstAndLastName;
@@ -31,7 +31,7 @@ public class AthleteCreatedEventDto {
 
     @Override
     public String toString() {
-        return "AthleteCreatedEventDto{" +
+        return "UserCreatedEventDto{" +
             "name='" + name + '\'' +
             ", uuid='" + uuid + '\'' +
             ", firstAndLastName='" + firstAndLastName + '\'' +
