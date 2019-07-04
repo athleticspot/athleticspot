@@ -1,5 +1,6 @@
 package com.athleticspot.service.dto;
 
+import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.config.Constants;
 import com.athleticspot.domain.Authority;
 import com.athleticspot.domain.User;
@@ -52,6 +53,8 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private MetricSystemType metricSystemType;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -61,13 +64,15 @@ public class UserDTO {
             user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
             user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toSet()),
+            user.getMetricSystemType());
     }
 
     public UserDTO(Long id, String login, String firstName, String lastName,
                    String email, boolean activated, String imageUrl, String langKey,
                    String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-                   Set<String> authorities) {
+                   Set<String> authorities,
+                   MetricSystemType metricSystemType) {
 
         this.id = id;
         this.login = login;
@@ -82,6 +87,7 @@ public class UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.authorities = authorities;
+        this.metricSystemType = metricSystemType;
     }
 
     public Long getId() {
@@ -146,6 +152,10 @@ public class UserDTO {
 
     public Set<String> getAuthorities() {
         return authorities;
+    }
+
+    public MetricSystemType getMetricSystemType() {
+        return metricSystemType;
     }
 
     @Override

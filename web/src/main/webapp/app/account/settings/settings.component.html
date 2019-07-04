@@ -100,10 +100,8 @@
                 </div>
                 <div class="form-group">
                     <label for="measureTypeKey" jhiTranslate="settings.form.units">Units & Measurements</label>
-                    <select class="form-control" id="measureTypeKey" name="measureTypeKey" [(ngModel)]="settingsAccount.langKey">
-                        <option *ngFor="let language of languages" [value]="language">{{language |
-                            findLanguageFromKey}}
-                        </option>
+                    <select class="form-control" id="measureTypeKey" name="measureTypeKey" [(ngModel)]="settingsAccount.metricSystem">
+                        <option *ngFor="let metricSystem of metricSystems" [value]="metricSystem.type">{{metricSystem.text}}</option>
                     </select>
                 </div>
                 <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary"

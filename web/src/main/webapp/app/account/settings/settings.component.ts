@@ -12,6 +12,7 @@ export class SettingsComponent implements OnInit {
     success: string;
     settingsAccount: any;
     languages: any[];
+    metricSystems = [ {type: 'IMPERIAL', text: 'miles and pounds'}, {type: 'METRIC', text: 'kilometers and kilograms'}];
 
     constructor(private account: AccountService,
                 private principal: Principal,
@@ -54,7 +55,8 @@ export class SettingsComponent implements OnInit {
             langKey: account.langKey,
             lastName: account.lastName,
             login: account.login,
-            imageUrl: account.imageUrl
+            imageUrl: account.imageUrl,
+            metricSystem: account.metricSystemType
         };
     }
 }
