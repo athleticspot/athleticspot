@@ -24,6 +24,8 @@ public class SportActivityOutDto {
 
     private String id;
 
+    private String externalId;
+
     private String firstAndLastName;
 
     protected String username;
@@ -148,6 +150,12 @@ public class SportActivityOutDto {
         return this;
     }
 
+    public SportActivityOutDto setExternalId(final String externalId) {
+        this.externalId = externalId;
+        return this;
+    }
+
+
     public SportActivityOutDto setUserUuid(final String userUuid) {
         this.userUuid = userUuid;
         return this;
@@ -264,8 +272,6 @@ public class SportActivityOutDto {
         calculateFormattedPace();
         return this;
     }
-
-
 
     private void calculateFormattedPace() {
         Assert.notNull(pace, "Pace cannot be null in order to format it");

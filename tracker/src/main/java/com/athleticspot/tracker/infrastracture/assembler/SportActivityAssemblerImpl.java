@@ -38,6 +38,7 @@ public class SportActivityAssemblerImpl {
         }
         return new SportActivityOutDto()
             .setId(graphSportActivity.getId().toString())
+            .setExternalId(graphSportActivity.getExternalId())
             .setUsername(graphSportActivity.getFirstAndLastName())
             .setUserUuid(graphSportActivity.getUserUuid())
             .setTrackerSource(graphSportActivity.getTrackerSource())
