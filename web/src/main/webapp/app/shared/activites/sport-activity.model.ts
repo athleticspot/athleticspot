@@ -8,6 +8,7 @@ export class SportActivityModel {
 
 
     id: String;
+    externalId: String;
     firstAndLastName: String;
     trackerSource: TrackerSource;
     sportActivityType: String;
