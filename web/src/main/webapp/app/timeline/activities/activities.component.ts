@@ -66,9 +66,9 @@ export class ActivitiesComponent implements OnInit {
         });
 
         this.addActivityForm.get("units").valueChanges.subscribe(val => {
-            if(val === "km"){
+            if (val === "km") {
                 this.isMetricSystem = true;
-            }else {
+            } else {
                 this.isMetricSystem = false;
             }
         });
@@ -159,7 +159,7 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.externalId = sportActivity.externalId;
         sportActivityModel.firstAndLastName = sportActivity.firstAndLastName;
         sportActivityModel.trackerSource = sportActivity.trackerSource;
-        sportActivityModel.sportActivityType =  SportActivityModel
+        sportActivityModel.sportActivityType = SportActivityModel
             .resolveSportActivityTypeDescription(
                 sportActivity.sportActivityType,
                 this.translateService.instant("timeline"));
@@ -176,6 +176,9 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.calories = sportActivity.calories;
         sportActivityModel.coordinates = sportActivity.coordinates;
         sportActivityModel.formattedPace = sportActivity.formattedPace;
+        if (TrackerSource.STRAVA == sportActivityModel.trackerSource) {
+            sportActivityModel.originalUrl = "https://strava.com" + "/" + sportActivityModel.externalId;
+        }
         return sportActivityModel;
     }
 
@@ -200,7 +203,7 @@ export class ActivitiesComponent implements OnInit {
         );
     }
 
-    isMetric(){
+    isMetric() {
         return this.isMetricSystem;
     }
 }
