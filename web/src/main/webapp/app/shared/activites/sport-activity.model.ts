@@ -25,6 +25,7 @@ export class SportActivityModel {
     calories: Number;
     coordinates: any;
     formattedPace: String;
+    originalUrl: String;
 
     public static resolveSportActivityTypeDescription(sportActivityType: String, typesTranslation: any) {
         return typesTranslation.manual.type[sportActivityType + ""]
