@@ -206,4 +206,5 @@ export class ActivitiesComponent implements OnInit {
     isMetric() {
         return this.isMetricSystem;
     }
+
 }

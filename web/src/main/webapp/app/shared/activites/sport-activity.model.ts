@@ -30,4 +30,9 @@ export class SportActivityModel {
     public static resolveSportActivityTypeDescription(sportActivityType: String, typesTranslation: any) {
         return typesTranslation.manual.type[sportActivityType + ""]
     }
+
+    public isExternalTracker(){
+        return TrackerSource.MANUAL != this.trackerSource;
+
+    }
 }
