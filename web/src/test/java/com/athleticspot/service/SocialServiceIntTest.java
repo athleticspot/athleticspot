@@ -50,9 +50,6 @@ public class SocialServiceIntTest {
     @Mock
     private ConnectionRepository mockConnectionRepository;
 
-//    @Mock
-//    private AthleteRepository athleteRepository;
-
     private SocialService socialService;
 
     @Before

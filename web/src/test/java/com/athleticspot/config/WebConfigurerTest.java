@@ -9,7 +9,6 @@ import io.github.jhipster.web.filter.CachingHttpHeadersFilter;
 import io.undertow.Undertow;
 import io.undertow.Undertow.Builder;
 import io.undertow.UndertowOptions;
-import org.apache.commons.io.FilenameUtils;
 import org.h2.server.web.WebServlet;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @see WebConfigurer
  */
-public class WebConfigurerTest {
+public class    WebConfigurerTest {
 
     private WebConfigurer webConfigurer;
 
@@ -92,24 +91,6 @@ public class WebConfigurerTest {
         verify(servletContext).addServlet(eq("metricsServlet"), any(MetricsServlet.class));
         verify(servletContext, never()).addFilter(eq("cachingHttpHeadersFilter"), any(CachingHttpHeadersFilter.class));
         verify(servletContext).addServlet(eq("H2Console"), any(WebServlet.class));
-    }
-
-    @Test
-    public void testCustomizeServletContainer() {
-        env.setActiveProfiles(JHipsterConstants.SPRING_PROFILE_PRODUCTION);
-        UndertowServletWebServerFactory container = new UndertowServletWebServerFactory();
-        webConfigurer.customize(container);
-        assertThat(container.getMimeMappings().get("abs")).isEqualTo("audio/x-mpeg");
-        assertThat(container.getMimeMappings().get("html")).isEqualTo("text/html;charset=utf-8");
-        assertThat(container.getMimeMappings().get("json")).isEqualTo("text/html;charset=utf-8");
-        if (container.getDocumentRoot() != null) {
-            assertThat(container.getDocumentRoot().getPath()).isEqualTo(FilenameUtils.separatorsToSystem("web/target/www"));
-        }
-
-        Builder builder = Undertow.builder();
-        container.getBuilderCustomizers().forEach(c -> c.customize(builder));
-        OptionMap.Builder serverOptions = (OptionMap.Builder) ReflectionTestUtils.getField(builder, "serverOptions");
-        assertThat(serverOptions.getMap().get(UndertowOptions.ENABLE_HTTP2)).isNull();
     }
 
     @Test
