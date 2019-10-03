@@ -26,7 +26,7 @@ import {StravaComponent} from "./strava/strava.component";
         Ng2DropdownModule,
         AgmCoreModule.forRoot(
             {
-                apiKey: "AIzaSyAX3uLsEzkQIef16sJvkB5oJzQGR2Ej41a"
+                apiKey: "AIzaSyAX3uLsEzkQIef16sJvkB5oJzQGR2Ej41k"
             }
         ),
         InfiniteScrollModule,

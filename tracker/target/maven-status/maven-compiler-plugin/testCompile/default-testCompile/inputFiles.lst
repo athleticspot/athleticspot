@@ -1,0 +1,10 @@
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/domain/model/DistanceTest.java
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/acceptance/QuartzAutoStartTest.java
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/infrastracture/service/MeasureSystemProviderImplTest.java
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/domain/model/AthleteTest.java
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/acceptance/BaseQuartzTest.java
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/shared/QuantitiesConverterTest.java
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/infrastracture/web/dto/out/SportActivityOutDtoTest.java
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/application/strava/StravaAuthServiceTest.java
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/acceptance/SportActivityOutDtoAcceptanceTest.java
+/Users/tomkasp/workspace/athleticspot/athleticspot/tracker/src/test/java/com/athleticspot/tracker/acceptance/AthleteRepositoryTest.java

@@ -1,0 +1,13 @@
+com/athleticspot/common/domain/event/UserUpdatedEvent.class
+com/athleticspot/common/domain/model/Identity.class
+com/athleticspot/common/domain/event/AthleteDeletedEvent.class
+com/athleticspot/common/AuthoritiesConstants.class
+com/athleticspot/common/domain/model/IdentifiedDomainObject.class
+com/athleticspot/common/domain/event/UserCreatedEvent.class
+com/athleticspot/common/infrastracture/dto/UserUpdatedEventDto.class
+com/athleticspot/common/infrastracture/dto/UserCreatedEventDto.class
+com/athleticspot/common/domain/model/Entity.class
+com/athleticspot/common/SecurityUtils.class
+com/athleticspot/common/infrastracture/dto/AthleteDeletedEventDto.class
+com/athleticspot/common/domain/model/AbstractId.class
+com/athleticspot/common/domain/model/MetricSystemType.class

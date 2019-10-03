@@ -66,8 +66,7 @@ spring:
         facebook:
             client-id: 1560105444302334
             client-secret: b3df275686dd840fe27400e239506b22
-
-        # jhipster-needle-add-social-configuration
+    # jhipster-needle-add-social-configuration
 
 security:
     basic:
@@ -100,11 +99,11 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: jhipster5playground@localhost
+        from: athleticspot@localhost
     swagger:
         default-include-pattern: /api/.*
-        title: jhipster5playground API
-        description: jhipster5playground API documentation
+        title: Athleticspot API
+        description: Athleticspot API documentation
         version: 0.0.1
         terms-of-service-url:
         contact-name:
