@@ -12,8 +12,6 @@ import com.athleticspot.tracker.infrastracture.web.dto.in.SportActivityInDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DecimalFormat;
-
 import static com.athleticspot.tracker.shared.QuantitiesConverter.convertDistanceToMeters;
 
 /**
@@ -29,8 +27,6 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
 
     private final SportActivityRepository sportActivityRepository;
 
-    private DecimalFormat decimalFormat = new DecimalFormat("#0.000");
-
     @Autowired
     public SportActivityApplicationServiceImpl(GraphAthleteRepository graphAthleteRepository, SportActivityRepository sportActivityRepository) {
         this.graphAthleteRepository = graphAthleteRepository;
@@ -40,23 +36,7 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
     @Override
     public void createSportActivity(SportActivityInDto sportActivityInDto) {
         Athlete athlete = getCurrentAthlete();
-        SportActivity sportActivity =
-            new SportActivityBuilder(
-                TrackerSource.values()[Integer.parseInt(sportActivityInDto.getTrackerSource())],
-                sportActivityInDto.getSportActivityType(),
-                TRACKING_SYSTEM_ID,
-                EXTERNAL_ID,
-                convertDistanceToMeters(sportActivityInDto.getUnits(), sportActivityInDto.getDistance()),
-                sportActivityInDto.getStartDate(),
-                sportActivityInDto.getTitle(),
-                athlete.getAthleteUUID(),
-                athlete.getFirstAndLastName()
-            )
-                .setElapsedTime(sportActivityInDto.getDuration())
-                .setDescription(sportActivityInDto.getDescription())
-                .setMaxSpeed(sportActivityInDto.getMaxSpeed())
-                .setAverageSpeed(sportActivityInDto.getAverageSpeed())
-                .createSportActivity();
+        SportActivity sportActivity = buildSportActivity(sportActivityInDto, athlete);
         athlete.perform(sportActivity);
         graphAthleteRepository.save(athlete);
     }
@@ -68,6 +48,25 @@ public class SportActivityApplicationServiceImpl implements SportActivityApplica
             .orElseThrow(() -> new IllegalArgumentException(String.format("User with id: %s doesn't have sport activity with id: %s", athlete.getAthleteUUID(), sportActivityId)));
         sportActivityRepository.detachDeleteSportActivity(sportActivityId);
 
+    }
+
+    private SportActivity buildSportActivity(SportActivityInDto sportActivityInDto, Athlete athlete) {
+        return new SportActivityBuilder(
+            TrackerSource.values()[Integer.parseInt(sportActivityInDto.getTrackerSource())],
+            sportActivityInDto.getSportActivityType(),
+            TRACKING_SYSTEM_ID,
+            EXTERNAL_ID,
+            convertDistanceToMeters(sportActivityInDto.getUnits(), sportActivityInDto.getDistance()),
+            sportActivityInDto.getStartDate(),
+            sportActivityInDto.getTitle(),
+            athlete.getAthleteUUID(),
+            athlete.getFirstAndLastName()
+        )
+            .setElapsedTime(sportActivityInDto.getDuration())
+            .setDescription(sportActivityInDto.getDescription())
+            .setMaxSpeed(sportActivityInDto.getMaxSpeed())
+            .setAverageSpeed(sportActivityInDto.getAverageSpeed())
+            .createSportActivity();
     }
 
     private Athlete getCurrentAthlete() {
