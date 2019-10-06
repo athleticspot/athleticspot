@@ -36,7 +36,7 @@ public class ProdMailService implements MailService {
     private final Logger log = LoggerFactory.getLogger(ProdMailService.class);
 
     @Value("${mailgun.api-key}")
-    String mailgunApiKey;
+    private String mailgunApiKey;
 
     @Value("${mailgun.domain}")
     private String domain;

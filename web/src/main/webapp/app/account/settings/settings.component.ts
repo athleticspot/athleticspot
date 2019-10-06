@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
 
     ngOnInit() {
         this.principal.identity().then((account) => {
-            this.settingsAccount = this.copyAccount(account);
+            this.settingsAccount = SettingsComponent.copyAccount(account);
         });
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
@@ -30,11 +30,11 @@ export class SettingsComponent implements OnInit {
     }
 
     save() {
-        this.account.save(this.settingsAccount).subscribe(() => {
+        this.account.update(this.settingsAccount).subscribe(() => {
             this.error = null;
             this.success = 'OK';
             this.principal.identity(true).then((account) => {
-                this.settingsAccount = this.copyAccount(account);
+                this.settingsAccount = SettingsComponent.copyAccount(account);
             });
             this.languageService.getCurrent().then((current) => {
                 if (this.settingsAccount.langKey !== current) {
@@ -47,7 +47,7 @@ export class SettingsComponent implements OnInit {
         });
     }
 
-    copyAccount(account) {
+    private static copyAccount(account) {
         return {
             activated: account.activated,
             email: account.email,
@@ -56,7 +56,7 @@ export class SettingsComponent implements OnInit {
             lastName: account.lastName,
             login: account.login,
             imageUrl: account.imageUrl,
-            metricSystem: account.metricSystemType
+            metricSystemType: account.metricSystemType
         };
     }
 }

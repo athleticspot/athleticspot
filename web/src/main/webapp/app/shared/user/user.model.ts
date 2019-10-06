@@ -12,6 +12,7 @@ export class User {
     public lastModifiedBy?: string;
     public lastModifiedDate?: Date;
     public password?: string;
+    public metricSystemType?: String;
 
     constructor(id?: any,
                 login?: string,

@@ -210,8 +210,7 @@ public class UserService {
      * @return updated user
      */
     public Optional<UserDTO> updateUser(UserDTO userDTO) {
-        final User savedUser = userRepository
-            .getOne(userDTO.getId());
+        final User savedUser = userRepository.getOne(userDTO.getId());
         final Optional<UserDTO> userOptional = Optional.of(savedUser)
             .map(user -> {
                 user.setLogin(userDTO.getLogin());
