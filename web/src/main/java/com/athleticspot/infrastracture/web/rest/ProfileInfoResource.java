@@ -1,4 +1,4 @@
-package com.athleticspot.web.rest;
+package com.athleticspot.infrastracture.web.rest;
 
 import com.athleticspot.config.DefaultProfileUtil;
 import io.github.jhipster.config.JHipsterProperties;

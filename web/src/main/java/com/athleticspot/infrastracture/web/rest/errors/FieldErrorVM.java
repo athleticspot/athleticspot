@@ -1,4 +1,4 @@
-package com.athleticspot.web.rest.errors;
+package com.athleticspot.infrastracture.web.rest.errors;
 
 import java.io.Serializable;
 

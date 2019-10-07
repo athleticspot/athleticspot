@@ -1,4 +1,4 @@
-package com.athleticspot.web.rest.vm;
+package com.athleticspot.infrastracture.web.rest.vm;
 
 import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.service.dto.UserDTO;

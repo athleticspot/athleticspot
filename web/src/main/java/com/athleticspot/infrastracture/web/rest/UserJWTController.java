@@ -1,8 +1,8 @@
-package com.athleticspot.web.rest;
+package com.athleticspot.infrastracture.web.rest;
 
+import com.athleticspot.infrastracture.web.rest.vm.LoginVM;
 import com.athleticspot.security.jwt.JWTFilter;
 import com.athleticspot.security.jwt.TokenProvider;
-import com.athleticspot.web.rest.vm.LoginVM;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.HttpHeaders;

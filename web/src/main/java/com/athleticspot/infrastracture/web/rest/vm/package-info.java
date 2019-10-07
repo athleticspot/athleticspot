@@ -1,4 +1,4 @@
 /**
  * View Models used by Spring MVC REST controllers.
  */
-package com.athleticspot.web.rest.vm;
+package com.athleticspot.infrastracture.web.rest.vm;

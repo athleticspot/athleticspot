@@ -1,7 +1,7 @@
-package com.athleticspot.web.rest;
+package com.athleticspot.infrastracture.web.rest;
 
+import com.athleticspot.infrastracture.web.rest.util.PaginationUtil;
 import com.athleticspot.service.AuditEventService;
-import com.athleticspot.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.swagger.annotations.ApiParam;
 import org.springframework.boot.actuate.audit.AuditEvent;

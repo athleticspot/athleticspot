@@ -1,14 +1,14 @@
-package com.athleticspot.web.rest;
+package com.athleticspot.infrastracture.web.rest;
 
 import com.athleticspot.domain.User;
+import com.athleticspot.infrastracture.web.rest.util.HeaderUtil;
+import com.athleticspot.infrastracture.web.rest.vm.KeyAndPasswordVM;
+import com.athleticspot.infrastracture.web.rest.vm.ManagedUserVM;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.SecurityUtils;
 import com.athleticspot.service.MailService;
 import com.athleticspot.service.UserService;
 import com.athleticspot.service.dto.UserDTO;
-import com.athleticspot.web.rest.util.HeaderUtil;
-import com.athleticspot.web.rest.vm.KeyAndPasswordVM;
-import com.athleticspot.web.rest.vm.ManagedUserVM;
 import com.codahale.metrics.annotation.Timed;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.commons.lang3.StringUtils;

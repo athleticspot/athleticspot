@@ -1,8 +1,8 @@
-package com.athleticspot.web.rest;
+package com.athleticspot.infrastracture.web.rest;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
-import com.athleticspot.web.rest.vm.LoggerVM;
+import com.athleticspot.infrastracture.web.rest.vm.LoggerVM;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

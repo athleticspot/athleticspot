@@ -1,4 +1,4 @@
-package com.athleticspot.web.rest.util;
+package com.athleticspot.infrastracture.web.rest.util;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;

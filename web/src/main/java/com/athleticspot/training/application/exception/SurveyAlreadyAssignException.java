@@ -1,6 +1,6 @@
 package com.athleticspot.training.application.exception;
 
-import com.athleticspot.web.rest.errors.CustomParameterizedException;
+import com.athleticspot.infrastracture.web.rest.errors.CustomParameterizedException;
 
 /**
  * @author Tomasz Kasprzycki

@@ -1,4 +1,4 @@
-package com.athleticspot.web.rest.vm;
+package com.athleticspot.infrastracture.web.rest.vm;
 
 /**
  * View Model object for storing the user's key and password.

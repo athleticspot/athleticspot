@@ -1,4 +1,4 @@
-package com.athleticspot.web.rest;
+package com.athleticspot.infrastracture.web.rest;
 
 import com.athleticspot.service.SocialService;
 import org.slf4j.Logger;
