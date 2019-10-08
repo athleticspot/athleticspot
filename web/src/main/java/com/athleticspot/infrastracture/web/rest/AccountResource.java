@@ -142,8 +142,7 @@ public class AccountResource {
         return userRepository
             .findOneByLogin(userLogin)
             .map(u -> {
-                userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-                    userDTO.getLangKey(), userDTO.getImageUrl());
+                userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(), userDTO.getLangKey(), userDTO.getImageUrl(), userDTO.getMetricSystemType());
                 return new ResponseEntity(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -182,7 +181,7 @@ public class AccountResource {
                     mailServiceImpl.sendPasswordResetMail(user);
                 } catch (UnirestException e) {
                     log.error("Error during message sent for mail: " + mail, e);
-                    return  new ResponseEntity<>("Email could not be sent", HttpStatus.INTERNAL_SERVER_ERROR);
+                    return new ResponseEntity<>("Email could not be sent", HttpStatus.INTERNAL_SERVER_ERROR);
                 }
                 return new ResponseEntity<>("email was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("email address not registered", HttpStatus.BAD_REQUEST));
