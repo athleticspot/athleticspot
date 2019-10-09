@@ -2,13 +2,15 @@ package com.athleticspot.training.infrastracture.web;
 
 import com.athleticspot.AthleticspotApp;
 import com.athleticspot.common.domain.model.MetricSystemType;
+import com.athleticspot.domain.UserId;
+import com.athleticspot.infrastracture.web.rest.errors.ExceptionTranslator;
 import com.athleticspot.service.UserService;
 import com.athleticspot.training.application.TrainingSurveyApplicationService;
 import com.athleticspot.training.domain.trainingsurvey.*;
 import com.athleticspot.training.infrastracture.dto.in.AssignTrainingSurveyInDto;
 import com.athleticspot.web.rest.TestUtil;
-import com.athleticspot.web.rest.errors.ExceptionTranslator;
 import io.github.jhipster.config.JHipsterConstants;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -43,8 +46,6 @@ public class TrainingSurveyCommandControllerTest {
 
     @Autowired
     private HttpMessageConverter[] httpMessageConverters;
-
-    private TrainingSurveyApplicationService trainingSurveyApplicationService;
 
     @Autowired
     TrainingSurveyRepository trainingSurveyRepository;
@@ -67,7 +68,7 @@ public class TrainingSurveyCommandControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        this.trainingSurveyApplicationService = new TrainingSurveyApplicationService(
+        TrainingSurveyApplicationService trainingSurveyApplicationService = new TrainingSurveyApplicationService(
             trainingSurveyRepository,
             userService,
             trainingHistoryRepository,
@@ -87,45 +88,48 @@ public class TrainingSurveyCommandControllerTest {
     @WithMockUser("user")
     @Transactional
     public void testCreatingAndAssigningTrainingSurveyToAthlete() throws Exception {
+        final String userId = "48554332-54af-4747-addb-7d753b3915d4";
 
         this.mockMvc.perform(post(ApiUrl.SURVEY_URL)
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(createAssignTrainingSurveyDto())))
             .andDo(print())
             .andExpect(status().isOk());
+
+        final Optional<TrainingSurvey> trainingSurveyOptional = trainingSurveyRepository.findByUserId(new UserId(userId));
+        Assertions.assertThat(trainingSurveyOptional).isNotEmpty();
+        Assertions.assertThat(userService.getUserWithAuthorities().getMetricSystemType()).isEqualTo(MetricSystemType.IMPERIAL);
     }
 
     private AssignTrainingSurveyInDto createAssignTrainingSurveyDto() {
-        AssignTrainingSurveyInDto assignTrainingSurveyInDto
-            = new AssignTrainingSurveyInDto
-            .AssignTrainingSurveyInDtoBuilder()
-            .setBaseInformation(new BaseInformation(
-                LocalDate.now(),
-                70d,
-                173d,
-                MetricSystemType.METRIC))
-            .setHealthInformation(new HealthInformation(
-                true,
-                true,
-                true,
-                8d
-            ))
-            .setNutritionInformation(new NutritionInformation(
-                true,
-                true,
-                true,
-                true
-            ))
-            .setTrainingGoal(new TrainingGoal(
-                    22d,
-                    2d,
-                    RunCategory.FIVE_K
-                )
-            )
-            .setMetricSystemType(MetricSystemType.METRIC)
-            .build();
 
-        return assignTrainingSurveyInDto;
+        return new AssignTrainingSurveyInDto
+        .AssignTrainingSurveyInDtoBuilder()
+        .setBaseInformation(new BaseInformation(
+            LocalDate.now(),
+            70d,
+            173d,
+            MetricSystemType.IMPERIAL))
+        .setHealthInformation(new HealthInformation(
+            true,
+            true,
+            true,
+            8d
+        ))
+        .setNutritionInformation(new NutritionInformation(
+            true,
+            true,
+            true,
+            true
+        ))
+        .setTrainingGoal(new TrainingGoal(
+                22d,
+                2d,
+                RunCategory.FIVE_K
+            )
+        )
+        .setMetricSystemType(MetricSystemType.METRIC)
+        .build();
 
     }
 

@@ -2,10 +2,11 @@ package com.athleticspot.web.rest;
 
 import com.athleticspot.AthleticspotApp;
 import com.athleticspot.domain.User;
+import com.athleticspot.infrastracture.web.rest.UserJWTController;
+import com.athleticspot.infrastracture.web.rest.errors.ExceptionTranslator;
+import com.athleticspot.infrastracture.web.rest.vm.LoginVM;
 import com.athleticspot.repository.UserRepository;
 import com.athleticspot.security.jwt.TokenProvider;
-import com.athleticspot.web.rest.errors.ExceptionTranslator;
-import com.athleticspot.web.rest.vm.LoginVM;
 import io.github.jhipster.config.JHipsterConstants;
 import org.junit.Before;
 import org.junit.Test;

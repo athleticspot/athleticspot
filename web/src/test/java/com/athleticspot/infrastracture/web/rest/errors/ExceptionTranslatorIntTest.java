@@ -1,4 +1,4 @@
-package com.athleticspot.web.rest.errors;
+package com.athleticspot.infrastracture.web.rest.errors;
 
 import com.athleticspot.AthleticspotApp;
 import io.github.jhipster.config.JHipsterConstants;
