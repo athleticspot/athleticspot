@@ -35,29 +35,14 @@ public class TrainingSurveyCommandController {
 
     @PostMapping
     public void createTrainingSurvey(@Valid @RequestBody AssignTrainingSurveyInDto assignTrainingSurveyInDto) {
-
         log.info("Received assign survey dto: {}", assignTrainingSurveyInDto);
 
         AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand =
-            AssignTrainingSurveyToAthleteCommand.of(assignTrainingSurveyInDto.getBaseInformation().getBirthDay(),
-                assignTrainingSurveyInDto.getBaseInformation().getBodyMass(),
-                assignTrainingSurveyInDto.getBaseInformation().getHeight(),
-                assignTrainingSurveyInDto.getHealthInformation().getHealthContraindications(),
-                assignTrainingSurveyInDto.getHealthInformation().getStressTest(),
-                assignTrainingSurveyInDto.getHealthInformation().getBloodTest(),
-                assignTrainingSurveyInDto.getHealthInformation().getHoursOfSleep(),
-                assignTrainingSurveyInDto.getNutritionInformation().isMeatAcceptance(),
-                assignTrainingSurveyInDto.getNutritionInformation().isDairyedAcceptance(),
-                assignTrainingSurveyInDto.getNutritionInformation().isAllergies(),
-                assignTrainingSurveyInDto.getNutritionInformation().isFoodIntolerance());
+            createAssignTrainingSurveyToAthleteCommand(assignTrainingSurveyInDto);
 
         trainingSurveyApplicationService.assignTrainingSurveyToAthlete(assignTrainingSurveyToAthleteCommand);
-
         userService.updateUserMetricSystemType(UpdateMetricSystemTypeCommand.of(assignTrainingSurveyInDto.getBaseInformation().getMetricSystemType()));
-
-        //TODO: Add command for assiging metric system to the user.
     }
-
 
     @PutMapping
     public void updateTrainingSurvey(@Valid @RequestBody UpdateTrainingSurveyInDto updateTrainingSurveyInDto) {
@@ -73,5 +58,19 @@ public class TrainingSurveyCommandController {
     @DeleteMapping
     public void deleteTrainingSurvey() {
 
+    }
+
+    private AssignTrainingSurveyToAthleteCommand createAssignTrainingSurveyToAthleteCommand(@RequestBody @Valid AssignTrainingSurveyInDto assignTrainingSurveyInDto) {
+        return AssignTrainingSurveyToAthleteCommand.of(assignTrainingSurveyInDto.getBaseInformation().getBirthDay(),
+            assignTrainingSurveyInDto.getBaseInformation().getBodyMass(),
+            assignTrainingSurveyInDto.getBaseInformation().getHeight(),
+            assignTrainingSurveyInDto.getHealthInformation().getHealthContraindications(),
+            assignTrainingSurveyInDto.getHealthInformation().getStressTest(),
+            assignTrainingSurveyInDto.getHealthInformation().getBloodTest(),
+            assignTrainingSurveyInDto.getHealthInformation().getHoursOfSleep(),
+            assignTrainingSurveyInDto.getNutritionInformation().isMeatAcceptance(),
+            assignTrainingSurveyInDto.getNutritionInformation().isDairyedAcceptance(),
+            assignTrainingSurveyInDto.getNutritionInformation().isAllergies(),
+            assignTrainingSurveyInDto.getNutritionInformation().isFoodIntolerance());
     }
 }
