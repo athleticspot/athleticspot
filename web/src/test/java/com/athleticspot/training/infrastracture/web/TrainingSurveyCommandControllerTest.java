@@ -74,7 +74,7 @@ public class TrainingSurveyCommandControllerTest {
             trainingSurveyProvider);
 
         TrainingSurveyCommandController trainingSurveyCommandController =
-            new TrainingSurveyCommandController(trainingSurveyApplicationService);
+            new TrainingSurveyCommandController(trainingSurveyApplicationService, userService);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(trainingSurveyCommandController)
             .setMessageConverters(httpMessageConverters)

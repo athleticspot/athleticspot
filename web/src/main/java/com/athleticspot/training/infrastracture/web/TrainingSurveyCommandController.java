@@ -1,8 +1,10 @@
 package com.athleticspot.training.infrastracture.web;
 
+import com.athleticspot.service.UserService;
 import com.athleticspot.training.application.TrainingSurveyApplicationService;
 import com.athleticspot.training.application.command.AssignTrainingSurveyToAthleteCommand;
 import com.athleticspot.training.application.command.UpdateTrainingSurveyCommand;
+import com.athleticspot.training.domain.trainingsurvey.UpdateMetricSystemTypeCommand;
 import com.athleticspot.training.infrastracture.dto.in.AssignTrainingSurveyInDto;
 import com.athleticspot.training.infrastracture.dto.in.UpdateTrainingSurveyInDto;
 import org.slf4j.Logger;
@@ -23,9 +25,12 @@ public class TrainingSurveyCommandController {
 
     private final TrainingSurveyApplicationService trainingSurveyApplicationService;
 
+    private final UserService userService;
+
     @Autowired
-    public TrainingSurveyCommandController(TrainingSurveyApplicationService trainingSurveyApplicationService) {
+    public TrainingSurveyCommandController(TrainingSurveyApplicationService trainingSurveyApplicationService, UserService userService) {
         this.trainingSurveyApplicationService = trainingSurveyApplicationService;
+        this.userService = userService;
     }
 
     @PostMapping
@@ -47,6 +52,8 @@ public class TrainingSurveyCommandController {
                 assignTrainingSurveyInDto.getNutritionInformation().isFoodIntolerance());
 
         trainingSurveyApplicationService.assignTrainingSurveyToAthlete(assignTrainingSurveyToAthleteCommand);
+
+        userService.updateUserMetricSystemType(UpdateMetricSystemTypeCommand.of(assignTrainingSurveyInDto.getBaseInformation().getMetricSystemType()));
 
         //TODO: Add command for assiging metric system to the user.
     }

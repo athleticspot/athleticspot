@@ -16,6 +16,7 @@ import com.athleticspot.security.AuthoritiesConstants;
 import com.athleticspot.security.SecurityUtils;
 import com.athleticspot.service.dto.UserDTO;
 import com.athleticspot.service.util.RandomUtil;
+import com.athleticspot.training.domain.trainingsurvey.UpdateMetricSystemTypeCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -169,11 +170,12 @@ public class UserService {
 
     /**
      * Update basic information (first name, last name, email, language) for the current user.
-     *  @param firstName first name of user
-     * @param lastName  last name of user
-     * @param email     email id of user
-     * @param langKey   language key
-     * @param imageUrl  image URL of user
+     *
+     * @param firstName        first name of user
+     * @param lastName         last name of user
+     * @param email            email id of user
+     * @param langKey          language key
+     * @param imageUrl         image URL of user
      * @param metricSystemType
      */
     public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl, MetricSystemType metricSystemType) {
@@ -310,4 +312,12 @@ public class UserService {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
 
+    public void updateUserMetricSystemType(UpdateMetricSystemTypeCommand updateMetricSystemTypeCommand) {
+        final Optional<User> userOptional
+            = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+        userOptional.ifPresent(user -> {
+            user.setMetricSystemType(updateMetricSystemTypeCommand.getMetricSystemType());
+            userRepository.save(user);
+        });
+    }
 }
