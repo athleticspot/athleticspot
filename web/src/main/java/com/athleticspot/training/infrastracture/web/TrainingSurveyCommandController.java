@@ -47,6 +47,8 @@ public class TrainingSurveyCommandController {
                 assignTrainingSurveyInDto.getNutritionInformation().isFoodIntolerance());
 
         trainingSurveyApplicationService.assignTrainingSurveyToAthlete(assignTrainingSurveyToAthleteCommand);
+
+        //TODO: Add command for assiging metric system to the user.
     }
 
 

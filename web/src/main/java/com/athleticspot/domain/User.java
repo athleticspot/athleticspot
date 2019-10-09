@@ -249,6 +249,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return metricSystemType;
     }
 
+    public User setMetricSystemType(MetricSystemType metricSystemType) {
+        this.metricSystemType = metricSystemType;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -3,6 +3,7 @@ package com.athleticspot.service;
 import com.athleticspot.common.domain.event.AthleteDeletedEvent;
 import com.athleticspot.common.domain.event.UserCreatedEvent;
 import com.athleticspot.common.domain.event.UserUpdatedEvent;
+import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.common.infrastracture.dto.AthleteDeletedEventDto;
 import com.athleticspot.common.infrastracture.dto.UserCreatedEventDto;
 import com.athleticspot.common.infrastracture.dto.UserUpdatedEventDto;
@@ -168,14 +169,14 @@ public class UserService {
 
     /**
      * Update basic information (first name, last name, email, language) for the current user.
-     *
-     * @param firstName first name of user
+     *  @param firstName first name of user
      * @param lastName  last name of user
      * @param email     email id of user
      * @param langKey   language key
      * @param imageUrl  image URL of user
+     * @param metricSystemType
      */
-    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
+    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl, MetricSystemType metricSystemType) {
         final Optional<User> userOptional
             = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
         userOptional.ifPresent(user -> {
@@ -184,6 +185,7 @@ public class UserService {
             user.setEmail(email);
             user.setLangKey(langKey);
             user.setImageUrl(imageUrl);
+            user.setMetricSystemType(metricSystemType);
             log.debug("Changed Information for User: {}", user);
         });
         userOptional.ifPresent(user -> {

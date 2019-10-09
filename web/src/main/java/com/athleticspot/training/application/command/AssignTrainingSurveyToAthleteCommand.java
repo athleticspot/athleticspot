@@ -63,7 +63,8 @@ public class AssignTrainingSurveyToAthleteCommand
         return new AssignTrainingSurveyToAthleteCommand(
             birthday,
             weight,
-            height, null,
+            height,
+            null,
             healthContraindications,
             stressTest,
             bloodTest,
