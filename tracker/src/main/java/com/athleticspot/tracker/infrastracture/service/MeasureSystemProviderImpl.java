@@ -22,7 +22,8 @@ import java.util.Optional;
  */
 @Service
 public class MeasureSystemProviderImpl implements MeasureSystemProvider {
-        private final SurveyInfoRepository surveyInfoRepository;
+
+    private final SurveyInfoRepository surveyInfoRepository;
 
     private final GraphAthleteRepository graphAthleteRepository;
 
@@ -34,7 +35,7 @@ public class MeasureSystemProviderImpl implements MeasureSystemProvider {
     }
 
     @Override
-    public MetricSystemType getUserMetricSystemType(){
+    public MetricSystemType getUserMetricSystemType() {
         return getMetricSystemType();
     }
 
@@ -42,7 +43,7 @@ public class MeasureSystemProviderImpl implements MeasureSystemProvider {
     public Unit<Length> getUserDistanceUnit() {
         final MetricSystemType metricSystemType = getMetricSystemType();
 
-        if(MetricSystemType.METRIC.equals(metricSystemType)) {
+        if (MetricSystemType.METRIC.equals(metricSystemType)) {
             return MetricPrefix.KILO(Units.METRE);
         }
         return USCustomary.MILE;
@@ -50,11 +51,9 @@ public class MeasureSystemProviderImpl implements MeasureSystemProvider {
 
     private MetricSystemType getMetricSystemType() {
         final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
-        final Athlete athlete = graphAthleteRepository.findByName(currentUserLogin).orElseThrow(() -> new IllegalStateException("There are no athlete withlogin: " + currentUserLogin));
+        final Athlete athlete = graphAthleteRepository.findByName(currentUserLogin).orElseThrow(() -> new IllegalStateException("There are no athlete with login: " + currentUserLogin));
         final Optional<MetricSystemType> metricSystemTypeOptional = surveyInfoRepository.findByUserId(athlete.getAthleteUUID()).map(SurveyInfo::getMetricSystemType);
-        return metricSystemTypeOptional.orElseGet(() ->
-           MetricSystemType.METRIC
-        );
+        return metricSystemTypeOptional.orElse(MetricSystemType.METRIC);
     }
 
 }

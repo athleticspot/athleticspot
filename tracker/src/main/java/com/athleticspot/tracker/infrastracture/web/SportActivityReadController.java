@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.infrastracture.web;
 
 import com.athleticspot.common.SecurityUtils;
+import com.athleticspot.tracker.domain.graph.SportActivity;
 import com.athleticspot.tracker.domain.graph.SportActivityRepository;
 import com.athleticspot.tracker.infrastracture.assembler.SportActivityAssemblerImpl;
 import com.athleticspot.tracker.infrastracture.web.dto.out.SportActivityOutDto;
@@ -38,11 +39,14 @@ public class SportActivityReadController {
     @GetMapping(value = "/paged")
     public Page<SportActivityOutDto> retrieveSportActivities(@RequestParam int page,
                                                              @RequestParam int pageSize) {
-        return sportActivityAssemblerImpl
-            .pageAssemble(sportActivityRepository.findActivitiesByUserId(
-                SecurityUtils.getCurrentUserLogin(),
-                PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("row.startDate"))))
-            );
+        return sportActivityAssemblerImpl.pageAssemble(getActivitiesByUserId(page, pageSize));
+    }
+
+    private Page<SportActivity> getActivitiesByUserId(@RequestParam int page, @RequestParam int pageSize) {
+        return sportActivityRepository.findActivitiesByUserId(
+            SecurityUtils.getCurrentUserLogin(),
+            PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("row.startDate")))
+        );
     }
 
 }
