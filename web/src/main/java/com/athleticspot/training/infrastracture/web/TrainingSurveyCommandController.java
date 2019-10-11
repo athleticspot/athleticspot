@@ -60,7 +60,7 @@ public class TrainingSurveyCommandController {
 
     }
 
-    private AssignTrainingSurveyToAthleteCommand createAssignTrainingSurveyToAthleteCommand(@RequestBody @Valid AssignTrainingSurveyInDto assignTrainingSurveyInDto) {
+    private AssignTrainingSurveyToAthleteCommand createAssignTrainingSurveyToAthleteCommand(AssignTrainingSurveyInDto assignTrainingSurveyInDto) {
         return AssignTrainingSurveyToAthleteCommand.of(assignTrainingSurveyInDto.getBaseInformation().getBirthDay(),
             assignTrainingSurveyInDto.getBaseInformation().getBodyMass(),
             assignTrainingSurveyInDto.getBaseInformation().getHeight(),
