@@ -1,11 +1,8 @@
 package com.athleticspot.tracker.infrastracture.service;
 
 import com.athleticspot.common.domain.model.MetricSystemType;
-import com.athleticspot.tracker.domain.graph.Athlete;
-import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import com.athleticspot.tracker.domain.model.MeasureSystemProvider;
-import com.athleticspot.tracker.domain.model.SurveyInfo;
-import com.athleticspot.tracker.domain.model.SurveyInfoRepository;
+import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.domain.model.TrackerUserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -23,7 +20,6 @@ import javax.measure.MetricPrefix;
 import javax.measure.Unit;
 import javax.measure.quantity.Length;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * @author Tomasz Kasprzycki
@@ -32,28 +28,19 @@ import java.util.UUID;
 public class MeasureSystemProviderImplTest {
 
     @Mock
-    private SurveyInfoRepository surveyInfoRepository;
-
-    @Mock
-    private GraphAthleteRepository graphAthleteRepository;
-
-    @Mock
     private TrackerUserRepository trackerUserRepository;
 
     private MeasureSystemProvider measureSystemProvider;
 
-    private final String userId = UUID.randomUUID().toString();
-
     @Before
     public void setUp() {
-        measureSystemProvider = new MeasureSystemProviderImpl(surveyInfoRepository, graphAthleteRepository, trackerUserRepository);
+        measureSystemProvider = new MeasureSystemProviderImpl(trackerUserRepository);
     }
 
     @Test
     public void when_user_has_metric_system_assigned_then_its_returned_and_units_are_km() {
         //given
-        Mockito.when(graphAthleteRepository.findByName(ArgumentMatchers.any())).thenReturn(createAthlete());
-        Mockito.when(surveyInfoRepository.findByUserId(userId)).thenReturn(createSurveyInfo(MetricSystemType.METRIC));
+        Mockito.when(trackerUserRepository.findByLogin(ArgumentMatchers.any())).thenReturn(createTrackerUser(MetricSystemType.METRIC));
 
         //when
         final MetricSystemType metricSystemType = measureSystemProvider.getUserMetricSystemType();
@@ -65,10 +52,9 @@ public class MeasureSystemProviderImplTest {
     }
 
     @Test
-    public void when_user_has_imperial_system_assigned_then_its_returned_and_units_are_miles(){
+    public void when_user_has_imperial_system_assigned_then_its_returned_and_units_are_miles() {
         //given
-        Mockito.when(graphAthleteRepository.findByName(ArgumentMatchers.any())).thenReturn(createAthlete());
-        Mockito.when(surveyInfoRepository.findByUserId(userId)).thenReturn(createSurveyInfo(MetricSystemType.IMPERIAL));
+        Mockito.when(trackerUserRepository.findByLogin(ArgumentMatchers.any())).thenReturn(createTrackerUser(MetricSystemType.IMPERIAL));
 
         //when
         final MetricSystemType metricSystemType = measureSystemProvider.getUserMetricSystemType();
@@ -96,13 +82,10 @@ public class MeasureSystemProviderImplTest {
         Assertions.assertThat(USCustomary.MILE.toString()).isEqualTo("mi");
     }
 
-    private Optional<Athlete> createAthlete() {
-        return Optional.of(new Athlete("tomek", userId, "Tom Kasp"));
+    private Optional<TrackerUser> createTrackerUser(MetricSystemType metricSystemType) {
+        TrackerUser trackerUser = new TrackerUser();
+        ReflectionTestUtils.setField(trackerUser, "metricSystemType", metricSystemType);
+        return Optional.of(trackerUser);
     }
 
-    private Optional<SurveyInfo> createSurveyInfo(MetricSystemType metricSystemType) {
-        final SurveyInfo result = new SurveyInfo();
-        ReflectionTestUtils.setField(result, "metricSystemType", metricSystemType);
-        return Optional.of(result);
-    }
 }
