@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.domain.model;
 
+import com.athleticspot.common.domain.model.MetricSystemType;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -36,12 +37,18 @@ public class TrackerUser {
     @Column(name = "image_url", length = 256)
     private String imageUrl;
 
+    @Column(name ="metric_system_type")
+    @Enumerated(EnumType.STRING)
+    private MetricSystemType metricSystemType;
+
 
     public TrackerUser() {
     }
 
-    public TrackerUser(String login) {
-        this.login = login;
+    public TrackerUser assignStravaLastSynchronizationDate(LocalDateTime stravaLastSynchronizationDate){
+        Assert.notNull(stravaLastSynchronizationDate, "Strava last synchronization date cannot be null");
+        this.stravaLastSynchronizationDate = stravaLastSynchronizationDate;
+        return this;
     }
 
     public String getFirstName() {
@@ -72,10 +79,8 @@ public class TrackerUser {
         return imageUrl;
     }
 
-    public TrackerUser assignStravaLastSynchronizationDate(LocalDateTime stravaLastSynchronizationDate){
-        Assert.notNull(stravaLastSynchronizationDate, "Strava last synchronization date cannot be null");
-        this.stravaLastSynchronizationDate = stravaLastSynchronizationDate;
-        return this;
+    public MetricSystemType getMetricSystemType() {
+        return metricSystemType;
     }
 
     @Override
