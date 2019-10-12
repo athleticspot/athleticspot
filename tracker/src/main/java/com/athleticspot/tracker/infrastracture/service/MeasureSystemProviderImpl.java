@@ -4,10 +4,7 @@ import com.athleticspot.common.SecurityUtils;
 import com.athleticspot.common.domain.model.MetricSystemType;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
-import com.athleticspot.tracker.domain.model.MeasureSystemProvider;
-import com.athleticspot.tracker.domain.model.SurveyInfo;
-import com.athleticspot.tracker.domain.model.SurveyInfoRepository;
-import com.athleticspot.tracker.domain.model.TrackerUserRepository;
+import com.athleticspot.tracker.domain.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import systems.uom.common.USCustomary;
@@ -58,7 +55,12 @@ public class MeasureSystemProviderImpl implements MeasureSystemProvider {
         final String currentUserLogin = SecurityUtils.getCurrentUserLogin();
         final Athlete athlete = graphAthleteRepository.findByName(currentUserLogin).orElseThrow(() -> new IllegalStateException("There are no athlete with login: " + currentUserLogin));
         final Optional<MetricSystemType> metricSystemTypeOptional = surveyInfoRepository.findByUserId(athlete.getAthleteUUID()).map(SurveyInfo::getMetricSystemType);
+        fetchUserMetricSystemConfiguration(currentUserLogin);
         return metricSystemTypeOptional.orElse(MetricSystemType.METRIC);
+    }
+
+    private Optional<TrackerUser> fetchUserMetricSystemConfiguration(String login) {
+        return trackerUserRepository.findByLogin(login);
     }
 
 }
