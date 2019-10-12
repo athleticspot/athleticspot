@@ -59,8 +59,8 @@ public class MeasureSystemProviderImpl implements MeasureSystemProvider {
         return metricSystemTypeOptional.orElse(MetricSystemType.METRIC);
     }
 
-    private Optional<TrackerUser> fetchUserMetricSystemConfiguration(String login) {
-        return trackerUserRepository.findByLogin(login);
+    private MetricSystemType fetchUserMetricSystemConfiguration(String login) {
+        return trackerUserRepository.findByLogin(login).map(TrackerUser::getMetricSystemType).orElse(MetricSystemType.IMPERIAL);
     }
 
 }
