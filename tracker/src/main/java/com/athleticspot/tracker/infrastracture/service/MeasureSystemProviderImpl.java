@@ -7,6 +7,7 @@ import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import com.athleticspot.tracker.domain.model.MeasureSystemProvider;
 import com.athleticspot.tracker.domain.model.SurveyInfo;
 import com.athleticspot.tracker.domain.model.SurveyInfoRepository;
+import com.athleticspot.tracker.domain.model.TrackerUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import systems.uom.common.USCustomary;
@@ -27,11 +28,15 @@ public class MeasureSystemProviderImpl implements MeasureSystemProvider {
 
     private final GraphAthleteRepository graphAthleteRepository;
 
+    private final TrackerUserRepository trackerUserRepository;
+
     @Autowired
     public MeasureSystemProviderImpl(SurveyInfoRepository surveyInfoRepository,
-                                     GraphAthleteRepository graphAthleteRepository) {
+                                     GraphAthleteRepository graphAthleteRepository,
+                                     TrackerUserRepository trackerUserRepository) {
         this.surveyInfoRepository = surveyInfoRepository;
         this.graphAthleteRepository = graphAthleteRepository;
+        this.trackerUserRepository = trackerUserRepository;
     }
 
     @Override

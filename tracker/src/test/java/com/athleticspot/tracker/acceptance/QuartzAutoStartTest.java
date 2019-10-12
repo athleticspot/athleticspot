@@ -3,6 +3,7 @@ package com.athleticspot.tracker.acceptance;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.quartz2.QuartzComponent;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -11,6 +12,7 @@ import org.junit.Test;
 public class QuartzAutoStartTest extends BaseQuartzTest {
 
     @Test
+    @Ignore
     public void testQuartzAutoStart() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:one");
         mock.expectedMessageCount(0);
