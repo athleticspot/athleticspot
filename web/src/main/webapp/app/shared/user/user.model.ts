@@ -12,6 +12,7 @@ export class User {
     public lastModifiedBy?: string;
     public lastModifiedDate?: Date;
     public password?: string;
+    public imageUrl? :string;
     public metricSystemType?: String;
 
     constructor(id?: any,
@@ -26,7 +27,9 @@ export class User {
                 createdDate?: Date,
                 lastModifiedBy?: string,
                 lastModifiedDate?: Date,
-                password?: string) {
+                password?: string,
+                imageUrl? :string,
+                metricSystemType?: string) {
         this.id = id ? id : null;
         this.login = login ? login : null;
         this.firstName = firstName ? firstName : null;
@@ -40,5 +43,7 @@ export class User {
         this.lastModifiedBy = lastModifiedBy ? lastModifiedBy : null;
         this.lastModifiedDate = lastModifiedDate ? lastModifiedDate : null;
         this.password = password ? password : null;
+        this.imageUrl = imageUrl ? imageUrl : null;
+        this.metricSystemType = metricSystemType ? metricSystemType : null;
     }
 }

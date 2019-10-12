@@ -8,9 +8,10 @@ import {AccountService, JhiLanguageHelper, Principal} from "../../shared";
     templateUrl: './settings.component.html'
 })
 export class SettingsComponent implements OnInit {
+
     error: string;
     success: string;
-    settingsAccount: any;
+    accountSettings: any;
     languages: any[];
     metricSystems = [ {type: 'IMPERIAL', text: 'miles and pounds'}, {type: 'METRIC', text: 'kilometers and kilograms'}];
 
@@ -22,7 +23,7 @@ export class SettingsComponent implements OnInit {
 
     ngOnInit() {
         this.principal.identity().then((account) => {
-            this.settingsAccount = SettingsComponent.copyAccount(account);
+            this.accountSettings = SettingsComponent.copyAccount(account);
         });
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
@@ -30,15 +31,15 @@ export class SettingsComponent implements OnInit {
     }
 
     save() {
-        this.account.update(this.settingsAccount).subscribe(() => {
+        this.account.save(this.accountSettings).subscribe(() => {
             this.error = null;
             this.success = 'OK';
             this.principal.identity(true).then((account) => {
-                this.settingsAccount = SettingsComponent.copyAccount(account);
+                this.accountSettings = SettingsComponent.copyAccount(account);
             });
             this.languageService.getCurrent().then((current) => {
-                if (this.settingsAccount.langKey !== current) {
-                    this.languageService.changeLanguage(this.settingsAccount.langKey);
+                if (this.accountSettings.langKey !== current) {
+                    this.languageService.changeLanguage(this.accountSettings.langKey);
                 }
             });
         }, () => {

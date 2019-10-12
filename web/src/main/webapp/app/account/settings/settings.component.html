@@ -1,8 +1,8 @@
 <div>
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <h2 jhiTranslate="settings.title" translateValues="{username: '{{settingsAccount.login}}'}"
-                *ngIf="settingsAccount">User settings for [<b>{{settingsAccount.login}}</b>]</h2>
+            <h2 jhiTranslate="settings.title" translateValues="{username: '{{accountSettings.login}}'}"
+                *ngIf="accountSettings">User settings for [<b>{{accountSettings.login}}</b>]</h2>
 
             <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
                 <strong>Settings saved!</strong>
@@ -10,14 +10,14 @@
 
             <jhi-alert-error></jhi-alert-error>
 
-            <form name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="settingsAccount" novalidate>
+            <form name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="accountSettings" novalidate>
 
                 <div class="form-group">
                     <label class="form-control-label" for="firstName" jhiTranslate="settings.form.firstname">First
                         Name</label>
                     <input type="text" class="form-control" id="firstName" name="firstName"
                            placeholder="{{'settings.form.firstname.placeholder' | translate}}"
-                           [(ngModel)]="settingsAccount.firstName" minlength=1 maxlength=50 #firstNameInput="ngModel"
+                           [(ngModel)]="accountSettings.firstName" minlength=1 maxlength=50 #firstNameInput="ngModel"
                            required>
                     <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
                         <small class="form-text text-danger"
@@ -42,7 +42,7 @@
                         Name</label>
                     <input type="text" class="form-control" id="lastName" name="lastName"
                            placeholder="{{'settings.form.lastname.placeholder' | translate}}"
-                           [(ngModel)]="settingsAccount.lastName" minlength=1 maxlength=50 #lastNameInput="ngModel"
+                           [(ngModel)]="accountSettings.lastName" minlength=1 maxlength=50 #lastNameInput="ngModel"
                            required>
                     <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
                         <small class="form-text text-danger"
@@ -66,7 +66,7 @@
                     <label class="form-control-label" for="email" jhiTranslate="global.form.email">Email</label>
                     <input type="email" class="form-control" id="email" name="email"
                            placeholder="{{'global.form.email.placeholder' | translate}}"
-                           [(ngModel)]="settingsAccount.email" minlength="5" maxlength="100" #emailInput="ngModel"
+                           [(ngModel)]="accountSettings.email" minlength="5" maxlength="100" #emailInput="ngModel"
                            required>
                     <div *ngIf="emailInput.dirty && emailInput.invalid">
                         <small class="form-text text-danger"
@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-group" *ngIf="languages && languages.length > 0">
                     <label for="langKey" jhiTranslate="settings.form.language">Language</label>
-                    <select class="form-control" id="langKey" name="langKey" [(ngModel)]="settingsAccount.langKey">
+                    <select class="form-control" id="langKey" name="langKey" [(ngModel)]="accountSettings.langKey">
                         <option *ngFor="let language of languages" [value]="language">{{language |
                             findLanguageFromKey}}
                         </option>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="form-group">
                     <label for="measureTypeKey" jhiTranslate="settings.form.units">Units & Measurements</label>
-                    <select class="form-control" id="measureTypeKey" name="measureTypeKey" [(ngModel)]="settingsAccount.metricSystemType">
+                    <select class="form-control" id="measureTypeKey" name="measureTypeKey" [(ngModel)]="accountSettings.metricSystemType">
                         <option *ngFor="let metricSystem of metricSystems" [value]="metricSystem.type">{{metricSystem.text}}</option>
                     </select>
                 </div>
