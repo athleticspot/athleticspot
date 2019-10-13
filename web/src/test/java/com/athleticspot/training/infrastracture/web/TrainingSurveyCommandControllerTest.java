@@ -8,6 +8,7 @@ import com.athleticspot.service.UserService;
 import com.athleticspot.training.application.TrainingSurveyApplicationService;
 import com.athleticspot.training.domain.trainingsurvey.*;
 import com.athleticspot.training.infrastracture.dto.in.AssignTrainingSurveyInDto;
+import com.athleticspot.training.infrastracture.dto.in.BaseInformationInDtoAssembler;
 import com.athleticspot.web.rest.TestUtil;
 import io.github.jhipster.config.JHipsterConstants;
 import org.assertj.core.api.Assertions;
@@ -65,6 +66,9 @@ public class TrainingSurveyCommandControllerTest {
     @Autowired
     private TrainingSurveyProvider trainingSurveyProvider;
 
+    @Autowired
+    private BaseInformationInDtoAssembler baseInformationInDtoAssembler;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -72,7 +76,8 @@ public class TrainingSurveyCommandControllerTest {
             trainingSurveyRepository,
             userService,
             trainingHistoryRepository,
-            trainingSurveyProvider);
+            trainingSurveyProvider,
+            baseInformationInDtoAssembler);
 
         TrainingSurveyCommandController trainingSurveyCommandController =
             new TrainingSurveyCommandController(trainingSurveyApplicationService, userService);

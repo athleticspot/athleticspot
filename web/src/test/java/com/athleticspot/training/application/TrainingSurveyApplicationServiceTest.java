@@ -7,6 +7,7 @@ import com.athleticspot.training.application.command.AssignTrainingSurveyToAthle
 import com.athleticspot.training.application.command.UpdateTrainingSurveyCommand;
 import com.athleticspot.training.application.exception.SurveyAlreadyAssignException;
 import com.athleticspot.training.domain.trainingsurvey.*;
+import com.athleticspot.training.infrastracture.dto.in.BaseInformationInDto;
 import io.github.jhipster.config.JHipsterConstants;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -154,7 +155,7 @@ public class TrainingSurveyApplicationServiceTest {
     }
 
     public UpdateTrainingSurveyCommand createUpdateTrainingSurveyCommand() {
-        BaseInformation baseInformation = new BaseInformation(
+        BaseInformationInDto baseInformation = new BaseInformationInDto(
             LocalDate.parse("2017-02-01"),
             25d,
             180d,
@@ -207,21 +208,19 @@ public class TrainingSurveyApplicationServiceTest {
         boolean healthContraindications = false;
         boolean stressTest = false;
         boolean bloodTest = false;
-        final HealthInformation healthInformation = new HealthInformation(
+        return new HealthInformation(
             healthContraindications,
             stressTest,
             bloodTest,
             8d);
-        return healthInformation;
     }
 
     public static BaseInformation createBaseInformation() {
-        BaseInformation baseInformation = new BaseInformation(
+        return new BaseInformation(
             LocalDate.now(),
             60d,
             172d,
             MetricSystemType.METRIC);
-        return baseInformation;
     }
 
 
