@@ -145,5 +145,4 @@ Desktop.ini
 .eslintcache
 /tracker/target/
 /common/target/
-/common/target/
-/tracker/target/
+/web/target/
