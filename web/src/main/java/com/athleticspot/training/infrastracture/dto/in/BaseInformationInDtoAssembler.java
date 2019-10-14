@@ -12,7 +12,7 @@ public class BaseInformationInDtoAssembler {
     public BaseInformation assemble(BaseInformationInDto baseInformationInDto) {
         return new BaseInformation(baseInformationInDto.getBirthDay(),
             baseInformationInDto.getBodyMass(),
-            baseInformationInDto.getHeight(),
-            baseInformationInDto.getMetricSystemType());
+            baseInformationInDto.getHeight()
+        );
     }
 }

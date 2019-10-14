@@ -1,11 +1,7 @@
 package com.athleticspot.training.domain.trainingsurvey;
 
-import com.athleticspot.common.domain.model.MetricSystemType;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -24,22 +20,16 @@ public class BaseInformation {
     @Column(nullable = false)
     private Double height;
 
-    @Column(name = "metric_system_type")
-    @Enumerated(EnumType.STRING)
-    private MetricSystemType metricSystemType;
-
     protected BaseInformation() {
         super();
     }
 
     public BaseInformation(LocalDate birthDay,
                            Double bodyMass,
-                           Double height,
-                           MetricSystemType metricSystemType) {
+                           Double height) {
         this.birthDay = birthDay;
         this.bodyMass = bodyMass;
         this.height = height;
-        this.metricSystemType = metricSystemType;
     }
 
     public LocalDate getBirthDay() {
@@ -52,10 +42,6 @@ public class BaseInformation {
 
     public Double getHeight() {
         return height;
-    }
-
-    public MetricSystemType getMetricSystemType() {
-        return metricSystemType;
     }
 
     @Override
@@ -79,7 +65,6 @@ public class BaseInformation {
             "birthDay=" + birthDay +
             ", bodyMass=" + bodyMass +
             ", height=" + height +
-            ", metricSystemType=" + metricSystemType +
             '}';
     }
 }

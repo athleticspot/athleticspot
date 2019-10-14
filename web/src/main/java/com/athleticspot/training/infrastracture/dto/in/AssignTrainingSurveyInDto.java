@@ -1,7 +1,6 @@
 package com.athleticspot.training.infrastracture.dto.in;
 
 import com.athleticspot.common.domain.model.MetricSystemType;
-import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
 import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
 import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
 import com.athleticspot.training.domain.trainingsurvey.TrainingGoal;
@@ -24,7 +23,7 @@ import java.io.Serializable;
 public class AssignTrainingSurveyInDto implements Serializable {
 
     @NotNull
-    private BaseInformation baseInformation;
+    private BaseInformationInDto baseInformation;
 
     @NotNull
     private HealthInformation healthInformation;
@@ -32,7 +31,7 @@ public class AssignTrainingSurveyInDto implements Serializable {
     @NotNull
     private NutritionInformation nutritionInformation;
 
-    private AssignTrainingSurveyInDto(BaseInformation baseInformation,
+    private AssignTrainingSurveyInDto(BaseInformationInDto baseInformation,
                                       HealthInformation healthInformation,
                                       NutritionInformation nutritionInformation) {
         this.baseInformation = baseInformation;
@@ -40,7 +39,7 @@ public class AssignTrainingSurveyInDto implements Serializable {
         this.nutritionInformation = nutritionInformation;
     }
 
-    public BaseInformation getBaseInformation() {
+    public BaseInformationInDto getBaseInformation() {
         return baseInformation;
     }
 
@@ -64,11 +63,11 @@ public class AssignTrainingSurveyInDto implements Serializable {
     @JsonPOJOBuilder(withPrefix = "set")
     public static class AssignTrainingSurveyInDtoBuilder {
 
-        private BaseInformation baseInformation;
+        private BaseInformationInDto baseInformation;
         private HealthInformation healthInformation;
         private NutritionInformation nutritionInformation;
 
-        public AssignTrainingSurveyInDtoBuilder setBaseInformation(final BaseInformation baseInformation) {
+        public AssignTrainingSurveyInDtoBuilder setBaseInformation(final BaseInformationInDto baseInformation) {
             this.baseInformation = baseInformation;
             return this;
         }

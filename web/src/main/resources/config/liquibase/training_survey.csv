@@ -1,2 +1,2 @@
-id;survey_uuid;user_uuid;metric_system_type;birth_day;height;body_mass;blood_test;health_contraindications;hours_of_sleep;stress_test;allergies;dairyed_acceptance;food_intolerance;meat_acceptance
-9999;098bb728-0dbd-4c1d-a50f-a856c6b7f0b8;d031a222-1d5f-427d-b0b2-f12a8266090a;METRIC;2017-02-08;172;70;1;0;6;0;0;1;1;1
+id;survey_uuid;user_uuid;birth_day;height;body_mass;blood_test;health_contraindications;hours_of_sleep;stress_test;allergies;dairyed_acceptance;food_intolerance;meat_acceptance
+9999;098bb728-0dbd-4c1d-a50f-a856c6b7f0b8;d031a222-1d5f-427d-b0b2-f12a8266090a;2017-02-08;172;70;1;0;6;0;0;1;1;1

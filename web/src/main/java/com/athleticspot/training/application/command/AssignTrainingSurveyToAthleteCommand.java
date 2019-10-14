@@ -40,8 +40,8 @@ public class AssignTrainingSurveyToAthleteCommand
         this.baseInformation = new BaseInformation(
             birthday,
             weight,
-            height,
-            MetricSystemType.METRIC);
+            height
+        );
 
         nutritionInformation = new NutritionInformation(meatAcceptance,
             dairiesAcceptance,

@@ -8,6 +8,7 @@ import com.athleticspot.service.UserService;
 import com.athleticspot.training.application.TrainingSurveyApplicationService;
 import com.athleticspot.training.domain.trainingsurvey.*;
 import com.athleticspot.training.infrastracture.dto.in.AssignTrainingSurveyInDto;
+import com.athleticspot.training.infrastracture.dto.in.BaseInformationInDto;
 import com.athleticspot.training.infrastracture.dto.in.BaseInformationInDtoAssembler;
 import com.athleticspot.web.rest.TestUtil;
 import io.github.jhipster.config.JHipsterConstants;
@@ -110,7 +111,7 @@ public class TrainingSurveyCommandControllerTest {
 
         return new AssignTrainingSurveyInDto
         .AssignTrainingSurveyInDtoBuilder()
-        .setBaseInformation(new BaseInformation(
+        .setBaseInformation(new BaseInformationInDto(
             LocalDate.now(),
             70d,
             173d,

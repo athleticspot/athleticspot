@@ -219,8 +219,8 @@ public class TrainingSurveyApplicationServiceTest {
         return new BaseInformation(
             LocalDate.now(),
             60d,
-            172d,
-            MetricSystemType.METRIC);
+            172d
+        );
     }
 
 
