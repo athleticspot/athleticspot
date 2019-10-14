@@ -1,6 +1,5 @@
 package com.athleticspot.training.infrastracture.dto.in;
 
-import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
 import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
 import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -23,8 +22,7 @@ public class UpdateTrainingSurveyInDto implements Serializable {
     @NotNull
     private String trainingSurveyUuid;
 
-    @NotNull
-    private BaseInformation baseInformation;
+    private BaseInformationInDto baseInformation;
 
     @NotNull
     private HealthInformation healthInformation;
@@ -36,7 +34,7 @@ public class UpdateTrainingSurveyInDto implements Serializable {
         return trainingSurveyUuid;
     }
 
-    public BaseInformation getBaseInformation() {
+    public BaseInformationInDto getBaseInformation() {
         return baseInformation;
     }
 

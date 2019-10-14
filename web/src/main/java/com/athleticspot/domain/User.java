@@ -94,7 +94,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @AttributeOverride(name = "uuid", column = @Column(name = "user_id", nullable = false))
     private UserId userId = new UserId();
 
-    @Column(name ="metric_system_type")
+    @Column(name = "metric_system_type")
     @Enumerated(EnumType.STRING)
     private MetricSystemType metricSystemType;
 
@@ -113,8 +113,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
                                        NutritionInformation nutritionInformation) {
 
         Assert.notNull(baseInformation, "Base information cannot be null");
-        Assert.notNull(baseInformation.getMetricSystemType(), "Metric system cannot be null");
-        this.metricSystemType = baseInformation.getMetricSystemType();
         return TrainingSurvey.of(
             this.getUserId(),
             baseInformation,
@@ -132,7 +130,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
             healthInformation,
             nutritionInformation
         );
-        this.metricSystemType = baseInformation.getMetricSystemType();
     }
 
 

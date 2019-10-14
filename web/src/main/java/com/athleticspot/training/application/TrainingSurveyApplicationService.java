@@ -7,6 +7,7 @@ import com.athleticspot.training.application.command.AssignTrainingSurveyToAthle
 import com.athleticspot.training.application.command.UpdateTrainingSurveyCommand;
 import com.athleticspot.training.application.exception.SurveyAlreadyAssignException;
 import com.athleticspot.training.domain.trainingsurvey.*;
+import com.athleticspot.training.infrastracture.dto.in.BaseInformationInDtoAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,15 +29,19 @@ public class TrainingSurveyApplicationService {
 
     private final TrainingSurveyProvider trainingSurveyProvider;
 
+    private final BaseInformationInDtoAssembler baseInformationInDtoAssembler;
+
     @Autowired
     public TrainingSurveyApplicationService(TrainingSurveyRepository trainingSurveyRepository,
                                             UserService userService,
                                             TrainingHistoryRepository trainingHistoryRepository,
-                                            TrainingSurveyProvider trainingSurveyProvider) {
+                                            TrainingSurveyProvider trainingSurveyProvider,
+                                            BaseInformationInDtoAssembler baseInformationInDtoAssembler) {
         this.trainingSurveyRepository = trainingSurveyRepository;
         this.userService = userService;
         this.trainingHistoryRepository = trainingHistoryRepository;
         this.trainingSurveyProvider = trainingSurveyProvider;
+        this.baseInformationInDtoAssembler = baseInformationInDtoAssembler;
     }
 
     public TrainingSurvey assignTrainingSurveyToAthlete(AssignTrainingSurveyToAthleteCommand assignTrainingSurveyToAthleteCommand) {
@@ -63,7 +68,7 @@ public class TrainingSurveyApplicationService {
                 .orElseThrow(() -> new IllegalArgumentException("Survey not assigned to user"));
         user.updateSurvey(
             athleteSurvey,
-            updateTrainingSurveyCommand.getBaseInformation(),
+            baseInformationInDtoAssembler.assemble(updateTrainingSurveyCommand.getBaseInformation()),
             updateTrainingSurveyCommand.getHealthInformation(),
             updateTrainingSurveyCommand.getNutritionInformation()
         );
@@ -72,9 +77,8 @@ public class TrainingSurveyApplicationService {
 
     public void addTrainingHistory(AddTrainingHistoryCommand addTrainingHistoryCommand) {
         final TrainingSurvey trainingSurvey =
-            trainingSurveyRepository.findByTrainingSurveyIdUuid(
-                addTrainingHistoryCommand
-                    .getTrainingSurveyId().uuid()).get();
+            trainingSurveyRepository.findByTrainingSurveyIdUuid(addTrainingHistoryCommand.getTrainingSurveyId().uuid())
+                .orElseThrow(() -> new IllegalStateException("Training survey shoud have uuid assigned to ut"));
 
         TrainingHistory trainingHistory = trainingSurvey.addTrainingHistoryToSurvey(
             addTrainingHistoryCommand.getDistance(),

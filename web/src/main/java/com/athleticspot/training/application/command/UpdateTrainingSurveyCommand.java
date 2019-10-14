@@ -1,19 +1,19 @@
 package com.athleticspot.training.application.command;
 
-import com.athleticspot.training.domain.trainingsurvey.BaseInformation;
 import com.athleticspot.training.domain.trainingsurvey.HealthInformation;
 import com.athleticspot.training.domain.trainingsurvey.NutritionInformation;
+import com.athleticspot.training.infrastracture.dto.in.BaseInformationInDto;
 
 /**
  * @author Tomasz Kasprzycki
  */
 public class UpdateTrainingSurveyCommand {
 
-    private final BaseInformation baseInformation;
+    private final BaseInformationInDto baseInformation;
     private final HealthInformation healthInformation;
     private final NutritionInformation nutritionInformation;
 
-    private UpdateTrainingSurveyCommand(BaseInformation baseInformation,
+    private UpdateTrainingSurveyCommand(BaseInformationInDto baseInformation,
                                         HealthInformation healthInformation,
                                         NutritionInformation nutritionInformation) {
 
@@ -22,13 +22,13 @@ public class UpdateTrainingSurveyCommand {
         this.nutritionInformation = nutritionInformation;
     }
 
-    public static UpdateTrainingSurveyCommand create(BaseInformation baseInformation,
+    public static UpdateTrainingSurveyCommand create(BaseInformationInDto baseInformation,
                                                      HealthInformation healthInformation,
                                                      NutritionInformation nutritionInformation) {
         return new UpdateTrainingSurveyCommand(baseInformation, healthInformation, nutritionInformation);
     }
 
-    public BaseInformation getBaseInformation() {
+    public BaseInformationInDto getBaseInformation() {
         return baseInformation;
     }
 
