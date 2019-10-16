@@ -99,19 +99,23 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             if (stravaActivities.length == 0) {
                 break;
             }
-
-            Athlete athlete =
-                securityService.getAthleteByName(username)
-                    .orElseThrow(() -> new IllegalStateException(String.format("There is no athlete with name %s", username)));
-            final List<SportActivity> sportActivities = Arrays.stream(stravaActivities)
-                .map(stravaActivity -> SportActivityBuilder.createFromStravaActivity(stravaActivity, athlete.getAthleteUUID(), athlete.getFirstAndLastName()).createSportActivity())
-                .collect(Collectors.toList());
-
+            Athlete athlete = getAthlete(username);
+            final List<SportActivity> sportActivities = assembleStravaActivitiesFrom(stravaActivities, athlete);
             athlete.perform(sportActivities);
             graphAthleteRepository.save(athlete);
-
         }
         trackerUserService.assignStravaLastSynchronizationDate(now, username);
+    }
+
+    private Athlete getAthlete(String username) {
+        return securityService.getAthleteByName(username)
+            .orElseThrow(() -> new IllegalStateException(String.format("There is no athlete with name %s", username)));
+    }
+
+    private List<SportActivity> assembleStravaActivitiesFrom(StravaActivity[] stravaActivities, Athlete athlete) {
+        return Arrays.stream(stravaActivities)
+            .map(stravaActivity -> SportActivityBuilder.createFromStravaActivity(stravaActivity, athlete.getAthleteUUID(), athlete.getFirstAndLastName()).createSportActivity())
+            .collect(Collectors.toList());
     }
 
     private long getStravaLastSynchronizationDateAsEpoch(String username) {
