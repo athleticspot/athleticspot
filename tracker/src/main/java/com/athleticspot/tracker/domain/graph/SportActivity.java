@@ -287,6 +287,6 @@ public class SportActivity {
     }
 
     public String activityUrl() {
-        return "https://www.strava.com/activities/" + this.trackingSystemId;
+        return this.trackerSource.getActivityUrl() + this.trackingSystemId;
     }
 }

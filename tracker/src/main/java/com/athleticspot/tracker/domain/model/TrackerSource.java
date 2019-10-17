@@ -17,4 +17,11 @@ public enum TrackerSource {
     public Integer getSource() {
         return source;
     }
+
+    public String getActivityUrl() {
+        if (this.equals(STRAVA)){
+            return "https://www.strava.com/activities/";
+        }
+        return "";
+    }
 }

@@ -19,14 +19,22 @@ public class SportActivityTest {
 
     @Test
     public void when_url_is_fetched_then_strava_url_is_generated(){
+        //given
+        SportActivity sportActivity = createSportActivity().createSportActivity();
 
-        SportActivity sportActivity = SportActivityBuilder.createFromStravaActivity(
+        //when
+        final String urlUnderTest = sportActivity.activityUrl();
+
+        //then
+        Assertions.assertThat(urlUnderTest).isEqualToIgnoringCase(STRAVA_ACTIVITY_URL);
+    }
+
+    private SportActivityBuilder createSportActivity() {
+        return SportActivityBuilder.createFromStravaActivity(
             createStravaActivity(),
             UUID.randomUUID().toString(),
             "Tom Kasp"
-        ).createSportActivity();
-
-        Assertions.assertThat(sportActivity.activityUrl()).isEqualToIgnoringCase(STRAVA_ACTIVITY_URL);
+        );
     }
 
     private StravaActivity createStravaActivity() {
