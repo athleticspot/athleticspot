@@ -65,7 +65,7 @@ public class SportActivityOutDtoAcceptanceTest {
         final String userUuid = UUID.randomUUID().toString();
         final TrackerSource trackerSource = TrackerSource.STRAVA;
         final SportActivityType sportActivityType = SportActivityType.RUN;
-        final int trackingSystemId = 111;
+        final Long trackingSystemId = 111L;
         final String externalId = "9999";
         final float distanceInMeters = 12F;
         final LocalDateTime startDate = LocalDateTime.now();
@@ -175,7 +175,7 @@ public class SportActivityOutDtoAcceptanceTest {
         athlete.perform(new SportActivityBuilder(
             TrackerSource.STRAVA,
             SportActivityType.RUN,
-            123,
+            123L,
             "externalId",
             12.1F,
             LocalDateTime.now(),

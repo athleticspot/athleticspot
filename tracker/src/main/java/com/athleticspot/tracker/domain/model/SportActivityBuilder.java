@@ -10,7 +10,7 @@ public class SportActivityBuilder {
 
     private TrackerSource trackerSource;
     private SportActivityType sportActivityType;
-    private Integer trackingSystemId;
+    private Long trackingSystemId;
     private String externalId;
     private Float distance;
     private LocalDateTime startDate;
@@ -46,7 +46,7 @@ public class SportActivityBuilder {
 
     public SportActivityBuilder(TrackerSource trackerSource,
                                 SportActivityType sportActivityType,
-                                Integer trackingSystemId,
+                                Long trackingSystemId,
                                 String externalId,
                                 Float distance,
                                 LocalDateTime startDate,
@@ -78,7 +78,7 @@ public class SportActivityBuilder {
         return new SportActivityBuilder(
             TrackerSource.STRAVA,
             SportActivityType.valueOf(stravaActivity.getType().name()),
-            1,
+            stravaActivity.getId(),
             stravaActivity.getId().toString(),
             stravaActivity.getDistance(),
             stravaActivity.getStartDateLocal(),

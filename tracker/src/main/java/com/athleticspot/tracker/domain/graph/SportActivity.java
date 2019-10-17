@@ -36,7 +36,7 @@ public class SportActivity {
      */
     private SportActivityType sportActivityType;
 
-    private Integer trackingSystemId;
+    private Long trackingSystemId;
 
     /**
      * The identifier given to the activity by the application that uploaded it
@@ -109,7 +109,7 @@ public class SportActivity {
     }
 
 
-    public SportActivity(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Integer trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, String originalActivity, String summaryPolyline, String detailedPolyline) {
+    public SportActivity(String userUuid, String firstAndLastName, TrackerSource trackerSource, SportActivityType sportActivityType, Long trackingSystemId, String externalId, String title, String description, Float distance, Integer movingTime, Integer elapsedTime, Float totalElevationGain, LocalDateTime startDate, String timezone, Boolean privateActivity, String gearId, Float averageSpeed, Float maxSpeed, Float averageCadence, Float averageTemp, Float averageWatts, Float weightedAverageWatts, Float kilojoules, Boolean deviceWatts, Boolean hasHeartrate, Float averageHeartrate, Integer maxHeartrate, Float calories, Float startLatitude, Float startLongitude, String deviceName, String originalActivity, String summaryPolyline, String detailedPolyline) {
         this.userUuid = userUuid;
         this.firstAndLastName = firstAndLastName;
         this.trackerSource = trackerSource;
@@ -166,7 +166,7 @@ public class SportActivity {
         return sportActivityType;
     }
 
-    public Integer getTrackingSystemId() {
+    public Long getTrackingSystemId() {
         return trackingSystemId;
     }
 
@@ -284,5 +284,9 @@ public class SportActivity {
 
     public String getDetailedPolyline() {
         return detailedPolyline;
+    }
+
+    public String activityUrl() {
+        return "https://www.strava.com/activities/" + this.trackingSystemId;
     }
 }

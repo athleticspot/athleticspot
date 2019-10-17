@@ -20,7 +20,7 @@ import static com.athleticspot.tracker.shared.QuantitiesConverter.convertDistanc
 @Service
 public class SportActivityApplicationServiceImpl implements SportActivityApplicationService {
 
-    private static final int TRACKING_SYSTEM_ID = 0;
+    private static final Long TRACKING_SYSTEM_ID = 0L;
     private static final String EXTERNAL_ID = "0";
 
     private final GraphAthleteRepository graphAthleteRepository;
