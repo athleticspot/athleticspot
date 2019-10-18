@@ -31,32 +31,36 @@ public class SportActivityAssemblerImpl {
         return graphSportActivity.map(this::assembleSportActivity);
     }
 
-    private SportActivityOutDto assembleSportActivity(SportActivity graphSportActivity) {
-        List<LatLng> coordinates = Lists.newArrayList();
-        if (Objects.nonNull(graphSportActivity.getSummaryPolyline())) {
-            coordinates = PolylineEncoding.decode(graphSportActivity.getSummaryPolyline());
-        }
+    private SportActivityOutDto assembleSportActivity(SportActivity sportActivity) {
         return new SportActivityOutDto()
-            .setId(graphSportActivity.getId().toString())
-            .setExternalId(graphSportActivity.getExternalId())
-            .setUsername(graphSportActivity.getFirstAndLastName())
-            .setUserUuid(graphSportActivity.getUserUuid())
-            .setTrackerSource(graphSportActivity.getTrackerSource())
-            .setSportActivityType(graphSportActivity.getSportActivityType())
-            .setTitle(graphSportActivity.getTitle())
-            .setDescription(graphSportActivity.getDescription())
-            .setDistance(graphSportActivity.getDistance(measureSystemProvider.getUserDistanceUnit()))
+            .setId(sportActivity.getId().toString())
+            .setExternalId(sportActivity.getExternalId())
+            .setUsername(sportActivity.getFirstAndLastName())
+            .setUserUuid(sportActivity.getUserUuid())
+            .setTrackerSource(sportActivity.getTrackerSource())
+            .setSportActivityType(sportActivity.getSportActivityType())
+            .setTitle(sportActivity.getTitle())
+            .setDescription(sportActivity.getDescription())
+            .setDistance(sportActivity.getDistance(measureSystemProvider.getUserDistanceUnit()))
             .setDistanceUnits(measureSystemProvider.getUserDistanceUnit().toString())
-            .setMovingTime(QuantitiesConverter.convertSecondsToTime(graphSportActivity.getMovingTime()))
-            .setElapsedTime(QuantitiesConverter.convertSecondsToTime(graphSportActivity.getElapsedTime()))
-            .setElapsedTimeInSeconds(graphSportActivity.getElapsedTime())
-            .setStartDate(graphSportActivity.getStartDate())
-            .setAverageSpeed(graphSportActivity.getAverageSpeed())
-            .setMaxSpeed(graphSportActivity.getMaxSpeed())
-            .setAverageTemp(graphSportActivity.getAverageTemp())
-            .setCalories(graphSportActivity.getCalories())
-            .setCoordinates(coordinates)
-            .setPace();
+            .setMovingTime(QuantitiesConverter.convertSecondsToTime(sportActivity.getMovingTime()))
+            .setElapsedTime(QuantitiesConverter.convertSecondsToTime(sportActivity.getElapsedTime()))
+            .setElapsedTimeInSeconds(sportActivity.getElapsedTime())
+            .setStartDate(sportActivity.getStartDate())
+            .setAverageSpeed(sportActivity.getAverageSpeed())
+            .setMaxSpeed(sportActivity.getMaxSpeed())
+            .setAverageTemp(sportActivity.getAverageTemp())
+            .setCalories(sportActivity.getCalories())
+            .setCoordinates(createCoordinatesFrom(sportActivity.getSummaryPolyline()))
+            .setPace()
+            .setActivityUrl(sportActivity.activityUrl());
+    }
+
+    private List<LatLng> createCoordinatesFrom(String summaryPolyline) {
+        if (Objects.nonNull(summaryPolyline)) {
+            return PolylineEncoding.decode(summaryPolyline);
+        }
+        return Lists.newArrayList();
     }
 
 }

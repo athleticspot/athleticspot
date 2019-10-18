@@ -3,9 +3,11 @@ package com.athleticspot.tracker.domain.graph;
 import com.athleticspot.tracker.domain.model.SportActivityType;
 import com.athleticspot.tracker.domain.model.TrackerSource;
 import com.athleticspot.tracker.shared.QuantitiesConverter;
+import io.vavr.control.Option;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.springframework.util.Assert;
 
 import javax.measure.Unit;
 import javax.measure.quantity.Length;
@@ -118,7 +120,7 @@ public class SportActivity {
         this.externalId = externalId;
         this.title = title;
         this.description = description;
-        this.distance = distance;
+        this.setDistance(distance);
         this.movingTime = movingTime;
         this.elapsedTime = elapsedTime;
         this.totalElevationGain = totalElevationGain;
@@ -183,6 +185,7 @@ public class SportActivity {
     }
 
     public Float getDistance(Unit<Length> distanceUnit) {
+        Assert.notNull(distanceUnit, "Distance unit cannot be null");
         return QuantitiesConverter.convertDistanceFromMeters(distanceUnit, distance);
     }
 
@@ -288,5 +291,10 @@ public class SportActivity {
 
     public String activityUrl() {
         return this.trackerSource.getActivityUrl() + this.trackingSystemId;
+    }
+
+
+    private void setDistance(Float distance) {
+        this.distance = Option.of(distance).getOrElse(0F);
     }
 }

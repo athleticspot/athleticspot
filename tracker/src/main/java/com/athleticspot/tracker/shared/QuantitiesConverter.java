@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.shared;
 
+import org.springframework.util.Assert;
 import systems.uom.common.USCustomary;
 import tech.units.indriya.quantity.Quantities;
 
@@ -30,6 +31,8 @@ public class QuantitiesConverter {
     }
 
     public static Float convertDistanceFromMeters(Unit<Length> units, Float meters) {
+        Assert.notNull(units, "Units cannot be null");
+        Assert.notNull(meters, "Meters cannot be null");
         if (USCustomary.MILE.equals(units)) {
             final float convertedValue =
                 Quantities.getQuantity(meters, USCustomary.METER).to(USCustomary.MILE).getValue().floatValue();

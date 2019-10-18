@@ -11,6 +11,7 @@ import tech.units.indriya.unit.Units;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Tomasz Kasprzycki
@@ -67,6 +68,7 @@ public class SportActivityOutDto {
 
     private String formattedPace;
 
+    private String activityUrl;
 
     public SportActivityOutDto() {
     }
@@ -142,6 +144,10 @@ public class SportActivityOutDto {
 
     public String getFormattedPace() {
         return formattedPace;
+    }
+
+    public String getActivityUrl() {
+        return activityUrl;
     }
 
     //Fluent interfaces
@@ -251,6 +257,11 @@ public class SportActivityOutDto {
         return this;
     }
 
+    public SportActivityOutDto setActivityUrl(String activityUrl) {
+        this.activityUrl = activityUrl;
+        return this;
+    }
+
     /**
      * pace is calculated in miles or kilometers per minute
      *
@@ -282,5 +293,66 @@ public class SportActivityOutDto {
             + new DecimalFormat("#00").format(paceDecimalPart * 60);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SportActivityOutDto)) return false;
+        SportActivityOutDto that = (SportActivityOutDto) o;
+        return Objects.equals(id, that.id) &&
+            Objects.equals(externalId, that.externalId) &&
+            Objects.equals(firstAndLastName, that.firstAndLastName) &&
+            Objects.equals(username, that.username) &&
+            Objects.equals(userUuid, that.userUuid) &&
+            trackerSource == that.trackerSource &&
+            sportActivityType == that.sportActivityType &&
+            Objects.equals(title, that.title) &&
+            Objects.equals(description, that.description) &&
+            Objects.equals(distance, that.distance) &&
+            Objects.equals(units, that.units) &&
+            Objects.equals(movingTime, that.movingTime) &&
+            Objects.equals(elapsedTime, that.elapsedTime) &&
+            Objects.equals(elapsedTimeInSeconds, that.elapsedTimeInSeconds) &&
+            Objects.equals(startDate, that.startDate) &&
+            Objects.equals(averageSpeed, that.averageSpeed) &&
+            Objects.equals(maxSpeed, that.maxSpeed) &&
+            Objects.equals(averageTemp, that.averageTemp) &&
+            Objects.equals(calories, that.calories) &&
+            Objects.equals(coordinates, that.coordinates) &&
+            Objects.equals(pace, that.pace) &&
+            Objects.equals(formattedPace, that.formattedPace) &&
+            Objects.equals(activityUrl, that.activityUrl);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, externalId, firstAndLastName, username, userUuid, trackerSource, sportActivityType, title, description, distance, units, movingTime, elapsedTime, elapsedTimeInSeconds, startDate, averageSpeed, maxSpeed, averageTemp, calories, coordinates, pace, formattedPace, activityUrl);
+    }
+
+    @Override
+    public String toString() {
+        return "SportActivityOutDto{" +
+            "id='" + id + '\'' +
+            ", externalId='" + externalId + '\'' +
+            ", firstAndLastName='" + firstAndLastName + '\'' +
+            ", username='" + username + '\'' +
+            ", userUuid='" + userUuid + '\'' +
+            ", trackerSource=" + trackerSource +
+            ", sportActivityType=" + sportActivityType +
+            ", title='" + title + '\'' +
+            ", description='" + description + '\'' +
+            ", distance=" + distance +
+            ", units='" + units + '\'' +
+            ", movingTime='" + movingTime + '\'' +
+            ", elapsedTime='" + elapsedTime + '\'' +
+            ", elapsedTimeInSeconds=" + elapsedTimeInSeconds +
+            ", startDate=" + startDate +
+            ", averageSpeed=" + averageSpeed +
+            ", maxSpeed=" + maxSpeed +
+            ", averageTemp=" + averageTemp +
+            ", calories=" + calories +
+            ", coordinates=" + coordinates +
+            ", pace=" + pace +
+            ", formattedPace='" + formattedPace + '\'' +
+            '}';
+    }
 }
