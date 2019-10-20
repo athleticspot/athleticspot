@@ -18,9 +18,9 @@ public enum TrackerSource {
         return source;
     }
 
-    public String getActivityUrl() {
+    public String getActivityUrl(Long trackingSystemId) {
         if (this.equals(STRAVA)){
-            return "https://www.strava.com/activities/";
+            return "https://www.strava.com/activities/" + trackingSystemId;
         }
         return "";
     }

@@ -290,7 +290,7 @@ public class SportActivity {
     }
 
     public String activityUrl() {
-        return this.trackerSource.getActivityUrl() + this.trackingSystemId;
+        return this.trackerSource.getActivityUrl(this.trackingSystemId);
     }
 
 
