@@ -25,10 +25,10 @@ export class SportActivityModel {
     calories: Number;
     coordinates: any;
     formattedPace: String;
-    originalUrl: String;
+    activityUrl: String;
 
     public static resolveSportActivityTypeDescription(sportActivityType: String, typesTranslation: any) {
-        return typesTranslation.manual.type[sportActivityType + ""]
+        return ""; //TODO fix it typesTranslation.manual.type[sportActivityType + ""]
     }
 
     public isExternalTracker(){

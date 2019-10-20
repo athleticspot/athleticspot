@@ -176,9 +176,7 @@ export class ActivitiesComponent implements OnInit {
         sportActivityModel.calories = sportActivity.calories;
         sportActivityModel.coordinates = sportActivity.coordinates;
         sportActivityModel.formattedPace = sportActivity.formattedPace;
-        if (TrackerSource.STRAVA == sportActivityModel.trackerSource) {
-            sportActivityModel.originalUrl = "https://strava.com" + "/" + sportActivityModel.externalId;
-        }
+        sportActivityModel.activityUrl = sportActivity.activityUrl;
         return sportActivityModel;
     }
 
