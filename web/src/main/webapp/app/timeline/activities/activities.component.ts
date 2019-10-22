@@ -117,7 +117,7 @@ export class ActivitiesComponent implements OnInit {
         this.activityDataservice.fetchActivityPaged(this.currentPage).subscribe((activitiesPage: any) => {
                 this.pageCount = activitiesPage.totalPages;
                 activitiesPage.content.forEach(sportActivity => {
-                    this.activities.push(this.assambleSportActivity(sportActivity));
+                    this.activities.push(this.assembleSportActivity(sportActivity));
                 });
                 this.showTimeline = true;
             }, error => {
@@ -153,7 +153,7 @@ export class ActivitiesComponent implements OnInit {
         })
     }
 
-    private assambleSportActivity(sportActivity: any) {
+    private assembleSportActivity(sportActivity: any) {
         let sportActivityModel = new SportActivityModel();
         sportActivityModel.id = sportActivity.id;
         sportActivityModel.externalId = sportActivity.externalId;
@@ -191,7 +191,7 @@ export class ActivitiesComponent implements OnInit {
         }
         this.activityDataservice.fetchActivityPaged(this.currentPage).subscribe((activitiesPage: any) => {
                 activitiesPage.content.forEach(sportActivity => {
-                    this.activities.push(this.assambleSportActivity(sportActivity));
+                    this.activities.push(this.assembleSportActivity(sportActivity));
                     this.pageLoading = false;
                 });
             }, error => {
