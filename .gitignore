@@ -3,6 +3,7 @@
 ######################
 /target/www/**
 /tracker/target/**
+/common/target/**
 /web/target/**
 /src/test/javascript/coverage/
 /src/test/javascript/PhantomJS*/

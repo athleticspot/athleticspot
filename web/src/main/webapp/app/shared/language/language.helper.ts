@@ -34,6 +34,8 @@ export class JhiLanguageHelper {
     }
 
     private init() {
+        this.translateService.use('en');
+
         this.translateService.onTranslationChange.subscribe((event: TranslationChangeEvent) => {
             this.updateTitle();
         });

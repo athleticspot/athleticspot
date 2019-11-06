@@ -28,7 +28,7 @@ export class SportActivityModel {
     activityUrl: String;
 
     public static resolveSportActivityTypeDescription(sportActivityType: String, typesTranslation: any) {
-        return ""; //TODO fix it typesTranslation.manual.type[sportActivityType + ""]
+        return  typesTranslation.manual.type[sportActivityType + ""]
     }
 
     public isExternalTracker(){

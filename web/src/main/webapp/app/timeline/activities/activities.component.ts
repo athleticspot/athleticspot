@@ -31,7 +31,7 @@ export class ActivitiesComponent implements OnInit {
     private isMetricSystem = true;
 
     public maxSpeed: number;
-    public zoom: number;
+    public zoom = 14;
 
     constructor(private activityDataservice: ActivitiesDataservice,
                 private stravaDataservice: TrackerDataservice,
@@ -43,10 +43,6 @@ export class ActivitiesComponent implements OnInit {
 
     ngOnInit(): void {
 
-        console.log(this.translateService.instant("timeline"));
-
-        //set google maps defaults
-        this.zoom = 14;
         //load Places Autocomplete
         this.mapsAPILoader.load().then(() => {
         });

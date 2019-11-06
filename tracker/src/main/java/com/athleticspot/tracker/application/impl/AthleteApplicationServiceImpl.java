@@ -12,12 +12,10 @@ import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
-import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -32,13 +30,10 @@ public class AthleteApplicationServiceImpl implements AthleteApplicationService 
 
     private static final int DEPTH = 1;
     private final GraphAthleteRepository graphAthleteRepository;
-    private final TransactionTemplate transactionTemplate;
 
     @Autowired
-    public AthleteApplicationServiceImpl(GraphAthleteRepository graphAthleteRepository,
-                                         Neo4jTransactionManager transactionManager) {
+    public AthleteApplicationServiceImpl(GraphAthleteRepository graphAthleteRepository) {
         this.graphAthleteRepository = graphAthleteRepository;
-        this.transactionTemplate = new TransactionTemplate(transactionManager);
     }
 
     @Override
