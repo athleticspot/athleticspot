@@ -39,7 +39,7 @@ public class StravaAuthService implements TrackerAuth {
                 .queryParam("client_id", stravaDataProvider.clientCode())
                 .queryParam("response_type", "code")//response should return code
                 .queryParam("redirect_uri", "https://athleticspot.com/api/tracker/strava/register/" + SecurityUtils.getCurrentUserLogin())
-                .queryParam("scope", "write");
+                .queryParam("scope", "read");
         return builder.build().encode().toUriString();
     }
 
