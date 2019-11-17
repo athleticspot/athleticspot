@@ -1,6 +1,7 @@
 package com.athleticspot.tracker.application.strava;
 
 import com.athleticspot.tracker.application.TrackerUserService;
+import com.athleticspot.tracker.application.impl.StravaApi;
 import com.athleticspot.tracker.application.impl.StravaApplicationServiceImpl;
 import javastrava.api.API;
 import javastrava.api.ActivityAPI;
@@ -30,10 +31,13 @@ public class StravaAuthServiceTest {
     private final Logger log = LoggerFactory.getLogger(StravaAuthServiceTest.class);
 
     //This is code which was returned by strava application
-    private final String code = "0ad0891d82ad2aab88ec82cb59829bb4ebda78c6";
+    private final String code = "70138cd75595ac1a93db6829a946899184256dec";
 
     @Mock
     TrackerUserService trackerUserService;
+
+    @Mock
+    private StravaApi stravaApi;
 
     @Before
     public void setUp() {
@@ -45,12 +49,12 @@ public class StravaAuthServiceTest {
     @Test
     public void getTokenTest() {
 
-        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null);
+        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null, stravaApi);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
         TokenResponse response = auth.tokenExchange(
-            stravaApplicationService.clientCode(),
+            14842,
             stravaApplicationService.clientSecret(),
             code);
         Token token = new Token(response);
@@ -63,12 +67,12 @@ public class StravaAuthServiceTest {
     @Test
     public void getActivitiesTest() {
 
-        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null);
+        StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(null, null, null, stravaApi);
 
         AuthorisationAPI auth = API.authorisationInstance();
 
         TokenResponse response = auth.tokenExchange(
-            stravaApplicationService.clientCode(),
+            14842,
             stravaApplicationService.clientSecret(),
             code);
         Token token = new Token(response);
@@ -89,7 +93,7 @@ public class StravaAuthServiceTest {
         StravaApplicationServiceImpl stravaApplicationService = new StravaApplicationServiceImpl(
             trackerUserService,
             null,
-            null);
+            null, stravaApi);
 
         stravaApplicationService.synchronizedStravaActivities(null);
     }

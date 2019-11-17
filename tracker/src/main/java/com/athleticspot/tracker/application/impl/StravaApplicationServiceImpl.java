@@ -8,14 +8,12 @@ import com.athleticspot.tracker.domain.graph.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.infrastracture.security.SecurityService;
-import com.google.common.collect.Lists;
 import javastrava.api.API;
 import javastrava.api.ActivityAPI;
 import javastrava.api.AuthorisationAPI;
 import javastrava.auth.model.Token;
 import javastrava.auth.model.TokenResponse;
 import javastrava.model.StravaActivity;
-import javastrava.model.reference.StravaActivityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,13 +53,18 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     private final AuthorisationAPI auth = API.authorisationInstance();
 
+    private final StravaApi stravaApi;
+
+
     @Autowired
     public StravaApplicationServiceImpl(TrackerUserService trackerUserService,
                                         GraphAthleteRepository graphAthleteRepository,
-                                        SecurityService securityService) {
+                                        SecurityService securityService,
+                                        StravaApi stravaApi) {
         this.trackerUserService = trackerUserService;
         this.graphAthleteRepository = graphAthleteRepository;
         this.securityService = securityService;
+        this.stravaApi = stravaApi;
     }
 
     public String clientSecret() {
@@ -137,11 +140,8 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
         return new Token(response);
     }
 
-    List<StravaActivity> retrieveNotSynchronizedSportActivities() {
-        StravaActivity result = new StravaActivity();
-        result.setId(12311110L);
-        result.setType(StravaActivityType.BACKCOUNTRY_SKI);
-        result.setDistance(10F);
-        return Lists.newArrayList(result);
+    List<StravaActivity> retrieveNotSynchronizedSportActivities(int firstPage, int pageSize, LocalDateTime activitiesAfter) {
+        final List<StravaActivity> result = stravaApi.getSportActivities();
+        return result;
     }
 }

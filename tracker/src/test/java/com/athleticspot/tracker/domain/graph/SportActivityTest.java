@@ -33,7 +33,7 @@ public class SportActivityTest {
     }
 
     @Test
-    public void when_manual_activity_is_fetched_then_emtpy_string_is_returned() {
+    public void when_manual_activity_is_fetched_then_empty_string_is_returned() {
 
         String urlUnderTest = createManualSportActivitySportActivity().activityUrl();
         Assertions.assertThat(urlUnderTest).isEmpty();

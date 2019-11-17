@@ -9,10 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -21,7 +26,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class StravaApplicationServiceImplTest {
 
-    private static final Long STRAVA_ID = 12311110L;
+    private static final int PAGE_SIZE = 10;
+    private static final int FIRST_PAGE = 0;
+    private static final LocalDateTime ACTIVITIES_AFTER = LocalDateTime.of(LocalDate.of(2019, 11, 20), LocalTime.of(20, 10));
 
     @Mock
     private TrackerUserService trackerUserService;
@@ -32,47 +39,48 @@ public class StravaApplicationServiceImplTest {
     @Mock
     private SecurityService securityService;
 
-    private StravaApplicationServiceImpl stravaApplicationServiceImplTest;
+    @Mock
+    private StravaApi stravaApi;
+
+    private StravaApplicationServiceImpl stravaApplicationService;
 
     @Before
     public void init() {
-        stravaApplicationServiceImplTest = new StravaApplicationServiceImpl(
+        stravaApplicationService = new StravaApplicationServiceImpl(
             trackerUserService,
             graphAthleteRepository,
-            securityService
-        );
+            securityService,
+            stravaApi);
     }
 
     @Test
-    public void sport_activity_fetching_from_strava() {
-        //when:
-        List<StravaActivity> stravaActivities = stravaApplicationServiceImplTest.retrieveNotSynchronizedSportActivities();
+    public void fetch_all_activities_when_there_are_less_activities_than_page_size() {
+        //given:
+        Mockito.when(stravaApi.getSportActivities()).thenReturn(newArrayList(
+            createStravaActivity(10f, 1L),
+            createStravaActivity(200f, 2L),
+            createStravaActivity(1000f, 3L)
+            )
+        );
 
-        //then:
-        assertThat(stravaActivities).containsExactly(createStravaActivity());
+        //when:
+        List<StravaActivity> stravaActivities = stravaApplicationService.retrieveNotSynchronizedSportActivities(
+            FIRST_PAGE,
+            PAGE_SIZE,
+            ACTIVITIES_AFTER
+        );
+
+        //then
+        assertThat(stravaActivities).hasSize(3);
     }
 
-    //when user does new activity on strava then it's reflected in Athleticspot
-//    @Test
-//    public void sport_activity_is_synchronized_after_it_was_added_on_strava(){
-//        StravaApplicationServiceImpl stravaApplicationServiceImplTest = new StravaApplicationServiceImpl(
-//            trackerUserService,
-//            graphAthleteRepository,
-//            securityService
-//        );
-//
-//        //when
-//        List<StravaActivity> stravaActivities = stravaApplicationServiceImplTest.retrieveNotSynchronizedSportActivities();
-//
-//        //then:
-//        Assertions.assertThat(stravaActivities).contains(createStravaActivity());
-//    }
 
-    private StravaActivity createStravaActivity() {
+
+    private StravaActivity createStravaActivity(float distance, Long stravaId) {
         StravaActivity result = new StravaActivity();
-        result.setId(STRAVA_ID);
+        result.setId(stravaId);
         result.setType(StravaActivityType.BACKCOUNTRY_SKI);
-        result.setDistance(10F);
+        result.setDistance(distance);
         return result;
     }
 
