@@ -8,6 +8,7 @@ import com.athleticspot.tracker.domain.graph.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.infrastracture.security.SecurityService;
+import com.google.common.collect.Lists;
 import javastrava.api.API;
 import javastrava.api.ActivityAPI;
 import javastrava.api.AuthorisationAPI;
@@ -140,8 +141,17 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
         return new Token(response);
     }
 
-    List<StravaActivity> retrieveNotSynchronizedSportActivities(int firstPage, int pageSize, LocalDateTime activitiesAfter) {
-        final List<StravaActivity> result = stravaApi.getSportActivities();
+    List<StravaActivity> retrieveNotSynchronizedSportActivities(int pageSize, LocalDateTime activitiesAfter) {
+        int pageNumber = 0;
+        final List<StravaActivity> result = Lists.newArrayList();// = stravaApi.getSportActivities(0, pageSize, activitiesAfter);
+        while (true){
+            final List<StravaActivity> fetchedStravaActivities = stravaApi.getSportActivities(pageNumber, pageSize, activitiesAfter);
+            if(fetchedStravaActivities.isEmpty()){
+                break;
+            }
+            result.addAll(fetchedStravaActivities);
+            pageNumber++;
+        }
         return result;
     }
 }
