@@ -1,4 +1,4 @@
-package com.athleticspot.tracker.application;
+package com.athleticspot.tracker.application.strava;
 
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
  * @author Tomasz Kasprzycki
  */
 @Component
-public class StravaSynchronizationService extends SpringRouteBuilder {
+public class StravaSynchronizationRoute extends SpringRouteBuilder {
 
     private final StravaApplicationService stravaApplicationService;
 
     @Autowired
-    public StravaSynchronizationService(StravaApplicationService stravaApplicationService) {
+    public StravaSynchronizationRoute(StravaApplicationService stravaApplicationService) {
         this.stravaApplicationService = stravaApplicationService;
     }
 

@@ -1,6 +1,5 @@
-package com.athleticspot.tracker.application.impl;
+package com.athleticspot.tracker.application.strava;
 
-import com.athleticspot.tracker.application.StravaApplicationService;
 import com.athleticspot.tracker.application.TrackerUserService;
 import com.athleticspot.tracker.domain.graph.Athlete;
 import com.athleticspot.tracker.domain.graph.GraphAthleteRepository;
@@ -8,7 +7,6 @@ import com.athleticspot.tracker.domain.graph.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.infrastracture.security.SecurityService;
-import com.google.common.collect.Lists;
 import javastrava.api.API;
 import javastrava.api.ActivityAPI;
 import javastrava.api.AuthorisationAPI;
@@ -54,8 +52,6 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     private final AuthorisationAPI auth = API.authorisationInstance();
 
-    private final StravaApi stravaApi;
-
 
     @Autowired
     public StravaApplicationServiceImpl(TrackerUserService trackerUserService,
@@ -65,7 +61,6 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
         this.trackerUserService = trackerUserService;
         this.graphAthleteRepository = graphAthleteRepository;
         this.securityService = securityService;
-        this.stravaApi = stravaApi;
     }
 
     public String clientSecret() {
@@ -139,19 +134,5 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             this.clientSecret(),
             this.getCode(username));
         return new Token(response);
-    }
-
-    List<StravaActivity> retrieveNotSynchronizedSportActivities(int pageSize, LocalDateTime activitiesAfter) {
-        int pageNumber = 0;
-        final List<StravaActivity> result = Lists.newArrayList();// = stravaApi.getSportActivities(0, pageSize, activitiesAfter);
-        while (true){
-            final List<StravaActivity> fetchedStravaActivities = stravaApi.getSportActivities(pageNumber, pageSize, activitiesAfter);
-            if(fetchedStravaActivities.isEmpty()){
-                break;
-            }
-            result.addAll(fetchedStravaActivities);
-            pageNumber++;
-        }
-        return result;
     }
 }

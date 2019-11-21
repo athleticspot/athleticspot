@@ -1,8 +1,8 @@
 package com.athleticspot.tracker.application.strava;
 
 import com.athleticspot.common.SecurityUtils;
+import com.athleticspot.tracker.application.TrackerAuth;
 import com.athleticspot.tracker.application.TrackerUserService;
-import com.athleticspot.tracker.application.impl.StravaApplicationServiceImpl;
 import javastrava.api.API;
 import javastrava.api.AuthorisationAPI;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.athleticspot.tracker.application;
+package com.athleticspot.tracker.application.strava;
 
 import com.athleticspot.tracker.domain.model.TrackerUser;
 
