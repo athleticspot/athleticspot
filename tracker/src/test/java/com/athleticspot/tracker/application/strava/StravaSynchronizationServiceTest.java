@@ -125,12 +125,6 @@ public class StravaSynchronizationServiceTest {
         verifyNoMoreInteractions(stravaApi);
     }
 
-    @Test
-    public void strava_activities_are_fetched_with_token_for_given_username(){
-
-
-    }
-
 
     private StravaActivity createStravaActivity(float distance, Long stravaId) {
         StravaActivity result = new StravaActivity();
