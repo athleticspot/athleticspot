@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
  * @author Tomasz Kasprzycki
  */
 @RunWith(MockitoJUnitRunner.class)
-public class StravaApplicationServiceImplTest {
+public class StravaSynchronizationServiceTest {
 
     private static final int FIRST_PAGE = 0;
     private static final int SECOND_PAGE = 1;
@@ -123,6 +123,12 @@ public class StravaApplicationServiceImplTest {
         assertThat(stravaActivities).hasSize(3);
         verify(stravaApi, times(1)).getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER);
         verifyNoMoreInteractions(stravaApi);
+    }
+
+    @Test
+    public void strava_activities_are_fetched_with_token_for_given_username(){
+
+
     }
 
 

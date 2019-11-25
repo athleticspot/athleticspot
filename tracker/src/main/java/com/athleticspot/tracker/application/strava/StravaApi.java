@@ -14,6 +14,8 @@ import java.util.List;
 public class StravaApi {
 
     public List<StravaActivity> getSportActivities(int firstPage, int pageSize, LocalDateTime activitiesAfter) {
+
+
         return Lists.newArrayList();
     }
 }

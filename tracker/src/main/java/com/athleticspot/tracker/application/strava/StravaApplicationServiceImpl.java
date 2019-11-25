@@ -52,6 +52,8 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     private final AuthorisationAPI auth = API.authorisationInstance();
 
+    private final StravaApi stravaApi;
+
 
     @Autowired
     public StravaApplicationServiceImpl(TrackerUserService trackerUserService,
@@ -61,6 +63,7 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
         this.trackerUserService = trackerUserService;
         this.graphAthleteRepository = graphAthleteRepository;
         this.securityService = securityService;
+        this.stravaApi = stravaApi;
     }
 
     public String clientSecret() {
