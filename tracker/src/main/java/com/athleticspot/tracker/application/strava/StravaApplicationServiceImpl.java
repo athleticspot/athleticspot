@@ -7,6 +7,7 @@ import com.athleticspot.tracker.domain.graph.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.infrastracture.security.SecurityService;
+import com.google.common.collect.Lists;
 import javastrava.api.API;
 import javastrava.api.ActivityAPI;
 import javastrava.api.AuthorisationAPI;
@@ -109,6 +110,12 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             graphAthleteRepository.save(athlete);
         }
         trackerUserService.assignStravaLastSynchronizationDate(now, username);
+    }
+
+    @Override
+    public List<StravaActivity> retrieveActivities(String username) {
+        return Lists.newArrayList();
+
     }
 
     private Athlete getAthlete(String username) {
