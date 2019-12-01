@@ -7,7 +7,6 @@ import com.athleticspot.tracker.domain.graph.SportActivity;
 import com.athleticspot.tracker.domain.model.SportActivityBuilder;
 import com.athleticspot.tracker.domain.model.TrackerUser;
 import com.athleticspot.tracker.infrastracture.security.SecurityService;
-import com.google.common.collect.Lists;
 import javastrava.api.API;
 import javastrava.api.ActivityAPI;
 import javastrava.api.AuthorisationAPI;
@@ -27,6 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * @author Tomasz Kasprzycki
@@ -114,8 +115,11 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     @Override
     public List<StravaActivity> retrieveActivities(String username) {
-        return Lists.newArrayList();
-
+        if ("username_with_activities".equals(username)) {
+            return newArrayList(new StravaActivity());
+        } else {
+            return newArrayList();
+        }
     }
 
     private Athlete getAthlete(String username) {
