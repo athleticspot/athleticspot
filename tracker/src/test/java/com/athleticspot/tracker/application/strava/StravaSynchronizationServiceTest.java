@@ -1,7 +1,6 @@
 package com.athleticspot.tracker.application.strava;
 
 import javastrava.model.StravaActivity;
-import javastrava.model.reference.StravaActivityType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import static com.athleticspot.tracker.application.strava.StravaTestDataProvider.createStravaActivity;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -38,7 +38,7 @@ public class StravaSynchronizationServiceTest {
     }
 
     @Test
-    public void zero_activities_returns_when_there_are_no_activities_in_strava(){
+    public void zero_activities_returns_when_there_are_no_activities_in_strava() {
         //given:
         final int pageSize = 10;
         when(stravaApi.getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(newArrayList());
@@ -60,9 +60,9 @@ public class StravaSynchronizationServiceTest {
         //given:
         final int pageSize = 10;
         when(stravaApi.getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(newArrayList(
-            createStravaActivity(10f, 1L),
-            createStravaActivity(200f, 2L),
-            createStravaActivity(1000f, 3L)
+            createStravaActivity(10f, 1L, LocalDateTime.now()),
+            createStravaActivity(200f, 2L, LocalDateTime.now()),
+            createStravaActivity(1000f, 3L, LocalDateTime.now())
             )
         );
 
@@ -83,15 +83,15 @@ public class StravaSynchronizationServiceTest {
         int pageSize = 3;
         when(stravaApi.getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(
             newArrayList(
-                createStravaActivity(10f, 1L),
-                createStravaActivity(200f, 2L),
-                createStravaActivity(1000f, 3L)
+                createStravaActivity(10f, 1L, LocalDateTime.now()),
+                createStravaActivity(200f, 2L, LocalDateTime.now()),
+                createStravaActivity(1000f, 3L, LocalDateTime.now())
             )
         );
         when(stravaApi.getSportActivities(SECOND_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(
             newArrayList(
-                createStravaActivity(50f, 4L),
-                createStravaActivity(200.20f, 5L)
+                createStravaActivity(50f, 4L, LocalDateTime.now()),
+                createStravaActivity(200.20f, 5L, LocalDateTime.now())
             )
         );
 
@@ -103,13 +103,13 @@ public class StravaSynchronizationServiceTest {
     }
 
     @Test
-    public void request_one_page_only_in_case_of_result_from_Strava_less_than_page_size(){
+    public void request_one_page_only_in_case_of_result_from_Strava_less_than_page_size() {
         //given:
         final int pageSize = 10;
         when(stravaApi.getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(newArrayList(
-            createStravaActivity(10f, 1L),
-            createStravaActivity(200f, 2L),
-            createStravaActivity(1000f, 3L)
+            createStravaActivity(10f, 1L, LocalDateTime.now()),
+            createStravaActivity(200f, 2L, LocalDateTime.now()),
+            createStravaActivity(1000f, 3L, LocalDateTime.now())
             )
         );
 
@@ -124,14 +124,4 @@ public class StravaSynchronizationServiceTest {
         verify(stravaApi, times(1)).getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER);
         verifyNoMoreInteractions(stravaApi);
     }
-
-
-    private StravaActivity createStravaActivity(float distance, Long stravaId) {
-        StravaActivity result = new StravaActivity();
-        result.setId(stravaId);
-        result.setType(StravaActivityType.BACKCOUNTRY_SKI);
-        result.setDistance(distance);
-        return result;
-    }
-
 }

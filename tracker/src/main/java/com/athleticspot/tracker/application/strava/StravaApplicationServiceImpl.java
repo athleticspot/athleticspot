@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.google.common.collect.Lists.newArrayList;
-
 /**
  * @author Tomasz Kasprzycki
  */
@@ -54,8 +52,6 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
 
     private final AuthorisationAPI auth = API.authorisationInstance();
 
-    private final StravaApi stravaApi;
-
 
     @Autowired
     public StravaApplicationServiceImpl(TrackerUserService trackerUserService,
@@ -65,7 +61,6 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
         this.trackerUserService = trackerUserService;
         this.graphAthleteRepository = graphAthleteRepository;
         this.securityService = securityService;
-        this.stravaApi = stravaApi;
     }
 
     public String clientSecret() {
@@ -111,15 +106,6 @@ public class StravaApplicationServiceImpl implements StravaApplicationService {
             graphAthleteRepository.save(athlete);
         }
         trackerUserService.assignStravaLastSynchronizationDate(now, username);
-    }
-
-    @Override
-    public List<StravaActivity> retrieveActivities(String username) {
-        if ("username_with_activities".equals(username)) {
-            return newArrayList(new StravaActivity());
-        } else {
-            return newArrayList();
-        }
     }
 
     private Athlete getAthlete(String username) {

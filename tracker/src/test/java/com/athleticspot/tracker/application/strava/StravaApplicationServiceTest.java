@@ -1,56 +1,84 @@
 package com.athleticspot.tracker.application.strava;
 
 import javastrava.model.StravaActivity;
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
+
+import static com.athleticspot.tracker.application.strava.StravaTestDataProvider.createMockStravaActivities;
+import static com.athleticspot.tracker.application.strava.StravaTestDataProvider.createStravaActivity;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.util.Lists.newArrayList;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Tomasz Kasprzycki
  */
+@RunWith(MockitoJUnitRunner.class)
 public class StravaApplicationServiceTest {
 
+    @Mock
+    private StravaApi stravaApi;
+
+    private StravaApplicationServiceXXX stravaApplicationServiceXXX;
+
+    private static final int FIRST_PAGE = 0;
+    private static final int SECOND_PAGE = 1;
     private static final String USERNAME_WITHOUT_ACTIVITIES = "username_without_activities";
     private static final String USERNAME_WITH_ACTIVITIES = "username_with_activities";
-    private StravaApplicationService stravaApplicationService;
+    private static final int ACTIVITY_PAGE_SIZE = 10;
+    private StravaApplicationServiceImpl stravaApplicationService;
+    private LocalDateTime lastSynchronizationDate;
+
 
     @Before
     public void setUp() throws Exception {
-        stravaApplicationService = new StravaApplicationServiceImpl(null, null, null, null);
+        lastSynchronizationDate = LocalDateTime.of(2019, 02, 27, 11, 20);
+        stravaApplicationService = new StravaApplicationServiceImpl(null, null, null, stravaApi);
+        stravaApplicationServiceXXX = new StravaApplicationServiceXXX(stravaApi);
     }
 
     @Test
     public void empty_list_result_for_user_without_strava_activities() {
-        List<StravaActivity> stravaSportActivities = stravaApplicationService.retrieveActivities(USERNAME_WITHOUT_ACTIVITIES);
-        Assertions.assertThat(stravaSportActivities).isEmpty();
+        List<StravaActivity> stravaSportActivities = stravaApplicationServiceXXX.retrieveActivities(USERNAME_WITHOUT_ACTIVITIES, lastSynchronizationDate);
+        assertThat(stravaSportActivities).isEmpty();
     }
 
     @Test
     public void sport_activity_list_for_user_with_strava_activities() {
-        List<StravaActivity> stravaSportActivities = stravaApplicationService.retrieveActivities(USERNAME_WITH_ACTIVITIES);
-        Assertions.assertThat(stravaSportActivities).isNotEmpty();
+        when(stravaApi.getSportActivities(FIRST_PAGE, ACTIVITY_PAGE_SIZE, lastSynchronizationDate)).thenReturn(newArrayList(
+            createStravaActivity(new Random().nextFloat(), new Random().nextLong(), lastSynchronizationDate.plusDays(1))
+        ));
+        List<StravaActivity> stravaSportActivities = stravaApplicationServiceXXX.retrieveActivities(USERNAME_WITH_ACTIVITIES, lastSynchronizationDate);
+        assertThat(stravaSportActivities).isNotEmpty();
     }
 
     @Test
-    @Ignore
     public void sport_activity_list_contains_activities_after_last_synchronized_date() {
+        when(stravaApi.getSportActivities(FIRST_PAGE, ACTIVITY_PAGE_SIZE, lastSynchronizationDate)).thenReturn(newArrayList(
+            createStravaActivity(new Random().nextFloat(), new Random().nextLong(), lastSynchronizationDate.plusDays(1))
+        ));
+        List<StravaActivity> stravaSportActivities = stravaApplicationServiceXXX.retrieveActivities(USERNAME_WITH_ACTIVITIES, lastSynchronizationDate);
+        assertThat(stravaSportActivities).isNotEmpty();
+        assertThat(stravaSportActivities).extracting(StravaActivity::getStartDateLocal)
+            .allMatch(localDateTime -> lastSynchronizationDate.isBefore(localDateTime));
+    }
+
+    @Test
+    public void sport_activity_list_contains_two_pages_of_data() {
+        when(stravaApi.getSportActivities(FIRST_PAGE, ACTIVITY_PAGE_SIZE, lastSynchronizationDate)).thenReturn(createMockStravaActivities(ACTIVITY_PAGE_SIZE));
+        when(stravaApi.getSportActivities(SECOND_PAGE, ACTIVITY_PAGE_SIZE, lastSynchronizationDate)).thenReturn(createMockStravaActivities(ACTIVITY_PAGE_SIZE));
+        List<StravaActivity> stravaSportActivities = stravaApplicationServiceXXX.retrieveActivities(USERNAME_WITH_ACTIVITIES, lastSynchronizationDate);
+        assertThat(stravaSportActivities).hasSize(ACTIVITY_PAGE_SIZE * 2);
     }
 }
 
-//test for activities between range
-/**
- * STRAVA api specification
- * before – Unix epoch time in seconds - return activities before this time
- *public StravaActivity[] listAuthenticatedAthleteActivities(@Query("before") final Integer before, @Query("after") final Integer after, @Query("page") final Integer page,
- *                        @Query("per_page") final Integer perPage) throws BadRequestException;
- *
- * 	/**
- *
- *
- */
-
-//test for particular page size
-//test for number of pages
+//TODO: OutofMemory error when strava returns more than page size
+//DONE test for number of pages
+//DONE test for activities between range

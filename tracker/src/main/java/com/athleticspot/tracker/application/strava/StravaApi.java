@@ -12,10 +12,7 @@ import java.util.List;
  */
 @Component
 public class StravaApi {
-
-    public List<StravaActivity> getSportActivities(int firstPage, int pageSize, LocalDateTime activitiesAfter) {
-
-
+    public List<StravaActivity> getSportActivities(Integer firstPage, Integer pageSize, LocalDateTime activitiesAfter) {
         return Lists.newArrayList();
     }
 }
