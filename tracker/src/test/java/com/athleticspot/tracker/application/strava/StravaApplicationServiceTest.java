@@ -33,14 +33,12 @@ public class StravaApplicationServiceTest {
     private static final String USERNAME_WITHOUT_ACTIVITIES = "username_without_activities";
     private static final String USERNAME_WITH_ACTIVITIES = "username_with_activities";
     private static final int ACTIVITY_PAGE_SIZE = 10;
-    private StravaApplicationServiceImpl stravaApplicationService;
     private LocalDateTime lastSynchronizationDate;
 
 
     @Before
     public void setUp() throws Exception {
         lastSynchronizationDate = LocalDateTime.of(2019, 02, 27, 11, 20);
-        stravaApplicationService = new StravaApplicationServiceImpl(null, null, null, stravaApi);
         stravaApplicationServiceXXX = new StravaApplicationServiceXXX(stravaApi);
     }
 
