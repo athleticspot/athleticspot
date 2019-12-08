@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
  * @author Tomasz Kasprzycki
  */
 @RunWith(MockitoJUnitRunner.class)
-public class StravaSynchronizationServiceTest {
+public class StravaSynchronizationApiTest {
 
     private static final int FIRST_PAGE = 0;
     private static final int SECOND_PAGE = 1;
