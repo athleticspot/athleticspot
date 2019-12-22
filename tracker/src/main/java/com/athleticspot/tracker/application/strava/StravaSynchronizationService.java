@@ -1,10 +1,14 @@
 package com.athleticspot.tracker.application.strava;
 
+import com.athleticspot.tracker.application.TrackerUserService;
 import com.google.common.collect.Lists;
 import javastrava.model.StravaActivity;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 /**
  * @author Tomasz Kasprzycki
@@ -12,9 +16,11 @@ import java.util.List;
 public class StravaSynchronizationService {
 
     private final StravaApi stravaApi;
+    private final TrackerUserService trackerUserService;
 
-    public StravaSynchronizationService(StravaApi stravaApi) {
+    public StravaSynchronizationService(StravaApi stravaApi, TrackerUserService trackerUserService) {
         this.stravaApi = stravaApi;
+        this.trackerUserService = trackerUserService;
     }
 
     List<StravaActivity> retrieveNotSynchronizedSportActivities(int pageSize, LocalDateTime activitiesAfter) {
@@ -33,6 +39,16 @@ public class StravaSynchronizationService {
 
     public List<StravaActivity> retrieveUserActivities(String username, LocalDateTime lastSynchronizationDate) {
             int pageSize = 10;
+            getStravaLastSynchronizationDateAsEpoch(username);
             return retrieveNotSynchronizedSportActivities(pageSize, lastSynchronizationDate);
+    }
+
+
+    private long getStravaLastSynchronizationDateAsEpoch(String username) {
+        final LocalDateTime stravaLastSynchronizationDate = trackerUserService.getStravaLastSynchronizationDate(username);
+        if (isNull(stravaLastSynchronizationDate)) {
+            return 0;
+        }
+        return stravaLastSynchronizationDate.atZone(ZoneId.systemDefault()).toEpochSecond();
     }
 }

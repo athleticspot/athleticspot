@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.application.strava;
 
+import com.athleticspot.tracker.application.TrackerUserService;
 import javastrava.model.StravaActivity;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,11 +31,14 @@ public class StravaSynchronizationApiTest {
     @Mock
     private StravaApi stravaApi;
 
+    @Mock
+    private TrackerUserService trackerUserService;
+
     private StravaSynchronizationService stravaApplicationService;
 
     @Before
     public void init() {
-        stravaApplicationService = new StravaSynchronizationService(stravaApi);
+        stravaApplicationService = new StravaSynchronizationService(stravaApi, trackerUserService);
     }
 
     @Test

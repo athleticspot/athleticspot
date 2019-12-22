@@ -1,5 +1,6 @@
 package com.athleticspot.tracker.application.strava;
 
+import com.athleticspot.tracker.application.TrackerUserService;
 import javastrava.model.StravaActivity;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,11 +24,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class StravaIntegrationUserTest {
 
-    @Mock
-    private StravaApi stravaApi;
-
-    private StravaSynchronizationService stravaSynchronizationService;
-
     private static final int FIRST_PAGE = 0;
     private static final int SECOND_PAGE = 1;
     private static final String USERNAME_WITHOUT_ACTIVITIES = "username_without_activities";
@@ -35,11 +31,19 @@ public class StravaIntegrationUserTest {
     private static final int ACTIVITY_PAGE_SIZE = 10;
     private LocalDateTime lastSynchronizationDate;
 
+    @Mock
+    private StravaApi stravaApi;
+
+    @Mock
+    private TrackerUserService trackerUserService;
+
+    private StravaSynchronizationService stravaSynchronizationService;
+
 
     @Before
     public void setUp() throws Exception {
         lastSynchronizationDate = LocalDateTime.of(2019, 02, 27, 11, 20);
-        stravaSynchronizationService = new StravaSynchronizationService(stravaApi);
+        stravaSynchronizationService = new StravaSynchronizationService(stravaApi, trackerUserService);
     }
 
     @Test
