@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import javastrava.model.StravaActivity;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ import java.util.List;
  */
 @Component
 public class StravaApi {
-    public List<StravaActivity> getSportActivities(Integer firstPage, Integer pageSize, LocalDateTime activitiesAfter) {
+    public List<StravaActivity> getSportActivities(Integer firstPage, Integer pageSize, long activitiesAfter) {
         return Lists.newArrayList();
     }
 }

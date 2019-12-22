@@ -11,6 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static com.athleticspot.tracker.application.strava.StravaTestDataProvider.createStravaActivity;
@@ -26,7 +27,8 @@ public class StravaSynchronizationApiTest {
 
     private static final int FIRST_PAGE = 0;
     private static final int SECOND_PAGE = 1;
-    private static final LocalDateTime ACTIVITIES_AFTER = LocalDateTime.of(LocalDate.of(2019, 11, 20), LocalTime.of(20, 10));
+    private static final Long ACTIVITIES_AFTER =
+        LocalDateTime.of(LocalDate.of(2019, 11, 20), LocalTime.of(20, 10)).toEpochSecond(ZoneOffset.UTC);
 
     @Mock
     private StravaApi stravaApi;
@@ -129,6 +131,3 @@ public class StravaSynchronizationApiTest {
         verifyNoMoreInteractions(stravaApi);
     }
 }
-
-
-//
