@@ -125,3 +125,6 @@ public class StravaSynchronizationApiTest {
         verifyNoMoreInteractions(stravaApi);
     }
 }
+
+
+//

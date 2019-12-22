@@ -6,8 +6,6 @@ import javastrava.model.StravaActivity;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
-
 /**
  * @author Tomasz Kasprzycki
  */
@@ -34,11 +32,7 @@ public class StravaSynchronizationService {
     }
 
     public List<StravaActivity> retrieveUserActivities(String username, LocalDateTime lastSynchronizationDate) {
-        if ("username_with_activities".equals(username)) {
             int pageSize = 10;
             return retrieveNotSynchronizedSportActivities(pageSize, lastSynchronizationDate);
-        } else {
-            return newArrayList();
-        }
     }
 }
