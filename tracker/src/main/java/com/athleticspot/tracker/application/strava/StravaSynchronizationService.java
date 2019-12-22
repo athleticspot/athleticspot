@@ -36,7 +36,7 @@ public class StravaSynchronizationService {
     public List<StravaActivity> retrieveUserActivities(String username, LocalDateTime lastSynchronizationDate) {
         if ("username_with_activities".equals(username)) {
             int pageSize = 10;
-            return new StravaSynchronizationService(stravaApi).retrieveNotSynchronizedSportActivities(pageSize, lastSynchronizationDate);
+            return retrieveNotSynchronizedSportActivities(pageSize, lastSynchronizationDate);
         } else {
             return newArrayList();
         }
