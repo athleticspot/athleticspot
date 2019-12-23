@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Component
 public class StravaApi {
-    public List<StravaActivity> getSportActivities(Integer firstPage, Integer pageSize, long activitiesAfter) {
+    public List<StravaActivity> getSportActivities(String username, Integer firstPage, Integer pageSize, long activitiesAfter) {
         return Lists.newArrayList();
     }
 }

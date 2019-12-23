@@ -25,6 +25,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class StravaSynchronizationApiTest {
 
+    private static final String USERNAME = "tomkasp";
     private static final int FIRST_PAGE = 0;
     private static final int SECOND_PAGE = 1;
     private static final Long ACTIVITIES_AFTER =
@@ -47,17 +48,18 @@ public class StravaSynchronizationApiTest {
     public void zero_activities_returns_when_there_are_no_activities_in_strava() {
         //given:
         final int pageSize = 10;
-        when(stravaApi.getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(newArrayList());
+        when(stravaApi.getSportActivities(USERNAME, FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(newArrayList());
 
         //when:
         List<StravaActivity> stravaActivities = stravaApplicationService.retrieveNotSynchronizedSportActivities(
+            USERNAME,
             pageSize,
             ACTIVITIES_AFTER
         );
 
         //then:
         assertThat(stravaActivities).isEmpty();
-        verify(stravaApi, times(1)).getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER);
+        verify(stravaApi, times(1)).getSportActivities(USERNAME, FIRST_PAGE, pageSize, ACTIVITIES_AFTER);
         verifyNoMoreInteractions(stravaApi);
     }
 
@@ -65,7 +67,7 @@ public class StravaSynchronizationApiTest {
     public void fetch_all_activities_when_there_are_less_activities_than_page_size() {
         //given:
         final int pageSize = 10;
-        when(stravaApi.getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(newArrayList(
+        when(stravaApi.getSportActivities(USERNAME, FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(newArrayList(
             createStravaActivity(10f, 1L, LocalDateTime.now()),
             createStravaActivity(200f, 2L, LocalDateTime.now()),
             createStravaActivity(1000f, 3L, LocalDateTime.now())
@@ -74,6 +76,7 @@ public class StravaSynchronizationApiTest {
 
         //when:
         List<StravaActivity> stravaActivities = stravaApplicationService.retrieveNotSynchronizedSportActivities(
+            USERNAME,
             pageSize,
             ACTIVITIES_AFTER
         );
@@ -87,14 +90,14 @@ public class StravaSynchronizationApiTest {
     public void fetch_two_pages_when_there_are_more_sport_activities_than_one_page_size() {
         //given
         int pageSize = 3;
-        when(stravaApi.getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(
+        when(stravaApi.getSportActivities(USERNAME, FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(
             newArrayList(
                 createStravaActivity(10f, 1L, LocalDateTime.now()),
                 createStravaActivity(200f, 2L, LocalDateTime.now()),
                 createStravaActivity(1000f, 3L, LocalDateTime.now())
             )
         );
-        when(stravaApi.getSportActivities(SECOND_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(
+        when(stravaApi.getSportActivities(USERNAME, SECOND_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(
             newArrayList(
                 createStravaActivity(50f, 4L, LocalDateTime.now()),
                 createStravaActivity(200.20f, 5L, LocalDateTime.now())
@@ -102,7 +105,7 @@ public class StravaSynchronizationApiTest {
         );
 
         //when:
-        List<StravaActivity> stravaSportActivities = stravaApplicationService.retrieveNotSynchronizedSportActivities(pageSize, ACTIVITIES_AFTER);
+        List<StravaActivity> stravaSportActivities = stravaApplicationService.retrieveNotSynchronizedSportActivities(USERNAME, pageSize, ACTIVITIES_AFTER);
 
         //then:
         assertThat(stravaSportActivities).hasSize(5);
@@ -112,7 +115,7 @@ public class StravaSynchronizationApiTest {
     public void request_one_page_only_in_case_of_result_from_Strava_less_than_page_size() {
         //given:
         final int pageSize = 10;
-        when(stravaApi.getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(newArrayList(
+        when(stravaApi.getSportActivities(USERNAME, FIRST_PAGE, pageSize, ACTIVITIES_AFTER)).thenReturn(newArrayList(
             createStravaActivity(10f, 1L, LocalDateTime.now()),
             createStravaActivity(200f, 2L, LocalDateTime.now()),
             createStravaActivity(1000f, 3L, LocalDateTime.now())
@@ -121,13 +124,13 @@ public class StravaSynchronizationApiTest {
 
         //when:
         List<StravaActivity> stravaActivities = stravaApplicationService.retrieveNotSynchronizedSportActivities(
-            pageSize,
+            USERNAME, pageSize,
             ACTIVITIES_AFTER
         );
 
         //then
         assertThat(stravaActivities).hasSize(3);
-        verify(stravaApi, times(1)).getSportActivities(FIRST_PAGE, pageSize, ACTIVITIES_AFTER);
+        verify(stravaApi, times(1)).getSportActivities(USERNAME, FIRST_PAGE, pageSize, ACTIVITIES_AFTER);
         verifyNoMoreInteractions(stravaApi);
     }
 }
