@@ -4,14 +4,11 @@ import com.athleticspot.tracker.application.TrackerAuth;
 import com.athleticspot.tracker.application.strava.StravaAuthService;
 import com.athleticspot.tracker.infrastracture.web.SportTrackersApiUrl;
 import com.google.gson.Gson;
-import javastrava.api.API;
-import javastrava.api.AuthorisationAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -30,8 +27,6 @@ public class StravaController {
 
     private final TrackerAuth stravaTrackerAuth;
 
-    AuthorisationAPI auth = API.authorisationInstance();
-
     @Value("${application.url}")
     String stravaRedirectUrl;
 
@@ -41,9 +36,9 @@ public class StravaController {
 
     @GetMapping(value = "/register/{username}")
     public void registerCode(@RequestParam String code,
-                                     @RequestParam String state,
-                                     @PathVariable String username,
-                                     HttpServletResponse httpServletResponse) throws IOException {
+                             @RequestParam String state,
+                             @PathVariable String username,
+                             HttpServletResponse httpServletResponse) throws IOException {
         log.debug("Registering username for strava: {}", username);
         log.debug("code value: {}, state value: {}", code, state);
         stravaTrackerAuth.storeStravaToken(code, username);
@@ -52,9 +47,9 @@ public class StravaController {
     }
 
     @GetMapping(value = "/activate")
-    public String activateStravaUser(HttpServletRequest httpServletRequest) throws IOException {
+    public String activateStravaUser() {
         final Gson gson = new Gson();
-        return gson.toJson(stravaTrackerAuth.authenticateTracker());
+        return gson.toJson(stravaTrackerAuth.generateTrackerActivationUrl());
     }
 
 }
