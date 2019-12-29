@@ -37,7 +37,7 @@ public class StravaApi {
             ((int) LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)),
             ((int) activitiesAfter),
             pageNumber,
-            10
+            pageSize
         );
         return Lists.newArrayList(stravaActivities);
     }

@@ -25,8 +25,8 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class StravaIntegrationUserTest {
 
-    private static final int FIRST_PAGE = 0;
-    private static final int SECOND_PAGE = 1;
+    private static final int FIRST_PAGE = 1;
+    private static final int SECOND_PAGE = 2;
     private static final int ACTIVITY_PAGE_SIZE = 10;
     private static final String USERNAME_WITHOUT_ACTIVITIES = "username_without_activities";
     private static final String USERNAME_WITH_ACTIVITIES = "username_with_activities";

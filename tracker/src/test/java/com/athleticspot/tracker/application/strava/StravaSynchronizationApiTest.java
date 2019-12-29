@@ -26,8 +26,8 @@ import static org.mockito.Mockito.*;
 public class StravaSynchronizationApiTest {
 
     private static final String USERNAME = "tomkasp";
-    private static final int FIRST_PAGE = 0;
-    private static final int SECOND_PAGE = 1;
+    private static final int FIRST_PAGE = 1;
+    private static final int SECOND_PAGE = 2;
     private static final Long ACTIVITIES_AFTER =
         LocalDateTime.of(LocalDate.of(2019, 11, 20), LocalTime.of(20, 10)).toEpochSecond(ZoneOffset.UTC);
 
