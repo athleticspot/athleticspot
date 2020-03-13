@@ -1,0 +1,12 @@
+com/athleticspot/tracker/acceptance/SportActivityOutDtoAcceptanceTest$1.class
+com/athleticspot/tracker/domain/model/DistanceTest.class
+com/athleticspot/tracker/shared/QuantitiesConverterTest.class
+com/athleticspot/tracker/application/strava/StravaAuthServiceTest.class
+com/athleticspot/tracker/domain/model/AthleteTest.class
+com/athleticspot/tracker/infrastracture/service/MeasureSystemProviderImplTest.class
+com/athleticspot/tracker/acceptance/BaseQuartzTest.class
+com/athleticspot/tracker/infrastracture/web/dto/out/SportActivityOutDtoTest.class
+com/athleticspot/tracker/acceptance/SportActivityOutDtoAcceptanceTest.class
+com/athleticspot/tracker/acceptance/QuartzAutoStartTest.class
+com/athleticspot/tracker/acceptance/AthleteRepositoryTest.class
+com/athleticspot/tracker/acceptance/QuartzAutoStartTest$1.class

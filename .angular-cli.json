@@ -5,8 +5,8 @@
     },
     "apps": [
         {
-            "root": "src/main/webapp/",
-            "outDir": "target/www/app",
+            "root": "/web/src/main/webapp/",
+            "outDir": "web/target/www/app",
             "assets": [
                 "content",
                 "i18n",

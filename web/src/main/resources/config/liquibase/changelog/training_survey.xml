@@ -1,0 +1,78 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="tomkasp (generated)" id="1501323723659-2">
+        <createSequence sequenceName="training_survey_seq"/>
+    </changeSet>
+    <changeSet author="tomkasp (generated)" id="1501323723659-3">
+        <createSequence sequenceName="hibernate_sequence"/>
+    </changeSet>
+    <changeSet author="tomkasp (generated)" id="1500129107247-2">
+        <createTable tableName="training_survey">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="survey_uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="athlete_uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="metric_system_type" type="varchar(36)">
+            </column>
+            <column name="birth_day" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="height" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="body_mass" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blood_test" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="health_contraindications" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hours_of_sleep" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stress_test" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="allergies" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dairyed_acceptance" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="food_intolerance" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meat_acceptance" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance" type="DOUBLE"/>
+            <column name="duration" type="DOUBLE"/>
+            <column name="run_category" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tomkasp (generated)" id="1501323723659-16">
+        <addPrimaryKey columnNames="id" constraintName="training_surveyPK" tableName="training_survey"/>
+    </changeSet>
+    <changeSet id="aad227b9-bd19-48da-ab3e-accd867173d3" author="Tomasz Kasprzycki">
+        <dropColumn tableName="training_survey">
+            <column name="distance"/>
+            <column name="duration"/>
+            <column name="run_category"/>
+        </dropColumn>
+    </changeSet>
+    <changeSet id="e880f476-0a42-40f8-9f98-df8f69e326b9" author="Tomasz Kasprzycki">
+        <renameColumn tableName="training_survey" oldColumnName="athlete_uuid" newColumnName="user_uuid"/>
+    </changeSet>
+    <changeSet id="e880f476-0a42-40f8-9f98-ef8fa9e326b1" author="Tomasz Kasprzycki">
+        <dropColumn tableName="training_survey" columnName="metric_system_type"/>
+    </changeSet>
+</databaseChangeLog>

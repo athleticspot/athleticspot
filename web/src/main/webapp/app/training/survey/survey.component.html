@@ -1,0 +1,415 @@
+<div class="tech-background">
+    <div class="container padder-v">
+        <form novalidate (ngSubmit)="submitSurvey()" [formGroup]="surveyForm" class="form-validation">
+            <!--INFORMACJE PODSTAWOWE-->
+            <div formGroupName="baseInformation">
+                <p class="m-n font-thin h1">Informacje podstawowe</p>
+                <div class="row">
+
+                    <div class="form-group padder">
+                        <label class="font-thin h3 m-xxs m-t-md">Data urodzenia</label>
+                        <div class="m-t-md">
+                            <ng-datepicker formControlName="birthDay"></ng-datepicker>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-8 m-t-md">
+                        <label class="font-thin h3 m-xxs">Jednostki</label>
+                        <div class="row">
+                            <div class="col-sm-2 m-t-xs text-right">
+                                <span class="h4 font-thin">lb, in</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="metricSystemType">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-2 m-t-xs text-left">
+                                <span class="h4 font-thin">kg, m</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div [ngSwitch]="isMetric()">
+                    <div class="row">
+                        <div class="form-group col-sm-4 m-t-md">
+                            <label class=" font-thin h3 m-xxs">Masa ciala
+                                <span *ngSwitchCase="true">[kg]</span>
+                                <span *ngSwitchCase="false">[lb]</span>
+                            </label>
+                            <input type="number" class="form-control" formControlName="bodyMass">
+                            <span class="m-b-none padder"
+                                  *ngIf="surveyForm.dirty && surveyForm.controls.baseInformation.controls.bodyMass.errors?.required">To pole jest wymagane.</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-4 m-t-md">
+                            <label class=" font-thin h3 m-xxs">Wzrost
+                                <span *ngSwitchCase="true">[cm]</span>
+                                <span *ngSwitchCase="false">[in]</span>
+                            </label>
+                            <input type="number" class="form-control" formControlName="height">
+                            <span class="m-b-none padder"
+                                  *ngIf="surveyForm.dirty && surveyForm.controls.baseInformation.controls.height.errors?.required">To pole jest wymagane.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--ZDROWIE-->
+            <div formGroupName="healthInformation">
+                <div class="line line b-b line-lg pull-in"></div>
+                <p class="m-n font-thin h1">Zdrowie</p>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Czy jestes swiadomy przeciwskazan
+                            zdrowotnych do podjecia treningu?</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="healthContraindications">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs"> Czy robiles próbe wysiłkową lub EKG w ciagu ostatniego
+                            roku?</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="stressTest">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Czy robileś badania krwi w ciągu ostatnich 6 mieśięcy</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="bloodTest">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Ile średnio godzin przeznaczas na sen?</label>
+                        <input type="number" class="col-sm-4 form-control" formControlName="hoursOfSleep">
+                        <span class="m-b-none padder"
+                              *ngIf="surveyForm.dirty && surveyForm.controls.healthInformation.controls.hoursOfSleep.errors?.required">To pole jest wymagane.</span>
+                    </div>
+                </div>
+            </div>
+            <!--ODZYWIANIE-->
+            <div formGroupName="nutritionInformation">
+                <div class="line line b-b line-lg pull-in"></div>
+                <p class="m-n font-thin h1">Odzywianie</p>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Spożywanie produktow mięsnych i pochodnych</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="meatAcceptance">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Spożywanie nabiału i pochodnych</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="dairyedAcceptance">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Uczulenie na skladniki spożywcze</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="allergies">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 m-t-md">
+                        <label class=" font-thin h3 m-xxs">Nietolerancja na składniki odżywcze</label>
+                        <div class="row">
+                            <div class="col-sm-1 m-t-xs text-right ">
+                                <span class="h4 font-thin m-l-n">Nie</span>
+                            </div>
+                            <div>
+                                <label class="i-switch m-t-xs">
+                                    <input type="checkbox" formControlName="foodIntolerance">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-1 m-t-xs text-left">
+                                <span class="h4 font-thin">Tak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--CEL TRENINGOWY-->
+            <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;CEL TRENINGOWY&ndash;&gt;-->
+<!--<div class="padder-md">-->
+<!--<div class="row">-->
+<!--<div class="panel panel-default list-group list-group-sm">-->
+<!--<div class="panel-heading m-n font-thin h2">Cel treningowy</div>-->
+<!--<div class="panel-body ">-->
+<!--<form role="form">-->
+<!--<div class="col-sm-4 list-group list-group-sm">-->
+<!--<h1 class=" font-thin h3 m-xxs">Dystans</h1>-->
+<!--<div class="list-group-item">-->
+<!--<input type="email" class="form-control no-border" placeholder="Enter email">-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-sm-4 list-group list-group-sm">-->
+<!--<h1 class=" font-thin h3 m-xxs">Wymarzony wynik</h1>-->
+<!--<div class="list-group-item">-->
+<!--<input type="email" class="form-control no-border" placeholder="Enter email">-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-sm-4 list-group list-group-sm">-->
+<!--<h1 class=" font-thin h3 m-xxs">Kategoria biegu</h1>-->
+<!--<div class="list-group-item">-->
+<!--<input type="email" class="form-control no-border" placeholder="Enter email">-->
+<!--</div>-->
+<!--</div>-->
+<!--<button type="submit" class="btn btn-lg btn-primary">Submit</button>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;PLANOWANIE TRENINGU&ndash;&gt;-->
+<!--<div class="padder-md">-->
+<!--<div class="row">-->
+<!--<div class="panel panel-default list-group list-group-sm">-->
+<!--<div class="panel-heading m-n font-thin h2">Planowanie treningu</div>-->
+<!--<div class="panel-body ">-->
+
+
+<!--<form role="form" class="form-horizontal">-->
+
+<!--<div class="form-group">-->
+<!--<div class="col-lg-3 m-t">-->
+<!--<h1 class="font-thin h3">Poniedziałek</h1>-->
+<!--</div>-->
+<!--<div class="col-lg-9">-->
+<!--&lt;!&ndash;<rzslider&ndash;&gt;-->
+<!--&lt;!&ndash;rz-slider-options="{stepsArray:vm.steps, showTicks: true, showTicksValues: true}"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</rzslider>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+<!--<div class="form-group">-->
+<!--<div class="col-lg-3 m-t">-->
+<!--<h1 class="font-thin h3">Wtorek</h1>-->
+<!--</div>-->
+<!--<div class="col-lg-9">-->
+<!--&lt;!&ndash;<rzslider&ndash;&gt;-->
+<!--&lt;!&ndash;rz-slider-options="{stepsArray:vm.steps, showTicks: true, showTicksValues: true}"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</rzslider>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+<!--<div class="form-group">-->
+<!--<div class="col-lg-3 m-t">-->
+<!--<h1 class="font-thin h3">Sroda</h1>-->
+<!--</div>-->
+<!--<div class="col-lg-9">-->
+<!--&lt;!&ndash;<rzslider&ndash;&gt;-->
+<!--&lt;!&ndash;rz-slider-options="{stepsArray:vm.steps, showTicks: true, showTicksValues: true}"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</rzslider>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+<!--<div class="form-group">-->
+<!--<div class="col-lg-3 m-t">-->
+<!--<h1 class="font-thin h3">Czwartek</h1>-->
+<!--</div>-->
+<!--<div class="col-lg-9">-->
+<!--&lt;!&ndash;<rzslider&ndash;&gt;-->
+<!--&lt;!&ndash;rz-slider-options="{stepsArray:vm.steps, showTicks: true, showTicksValues: true}"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</rzslider>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+<!--<div class="form-group">-->
+<!--<div class="col-lg-3 m-t">-->
+<!--<h1 class="font-thin h3">Piatek</h1>-->
+<!--</div>-->
+<!--<div class="col-lg-9">-->
+<!--&lt;!&ndash;<rzslider&ndash;&gt;-->
+<!--&lt;!&ndash;rz-slider-options="{stepsArray:vm.steps, showTicks: true, showTicksValues: true}"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</rzslider>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+<!--<div class="form-group">-->
+<!--<div class="col-lg-3 m-t">-->
+<!--<h1 class="font-thin h3">Sobota</h1>-->
+<!--</div>-->
+<!--<div class="col-lg-9">-->
+<!--&lt;!&ndash;<rzslider&ndash;&gt;-->
+<!--&lt;!&ndash;rz-slider-options="{stepsArray:vm.steps, showTicks: true, showTicksValues: true}"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</rzslider>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+<!--<div class="form-group">-->
+<!--<div class="col-lg-3 m-t">-->
+<!--<h1 class="font-thin h3">Niedziela</h1>-->
+<!--</div>-->
+<!--<div class="col-lg-9">-->
+<!--&lt;!&ndash;<rzslider&ndash;&gt;-->
+<!--&lt;!&ndash;rz-slider-options="{stepsArray:vm.steps, showTicks: true, showTicksValues: true}"&ndash;&gt;-->
+<!--&lt;!&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</rzslider>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+
+<!--<button type="submit" class="btn btn-lg btn-primary">Submit</button>-->
+<!--</form>-->
+
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;PRZEGLAD WYNIKOW SPORTOWYCH&ndash;&gt;-->
+<!--<div class="padder-md">-->
+<!--<div class="row">-->
+<!--<div class="panel panel-default list-group list-group-sm">-->
+<!--<div class="panel-heading m-n font-thin h2">Przeglad wynikow sportowych</div>-->
+<!--<div class="panel-body ">-->
+
+<!--<table class="table table-striped m-b-none">-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th>Dystans</th>-->
+<!--<th>Rekord życiowy/Data</th>-->
+<!--<th>Ostatni czas/Data</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr>-->
+<!--<td>0</td>-->
+<!--<td>0</td>-->
+<!--<td>0</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+
+<!--<button type="submit" class="btn btn-lg btn-primary">Dodaj wpis</button>-->
+<!--<button type="submit" class="btn btn-lg btn-primary">Submit</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

@@ -1,0 +1,28 @@
+<!--PRZEGLAD WYNIKOW SPORTOWYCH-->
+<div class="tech-background">
+    <div class="container padder-v">
+        <p class="m-n font-thin h1">Sport results</p>
+        <div class="row">
+            <article class="form-group col-sm-12 m-t-md">
+                <table class="table table-striped m-b-md">
+                    <thead>
+                    <tr>
+                        <th>Distance</th>
+                        <th>Date</th>
+                        <th>Duration</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let result of activities">
+                        <td><span>{{result.distance}}</span></td>
+                        <td><span>{{result.startDate}}</span></td>
+                        <td><span>{{result.movingTime}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn  btn-primary" (click)="addActivityResult()">Add running activities</button>
+                <button class="btn  btn-success" (click)="goToTimeline()">Go to profile</button>
+            </article>
+        </div>
+    </div>
+</div>

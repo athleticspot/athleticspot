@@ -1,0 +1,40 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="tomkasp (generated)" id="1500488770808-1">
+        <createSequence sequenceName="athlete_seq"/>
+    </changeSet>
+    <changeSet author="tomkasp (generated)" id="1500488770808-2">
+        <createTable tableName="athlete">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="athletePK"/>
+            </column>
+            <column name="athlete_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="tomkasp (generated)" id="1500488770808-20">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="athlete"
+                                 constraintName="FKqdls1olkg0mxplqpo38ywnt5h" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet id="772c42b1-8139-4bf5-9173-86ec1c7825a4" author="Tomasz Kasprzycki">
+        <addColumn tableName="athlete">
+            <column name="metric_system_type" type="varchar(36)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="5ff67a50-1377-4aac-872c-8374754fbec6" author="Tomasz Kasprzycki">
+        <addDefaultValue tableName="athlete" columnName="metric_system_type" defaultValue="METRIC"/>
+    </changeSet>
+    <changeSet id="f5b8be9d-4bea-4420-acf6-ad5bac73ea1b" author="Tomasz Kasprzycki">
+        <dropTable tableName="athlete"/>
+    </changeSet>
+</databaseChangeLog>

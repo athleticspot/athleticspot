@@ -1,0 +1,264 @@
+<div>
+    <div infinite-scroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="1000"
+         (scrolled)="onScroll()">
+    </div>
+    <div class="hbox hbox-auto-xs hbox-auto-sm">
+        <!-- .col -->
+        <div class="col w-lg bg-light dk b-r bg-auto" id="aside">
+            <div class="wrapper b-b">
+                <h3 class="m-n font-thin" jhiTranslate="timeline.manual.title">Add Activity123</h3>
+            </div>
+
+            <div class="wrapper" [ngSwitch]="isMetric()">
+                <form novalidate [formGroup]="addActivityForm" (ngSubmit)="submitActivity()" class="form-validation">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input
+                            type="text"
+                            formControlName="title"
+                            placeholder="Add title..."
+                            class="input-sm form-control">
+                        <span class="m-b-none padder"
+                              *ngIf="addActivityForm.dirty && addActivityForm.controls.title.errors?.required">
+                            This field is required
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date & Time</label>
+                        <div class="form-inline">
+
+                            <ngb-timepicker formControlName="time"></ngb-timepicker>
+
+                            <div class="">
+                                <ng-datepicker formControlName="startDate" class=""></ng-datepicker>
+                            </div>
+
+                            <span class="m-b-none padder"
+                                  *ngIf="addActivityForm.dirty && addActivityForm.controls.time.errors?.required">
+                            This field is required
+                        </span>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select class="input-sm form-control" formControlName="sportActivityType">
+                            <option value="RUN" jhiTranslate="timeline.manual.type.RUN">Running</option>
+                            <option value="RIDE" jhiTranslate="timeline.manual.type.RIDE">Riding</option>
+                            <option value="SWIM" jhiTranslate="timeline.manual.type.SWIM">Swimming</option>
+                            <option value="HIKE" jhiTranslate="timeline.manual.type.HIKE">Hike</option>
+                            <option value="WALK" jhiTranslate="timeline.manual.type.WALK">Walk</option>
+                            <option value="ALPINE_SKI" jhiTranslate="timeline.manual.type.ALPINE_SKI">Alpine ski</option>
+                            <option value="BACKCOUNTRY_SKI" jhiTranslate="timeline.manual.type.BACKCOUNTRY_SKI">Backcountry skiing</option>
+                            <option value="CANOEING" jhiTranslate="timeline.manual.type.CANOEING">Canoeing</option>
+                            <option value="CROSSFIT" jhiTranslate="timeline.manual.type.CROSSFIT">Crossfit</option>
+                            <option value="EBIKE_RIDE" jhiTranslate="timeline.manual.type.EBIKE_RIDE">Ebike ride</option>
+                            <option value="ELLIPTICAL" jhiTranslate="timeline.manual.type.ELLIPTICAL">Elliptical</option>
+                            <option value="ICE_SKATE" jhiTranslate="timeline.manual.type.ICE_SKATE">Ice skate</option>
+                            <option value="INLINE_SKATE" jhiTranslate="timeline.manual.type.INLINE_SKATE">Inline skate</option>
+                            <option value="KAYAKING" jhiTranslate="timeline.manual.type.KAYAKING">Kayaking</option>
+                            <option value="KITESURF" jhiTranslate="timeline.manual.type.KITESURF">Kitesurf</option>
+                            <option value="NORDIC_SKI" jhiTranslate="timeline.manual.type.NORDIC_SKI">Nordic ski</option>
+                            <option value="ROCK_CLIMBING" jhiTranslate="timeline.manual.type.ROCK_CLIMBING">Rock climbing</option>
+                            <option value="ROLLERSKI" jhiTranslate="timeline.manual.type.ROLLERSKI">Rollerski</option>
+                            <option value="ROWING" jhiTranslate="timeline.manual.type.ROWING">Rowing</option>
+                            <option value="SNOWBOARD" jhiTranslate="timeline.manual.type.SNOWBOARD">Snowboard</option>
+                            <option value="STAIR_STEPPER" jhiTranslate="timeline.manual.type.STAIR_STEPPER">Stair stepper</option>
+                            <option value="STAND_UP_PADDLING" jhiTranslate="timeline.manual.type.STAND_UP_PADDLING">Stand up paddling</option>
+                            <option value="SURFING" jhiTranslate="timeline.manual.type.SURFING">Surfing</option>
+                            <option value="VIRTUAL_RIDE" jhiTranslate="timeline.manual.type.VIRTUAL_RIDE">Virtual ride</option>
+                            <option value="WEIGHT_TRAINING" jhiTranslate="timeline.manual.type.WEIGHT_TRAINING">Weight training</option>
+                            <option value="WINDSURF" jhiTranslate="timeline.manual.type.WINDSURF">Windsurf</option>
+                            <option value="WORKOUT" jhiTranslate="timeline.manual.type.WORKOUT">Workout</option>
+                            <option value="YOGA" jhiTranslate="timeline.manual.type.YOGA">Yoga</option>
+                            <option value="UNKNOWN" jhiTranslate="timeline.manual.type.UNKNOWN">Unknown</option>
+                        </select>
+                        <span class="m-b-none padder"
+                              *ngIf="addActivityForm.dirty && addActivityForm.controls.sportActivityType.errors?.required">
+                            This field is required
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <ngb-timepicker formControlName="duration" [seconds]=true></ngb-timepicker>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Distance</label>
+                        <div class="form-inline">
+                            <input type="number"
+                                   min="0"
+                                   step="0.1"
+                                   name="distance" class="form-control col-sm-6"
+                                   placeholder="Distance..."
+                                   formControlName="distance">
+                            <select class="input-sm form-control col-sm-6" formControlName="units">
+                                <option value="km">kilometers</option>
+                                <option value="mi">miles</option>
+                            </select>
+                            <span class="m-b-none padder"
+                                  *ngIf="addActivityForm.dirty && addActivityForm.controls.distance.errors?.required">
+                            This field is required
+                        </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label jhiTranslate="timeline.manual.comment">Put a comment</label>
+                        <input
+                            type="text"
+                            formControlName="description"
+                            placeholder="{{ 'timeline.manual.comment' | translate }}..."
+                            class="input-sm form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Max Speed <span *ngSwitchCase="true">[km/h]</span><span *ngSwitchCase="false">[mi/h]</span></label>
+                        <input
+                            type="number"
+                            min="0"
+                            step="0.1"
+                            formControlName="maxSpeed"
+                            placeholder="Add max speed..."
+                            class="input-sm form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Average Speed <span *ngSwitchCase="true">[km/h]</span><span *ngSwitchCase="false">[mi/h]</span></label>
+                        <input
+                            type="number"
+                            min="0"
+                            step="0.1"
+                            formControlName="averageSpeed"
+                            placeholder="Add mean speed..."
+                            class="input-sm form-control">
+                    </div>
+                    <div class="m-t-md m-b-md">
+                        <button class="btn btn-sm btn-primary">Add an event</button>
+                    </div>
+                </form>
+                <div class=""><h4 class=" font-thin">Connect with:</h4>
+                    <a href="{{stravaActivationUrl}}" *ngIf="!trackerInfo.connectedToStrava"
+                       class="btn btn-sm btn-success"
+                       ui-toggle-class="timeline-center" target=".timeline">
+                        Strava
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+        <!-- .col -->
+        <div class="col" *ngIf="!showTimeline">
+            <athl-spinner></athl-spinner>
+        </div>
+
+        <div class="col bg-white-only" *ngIf="showTimeline">
+            <div class="wrapper">
+                <ul class="timeline">
+                    <li class="tl-header">
+                        <div class="btn btn-info">Now</div>
+                    </li>
+                    <li class="tl-item" *ngFor="let activity of activities; let i = index">
+                        <div class="tl-wrap b-primary">
+                            <div class="tl-content panel padder b-a w-full">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="panel-body pull-in" *ngIf="activity.trackerSource=='MANUAL'">
+                                            <a href="" class="thumb pull-right m-xs  avatar">
+                                                <img src="athleticspot.png" alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="panel-body pull-in" *ngIf="activity.trackerSource=='STRAVA'">
+                                            <a href="" class="thumb pull-right m-xs  avatar">
+                                                <img src="strava.png" alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="panel-body pull-in">
+                                            <a href="" class="thumb pull-right m-xs  avatar">
+                                                <img src="b10.jpg" alt="...">
+                                            </a>
+                                        </div>
+
+                                        <span class="arrow left pull-up"></span>
+                                        <div class=" m-b-md">
+                                            <div class="text-dark-lt font-bold text-md">
+                                                <p >{{activity.firstAndLastName}}</p>
+                                            </div>
+                                            <p class="">{{activity.startDate}}</p>
+                                            <div class="text-dark-lt font-bold text-lg">
+                                                <a href="{{activity.activityUrl}}">
+                                                    <p>{{activity.title}}</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!--<div class="panel-body pull-in b-t b-light">-->
+                                        <div class="m-b-md b-t b-info">
+                                            <p class="text-primary block m-b-xs">
+                                                Sport Category: {{activity.sportActivityType}}
+                                            </p>
+                                            <div class="row  font-normal">
+                                                <div class="col-sm-4 text-dark ">
+                                                    <p class="m-xxs text-sm">Distance:</p>
+                                                    <p class="text-lg m-xxs">
+                                                        {{activity.distance}} {{activity.units}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-sm-4 text-dark ">
+                                                    <p class="m-xxs text-sm">Time:</p>
+                                                    <p class="text-lg m-xxs">
+                                                        {{activity.elapsedTime}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-sm-4 text-dark ">
+                                                    <p class="m-xxs text-sm">Pace:</p>
+                                                    <p class="text-lg m-xxs">
+                                                        {{activity.formattedPace}} <span *ngIf="activity.formattedPace">/{{activity.units}}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--</div>-->
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div *ngIf="activity.coordinates?.length >0">
+                                            <agm-map [latitude]="activity.coordinates[0].lat"
+                                                     [longitude]="activity.coordinates[0].lng" [scrollwheel]="false"
+                                                     [zoom]="13">
+                                                <ng-container>
+                                                    <agm-polyline
+                                                        *ngFor="let point of activity.coordinates;let i = index;"
+                                                        [strokeColor]="'#2196f3'">
+                                                        <agm-polyline-point [latitude]="point.lat"
+                                                                            [longitude]="point.lng">
+                                                        </agm-polyline-point>
+                                                        <ng-container *ngIf="activity.coordinates[i+1]">
+                                                            <agm-polyline-point
+                                                                [latitude]="activity.coordinates[i+1].lat"
+                                                                [longitude]="activity.coordinates[i+1].lng">
+                                                            </agm-polyline-point>
+                                                        </ng-container>
+                                                    </agm-polyline>
+                                                </ng-container>
+                                            </agm-map>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col" *ngIf="pageLoading">
+                <athl-spinner></athl-spinner>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- /.col -->
+</div>

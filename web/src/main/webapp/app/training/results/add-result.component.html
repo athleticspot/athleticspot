@@ -1,0 +1,80 @@
+<div class="tech-background">
+    <div class="container padder-v">
+
+        <p class="m-n font-thin h1 padder">Add running result</p>
+        <form [formGroup]="newResultForm" novalidate (ngSubmit)="submitActivity()" class="form-validation padder">
+
+            <div class="row">
+                <div class="form-group">
+                    <label class="font-thin h3 m-xxs m-t-md padder">Title</label>
+                    <div class="form-inline col-md-12 m-t-md">
+                        <input
+                            type="text"
+                            formControlName="title"
+                            placeholder="Add title..."
+                            class="form-control">
+                    </div>
+                    <span class="m-b-none padder"
+                          *ngIf="newResultForm.dirty && newResultForm.controls.title.errors?.required">
+                            This field is required
+                        </span>
+                </div>
+                <div class="form-group">
+                    <label class="font-thin h3 m-xxs m-t-md padder">Distance</label>
+                    <div class="form-inline col-md-12 m-t-md">
+                        <input type="number" name="distance" class=" form-control " placeholder="Distance..."
+                               formControlName="distance">
+                        <select class="form-control">
+                            <option>kilometers</option>
+                            <option>meters</option>
+                            <option>miles</option>
+                            <option>yards</option>
+                        </select>
+                    </div>
+                    <span class="m-b-none padder"
+                          *ngIf="newResultForm.dirty && newResultForm.controls.distance.errors?.required">This field is require</span>
+                </div>
+            </div>
+            <div class="row">
+                <div formGroupName="duration">
+                    <div class="">
+                        <label class=" font-thin h3 m-xxs m-t-md padder">Duration</label>
+                        <div class="form-group form-inline m-t-md">
+                            <div class="col-sm input-group">
+                                <input type="number" class="form-control" formControlName="hours">
+                                <span class="input-group-addon">hours</span>
+
+                            </div>
+                            <div class="col-4 input-group">
+                                <input type="number" class="form-control" formControlName="minutes">
+                                <span class=" input-group-addon">min</span>
+                            </div>
+                            <div class="col-4 input-group ">
+                                <input type="number" class="form-control" formControlName="seconds">
+                                <span class=" input-group-addon">sec</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="m-b-none padder"
+                          *ngIf="newResultForm.dirty && !newResultForm.controls.duration.valid">This field is required.</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group padder">
+                    <label class="font-thin h3 m-xxs m-t-md">Date</label>
+                    <div class="m-t-md">
+                        <ng-datepicker formControlName="startDate"></ng-datepicker>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="">
+            <button class="btn btn-primary" (click)="submitActivity()">Add result</button>
+            <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+        </div>
+
+
+    </div>
+
+</div>

@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="tomkasp" id="sport_activity_seq">
+        <createSequence sequenceName="sport_activity_seq"/>
+    </changeSet>
+    <changeSet author="tomkasp" id="sport_activity">
+        <createTable tableName="sport_activity">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_sport_activity"/>
+            </column>
+            <column name="sport_activity_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timeline_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)">
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance" type="varchar(200)"/>
+            <column name="units" type="varchar(200)"/>
+            <column name="max_speed" type="varchar(50)"/>
+            <column name="mean_speed" type="varchar(50)"/>
+            <column name="start_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

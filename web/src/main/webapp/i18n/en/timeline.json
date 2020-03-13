@@ -1,0 +1,46 @@
+{
+    "timeline": {
+        "title" :  "Activities",
+        "manual": {
+            "title": "Add activity",
+            "comment": "Put a comment",
+            "type" : {
+                "RUN" : "Running",
+                "RIDE" : "Riding",
+                "SWIM" : "Swimming",
+                "HIKE" : "Backcountry skiing",
+                "WALK" : "Walk",
+                "ALPINE_SKI" : "Alpine ski",
+                "BACKCOUNTRY_SKI" : "Backcountry skiing",
+                "CANOEING" : "Canoeing",
+                "CROSSFIT" : "Crossfit",
+                "EBIKE_RIDE" : "Ebike ride",
+                "ELLIPTICAL" : "Elliptical",
+                "ICE_SKATE" : "Ice skate",
+                "INLINE_SKATE" : "Inline skate",
+                "KAYAKING" : "Kayaking",
+                "KITESURF" : "Kitesurf",
+                "NORDIC_SKI" : "Nordic ski",
+                "ROCK_CLIMBING" : "Rock climbing",
+                "ROLLERSKI" : "Rollerski",
+                "ROWING" : "Rowing",
+                "SNOWBOARD" : "Snowboard",
+                "STAIR_STEPPER" : "Stair stepper",
+                "STAND_UP_PADDLING" : "Stand up paddling",
+                "SURFING" : "Surfing",
+                "VIRTUAL_RIDE" : "Virtual ride",
+                "WEIGHT_TRAINING" : "Weight training",
+                "WINDSURF" : "Windsurf",
+                "WORKOUT" : "Workout",
+                "YOGA" : "Yoga",
+                "UNKNOWN" : "Unknown"
+            },
+            "messages": {
+                "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
+                "error": {
+                    "fail": "<strong>Registration failed!</strong> A problem occurred during the validation of your external account, we advise you to try with another connection."
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+<!--Search friends-->
+<div infinite-scroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="1000"
+     (scrolled)="onScroll()">
+</div>
+<div class="tech-background">
+    <div class="container padder-v">
+        <p class="m-n font-thin h1" jhiTranslate="friends.search">Search friends</p>
+        <form novalidate [formGroup]="searchFriendsForm" class="form-horizontal" (submit)="searchFriends()">
+            <div class="form-group row m-t-sm">
+                <div class="col-sm-3">
+                    <input formControlName="name" type="text" class="form-control">
+                </div>
+                <button class="btn btn-primary" jhiTranslate="friends.form.button">Search</button>
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col" *ngIf="!showTable">
+                <athl-spinner></athl-spinner>
+            </div>
+            <article class="form-group col-sm-12 m-t-md">
+                <table class="table table-striped m-b-md" *ngIf="showTable">
+                    <thead>
+                    <tr>
+                        <th jhiTranslate="friends.table.athlete">Athlete</th>
+                        <th jhiTranslate="friends.table.action">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let friend of friends">
+                        <td><span class="font-thin h4 padder"><a href="" class="thumb-sm m-r-sm avatar">
+                                    <img *ngIf="!friend.imageUrl" src="b10.jpg" alt="...">
+                                    <img *ngIf="friend.imageUrl" src="{{friend.imageUrl}}" alt="...">
+                                </a>{{friend.firstAndLastName}}</span></td>
+                        <td><span><button *ngIf="!friend.followedByCurrent" class="m-l-xs btn btn-rounded btn-success" (click)="follow(friend.id)" >Follow</button><button *ngIf="friend.followedByCurrent" class="m-l-xs btn btn-info btn-rounded " (click)="unfollow(friend.id)" >Unfollow</button></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </article>
+            <div class="col" *ngIf="pageLoading">
+                <athl-spinner></athl-spinner>
+            </div>
+        </div>
+    </div>
+</div>
